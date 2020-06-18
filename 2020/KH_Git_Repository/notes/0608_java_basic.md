@@ -216,7 +216,7 @@ Object figureArray2= new Figure[5];
   - 상속관계
   - 다형성 적용
   - 메소드 오버라이딩
-  - 오버라이딩 된 메소드 코드를 우선적으로 수행.
+  - <strong>오버라이딩 된 메소드 코드를 우선적으로 수행.</strong>
 
 
   - example
@@ -320,11 +320,15 @@ Object figureArray2= new Figure[5];
       		//이를 동적 바인딩이라한다.
 
       		((Sonata)car).sonataService();
+          //그러나 참조변수의 타입 car는 Car이다.
+          //참조변수가 가리키는 객체가 Sonata더라도
+          //이는 형변환을 시켜서
+          // 자식클래스 Sonata가 가지고 있는 메소드를 이용해야한다.
 
       	}
       }
     ```
-  
+
 <hr>
 
 # 추상클래스
