@@ -1,14 +1,141 @@
-/* tester */
-#bodyContainer{
-    background-color:#aaa;
-}
-
-#main_container, #buy_container, #cook_container{
-    background-color:#fc2;
-    margin: 10% auto;
+.container1{
+    margin: 5% auto;
     width: 90%;
 }
 
-#main_select_container{
-    background-color:#2c2;
+/*검색결과는 초기에 안뜬다.*/
+/* #search_result_container{
+    display:none; 
+} */
+
+.search_container{
+    position: relative;
+    padding: 10px;
+    margin: 5% auto;
+    width: 90%;
+    text-align:center;
+}
+
+.search_title{
+    margin-bottom:30px;
+    text-align: center;
+}
+
+/*card inners*/
+.card{
+    padding: 10px;
+}
+
+.card, .result-img{
+    position: inline;
+}
+.result-img{
+    margin:1px;
+}
+
+.menu-name ,.sotre-info-box{
+    text-align:center;
+}
+
+.store-info-box{
+    text-align: center;
+    position:relative;
+}    
+
+
+.store-info{
+    position:relative;
+    display:inline-block;
+    padding-left: 10px;
+}
+
+
+.store-name{
+    padding: 10px;
+}
+
+.price-info{
+    padding-left: 60px;
+}
+
+.like-info-box{
+    text-align:center;
+    position: relative;
+}
+
+/*heart-button : codepen*/
+#likeCircle
+{
+    width: 40px;
+	height: 40px;
+    margin-top: 10px;  
+	-webkit-border-radius: 50px;
+    border-radius: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+   	background-color: #212121;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition:.5s;
+    position: relative;
+}
+
+
+#likeCircle:hover
+{
+	width: 40px;
+	height: 40px;
+    margin-top: 10px;  
+  	-webkit-border-radius: 50px;
+    border-radius: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+   	background-color: #d41b1b;   
+    position: relative;
+    cursor:pointer;
+    -o-transition:1.0s;
+    -ms-transition:1.0s;
+    -moz-transition:1.0s;
+    -webkit-transition:1.0s;
+    transition: 1.0s;
+}
+
+/* buttons */
+.button-group{
+    position: relative;
+    text-align:center;
+    display:inline-block;
+    margin: 10px auto;
+    width: 100%;
+}
+
+.btn-box{
+    /* position: relative; */
+    width:20px;
+    height: 20px;
+}
+
+
+
+/*footer_info*/
+footer.footer_info{
+    margin: 10px auto;
+    width: 50%;
+    text-align: center;
+}
+
+.footer_info > a{
+    text-decoration:none;
+    color:#000;
+}
+
+/* media query*/
+@media all and (min-width:768px) and (max-width:1024px) {
+    *{
+        width: auto;
+    }
 }
