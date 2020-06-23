@@ -784,7 +784,7 @@ public class J_Table {
 ```
 
 - 결과
-	![](./result_img/table1.PNG)
+[](./result_img/table1.PNG)
 
 <br>
 
@@ -877,7 +877,7 @@ public class J_Table {
 ```
 
 - 결과
-	![](./result_img/table3_defaultTable.png)
+![](./result_img/table3_defaultTable.PNG)
 
 
 
