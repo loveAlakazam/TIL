@@ -740,7 +740,7 @@ public class I_Dialog {
 <br>
 
 - Option: YES_NO_CANCEL_OPTION
-![](./result_img/confirm_yes_no_cancel.PNG)
+![](./result_img/confrim_yes_no_cancel.PNG)
 
 > - 알림(alarm dialog)
 
