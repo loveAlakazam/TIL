@@ -5,7 +5,7 @@
 - Container에 Component를 넣는다.
 - 이미지 라벨
 
-< hr>
+<hr>
 
 > ##  콤보박스
 
@@ -74,6 +74,7 @@ public class E_ComboBox {
 <BR>
 
 - Run.java
+
 ```java
 package com.kh.example.chap03_component.run;
 
@@ -90,7 +91,7 @@ public class Run {
 <BR>
 
 - 결과
-![](./result_img/1.png)
+![](./result_img/1.PNG)
 
 
 <hr>
@@ -98,6 +99,7 @@ public class Run {
 > # 리스트 컴포넌트
 
 - F_List.java
+
 ```java
 package com.kh.example.chap03_component.view;
 
@@ -378,14 +380,14 @@ public class Run {
 
 - result
   - 스크롤바 삽입 이전
-  ![](result_img/2.png)
+  ![](./result_img/2.PNG)
 
 
   - 스크롤바 삽입 이후
-  ![](result_img/3.png)
+  ![](./result_img/3.PNG)
 
   - border 삽입 이후
-  ![](result_img/4.png)
+  ![](./result_img/4.PNG)
 
 <hr>
 
@@ -528,7 +530,7 @@ public class Run {
 <br>
 
 - 실행결과
-![](./result_img/5.png)
+![](./result_img/5.PNG)
 
 <hr>
 
@@ -609,7 +611,8 @@ public class H_Slider {
 ```
 
 - 실행결과
-  ![](./result_img/6.png)
+
+![](./result_img/6.PNG)
 
 
 <hr>
@@ -719,33 +722,33 @@ public class I_Dialog {
 ### 결과
 > - 버튼2 : 닫기(닫기 버튼을 누르면 같이 다이얼로그창이 닫아짐)
 
-![](./result_img/7.png)
+![](./result_img/7.PNG)
 
 <br>
 
 > - 입력(input dialog)
 
-![](./result_img/input_dialog.png)
+![](./result_img/input_dialog.PNG)
 
 <br>
 
 > - 확인(confirm dialog)
 
 - Option: YES_NO_OPTION
-![](./result_img/confirm_yes_no.png)
+![](./result_img/confirm_yes_no.PNG)
 
 <br>
 
 - Option: YES_NO_CANCEL_OPTION
-![](./result_img/confirm_yes_no_cancel.png)
+![](./result_img/confirm_yes_no_cancel.PNG)
 
 > - 알림(alarm dialog)
 
-![](./result_img/alert_refused.png)
-![](./result_img/alert_success_inform_msg.png)
-![](./result_img/alert_plain.png)
-![](./result_img/alert_question.png)
-![](./result_img/alert_warning.png)
+![](./result_img/alert_refused.PNG)
+![](./result_img/alert_success_inform_msg.PNG)
+![](./result_img/alert_plain.PNG)
+![](./result_img/alert_question.PNG)
+![](./result_img/alert_warning.PNG)
 
 <hr>
 
@@ -781,7 +784,7 @@ public class J_Table {
 ```
 
 - 결과
-	![](./result_img/table1.png)
+	![](./result_img/table1.PNG)
 
 <br>
 
@@ -825,7 +828,7 @@ public class J_Table {
 ```
 
 - 결과
-![](./result_img/table2.png)
+![](./result_img/table2.PNG)
 
 
 <br>
@@ -971,7 +974,7 @@ public class J_Table {
 table.setCellSelectionEnabled(false);
 ```
 
-![](./result_img/select_only_cell.png)
+![](./result_img/select_only_cell.PNG)
 
 <br>
 
@@ -1088,7 +1091,7 @@ public class J_Table {
 ```
 
 
-![](./result_img/select_data_row.png)
+![](./result_img/select_data_row.PNG)
 
 
 <br>
