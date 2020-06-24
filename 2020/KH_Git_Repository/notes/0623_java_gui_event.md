@@ -521,3 +521,154 @@ public class Run {
 	}
 }
 ```
+
+<hr>
+
+> # 마우스 이벤트 리스너
+
+## B_Mouse.java
+```java
+package com.kh.example.chap02_mouseNKey.view;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class B_Mouse extends JFrame implements MouseListener{
+
+	//기본생성자
+	public B_Mouse() {
+		setTitle("Mouse Event");
+		setSize(300, 200);
+
+		JPanel panel = new JPanel();
+		panel.addMouseListener(this); //나- 마우스 리스너
+		add(panel);
+
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setVisible(true);
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// 마우스 딸깍 클릭
+		display("mouse click: (click count: "+e.getClickCount()+")" ,e);
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// 마우스를 쭉 누른다.
+		display("mouse press: " ,e);
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// 마우스를 놓을때
+		display("mouse release: " ,e);
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// 영역에 마우스커서가 들어감(마우스 클릭을 떼어냈을때)
+		display("mouse enter: " ,e);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		//영역에 마우스 커서가 밖으로 나갈때
+		display("mouse exit: " ,e);
+	}
+
+	public void display(String s, MouseEvent e) {
+		System.out.println(s + "/ x: "+ e.getX() + "/ y: "+ e.getY());
+	}
+}
+```
+
+![](./0624_eventResult/mouseMove.gif)
+
+<br>
+
+<hr>
+
+## B_MouseMotion.java
+```java
+package com.kh.example.chap02_mouseNKey.view;
+
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+//마우스 움직일때도 이벤트발생
+public class B_MouseMotion extends JFrame implements MouseListener, MouseMotionListener{
+		//기본생성자
+		public B_MouseMotion() {
+			setTitle("Mouse Event");
+			setSize(300, 200);
+
+			JPanel panel = new JPanel();
+			panel.addMouseListener(this); //나- 마우스 리스너 -연결
+			panel.addMouseMotionListener(this); //나 - 마우스 모션리스너 -연결
+			add(panel);
+
+			setDefaultCloseOperation(EXIT_ON_CLOSE);
+			setVisible(true);
+		}
+
+		// MouseListener 추상메소드 오버라이드
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// 마우스 딸깍 클릭
+			display("mouse click: (click count: "+e.getClickCount()+")" ,e);
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// 마우스를 쭉 누른다.
+			display("mouse press: " ,e);
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// 마우스를 놓을때
+			display("mouse release: " ,e);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// 영역에 마우스커서가 들어감(마우스 클릭을 떼어냈을때)
+			display("mouse enter: " ,e);
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			//영역에 마우스 커서가 밖으로 나갈때
+			display("mouse exit: " ,e);
+		}
+
+		public void display(String s, MouseEvent e) {
+			System.out.println(s + "/ x: "+ e.getX() + "/ y: "+ e.getY());
+		}
+
+
+		// MouseMotionListener - 추상메소드 정의
+		@Override
+		public void mouseDragged(MouseEvent e) {
+			display("[MouseMotionListener] mouse Drag " ,e);
+		}
+
+
+		@Override
+		public void mouseMoved(MouseEvent e) {
+			display("[MouseMotionListener] mouse Move " ,e);
+		}
+}
+```
+
+![](./0624_eventResult/mouseMoveMotion.gif)
