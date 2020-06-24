@@ -588,7 +588,7 @@ public class B_Mouse extends JFrame implements MouseListener{
 }
 ```
 
-![mouseMotion](./0624_eventResult/mouseMove.gif)
+![Alt Text](./0624_eventResult/mouseMove.gif)
 
 <br>
 
@@ -671,4 +671,68 @@ public class B_MouseMotion extends JFrame implements MouseListener, MouseMotionL
 }
 ```
 
-![mouseMoveMotion](./0624_eventResult/mouseMoveMotion.gif)
+![Alt Text](./0624_eventResult/mouseMoveMotion.gif)
+
+
+<hr>
+
+
+> ## B_MouseAdapter.java
+
+```java
+package com.kh.example.chap02_mouseNKey.view;
+
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
+public class B_MouseAdapter extends MouseAdapter{
+	//필드
+	private JButton button;
+	private JLabel buttonCountLabel;
+	private int count=0;
+	//생성자
+	public B_MouseAdapter() {
+		JFrame frame= new JFrame();
+		frame.setSize(300,300);
+		button =new JButton("버튼");
+		frame.add(button,"Center");
+		buttonCountLabel=new JLabel();
+		frame.add(buttonCountLabel,"North");
+
+		button.addMouseListener(this); //마우스 리스너를 버튼에 추가.(현재 객체 마우스리스너)
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	}
+
+	// 메소드
+	//오버라이드할 메소드중, 일부만 오버라이드.
+	//MouseAdapter이 없으면 모두다 오버라이드해야함.(불필요한 메소드도)
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		int num= count%7;
+		buttonCountLabel.setText("(클릭횟수: "+count+")");
+		if(num==0) {
+			button.setBackground(Color.red); //버튼이 보이지 않음.- 버튼을 불러올 수 없다. - 버튼을 필드로한다.
+		}else if(num==1) {
+			button.setBackground(Color.orange);
+		}else if(num==2) {
+			button.setBackground(Color.yellow);
+		}else if(num==3) {
+			button.setBackground(Color.green);
+		}else if(num==4) {
+			button.setBackground(Color.cyan);
+		}else if(num==5) {
+			button.setBackground(Color.blue);
+		}else if(num==6) {
+			button.setBackground(new Color(149,54, 255));
+		}
+
+		count++;
+	}
+}
+```
