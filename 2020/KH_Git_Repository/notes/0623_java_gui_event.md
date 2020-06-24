@@ -588,7 +588,7 @@ public class B_Mouse extends JFrame implements MouseListener{
 }
 ```
 
-![](./0624_eventResult/mouseMove.gif)
+![mouseMotion](./0624_eventResult/mouseMove.gif)
 
 <br>
 
@@ -671,4 +671,4 @@ public class B_MouseMotion extends JFrame implements MouseListener, MouseMotionL
 }
 ```
 
-![](./0624_eventResult/mouseMoveMotion.gif)
+![mouseMoveMotion](./0624_eventResult/mouseMoveMotion.gif)
