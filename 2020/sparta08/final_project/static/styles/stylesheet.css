@@ -3,10 +3,21 @@
     width: 90%;
 }
 
+/* 맛집 방송 버튼 그룹과 버튼*/
+.brod_btn_groups{
+    display:inline-block;
+}
+
+.brod_btn{
+    border-radius: 10px;
+}
+
+
+
 /*검색결과는 초기에 안뜬다.*/
-/* #search_result_container{
+#search_result_container{
     display:none; 
-} */
+}
 
 .search_container{
     position: relative;
@@ -21,13 +32,19 @@
     text-align: center;
 }
 
+.input-group-text{
+    background-color:rgb(255,255,255,0.3);
+}
+
 /*card inners*/
 .card{
     padding: 10px;
+    /* position: fixed; */
 }
 
 .card, .result-img{
-    position: inline;
+    position: relative;
+    /* display:inline-block; */
 }
 .result-img{
     margin:1px;
@@ -62,6 +79,7 @@
     text-align:center;
     position: relative;
 }
+
 
 /*heart-button : codepen*/
 #likeCircle
@@ -106,20 +124,16 @@
 
 /* buttons */
 .button-group{
-    position: relative;
+    background-color:#fff;
     text-align:center;
-    display:inline-block;
-    margin: 10px auto;
-    width: 100%;
+    position: relative;
 }
 
-.btn-box{
-    /* position: relative; */
-    width:20px;
-    height: 20px;
+img.btn-imgs{
+    position: relative;
+    width:30px;
+    height:30px;
 }
-
-
 
 /*footer_info*/
 footer.footer_info{
@@ -128,13 +142,27 @@ footer.footer_info{
     text-align: center;
 }
 
-.footer_info > a{
+a{
     text-decoration:none;
     color:#000;
 }
 
+a:hover{
+    color:#747875;
+}
+
+/* 카드 블로그 링크*/
+a.blog_post_link{
+    text-decoration:none;
+    color: #000;
+}
+
+a.blog_post_link:hover{
+    text-decoration:none;
+}
+
 /* media query*/
-@media all and (min-width:768px) and (max-width:1024px) {
+@media all and (min-width:576px) and (max-width:1024px) {
     *{
         width: auto;
     }
