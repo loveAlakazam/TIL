@@ -70,6 +70,39 @@ public class ObjectDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	// 파일을 읽어온다.
+	//파일에 저장된 데이터를 읽어와서 객체 배열에 저장
+	public void fileOpen(String fileName) {
+		Member [] mArr= new Member[3];
+		
+		//파일에 저장된 데이터를 읽어와서 객체 배열에 저장
+		// 읽기 => InputStream , Reader
+		// 파일 저장=> FileOutputStream(바이트), FileWriter(문자)
+		// 파일 읽기=> FileInputStream(바이트), FileReader(문자)
+		
+		// 객체 => ObjectInputStream(읽어온다)
+		//			FileInputStream
+		
+		try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName));) {
+			for(int i=0; i<mArr.length; i++) {
+				// 파일에서 읽어온 애를 객체로 변환한다.(역직렬화)
+				// Unhandled exception type ClassNotFoundException
+				mArr[i]= (Member) ois.readObject();
+			}
+			
+			//파일에서 불러온 객체를 출력한다.
+			for(Member member : mArr) {
+				System.out.println(member.toString());
+			}
+		
+		}catch(FileNotFoundException |  ClassNotFoundException e) {//상속구조가 아닐때 이용가능			
+			e.printStackTrace();
+		}catch (IOException e) {
+			e.printStackTrace();
+		} 
+	}
 }
 
 ```
