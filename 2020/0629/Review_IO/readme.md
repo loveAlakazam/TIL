@@ -25,7 +25,167 @@
 <hr>
 
 
+# 객체 직렬화 - 파일 저장 메소드
 
+>  ### ObjectDAO.java
 
+```java
+import java.io.*;
+public class ObjectDAO {
+	
+	//파일 저장.
+	public void fileSave(String fileName) {
+		//객체와 IO연결
+		
+		//객체 배열
+		Member [] mArr= {
+			new Member("user01", "pass01", "박신우", "park01@iei.or.co.kr", 20, '여', 99.9),
+			new Member("user02", "pass02", "우민혁", "wmh@naver.com", 28, '남', 86.2),
+			new Member("user03", "pass03", "최호영", "choi3@gmail.com", 24, '남', 44.2)
+		};
+		
+		// try- resource with
+		try(//1. 기반스트림을 만든다.
+			FileOutputStream fos= new FileOutputStream(fileName);
+			
+			//2. 객체 연결 스트림을 만든다 (보조스트림)
+			//		매개변수로는 기반스트림을 넣는다.
+			ObjectOutputStream oos=new ObjectOutputStream(fos);){
+			
+			//java.io.NotSerializableException 발생
+			// serializable => Member객체를 직렬화해야한다.
+			
+			for(int i=0; i<mArr.length; i++) {
+				//mArr[i] 번째의 멤버객체를 가지고와서 쓴다.
+				oos.writeObject(mArr[i]);
+			}
+			
+			
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+	}
+}
 
--
+```
+
+<br>
+
+<hr>
+
+> ### Member.java
+
+```java
+package com.kh.example.chap03_assist.part02_object.model.vo;
+
+import java.io.Serializable;
+
+// 멤버객체 직렬화
+public class Member  implements Serializable{
+	
+	// The serializable class Member does not declare 
+	// a static final serialVersionUID field of type long
+  // generate Serial Verison ID를 추가해야한다.
+		
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -317919167845418272L;
+	
+	
+	private String userId;
+	private String userPwd;
+	private String userName;
+	private String email;
+	private int age;
+	private char gender;
+	private double point;
+	
+	public Member() {
+		
+	}
+	
+	public Member(String userId, String userPwd, String userName) {
+		this.userId=userId;
+		this.userPwd=userPwd;
+		this.userName= userName;
+	}
+	
+	public Member(String userId, String userPwd, String userName,
+			String email, int age, char gender, double point){
+		this(userId, userPwd, userName);
+		this.email=email;
+		this.age=age;
+		this.gender=gender;
+		this.point=point;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserPwd() {
+		return userPwd;
+	}
+
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public char getGender() {
+		return gender;
+	}
+
+	public void setGender(char gender) {
+		this.gender = gender;
+	}
+
+	public double getPoint() {
+		return point;
+	}
+
+	public void setPoint(double point) {
+		this.point = point;
+	}
+	
+	@Override
+	public String toString() {
+		return "Member [userId=" + userId + ", userPwd=" + userPwd + ", userName=" + userName + ", email=" + email
+				+ ", age=" + age + ", gender=" + gender + ", point=" + point + "]";
+	}	
+}
+
+```
