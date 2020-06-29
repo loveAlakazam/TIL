@@ -24,16 +24,7 @@
 
 <hr>
 
-## 직렬화와 역직렬화 예제
 
-- BufferDAO.java
-
-```java
-```
-
-- Run.java
-```java
-```
 
 
 
