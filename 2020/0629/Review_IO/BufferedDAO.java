@@ -98,7 +98,18 @@ public class BufferDAO {
 				BufferedReader br= new BufferedReader(fr);){
 			
 			// 한줄씩 읽어온다.
-			br.readLine();
+			// 파일의 끝에 도달하면 null을 반환
+			String now; //현재파일에서 한줄씩 읽어온 문자열.
+			while((now=br.readLine())!=null) {
+				System.out.println(now);
+			}
+			
+			
+			/*
+			 * A String containing the contents of the line, 
+			 * not includingany line-termination characters, 
+			 * or null if the end of the stream has been reached
+			 * */
 			
 			
 			
