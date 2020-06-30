@@ -66,7 +66,7 @@
 
 # 사용자 정의 예외처리
 
-- MyException.java
+- 사용자 정의 예외 (MyException.java)
 
 ```java
 package com.kh.example.chap02_user.model.exception;
@@ -77,6 +77,43 @@ public class MyException extends Exception{
 	public MyException() {}
 	public MyException(String msg) {
 		super(msg);
+	}
+}
+
+```
+
+
+- 사용자 정의 예외 컨트롤러 (MyExceptionController.java)
+
+```java
+package com.kh.example.chap02_user.controller;
+
+import java.util.Scanner;
+
+import com.kh.example.chap02_user.model.exception.MyException;
+
+public class UserExceptionController {
+	public void inputAge(){
+		Scanner sc= new Scanner(System.in);
+	
+		System.out.print("나이 입력: ");
+		int age=sc.nextInt();
+		
+		try {
+			checkAge(age);
+		}catch(MyException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void checkAge (int age) throws MyException{
+		if(age<19) {
+			//19세미만이면 -> 예외 강제발생
+			throw new MyException("19세미만은 입장 불가");
+			//불러준곳에 위임.
+		}else {
+			System.out.println("즐감~");
+		}
 	}
 }
 
