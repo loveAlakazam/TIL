@@ -59,3 +59,25 @@
       - 다형성에서도 부모의 래퍼런스변수가 자식객체를 받아들일 수 있는 개념과 유사하다.
 
     - 반면, 자식은 자식하나밖에 처리할 수 없다.
+
+
+<br>
+
+
+# 사용자 정의 예외처리
+
+- MyException.java
+
+```java
+package com.kh.example.chap02_user.model.exception;
+// 사용자 정의 예외 만들기
+
+// 모든 예외의 조상인 Exception을 상속받아야한다.
+public class MyException extends Exception{
+	public MyException() {}
+	public MyException(String msg) {
+		super(msg);
+	}
+}
+
+```
