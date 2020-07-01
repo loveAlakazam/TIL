@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카카오 맵 API 테스트 코드</title>
+
+    <!-- ajax -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- kakao map -->
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 API Javascript 키&libraries=services"></script>
+
+
+    <script>
+        // 버튼이 클릭되면 실행하는 이벤트 함수
+        function btnClicked() {
+            //input 태그에서 검색한 지역 텍스트를 가져온다.
+            let searchLocation = $('#search-location').val();
+            console.log('검색한 장소: ', searchLocation);
+            $.ajax({
+                type: 'GET',
+                url: '/show/map',
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        runKakaoMapAPI(searchLocation);
+                    }
+                }
+            });
+        }
+
+        function runKakaoMapAPI(searchLocation) {
+            // 검색한 장소: searchLocation
+
+            // 검색한 장소의 위치를 지도로 나타냄. 카카오맵 api 사용
+            var info_window = new kakao.maps.InfoWindow({ zIndex: 1 });
+
+            var mapContainer = document.getElementById('kakao-map2'), //지도를 표시한다.
+                mapOption = {
+                    center: new kakao.maps.LatLng(37.566826, 126.9786567), //지도의 중심좌표
+                    level: 3  //지도의 확대 레벨
+                };
+
+            //지도를 생성한다.
+            var map = new kakao.maps.Map(mapContainer, mapOption);
+
+            //장소 검색 객체를 생성한다.
+            var ps = new kakao.maps.services.Places();
+
+            //키워드로 장소를 검색한다.
+            ps.keywordSearch(searchLocation, placesSearchCB);
+            function placesSearchCB(data, status, pagination) {
+                if (status == kakao.maps.services.Status.OK) {
+                    //검색된 장소 위치를 기준으로 지도범위를 재설정하기 위해
+                    //LatLngBounds 객체에 좌표를 추가합니다.
+                    var bounds = new kakao.maps.LatLngBounds();
+
+                    for (var i = 0; i < data.length; i++) {
+                        displayMarker(data[i]);
+                        bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                    }
+
+                    map.setBounds(bounds);
+                }
+            }
+
+            function displayMarker(place) {
+                var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(place.y, place.x)
+                });
+
+                kakao.maps.event.addListener(marker, 'click', function () {
+                    //마커를 클릭하면 장소명이 인포 윈도우에 표출된다.
+                    info_window.setContent('<div style="padding:5px; font-size:12px;">' + place.palce_name + '</div>');
+                    info_window.open(map, marker);
+                });
+            }
+        }
+
+
+
+    </script>
+</head>
+
+<body>
+    <!-- <div id="kakao-map" style="width:500px;height:400px;"></div>
+    <script>
+        var container = document.getElementById('kakao-map');
+        var options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
+        };
+
+        //지도 생성 및 객체 리턴
+        var map = new kakao.maps.Map(container, options);
+    </script> -->
+
+
+    <h1>검색한 장소에 대한 장소를 나타내보기</h1>
+    <input id="search-location" type="text">
+    <button onclick="btnClicked();">지도 띄우기</button>
+    <div id="kakao-map2" style="width:500px;height:400px;"></div>
+
+</body>
+
+</html>
