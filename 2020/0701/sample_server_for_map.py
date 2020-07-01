@@ -4,7 +4,7 @@ app=Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def main_page():
-    return render_template('kakao_map_sample.html')
+    return render_template('using_kakao_map_api.html')
 
 @app.route('/show/map', methods=['GET'])
 def show_map():
