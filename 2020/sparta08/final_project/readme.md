@@ -29,13 +29,13 @@
 
 1. 시간대별로 식사시간(아침/점심/저녁/야식)을 다르게 표현했고, 컴포넌트의 색상을 다르게 했습니다.
 
-![아침](./pictures/morning)
+![아침](./pictures/morning.png)
 
-![점심](./pictures/afternoon)
+![점심](./pictures/afternoon.png)
 
-![저녁](./pictures/dinner)
+![저녁](./pictures/dinner.png)
 
-![야식](./pictures/midnight)
+![야식](./pictures/midnight.png)
 
 
 2. 블로그 검색
