@@ -195,14 +195,16 @@ def get_now():
   - 실제구현 내용
     - 실제 에러사항은, 서버가 클라이언트로부터 전달된 리스트를 받지 못했습니다.
     - 클라이언트에서, 페이지로드가 모두 완료된 상태에서 메뉴 옵션별로 블로그 데이터들을 모아서 리스트로 저장했습니다.
-    - 서버가 리스트를 받는 경우는, 텍스트 한 개를 받는 경우와 다르게 `[]`을 붙여야 됩니다.
+    - 서버가 리스트를 받는 경우는, 텍스트 한 개를 받는 경우와 다르게 request.form에서 그치지 않고, `request.form.getlist()`를 사용해야하고,  
+      전달받은 데이터가 리스트라는 것을 표현하기 위해서 매개변수 안에 `[]`을 붙여야 합니다.
     
 ```python
 # 네이버 블로그 데이터를 계속 업데이트 하도록한다.
 @app.route('/update/blog', methods=['POST'])
 def update_blog_data():
   #클라이언트쪽에서 서버로 전달한 데이터(메뉴리스트)를 받는다.
-  menus_receive= request.form.getlist('menus_give[]') 
+  menus_receive= request.form.getlist('menus_give[]')
+  
   print(menus_receive)
 
   # 0번에 해당하는 옵션은 '메뉴선택'이므로 키워드에 알맞는 블로그 검색에 제외된다.
@@ -213,7 +215,7 @@ def update_blog_data():
     
     
     
-  - (문제해결 2) 
+  - (문제해결 2) 웹페이지 스크래핑을 했을 때 발생하는 예외처리
 
         
         
