@@ -1,23 +1,23 @@
 # Database
 - SQL (Structured Query Language)
 
-- DML: ������ ��ü ����
-  - ����(INSERT)
-  - ����(UPDATE)
-  - ����(DELETE)
-  - ( ��ȸ(SELECT) )
+- DML: 데이터 자체 조작
+  - 삽입(INSERT)
+  - 갱신(UPDATE)
+  - 삭제(DELETE)
+  - ( 조회(SELECT) )
 
-- DQL: �����͸� ��ȸ �� �˻�
+- DQL: 데이터를 조회 및 검색
   - <b>SELECCT</b>
 
-- DDL: ������ ����
+- DDL: 데이터 정의
   - CREATE
   - ALTER
   - DROP
 
-- TCL: Ʈ������ ����(��� ��� �Ұ���.)
-  - ������ �ο��ް�, ������¿��� ���� �� �ǵ����������� ����
-  - ��������� �����ϰų� �ֽŻ��·� �����ڴ�.
+- TCL: 트랜젝션 제어(제어를 어떻게 할건지.)
+  - 권한을 부여받고, 변경상태에서 저장 및 되돌릴것인지를 결정
+  - 변경사항을 저장하거나 최신상태로 돌리겠다.
   - COMMIT
   - ROLLBACK
   - GRANT
@@ -25,29 +25,29 @@
 
 <HR>
 
-- Ʃ�� = ��(����)
-  - �ϳ��� ������ row
+- 튜플 = 행(가로)
+  - 하나의 데이터 row
 
-- �÷� = ��(����)
+- 컬럼 = 열(세로)
 
-- �⺻Ű(Primary Key): ������ ���� - Ʃ���� �����ϴµ� ���.
-  - �ߺ��Ǹ� �ȵȴ�.
-  - ���� ��������� �ȵȴ�.
+- 기본키(Primary Key): 구분자 역할 - 튜플을 구분하는데 사용.
+  - 중복되면 안된다.
+  - 값이 비어있으면 안된다.
 
-  - ���̵�
-  - ������ ������ ���� �⺻Ű�� �� �� ����.
-  - DB�𵨸����� �߿��� �����̴�.
+  - 아이디
+  - 변경이 가능한 값은 기본키가 될 수 없다.
+  - DB모델링에서 중요한 개념이다.
 
-- �ܷ�Ű
-  - ���̺��� ���̺� ���̿��� ���踦 ���� �� �ִ�.
-    - (A���̺�) (B���̺�) ���� ����
+- 외래키
+  - 테이블과 테이블 사이에서 관계를 지을 수 있다.
+    - (A테이블) (B테이블) 간의 연관
       ```
-      �� ���̺��� �⺻Ű�� �ٸ����̺��� �Ϲ��÷����� ���� ��
-      ���̺� A�� ���̺� B�� ���谡 �ξ�����.
+      한 테이블의 기본키가 다른테이블의 일반컬럼으로 들어갔을 때
+      테이블 A와 테이블 B의 관계가 맺어진다.
       ```
-      - B���̺����忡�� �� �Ϲ��÷��� ���̺� A�� �⺻Ű���� �� ���̹Ƿ�, �ܷ�Ű�̴�.
+      - B테이블입장에서 그 일반컬럼은 테이블 A의 기본키에서 온 것이므로, 외래키이다.
 
-- ���̺��� �����Ϳ��� NULL���� ������� �� �ִ�.
+- 테이블의 데이터에는 NULL값이 들어있을 수 있다.
 
 
 <hr>
@@ -56,138 +56,138 @@
 # SELECT
 
 <B>
-- *Result Set* : �����͸� ��ȸ/�˻�/���� �� �����
-- SELECT ������ ���ؼ� ��ȯ�� ����� ����
+- *Result Set* : 데이터를 조회/검색/추출 한 결과물
+- SELECT 구문에 의해서 반환된 행들의 집합
 </B>
 
-- Result Set�� *0�� �̻��� ��* �� ���Ե� �� �ִ�.
-- ���ĵ� �����ϴ�.
+- Result Set은 *0개 이상의 행* 이 포함될 수 있다.
+- 정렬도 가능하다.
 
 ```SQL
-SELECT �÷��� -- ��� �÷��� �� ��ȸ  : *(*=�ƽ�Ʈ��)
-FROM ���̺���
-WHERE ���ǽ�; -- ���� �����ϴ� ���� ���.
+SELECT 컬럼명 -- 모든 컬럼을 다 조회  : *(*=아스트로)
+FROM 테이블명
+WHERE 조건식; -- 행을 선택하는 조건 기술.
 
 ```
 
 
 ```sql
 -- SELECT
--- SELECT �������� �����͸� ��ȸ�� ������� RESULT_SET ���� ��ȯ
+-- SELECT 구문으로 데이터를 조회한 결과물은 RESULT_SET 으로 반환
 
--- EMPLOYEE ���̺��� ���, �̸�, �޿� ��ȸ
+-- EMPLOYEE 테이블의 사번, 이름, 급여 조회
 SELECT EMP_ID, EMP_NAME, SALARY
 FROM EMPLOYEE;
 ```
 
 
 ```sql
--- ��� ����� ��ȸ
--- EMPLOYEE ���̺����� ��� ����� ��� ������ ��ȸ
+-- 모든 사원수 조회
+-- EMPLOYEE 테이블에서 모든 사원의 모든 정보를 조회
 SELECT EMP_ID, EMP_NAME, EMP_NO, EMAIL, PHONE, JOB_CODE, SAL_LEVEL, SALARY,
 BONUS, MANAGER_ID, HIRE_DATE, ENT_DATE, ENT_YN
 FROM EMPLOYEE;
 
--- ���� ǥ��
+-- 동일 표현
 SELECT *
 FROM EMPLOYEE;
 ```
 
-- ����
+- 예제
 ```sql
--- JOB ���̺��� ��� ���� ��ȸ
+-- JOB 테이블의 모든 정보 조회
 SELECT * FROM JOB;
 
--- JOB ���̺��� ���� �̸� ��ȸ
+-- JOB 테이블의 직급 이름 조회
 SELECT JOB_NAME FROM JOB;
 
--- DEPARTMENT ���̺��� ��� ���� ��ȸ
-DESC DEPARTMENT ; --���̺��� ������Ҹ� �� �� ����.
+-- DEPARTMENT 테이블의 모든 정보 조회
+DESC DEPARTMENT ; --테이블의 구성요소를 볼 수 있음.
 SELECT * FROM DEPARTMENT;
 
--- EMPLOYEE ���̺��� ������, �̸���, ��ȭ��ȣ, ������ ��ȸ
+-- EMPLOYEE 테이블의 직원명, 이메일, 전화번호, 고용일 조회
 DESC EMPLOYEE;
 SELECT EMP_NAME, EMAIL, PHONE, HIRE_DATE FROM EMPLOYEE;
 
--- EMPLOYEE ���̺��� ������, ����̸� �޿� ��ȸ
+-- EMPLOYEE 테이블의 고용일, 사원이름 급여 조회
 SELECT HIRE_DATE, EMP_NAME, SALARY FROM EMPLOYEE;
 ```
 
 <HR>
 
-- �÷��� �������
-  - �÷��� �ִ� �����͸� ����Ͽ� ���ο� �÷� �����
+- 컬럼값 산술연산
+  - 컬럼에 있는 데이터를 계산하여 새로운 컬럼 만들기
 ```sql
--- �÷��� �������
--- SELECT �� �÷��� �Էºκп� ��꿡 �ʿ���
--- �÷���, ����, �����ڸ� �̿��Ͽ� ��� ��ȸ
--- EMPLOYEE ���̺����� ������, ���� ��ȸ(SALARY *12)
+-- 컬럼값 산술연산
+-- SELECT 시 컬럼명 입력부분에 계산에 필요한
+-- 컬럼명, 숫자, 연산자를 이용하여 결과 조회
+-- EMPLOYEE 테이블에서 직원명, 연봉 조회(SALARY *12)
 
-SELECT EMP_NAME, SALARY*12 "����"
+SELECT EMP_NAME, SALARY*12 "연봉"
 FROM EMPLOYEE;
 
 
--- EMPLOYEE ���̺����� ������, ����, ���ʽ��� �߰��� ���� ��ȸ
-SELECT EMP_NAME, SALARY*12 "����", 12*(SALARY+BONUS)  "���ʽ� �߰� ����"
+-- EMPLOYEE 테이블에서 직원명, 연봉, 보너스를 추가한 연봉 조회
+SELECT EMP_NAME, SALARY*12 "연봉", 12*(SALARY+BONUS)  "보너스 추가 연봉"
 FROM EMPLOYEE;
 ```
 
 <BR>
 
-- ����
+- 예제
 ```sql
---EMPLOYEE���̺����� �̸�, ����, �Ѽ��ɾ�(���ʽ�����), �Ǽ��ɾ�(�Ѽ��ɾ�-(����*����3%)) ��ȸ
+--EMPLOYEE테이블에서 이름, 연봉, 총수령액(보너스포함), 실수령액(총수령액-(연봉*세금3%)) 조회
 DESC EMPLOYEE;
 SELECT * FROM EMPLOYEE;
 
-SELECT EMP_NAME, SALARY*12 "����" , SALARY*(1+BONUS)*12 "�Ѽ��ɾ�" , (SALARY*(1+BONUS)*12-(SALARY*12*0.03)) "�Ǽ��ɾ�"
+SELECT EMP_NAME, SALARY*12 "연봉" , SALARY*(1+BONUS)*12 "총수령액" , (SALARY*(1+BONUS)*12-(SALARY*12*0.03)) "실수령액"
 FROM EMPLOYEE;
 
 
---EMPLOYEE���̺����� �̸�, ������, �ٹ��ϼ�(���� ��¥-������) ��ȸ (SYSDATE ���糯¥)
-SELECT EMP_NAME, HIRE_DATE, (SYSDATE-HIRE_DATE) "�ٹ��ϼ�", SYSDATE "���糯¥"
+--EMPLOYEE테이블에서 이름, 고용일, 근무일수(오늘 날짜-고용일) 조회 (SYSDATE 현재날짜)
+SELECT EMP_NAME, HIRE_DATE, (SYSDATE-HIRE_DATE) "근무일수", SYSDATE "현재날짜"
 FROM EMPLOYEE;
 ```
 
 <HR>
 
 
-# �÷��� ��Ī �ֱ�
+# 컬럼에 별칭 넣기
 
-- �÷��� AS ��Ī
-- �÷��� "��Ī"
-- �÷��� AS "��Ī"
-- �÷��� ��Ī
+- 컬럼명 AS 별칭
+- 컬럼명 "별칭"
+- 컬럼명 AS "별칭"
+- 컬럼명 별칭
 
 
-- AS ��� ������� ��Ī�� <B>����, Ư������, ����</B>�� �ִٸ� <B>""</B> �� ����ؾ��Ѵ�.
+- AS 사용 상관없이 별칭에 <B>띄어쓰기, 특수문자, 숫자</B>가 있다면 <B>""</B> 로 사용해야한다.
 
 ```sql
--- �÷� ��Ī
--- ��Ī�� ����, Ư�����ڰ� ������ ������ "" �� �̿��ؾ���.
+-- 컬럼 별칭
+-- 별칭에 숫자, 특수문자가 들어오면 무조건 "" 을 이용해야함.
 
-SELECT EMP_NAME AS �̸� , SALARY*12 AS "����(��)", (SALARY*(1+BONUS))*12 "�Ѽҵ�(��)"
+SELECT EMP_NAME AS 이름 , SALARY*12 AS "연봉(원)", (SALARY*(1+BONUS))*12 "총소득(원)"
 FROM EMPLOYEE;
 
 
--- ����2
-SELECT EMP_NAME �̸�, HIRE_DATE ������, SYSDATE-HIRE_DATE �ٹ��ϼ�
+-- 예제2
+SELECT EMP_NAME 이름, HIRE_DATE 고용일, SYSDATE-HIRE_DATE 근무일수
 FROM EMPLOYEE;
 
 ```
 
 <BR>
 
-- ���ͷ�(Literal) = ����ü
-- '': ���ڸ� ��������Ÿ� Ȭ����ǥ�� �̿�
-- "": ��Ī
-- DB�� ��ü�� ��ҹ��� �Ȱ�����.
-  - ��ҹ��ڸ� �����°���, ���ڿ������� ��Ÿ����.
-    - 'Won', 'won' �� �ٸ� ������ �����Ѵ�.
-    - �����ڰ���/����� ������  ��й�ȣ�� ��ҹ��� ������.
+- 리터럴(Literal) = 값자체
+- '': 문자를 집어넣을거면 홑따옴표를 이용
+- "": 별칭
+- DB는 대체로 대소문자 안가린다.
+  - 대소문자를 가리는경우는, 문자열값에서 나타난다.
+    - 'Won', 'won' 은 다른 값으로 인지한다.
+    - 관리자계정/사용자 계정의  비밀번호는 대소문자 가린다.
 
 ```sql
-SELECT EMP_ID "���� ��ȣ", EMP_NAME �̸�, SALARY "����(��)", '�� �Դϴ�' "����"
+SELECT EMP_ID "직원 번호", EMP_NAME 이름, SALARY "연봉(원)", '원 입니다' "단위"
 FROM EMPLOYEE;
 
 select emp_id, emp_name, SALARY, 'Won', 'won'
@@ -198,47 +198,47 @@ from employee;
 
 <HR>
 
-- DISTINCT: �ߺ�����
-  - DISTINCT�� <B>SELECT������ �� �ѹ��� �� �� �ִ�.</B>
+- DISTINCT: 중복제거
+  - DISTINCT는 <B>SELECT절에서 딱 한번만 쓸 수 있다.</B>
 
 ```sql
--- �ߺ�����1
+-- 중복제거1
 SELECT JOB_CODE
 FROM EMPLOYEE;
 
 SELECT DISTINCT JOB_CODE
 FROM EMPLOYEE;
 
--- �ߺ�����2
--- DEPT_CODE, JOB_CODE��� ��� �ߺ�����
+-- 중복제거2
+-- DEPT_CODE, JOB_CODE모두 묶어서 중복제거
 SELECT DISTINCT DEPT_CODE,  JOB_CODE
 FROM EMPLOYEE;
 
--- �����߻� : DISTINCT�� �ѹ���!
+-- 에러발생 : DISTINCT는 한번만!
 SELECT DISTINCT DEPT_CODE, DISTINCT JOB_CODE
 FROM EMPLOYEE;
 ```
 
 # WHERE
-- ��ȸ�� ���̺����� ������ �´� ���� ���� ���� ��󳽴�.
-- �����ڸ� ����Ͽ� ������ �����.
-  - `=`: ����
-  - `>`: ũ��
-  - `>=`: ũ�ų� ����
+- 조회할 테이블에서 조건이 맞는 값을 가진 행을 골라낸다.
+- 연산자를 사용하여 조건을 만든다.
+  - `=`: 같다
+  - `>`: 크다
+  - `>=`: 크거나 같다
 
-  - `<`: �۴�
-  - `<=`: �۰ų� ����
-  - `!=`, `^=`, `<>`: �����ʴ�
+  - `<`: 작다
+  - `<=`: 작거나 같다
+  - `!=`, `^=`, `<>`: 같지않다
 
 ```SQL
--- EMPLOYEE ���̺����� �μ��ڵ尡 'D9'�� ������ �̸� �μ��ڵ� ��ȸ
-SELECT EMP_NAME ���� , DEPT_CODE �μ��ڵ�
+-- EMPLOYEE 테이블에서 부서코드가 'D9'인 직원의 이름 부서코드 조회
+SELECT EMP_NAME 직원 , DEPT_CODE 부서코드
 FROM EMPLOYEE
 WHERE DEPT_CODE='D9';
 
--- EMPLOYEE ���̺����� �μ��ڵ尡 'D9'�� �ƴ� �����̸� �μ��ڵ� ��ȸ
+-- EMPLOYEE 테이블에서 부서코드가 'D9'가 아닌 직원이름 부서코드 조회
 
-SELECT EMP_NAME ����, DEPT_CODE �μ��ڵ�
+SELECT EMP_NAME 직원, DEPT_CODE 부서코드
 FROM EMPLOYEE
 WHERE DEPT_CODE<>'D9';
 --WHERE DEPT_CODE!='D9';
@@ -247,39 +247,39 @@ WHERE DEPT_CODE<>'D9';
 
 <BR>
 
-# WHERE���� ���� ������ �ֱ�
+# WHERE절에 논리 연산자 넣기
 
-- ����������: AND, OR
+- 논리연산자: AND, OR
 - JAVA: &&, ||
 ```sql
--- EMPLOYEE ���̺����� �μ��ڵ尡 D6�̰�
--- �޿��� 200�������� ���� �޴� ������ �̸�, �μ��ڵ�, �޿���ȸ
-SELECT EMP_NAME "������ �̸�", DEPT_CODE �μ��ڵ�, SALARY �޿�
+-- EMPLOYEE 테이블에서 부서코드가 D6이고
+-- 급여가 200만원보다 많이 받는 직원의 이름, 부서코드, 급여조회
+SELECT EMP_NAME "직원의 이름", DEPT_CODE 부서코드, SALARY 급여
 FROM EMPLOYEE
 WHERE (SALARY>=2000000) AND (DEPT_CODE='D6');
 
 
--- EMPLOYEE ���̺����� �μ��ڵ尡 D6�̰ų�
--- 300������ ���� �޴� ������ �̸�, �μ��ڵ�, �޿���ȸ
+-- EMPLOYEE 테이블에서 부서코드가 D6이거나
+-- 300만보다 많이 받는 직원의 이름, 부서코드, 급여조회
 SELECT EMP_NAME, DEPT_CODE, SALARY
 FROM EMPLOYEE
 WHERE DEPT_CODE='D6' OR SALARY>3000000;
 
 
--- EMPLOYEE���̺����� �޿��� 350���� �̻�, 600���� ���ϸ� �޴�
--- ������ ���, �̸�, �޿�, �μ��ڵ�, �����ڵ� ��ȸ
+-- EMPLOYEE테이블에서 급여를 350만원 이상, 600만원 이하를 받는
+-- 직원의 사번, 이름, 급여, 부서코드, 직급코드 조회
 SELECT EMP_ID, EMP_NAME, SALARY, DEPT_CODE, JOB_CODE
 FROM EMPLOYEE
 WHERE SALARY>=3000000 AND SALARY<=6000000;
 
--- EMPLOYEE ���̺����� ������ 4000000�̻��̰� JOB_CODE�� J2�� ����� ��ü������ȸ
+-- EMPLOYEE 테이블에서 월급이 4000000이상이고 JOB_CODE가 J2인 사원의 전체내용조회
 SELECT *
 FROM EMPLOYEE
 WHERE SALARY>=4000000 AND JOB_CODE='J2'
 
--- EMPLOYEE ���̺����� DEPT_CODE�� D9�̰ų� D5�� ��� ��
--- �������� 02�� 01�� 01���� ����
--- ����� �̸�, �μ��ڵ�, ������ ��ȸ
+-- EMPLOYEE 테이블에서 DEPT_CODE가 D9이거나 D5인 사원 중
+-- 고용일이 02년 01월 01보다 빠른
+-- 사원의 이름, 부서코드, 고용일 조회
 SELECT EMP_NAME, DEPT_CODE, HIRE_DATE
 FROM EMPLOYEE
 WHERE (DEPT_CODE='D9' OR DEPT_CODE='D5') AND HIRE_DATE<'02/1/1';
@@ -289,8 +289,8 @@ WHERE (DEPT_CODE='D9' OR DEPT_CODE='D5') AND HIRE_DATE<'02/1/1';
 # BETWEEN
 
 ```SQL
--- BETWEEN A AND B: A(���Ѱ�)�̻� B(���Ѱ�)����
--- �޿��� 3500000�� �̻�ް� 6000000�� ���Ϸ� �޴� ����� �̸�, �޿� ��ȸ
+-- BETWEEN A AND B: A(하한값)이상 B(상한값)이하
+-- 급여를 3500000원 이상받고 6000000원 이하로 받는 사원의 이름, 급여 조회
 SELECT EMP_NAME, SALARY
 FROM EMPLOYEE
 WHERE SALARY>=3500000 AND SALARY<=6000000;
@@ -300,8 +300,8 @@ SELECT EMP_NAME, SALARY
 FROM EMPLOYEE
 WHERE SALARY BETWEEN 3000000 AND 6000000;
 
--- �޿��� 3500000�� �̸����� �ްų� 6000000�� �ʰ��� �޴�
--- ����� �̸�, �޿� ��ȸ
+-- 급여가 3500000원 미만으로 받거나 6000000원 초과로 받는
+-- 사원의 이름, 급여 조회
 SELECT EMP_NAME, SALARY
 FROM EMPLOYEE
 WHERE SALARY<3500000 OR SALARY>6000000;
@@ -311,9 +311,232 @@ FROM EMPLOYEE
 WHERE SALARY NOT BETWEEN 3500000 AND 6000000;
 --!(SALARY BETWEEN 3500000 AND 600000);
 
--- EMPLOYEE ���̺����� �������� 90/1/1 ~ 01/1/1�� ����� ��ü���� ��ȸ
+-- EMPLOYEE 테이블에서 고용일이 90/1/1 ~ 01/1/1인 사원의 전체내용 조회
 SELECT *
 FROM EMPLOYEE
 WHERE HIRE_DATE BETWEEN 90/1/1 AND 01/1/1;
+```
 
+<BR>
+
+<HR>
+
+
+# LIKE
+- `%`: 0글자 이상
+- `_` : 1글자
+
+```SQL
+-- %연습
+-- '글자%' : 0글자 이상의 문자열을 넣는다.
+-- '글%자' : 맨앞은 글, 맨뒤는 자, 사이에 문자가 있어도되고 없어도 되고~
+-- '%글자%' : 글자라는 문자가 포함되어있는지를 판단.
+
+-- _ 연습
+-- '_'(1글자), '__'(2글자), '___'(세글자)
+
+-- EMPLOYEE 테이블에서 성이 전씨인 사원의 사번, 이름, 고용일
+SELECT EMP_ID, EMP_NAME, HIRE_DATE
+FROM EMPLOYEE
+WHERE EMP_NAME LIKE '전%';
+
+
+
+-- EMPLOYEE 테이블에서 이름에 하가 포함된 직원의 이름, 주민번호, 부서코드 조회
+SELECT EMP_NAME, EMP_NO, DEPT_CODE
+FROM EMPLOYEE
+WHERE EMP_NAME LIKE '%하%';
+
+
+
+-- EMPLOYEE 테이블에서 전화번호 4번째 자리가 9로 시작하는
+-- 사원의 사번, 이름, 전화번호 조회
+SELECT EMP_ID, EMP_NAME, PHONE
+FROM EMPLOYEE
+WHERE PHONE LIKE '___9%';
+
+
+-- EMPLOYEE 테이블에서 이메일 중 _앞글자가 3자리인 이메일 주소를 가진 사원의
+-- 사번, 이름, 이메일 주소 조회
+-- 예 : kim_@naver.com
+SELECT EMP_ID, EMP_NAME, EMAIL
+FROM EMPLOYEE
+WHERE EMAIL LIKE '____%'
+
+-- WHERE EMAIL LIKE '____%' -- 그런데 이거는 4글자로 인식됨.
+-- 와일드 카드와 특수문자가 같을 때는
+-- 특수문자를 모두 와일드카드로 인지=> 원하는대로 검색을 불가능함.
+
+
+-- ESCAPE OPTION
+SELECT EMP_ID, EMP_NAME, EMAIL
+FROM EMPLOYEE
+WHERE EMAIL LIKE '___*_%' ESCAPE '*';
+-- '*'붙은애는 더이상 와일드카드가 아니야.
+-- '*'뒤에있는애는 특수문자로 인지.
+
+-- WHERE EMAIL LIKE '___ _%' ESCAPE ' ';
+--' '이후의 애는 더이상 와일드카드가 아니야.
+
+
+-- NOT LIKE
+-- EMPLOYEE 테이블에서 김씨 성이 아닌 직원의 사번, 이름, 고용일 조회
+SELECT EMP_ID, EMP_NAME, HIRE_DATE
+FROM EMPLOYEE
+WHERE NOT EMP_NAME LIKE '김%';
+-- WHERE EMP_NAME NOT LIKE '김%';
+
+
+-- EMPLOYEE 테이블에서 '연'으로 끝나는 사원 이름 조회
+SELECT EMP_NAME
+FROM EMPLOYEE
+WHERE EMP_NAME LIKE '%연';
+
+-- EMPLOYEE 테이블에서 전화번호 처음 3자리가 010이 아닌 사원의 이름, 전화번호 조회
+SELECT EMP_NAME "이름" , PHONE 전화번호
+FROM EMPLOYEE
+WHERE NOT PHONE LIKE '010%';
+
+
+-- EMPLOYEE 테이블에서 메일주소 _ 앞이 4자이면서 DEPT_CODE가
+-- D9 또는 D6이고
+-- 고용일이 90/01/01~00/12/01이고
+-- 급여가 270만원 이상인 사원전체 조회
+SELECT *
+FROM EMPLOYEE
+WHERE (EMAIL LIKE '____*_%' ESCAPE '*')
+  AND (DEPT_CODE='D9' OR DEPT_CODE='D6')
+  AND (HIRE_DATE>='90/01/01' AND HIRE_DATE<='00/12/01')
+  AND (SALARY>=2700000);
+
+
+
+-- 기쁨씨 -앗 BETWEEN!
+SELECT *
+FROM EMPLOYEE
+WHERE (EMAIL LIKE '____*_%' ESCAPE '*')
+  AND (DEPT_CODE='D9' OR DEPT_CODE='D6')
+  AND (HIRE_DATE BETWEEN '90/01/01' AND '00/12/01')
+  AND (SALARY>=2700000);
+
+```
+
+# NULL 여부
+
+- IS NULL , IS NOT NULL
+```sql
+-- IS NULL / IS NOT NULL
+-- EMPLOYEE 테이블에서 보너스가 NULL인 사원들의 아이디, 이름, 연봉, 보너스 조회
+SELECT EMP_ID, EMP_NAME, SALARY, BONUS
+FROM EMPLOYEE
+WHERE BONUS IS NULL;
+
+-- EMPLOYEE 테이블에서 보너스를 받는 사원의 사번, 이름, 급여, 보너스 조회
+SELECT EMP_ID, EMP_NAME, SALARY, BONUS
+FROM EMPLOYEE
+WHERE BONUS IS NOT NULL
+
+
+-- EMPLOYEE 테이블에서 관리자도 없고 부서배치도 받지 앟은 사원의 이름, 관리자, 부서코드 조회
+SELECT EMP_NAME, MANAGER_ID, DEPT_CODE
+FROM EMPLOYEE
+WHERE MANAGER_ID IS NULL AND DEPT_CODE IS NULL;
+
+
+-- EMPLOYEE 테이블에서 부서배치를 받지 않았지만
+-- 보너스를 받는 직원의 이름, 보너스, 부서코드 조회
+SELECT EMP_NAME, BONUS, DEPT_CODE
+FROM EMPLOYEE
+WHERE DEPT_CODE IS NULL AND BONUS IS NOT NULL;
+```
+
+# IN
+```SQL
+-- D6부서와 D9부서 들의 이름, 부서코드 , 급여
+SELECT EMP_NAME, DEPT_CODE, SALARY
+FROM EMPLOYEE
+WHERE DEPT_CODE IN ('D6', 'D9');
+
+SELECT EMP_NAME, DEPT_CODE, SALARY
+FROM EMPLOYEE
+WHERE DEPT_CODE='D6' OR DEPT_CODE='D9';
+
+
+
+-- 직급코드가 J1, J2, J3, J4인 사람들의 이름, 직급코드, 급여 조회
+SELECT EMP_NAME, JOB_CODE, SALARY
+FROM EMPLOYEE
+WHERE JOB_CODE='J1' OR JOB_CODE='J2' OR JOB_CODE='J3' OR JOB_CODE='J4';
+
+-- 위의 코드는 너무 길어 ㅠㅠ
+SELECT EMP_NAME, JOB_CODE, SALARY
+FROM EMPLOYEE
+WHERE JOB_CODE IN ('J1','J2','J3','J4');
+```
+
+<br>
+
+# 연결연산자 ||
+
+```sql
+-- EMPLOYEE테이블에서 사번, 이름, 급여를 연결하여 조회
+SELECT EMP_ID || EMP_NAME|| SALARY
+FROM EMPLOYEE;
+
+
+-- EMPLOYEE테이블에서 사원명의 월급은 급여원입니다 형식으로 조회
+SELECT EMP_NAME || '의 월급은 ' || SALARY||'원 입니다.'
+FROM EMPLOYEE;
+
+```
+
+<br>
+
+# 연산자 우선순위
+
+- 산술 연산자
+- 비교 연산자
+- 연결 연산자
+- IS NULL , IS NOT NULL, LIKE, IN ,NOT IN
+- BETWEEN AND, NOT BETWEEN AND
+- NOT
+- AND
+- OR
+
+- ORDER BY
+  - 맨마지막에 작성
+  - 실행순서도 가장 마지막
+  - 순서: FROM -> WHERE -> SELECT -> ORDER BY
+
+```SQL
+-- 오름차순
+SELECT *
+FROM EMPLOYEE
+ORDER BY BONUS;
+-- BONUS를 기준으로 오름차순으로 나열
+-- 값이 있는것부터 먼저 하고싶다.
+
+
+-- 오름차순 + NULL값이 먼저 나오도록한다.
+SELECT *
+FROM EMPLOYEE
+ORDER BY BONUS ASC NULLS FIRST;
+
+-- 내림차순: DESC
+SELECT *
+FROM EMPLOYEE
+ORDER BY BONUS DESC NULLS FIRST;
+-- ORDER BY BONUS NULLS LAST;
+
+SELECT EMP_NAME, SALARY*12 AS 연봉
+FROM EMPLOYEE
+-- ORDER BY EMP_NAME; --이름오름차순
+-- ORDER BY EMP_NAME ASC;
+
+-- ORDER BY SALARY*12; --연봉으로 오름차순
+-- ORDER BY 연봉; -- 별칭으로
+
+SELECT EMP_NAME, SALARY*12 AS 연봉
+FROM EMPLOYEE
+ORDER BY 1 DESC; -- 첫번째컬럼을 기준으로 내림차순 정렬.
 ```
