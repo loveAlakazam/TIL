@@ -42,15 +42,15 @@ function getCurrentTime() {
 
                 //메인페이지 백그라운드 컬러가 시간대에 따라 달라진다.
                 if (mealTime == '아침') {
-                    colorVal = "#fcf6c7";
+                    colorVal = "#f2d00c";
 
                 } else if (mealTime == '점심') {
-                    colorVal = '#c7f8fc';
+                    colorVal = '#31d7f5';
 
                 } else if (mealTime == '저녁') {
-                    colorVal = '#b1cafc';
-                } else {
-                    colorVal = '#666dbd';
+                    colorVal = '#472fa1';
+                } else { //야식
+                    colorVal = '#210e66';
                 }
                 mainContainer.css('background-color', colorVal, opacity = 0.5);
                 searchContainers.css('background-color', colorVal, opacity = 0.5);
@@ -104,7 +104,7 @@ function searchNaverBlogs() {
     // 선택한 메뉴 가져오기
     let selectMenu= $('#inputGroupSelect_blog option:selected').val();
     
-
+    console.log('클라이언트가 선택한 메뉴: ', selectMenu);
     $.ajax({
         type: "POST",
         url: '/search/blogs/restaurant',
@@ -162,6 +162,7 @@ function searchyoutubes() {
 }
 
 //3. 맛집방송 버튼 선택 하면 실행하는 함수//
+// 카카오 검색결과를 링크로 적용: <a href="https://map.kakao.com/link/search/${address}"></a>
 // 생방송투데이 클릭
 function flavorToday() {
     $.ajax({
@@ -193,7 +194,7 @@ function flavorToday() {
                             <div class="card-body">
                                 <h5 class="card-title">${name}</h5>
                                 <hr class="my-4">
-                                <p class="card-text">${address}</p>
+                                <a href="https://map.kakao.com/link/search/${address}"><p class="card-text">${address}</p></a>
                                 <p class="card-text"><small class="text-muted">${menu}</small></p>
                             </div>
                         </div>
@@ -238,7 +239,7 @@ function flavorMaster() {
                             <div class="card-body">
                                 <h5 class="card-title">${name}</h5>
                                 <hr class="my-4">
-                                <p class="card-text">${address}</p>
+                                <a href="https://map.kakao.com/link/search/${address}"><p class="card-text">${address}</p></a>
                                 <p class="card-text"><small class="text-muted">${menu}</small></p>
                             </div>
                         </div>
@@ -283,7 +284,7 @@ function flavorInfos() {
                             <div class="card-body">
                                 <h5 class="card-title">${name}</h5>
                                 <hr class="my-4">
-                                <p class="card-text">${address}</p>
+                                <a href="https://map.kakao.com/link/search/${address}"><p class="card-text">${address}</p></a>
                                 <p class="card-text"><small class="text-muted">${menu}</small></p>
                             </div>
                         </div>
@@ -296,10 +297,4 @@ function flavorInfos() {
             }
         }
     });
-}
-
-
-// 주소를 클릭하면, 주소에 따른 카카오맵을 띄운다.
-function showMap(address) {
-    console.log(address);
 }
