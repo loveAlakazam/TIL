@@ -1,0 +1,17 @@
+-- 문제4
+-- 도서관에서 대출 도서 장기 연체자들을 찾아 이름을 게시하고자한다.
+-- 그 대상자들의 학번이 다음과 같을 때
+-- A513079, A513090, A513091, A513110, A513119
+-- 대상자들을 찾는 적절한 SQL구문을 작성하시오.
+
+-- 학생의 학번을 알아보자.
+-- A5130XX 학생을 찾아보자.
+SELECT STUDENT_NO, STUDENT_NAME
+FROM TB_STUDENT
+WHERE STUDENT_NO LIKE 'A5130%';
+
+-- ANSWER
+SELECT STUDENT_NAME
+FROM TB_STUDENT
+WHERE STUDENT_NO IN ('A513079', 'A513090', 'A513091', 'A513110', 'A513119')
+ORDER BY 1 DESC; 
