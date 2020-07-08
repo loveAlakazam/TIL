@@ -1,0 +1,5 @@
+
+-- 문제1 - EMP테이블에서 COMM의 값이 NULL이 아닌 정보 조회
+SELECT *
+FROM EMP
+WHERE COMM IS NOT NULL;
