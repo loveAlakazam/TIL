@@ -123,4 +123,4 @@ FROM EMPLOYEE
 WHERE DEPT_CODE IN ('D5', 'D6', 'D9');
 
 
-```
+
