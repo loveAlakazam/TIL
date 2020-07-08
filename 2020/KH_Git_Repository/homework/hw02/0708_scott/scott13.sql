@@ -1,0 +1,4 @@
+-- 문제13 - EMP테이블에서 9월에 입사한 직원의 정보 조회
+SELECT *
+FROM EMP
+WHERE EXTRACT(MONTH FROM HIREDATE)=9;

@@ -1,0 +1,5 @@
+-- 문제18
+-- EMP테이블에서 입사일로부터 38년 이상 근무한 직원의 정보 조회
+SELECT *
+FROM EMP
+WHERE FLOOR(MONTHS_BETWEEN(SYSDATE, HIREDATE)/12) >=38;
