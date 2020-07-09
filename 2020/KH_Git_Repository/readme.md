@@ -29,26 +29,28 @@
 # 데이터베이스 과제
 
 > ## RDBMS-SQL 데이터베이스 공부 방향성
-> ##### 학원에서 제공한 문제 풀이
-> ##### 프로그래머스 코딩테스트 (ORACLE)
+
+- 학원에서 제공한 문제 풀이
+- 프로그래머스 코딩테스트 (ORACLE)
 
 <br>
 
 > ## 춘대학교 시리즈
 
--[1. SQL문제- 춘대학교 01 -완성](./homework/hw02/0708_choon)
--[2. SQL문제- 춘대학교 02 -미완](./homework/hw02/0708_choon02)
--[3. SQL문제- 춘대학교 03 -미완](./homework/hw02/0709_choon03)
+- [1. SQL문제- 춘대학교 01 -완성](./homework/hw02/0708_choon)
+- [2. SQL문제- 춘대학교 02 -미완](./homework/hw02/0708_choon02)
+- [3. SQL문제- 춘대학교 03 -미완](./homework/hw02/0709_choon03)
 
 <br>
 
 > ## KH문제 시리즈
 
--[1. KH-SCOTT -완성](./homework/hw02/0708_scott)
--[2. KH-SELECT -미완](./homework/hw02/0708_kh_select)
--[3. KH-JOIN & SUBQUERY -미완](./homework/hw02/0709_subquery)
+- [1. KH-SCOTT -완성](./homework/hw02/0708_scott)
+- [2. KH-SELECT -미완](./homework/hw02/0708_kh_select)
+- [3. KH-JOIN & SUBQUERY -미완](./homework/hw02/0709_subquery)
 
 <br>
 
 > ## 카카오프로그래머스 SQL 코딩테스트
--[프로그래머스 ORACLE](./homework/programmers_oracle)
+
+- [프로그래머스 ORACLE](./homework/programmers_oracle)
