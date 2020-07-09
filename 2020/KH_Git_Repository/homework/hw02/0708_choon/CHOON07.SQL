@@ -1,0 +1,15 @@
+-- 문제7
+-- 전산상의 착오로 학과가 지정되어 있지 않은 학생이 있는지 확인하고자 한다.
+-- ANSWER1
+SELECT *
+FROM TB_STUDENT
+WHERE DEPARTMENT_NO IS NULL;
+
+-- ANSWER2
+SELECT *
+FROM TB_STUDENT S, TB_DEPARTMENT D
+WHERE S.DEPARTMENT_NO=D.DEPARTMENT_NO --내부조인
+    AND S.DEPARTMENT_NO IS NULL;
+
+
+-- 학과번호 모두 NOT NULL이기 때문에 없음.

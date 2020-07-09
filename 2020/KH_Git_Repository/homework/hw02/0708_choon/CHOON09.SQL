@@ -1,0 +1,5 @@
+-- 문제9
+-- 춘 대학에서는 어떤 계열(CATEGORY)이 들어있는지 조회
+SELECT DISTINCT CATEGORY
+FROM TB_DEPARTMENT
+ORDER BY 1;
