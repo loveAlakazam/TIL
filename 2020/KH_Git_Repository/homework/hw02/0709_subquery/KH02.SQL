@@ -17,5 +17,7 @@ FROM EMPLOYEE
     JOIN DEPARTMENT ON(DEPT_CODE=DEPT_ID)
     JOIN JOB USING(JOB_CODE)
 WHERE TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY'))-TO_NUMBER(TO_CHAR(TO_DATE(SUBSTR(EMP_NO,1,2),'RR'),'YYYY'))=(SELECT MIN(TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY'))-TO_NUMBER(TO_CHAR(TO_DATE(SUBSTR(EMP_NO,1,2),'RR'),'YYYY')))
+                                                                                                        FROM EMPLOYEE);
+                                                                 
 --WHERE 나이 =(SELECT MIN((SELECT MIN(TO_NUMBER(TO_CHAR(SYSDATE, 'YYYY'))-TO_NUMBER(TO_CHAR(TO_DATE(SUBSTR(EMP_NO,1,2),'RR'),'YYYY')))
 --              FROM EMPLOYEE);) --OCCUR ERROR
