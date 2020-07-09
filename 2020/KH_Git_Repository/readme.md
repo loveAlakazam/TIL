@@ -47,7 +47,7 @@
 
 - [1. KH-SCOTT -완성](./homework/hw02/0708_scott)
 - [2. KH-SELECT -미완](./homework/hw02/0708_kh_select)
-- [3. KH-JOIN & SUBQUERY -미완](./homework/hw02/0709_subquery)
+- [3. KH-JOIN & SUBQUERY -완성](./homework/hw02/0709_subquery)
 
 <br>
 
