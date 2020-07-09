@@ -1,0 +1,39 @@
+-- 문제 11. 부서별 급여 합계가 전체 급여 총 합의 20%보다 많은 부서의
+-- 부서명, 부서별 급여 합계 조회
+
+-- 1) 부서별 급여합계를 구해보자.
+SELECT DEPT_TITLE, SUM(SALARY)
+FROM EMPLOYEE
+     JOIN DEPARTMENT ON (DEPT_CODE=DEPT_ID)
+GROUP BY DEPT_TITLE; --DEPT_TITLE 별로 급여합계를 구함.
+
+-- 2) 전체 급여의 20%를 구해보자
+SELECT SUM(SALARY)*0.2 "전체 급여의 20%"
+FROM EMPLOYEE;
+
+
+-- 11-1. JOIN과 HAVING을 사용
+SELECT DEPT_TITLE 부서명, SUM(SALARY) "부서별 급여 합계"
+FROM EMPLOYEE
+        JOIN DEPARTMENT ON (DEPT_CODE=DEPT_ID)
+GROUP BY DEPT_TITLE
+HAVING SUM(SALARY)>(SELECT SUM(SALARY)*0.2 FROM EMPLOYEE);
+
+
+-- 11-2. 인라인뷰를 사용
+SELECT *
+FROM(SELECT DEPT_TITLE, SUM(SALARY) "부서별 급여 합계"
+     FROM EMPLOYEE
+        JOIN DEPARTMENT ON (DEPT_CODE=DEPT_ID)
+     GROUP BY DEPT_TITLE
+     HAVING SUM(SALARY)>(SELECT SUM(SALARY)*0.2 FROM EMPLOYEE)); -- 전체급여의 20%보다 많은 부서명과, 급여합계를 구한다.
+
+
+-- 11-3. WITH 사용
+WITH OVER_ALL_SAL AS (SELECT DEPT_TITLE, SUM(SALARY) "부서별 급여 합계"
+                        FROM EMPLOYEE
+                            JOIN DEPARTMENT ON (DEPT_CODE=DEPT_ID)
+                         GROUP BY DEPT_TITLE
+                         HAVING SUM(SALARY)>(SELECT SUM(SALARY)*0.2 FROM EMPLOYEE))
+SELECT *
+FROM OVER_ALL_SAL;

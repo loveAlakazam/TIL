@@ -1,0 +1,9 @@
+-- 문제 7. 한국이나 일본에서 근무중인 사원의
+-- 사원명, 부서명, 지역명, 국가명 조회
+SELECT EMP_NAME 사원명, DEPT_TITLE 부서명,
+        LOCAL_NAME 지역명, NATIONAL_NAME 국가명
+FROM EMPLOYEE
+     JOIN DEPARTMENT ON (DEPT_CODE=DEPT_ID) --DEPARTMENT 테이블과 내부조인
+     JOIN LOCATION ON (LOCATION_ID=LOCAL_CODE) -- LOCATION테이블과 내부조인
+     JOIN NATIONAL USING (NATIONAL_CODE) --NATIONAL테이블과 내부조인
+WHERE NATIONAL_NAME IN ('한국', '일본');

@@ -1,0 +1,8 @@
+-- 문제12. 부서명과 부서별 급여 합계 조회
+
+-- LEFT OUTER JOIN : 중심테이블 EMPLOYEE(왼쪽)
+-- 맞춰주는쪽 오른쪽테이블(DEPARTMENT)
+SELECT DEPT_TITLE 부서명, SUM(SALARY)
+FROM EMPLOYEE
+     LEFT JOIN DEPARTMENT ON (DEPT_CODE=DEPT_ID) --DEPARTMENT테이블과 내부조인
+GROUP BY DEPT_TITLE ;--DEPT_TITLE 부서명에 의해서, 부서별 급여합계를 구한다.
