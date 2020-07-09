@@ -1,4 +1,4 @@
-# 스파르타 코딩클럽 8기
+# 스파르타 코딩클럽 8기 (진행기간 : 2020.0510 ~ 2020.06.28)
 - [1주차-05/10](./sparta08/0510)
 - [2주차-05/17](./sparta08/0517)
 - [3주차-05/24](./sparta08/0524)
@@ -17,7 +17,7 @@
 
 <hr>
 
-# 나만의 텔레그램 봇 만들기
+# 나만의 텔레그램 봇 만들기(미완)
 - [01. 메시지 & gif이미지 전송](./0514/chatbot/MyChatbot.py)
 - [02. 동물의 숲 홈페이지 크롤링-1](./0522/webCrawling.py)
 - [03. emoji 이미티콘 전송 & InlineKeyboard 메시지 전송기능 -1](./0529/using_model.py)
@@ -25,26 +25,16 @@
 
 <hr>
 
-#  KH 정보교육원(강남 1관) 프로젝트 활동
-# KH 정보 교육원 프로젝트 활동
-- [mini 프로젝트- 최종본]()
-- [semi 프로젝트 - 최종본]()
-- [final 프로젝트 - 최종본]()
+# 그룹스터디
+
+> ## [알고리즘2020 - 2020.01.18 ~ 2020.04.19 ](https://github.com/algorithm2020)
+
+> ## [프로그래밍 스터디 - 2020.05.18 ~ ]()
+
+
 
 <hr>
 
-# 자바 기초과제
+#  [KH 정보교육원(강남 1관) (진행기간: 2020.05.15 ~ 2020.12.21)](./KH_Git_Repository)
 
-- [1. 변수](./kh_academy/homework/hw01/1_변수과제/func)
-- [2. 형변환](./kh_academy/homework/hw01/2_형변환과제/func)
-- [3. 연산자](./kh_academy/homework/hw01/3_연산자/func/OperatorPractice1.java)
-- [4. 제어문](./kh_academy/homework/hw01/4_제어문)
-- [5. 반복문](./kh_academy/homework/hw01/5_반복문)
-- [6. 1차원배열](./kh_academy/homework/hw01/6_1차원배열/ArrayPractice.java)
-- [7. 2차원배열](./kh_academy/homework/hw01/7_2차원배열/DimensionPractice.java)
-- [8. 객체](./kh_academy/homework/hw01/8_객체)
-- [9. 객체배열](./kh_academy/homework/hw01/9_객체배열)
-- [10. 상속](./kh_academy/homework/hw01/10_상속)
-- [11. 다형성](./kh_academy/homework/hw01/11_다형성)
-- [12. API](./kh_academy/homework/hw01/12_API)
-- [13.예외처리](./kh_academy/homework/hw01/13_예외처리)
+
