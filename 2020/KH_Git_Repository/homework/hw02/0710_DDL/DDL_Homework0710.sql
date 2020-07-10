@@ -1,0 +1,12 @@
+-- [실습 문제]
+-- 회원가입용 테이블 생성(USER_TEST)
+-- 컬럼명 : USER_NO(회원번호) - 기본키(PK_USER_NO),
+--         USER_ID(회원아이디) - 중복금지(UK_USER_ID),
+--         USER_PWD(회원비밀번호) - NULL값 허용안함(NN_USER_PWD),
+--         PNO(주민등록번호) - 중복금지(UK_PNO), NULL 허용안함(NN_PNO),
+--         GENDER(성별) - '남' 혹은 '여'로 입력(CK_GENDER),
+--         PHONE(연락처),
+--         ADDRESS(주소),
+--         STATUS(탈퇴여부) - NOT NULL(NN_STATUS), 'Y' 혹은 'N'으로 입력(CK_STATUS)
+-- 각 컬럼의 제약조건에 이름 부여할 것
+-- 5명 이상 INSERT할 것
