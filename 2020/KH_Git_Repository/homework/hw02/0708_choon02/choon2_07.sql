@@ -1,0 +1,11 @@
+-- 문제7. TO_DATE('99/10/11', 'YY/MM/DD'),
+-- TO_DATE('49/10/11','YY/MM/DD')은 각각 몇년 몇월 몇일을 의미할까?
+SELECT TO_CHAR(TO_DATE('99/10/11','YY/MM/DD'),'YYYY-FMMM-FMDD'), --2099년 10월 11일
+        TO_CHAR(TO_DATE('49/10/11', 'YY/MM/DD'),'YYYY-FMMM-FMDD') --2049년 10월 11일
+FROM DUAL;
+
+-- 또한 TO_DATE('99/10/11', 'RR/MM/DD'),
+-- TO_DATE('49/10/11', 'RR/MM/DD')은 각각 몇년 몇월 몇일을 의미할까?
+SELECT TO_CHAR(TO_DATE('99/10/11', 'RR/MM/DD'), 'YYYY-MM-DD'), -- 1999년 10월 11일
+        TO_CHAR(TO_DATE('49/10/11', 'RR/MM/DD'), 'YYYY-MM-DD') --2049년 10월 11일
+FROM DUAL;
