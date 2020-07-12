@@ -10,6 +10,8 @@ $(document).ready(function () {
 });
 
 
+
+
 // 현재 시각을 구한다. //
 // 현재시각을 구하여, 아침/점심/저녁/야식 으로 구분. => 시간대별로 색깔이 달라짐.
 function getCurrentTime() {
@@ -86,6 +88,37 @@ function updateNaverBlogs() {
         }
     });
 }
+
+//유튜브 데이터를 업데이트한다.
+function updateYoutubes(){
+    // 메뉴옵션
+    let menu_options= $('#inputGroupSelect_youtube').children();
+
+    console.log(menu_options);
+    let menus=[]; //메뉴 리스트
+
+    // "장소선택"을 제외한 나머지 옵션을 구한다.
+    for(let i=1; i<menu_options.length; i++){
+        let current=menu_options[i].text + ' 맛집';
+        menus.push(current);
+    }
+    // 리스트 검색결과가 0보다 크면
+    if(menus.length>0){
+        console.log(menus);
+
+        $.ajax({
+            type:'POST',
+            url:'/update/youtubes',
+            data:{'menus_give': menus},
+            success: function(response){
+                if(response['result']=='success'){
+                    console.log('유튜브 데이터 업로드 완료!')
+                }
+            }
+        });
+    }
+}
+
 
 
 // nav탭을 누르면 - 네이버블로그/유튜브/ 맛집 방송
@@ -167,8 +200,12 @@ function searchYoutubes() {
     let selectLocation = $('#inputGroupSelect_youtube option:selected').val();
     console.log('클라이언트가 선택한 메뉴=> ', selectLocation); //출력
 
-    //selectLocation + 맛집  키워드로 검색한다.
-    let searchKeyword= selectLocation + ' 맛집';
+    let searchKeyword= selectLocation; //검색키워드 
+    if (selectLocation !='장소선택'){
+        //selectLocation + 맛집  키워드로 검색한다.
+        searchKeyword+= ' 맛집';
+    }
+    console.log('searchKeyword: ',searchKeyword);
 
     //ajax이용
     $.ajax({
@@ -176,12 +213,47 @@ function searchYoutubes() {
         url:'/search/youtubes/location', //요청페이지
         data:{'give_location': searchKeyword},//searchKeyword 텍스트를 웹서버에게 전달
         //요청에 대한 응답을 받게되면 실행하는 함수.
-        success:function response(){
+        success:function (response){
             let resultMsg= response['result']; //응답결과
             if (resultMsg=='success'){
+                // 카드박스를 찾는다.
+                //검색결과 컨테이너를 보이게한다.
+                let cardBox = $('#card-box');
 
-                //searchKeyword 에 해당하는 유튜브데이터 리스트
+                //기존에 있는 데이터를 지운다.
+                cardBox.empty();
+
+                //searchKeyword 에 해당하는 유튜브데이터 리스트를 검색한다.
                 let youtubes= response['youtubes']; 
+                youtubes.forEach(youtube=>{
+                    let url=youtube['url'];
+                    let title=youtube['title'];
+                    let photo=youtube['photo'];
+                    let location= youtube['location'];
+                    let description=youtube['description'];
+
+                    let card=`
+                    <div class="col mb-4">
+                        <div class="card">
+                            <a href="${url}">
+                                <img src="${photo}" class="card-img-top youtube_thumbnail">
+                            </a>
+                            <div class="card-body">
+                                <h5 class="card-title">${title}</h5>
+                                <hr class="my-4">
+                                <p class="card-text">${location}</p>
+                                <p class="card-text"><small class="text-muted">${description}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    `
+                    
+                    // 카드 박스에 카드를 넣는다.
+                    cardBox.append(card);
+                });
+
+                //검색결과 컨테이너를 보이게한다.
+                $('#search_result_container').show();
 
             }else{
                 //장소선택을 선택한 경우
