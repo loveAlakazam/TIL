@@ -10,6 +10,8 @@ import platform
 # pymongo
 from pymongo import MongoClient
 from collect_naver_blogs import update_db_data
+import youtube_crawling
+
 client = MongoClient('localhost', 27017)
 db= client.db_cek_final # db_cek_final 이라는 데이터베이스를 생성 및 호출.
 
@@ -53,6 +55,18 @@ def update_blog_data():
     return jsonify({'result': 'success'})
 
 
+@app.route('/update/youtubes', methods=['POST'])
+def update_youtubes():
+    # 클라이언트에서 서버로 전달한 데이터(지역-메뉴리스트)를 받는다.
+    menus_receive= request.form.getlist('menus_give[]')
+    
+    # 메뉴에 해당하는 유튜브 영상을 몽고디비에 저장한다.
+    youtube_crawling.update_youtubes(menus_receive)
+    return jsonify({'result': 'success'})
+
+
+
+
 # 네이버 블로그 맛집 후기 보고 결정할래! #
 # 메뉴선택에서 선택한 메뉴에 대한 데이터베이스 정보를 가져온다.
 @app.route('/search/blogs/restaurant', methods=['POST'])
@@ -74,12 +88,13 @@ def search_blogs_data():
 
 
 
-## 유튜브 크롤링 ##
+## 지역옵션에 따른 유튜브를 갖고온다. ##
 @app.route('/search/youtubes/location', methods=['POST'])
 def search_youtube_data():
     #클라이언트로부터 받은 데이터
-    select_location=requests.form['give_location']
+    select_location=request.form['give_location']
 
+    print('select_location=> ',select_location)
     # select_location 이 '장소선택'이라면
     if select_location=='장소선택':
         return jsonify({'result':'fail'})
