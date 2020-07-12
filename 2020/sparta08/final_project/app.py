@@ -61,22 +61,35 @@ def search_blogs_data():
     select_menu=request.form['give_menu']
     print(select_menu)
 
+    # 메뉴선택 을 받음.
     if(select_menu=='메뉴선택'):
-        # 모든 메뉴의 결과를 가져온다.
-        blogs=list(db.naver_blogs.find({}))
-    else:
-        #몽고디비에서 선택한 메뉴와 관련된 블로그를 찾는다.
-        # mongodb 의 _id, menu를 제외한 나머지 필드를 가져온다.
-        blogs=list(db.naver_blogs.find({'menu':select_menu}, {'_id':False}))
-        
+        return jsonify({'result':'fail'})
+    
+    #몽고디비에서 선택한 메뉴와 관련된 블로그를 찾는다.
+    # mongodb 의 _id, menu를 제외한 나머지 필드를 가져온다.
+    blogs=list(db.naver_blogs.find({'menu':select_menu}, {'_id':False}))
+    
     print(len(blogs))
-
     return jsonify({'result':'success', 'blogs': blogs})
 
 
 
 ## 유튜브 크롤링 ##
+@app.route('/search/youtubes/location', methods=['POST'])
+def search_youtube_data():
+    #클라이언트로부터 받은 데이터
+    select_location=requests.form['give_location']
 
+    # select_location 이 '장소선택'이라면
+    if select_location=='장소선택':
+        return jsonify({'result':'fail'})
+    
+    # 아니라면 mongodb에서 location에 해당하는 유튜브 데이터를 모은다.
+    # 몽고디비의 youtubes 콜렉션에서
+    # location필드가 select_location에 해당하는 장소와 일치한다면
+    # id필드를 제외한 나머지를 갖고온다.
+    youtubes=list(db.youtubes.find({'location':select_location},{'_id':False}))
+    return jsonify({'result':'success', 'youtubes':youtubes})
 
 
 ## 맛집방송에서 찾아볼래! ##
@@ -120,6 +133,7 @@ def find_famous_master():
     # selenium 을 활용한 web page crawling
     options = webdriver.ChromeOptions()
     options.add_argument('headless')
+    options.add_argument('disable-gpu')
     driver = webdriver.Chrome('./chromedriver', chrome_options=options)
     
     driver.get('http://matstar.sbs.co.kr/program.html?programs=S01_V0000305532')
@@ -150,6 +164,7 @@ def find_famous_master():
 
     print('생활의달인 - 오늘의 맛집페이지 스크래핑 완료!')
     driver.close()
+    driver.quit()
     return jsonify({'result': 'success', 'restaurants': restaurants})
 
 

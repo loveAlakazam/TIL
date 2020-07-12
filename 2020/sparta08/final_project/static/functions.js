@@ -70,17 +70,17 @@ function updateNaverBlogs() {
     for (let i = 0; i < menu_options.length; i++) {
         let current = menu_options[i].text;
         menus.push(current);
-        
+
     }
     console.log(menus);
 
     $.ajax({
         type: 'POST',
         url: '/update/blog',
-        data: {'menus_give' : menus}, // menus 리스트를 갖다준다.
+        data: { 'menus_give': menus }, // menus 리스트를 갖다준다.
         success: function (response) {
             //요청이 성공적으로 이뤄졌다면
-            if(response['result']=='success'){
+            if (response['result'] == 'success') {
                 console.log('네이버 블로그 데이터 업데이트 성공!');
             }
         }
@@ -102,9 +102,11 @@ function hideResult() {
 // 검색버튼을 누르면 실행하는 함수 //
 function searchNaverBlogs() {
     // 선택한 메뉴 가져오기
-    let selectMenu= $('#inputGroupSelect_blog option:selected').val();
-    
+    let selectMenu = $('#inputGroupSelect_blog option:selected').val();
+
     console.log('클라이언트가 선택한 메뉴: ', selectMenu);
+
+    // 선택한 메뉴가 '메뉴 선택'이 아닌 다른거라면.
     $.ajax({
         type: "POST",
         url: '/search/blogs/restaurant',
@@ -112,27 +114,28 @@ function searchNaverBlogs() {
         success: function (response) {
             console.log(response);
             //데이터 요청이 성공하면..
-            if(response['result']=='success'){
+            if (response['result'] == 'success') {
 
                 //응답영역
-                let blogs=response['blogs'];
-
+                let blogs = response['blogs'];
                 console.log(blogs);
+                console.log(blogs.length);
+
                 //검색결과 컨테이너를 보이게한다.
                 let cardBox = $('#card-box');
 
                 //기존에 있는 데이터를 지운다.
                 cardBox.empty();
 
-                blogs.forEach( blog => {
-                    
+                blogs.forEach(blog => {
+
                     // 블로그에 있는 값을 가져온다.
                     let title = blog['title'];
-                    let author= blog['author'];
-                    let url=blog['url'];
-                    let menu=blog['menu'];
+                    let author = blog['author'];
+                    let url = blog['url'];
+                    let menu = blog['menu'];
 
-                    let card=`<div class="col mb-4">
+                    let card = `<div class="col mb-4">
                                 <div class="card">
                                     <a href="${url}" class="blog_post_link">
                                         <div class="card-body">
@@ -150,6 +153,8 @@ function searchNaverBlogs() {
 
                 //검색결과 컨테이너를 보이게한다.
                 $('#search_result_container').show();
+            }else {
+                alert('다시 선택해주세요!');
             }
         }
     });
@@ -157,9 +162,37 @@ function searchNaverBlogs() {
 
 // 2. 유튜브 맛집 nav탭
 // 검색버튼을 누르면 실행하는 함수//
-function searchyoutubes() {
+function searchYoutubes() {
+    // 선택한 메뉴 가져오기
+    let selectLocation = $('#inputGroupSelect_youtube option:selected').val();
+    console.log('클라이언트가 선택한 메뉴=> ', selectLocation); //출력
 
+    //selectLocation + 맛집  키워드로 검색한다.
+    let searchKeyword= selectLocation + ' 맛집';
+
+    //ajax이용
+    $.ajax({
+        type:'POST',
+        url:'/search/youtubes/location', //요청페이지
+        data:{'give_location': searchKeyword},//searchKeyword 텍스트를 웹서버에게 전달
+        //요청에 대한 응답을 받게되면 실행하는 함수.
+        success:function response(){
+            let resultMsg= response['result']; //응답결과
+            if (resultMsg=='success'){
+
+                //searchKeyword 에 해당하는 유튜브데이터 리스트
+                let youtubes= response['youtubes']; 
+
+            }else{
+                //장소선택을 선택한 경우
+                alert('장소를 다시 선택해주세요!');
+            }
+        }
+    });
 }
+
+
+
 
 //3. 맛집방송 버튼 선택 하면 실행하는 함수//
 // 카카오 검색결과를 링크로 적용: <a href="https://map.kakao.com/link/search/${address}"></a>
