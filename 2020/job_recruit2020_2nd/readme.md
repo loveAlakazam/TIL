@@ -6,6 +6,8 @@
 
 - 취업스터디 알아보기 (7~8월 일주일에 1번)
   - 자소서 광탈면하자..제발
+  - 이력서 정리
+  - 이력서 작성 => 자기소개서 작성 => 자기소개서 업데이트 또 업데이트 => 달달달달 외우기
 
 
 > ### 2. 코딩테스트 대비 => 알고리즘과 자료구조
@@ -39,6 +41,7 @@
 
   - [Interview Question for Beginner](https://github.com/loveAlakazam/Interview_Question_for_Beginner)
   - [IT 개발자와 일할때 필요한 모든 개발지식 A to Z 자료모음집 - 그랩](https://www.grabbing.me/IT-A-to-Z-By-1e1fbc981b7c4c03ac44943085ac8304)
+  - [운영체제 필수적인 개념을 잘정리한 블로그-devowen tistory 블로그](https://devowen.com/category/Computer%20Sci./Operating%20System)
 
   - [AWS- 생활코딩과 함께하는 AWS 탐구생활 777](https://pages.awscloud.com/cloud-in-life-coding-everybody-2020.html)
 
@@ -62,9 +65,9 @@
 > ### 5. 자격증 & 공인영어성적
 
 - 리눅스마스터2급 (획득)
-- 정보처리기사
-- AWS Certificate (물자격증 아님 개좋음.)
-- OPic IM~IH 획득
+- 정보처리기사 (미획득)
+- AWS Certificate (물자격증 아님 개좋음./ 미획득)
+- OPic IM~IH 획득(미획득)
 
 
 > ### 6. 한번 도전해보고 싶은 부분.
