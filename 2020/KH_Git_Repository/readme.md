@@ -25,7 +25,7 @@
 - [16.Thread](./homework/hw01/16_Thread)
 
 <HR>
-  
+
 # 데이터베이스 과제
 
 > ## RDBMS-SQL 데이터베이스 공부 방향성
@@ -38,7 +38,7 @@
 > ## 춘대학교 시리즈
 
 - [1. SQL문제- 춘대학교 01 -완성](./homework/hw02/0708_choon)
-- [2. SQL문제- 춘대학교 02 -미완](./homework/hw02/0708_choon02)
+- [2. SQL문제- 춘대학교 02 -완성](./homework/hw02/0708_choon02)
 - [3. SQL문제- 춘대학교 03 -미완](./homework/hw02/0709_choon03)
 
 <br>
