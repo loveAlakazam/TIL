@@ -1,0 +1,47 @@
+-- 문제19. 춘 기술대학교의 "환경조경학과"가 속한 같은 계열 학과들의
+-- 학과별 전공과목 평점을 파악하기 위한 적절한 SQL문을 찾아내시오
+
+--1) 환경조경학과 가 속한 계열을 구해본다 => 자연과학
+SELECT CATEGORY
+FROM TB_DEPARTMENT
+WHERE DEPARTMENT_NAME ='환경조경학과';
+
+--2) 자연과학 계열인 학과를 구한다.
+SELECT DEPARTMENT_NAME
+FROM TB_DEPARTMENT
+WHERE CATEGORY='자연과학';
+
+--3) 자연과학 계열 학과의 전공과목이 무엇인지 찾는다.
+SELECT DEPARTMENT_NAME, CLASS_NAME
+FROM TB_DEPARTMENT
+        JOIN TB_CLASS USING(DEPARTMENT_NO) -- TB_CLASS 과목테이블 INNER JOIN
+WHERE CATEGORY=(SELECT CATEGORY
+                FROM TB_DEPARTMENT
+                WHERE DEPARTMENT_NAME='환경조경학과')
+        AND CLASS_TYPE LIKE '전공%'; --'전공'말이 들어있는지확인
+
+--ANSWER
+--4) 학과별 전공과목 평점을 파악
+--평점은 소수점 아래 첫번째 자리에서 반올림
+SELECT DEPARTMENT_NAME "계열 학과명", ROUND(AVG(POINT),1) 전공평점
+FROM TB_DEPARTMENT
+        JOIN TB_CLASS USING(DEPARTMENT_NO) -- TB_CLASS 과목테이블 INNER JOIN
+        JOIN TB_GRADE USING(CLASS_NO) --TB_GRADE 성적테이블 INNSER JOIN
+WHERE CATEGORY=(SELECT CATEGORY
+                FROM TB_DEPARTMENT
+                WHERE DEPARTMENT_NAME='환경조경학과')
+        AND CLASS_TYPE LIKE '전공%' --'전공'말이 들어있는지확인
+GROUP BY DEPARTMENT_NAME -- 계열학과를 기준으로 전공평점을 구한다.
+ORDER BY 1;
+
+
+-- 정답
+SELECT DEPARTMENT_NAME "계열학과명", ROUND(AVG(POINT),1)
+FROM TB_DEPARTMENT
+  JOIN TB_STUDENT USING(DEPARTMENT_NO)
+  JOIN TB_GRADE USING(STUDENT_NO)
+WHERE CATEGORY=(SELECT CATEGORY
+                FROM TB_DEPARTMENT
+                WHERE DEPARTMENT_NAME='환경조경학과')
+GROUP BY DEPARTMENT_NAME
+ORDER BY 1;
