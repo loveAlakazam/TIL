@@ -1,0 +1,148 @@
+# SEQUENCE
+
+- VIEW와 SEQUENCE가 실제 현업에서 많이 쓰임
+
+- SEQUENCE
+  - 순차적으로 정수 값으로 생성하는 객체
+  - <B>`자동번호 발생기`</B> 역할
+
+
+```SQL
+CREATE SEQUENCE 시퀀스명
+  (1) START WITH 숫자   => 처음 시작 값 (생략시, 1부터 시작)
+  (2) INCREMENT BY 숫자 => 몇 개씩 증가시킬 건지 (생략시, 1씩 증가)
+  (3) MAXVALUE 숫자 | NOMAXVELUE => 발생시킬 최댓값 (10**27 -1 까지 가능)
+  (4) MINVALUE 숫자 | NOMINVALUE => 발생시킬 최솟값
+  (5) CYCLE | NOCYCLE
+    => CYCLE : START WITH 설정으로 돌아감
+    => NOCYCLE:  에러 발생
+
+  (6) CACHE | NOCACHE
+    => CACHE: 메모리상에서 시퀀스 값 관리 (기본값 20)
+```
+
+<BR>
+
+> ## SEQUENCE 예제
+
+```SQL
+-- SEQUENCE: 자동번호 발생기
+
+CREATE SEQUENCE SEQ_EMPID
+START WITH 300
+INCREMENT BY 5
+MAXVALUE 310
+NOCYCLE
+NOCACHE;
+-- [RESULT] Sequence SEQ_EMPID이(가) 생성되었습니다.
+
+-- 사용자가 만든 모든 SEQUENCE들을 조회할 수 있다.
+SELECT *
+FROM USER_SEQUENCES;
+
+-- 현재테이블에
+-- CURRVAL : 현재 값
+-- [CURRVAL]
+-- 마지막으로 호출된 SEQUENCE의 NEXTVAL의 값을 저장하여 보여준다.
+-- NEXTVAL을 사용하지 않았기때문에, 초기 SEQUENCE를 조회할수 없다.
+SELECT SEQ_EMPID.CURRVAL FROM DUAL;
+
+SELECT SEQ_EMPID.NEXTVAL FROM DUAL; -- 300
+
+SELECT *
+FROM USER_SEQUENCES; -- LAST_NUMBER: 305
+
+SELECT SEQ_EMPID.CURRVAL FROM DUAL; -- 300
+
+SELECT SEQ_EMPID.NEXTVAL FROM DUAL; --305
+SELECT SEQ_EMPID.CURRVAL FROM DUAL; --305
+
+SELECT SEQ_EMPID.NEXTVAL FROM DUAL; --310
+SELECT SEQ_EMPID.CURRVAL FROM DUAL; --310
+
+SELECT SEQ_EMPID.NEXTVAL FROM DUAL; --ERROR 발생(MAXVALUE 초과)
+--ORA-08004: sequence SEQ_EMPID.NEXTVAL exceeds MAXVALUE
+-- and cannot be instantiated
+
+SELECT * FROM USER_SEQUENCES;
+SELECT SEQ_EMPID.CURRVAL FROM DUAL;
+
+-- SEQUENCE의 쓰임 => 게시글 ID부여
+-- 카페작성글
+-- 게시글 번호=> PRIMARY KEY => 게시글을 구분
+-- 알아서 게시글 번호를 생성되도록 함. => SEQUENCE 사용.
+```
+
+
+<BR>
+
+> # CURVAL / NEXTVAL
+
+- 사용 가능
+  - 서브쿼리가 아닌 SELECT문
+  - INSERT문의 SELECT문
+  - INSERT문의 VALUES절
+  - UPDATE문의 SET절
+
+- 사용 불가능
+  - VIEW의 SELECT절
+  - DISTINCT가 있는 SELECT문
+  - GROUP BY, HAVING, ORDER BY 절의 SELECT문
+  - SELECT, DELETE, UPDATE문의 서브쿼리
+  - CREATE TABLE, ALTER TABLE 명령의 DEFAULT값
+
+
+```SQL
+-- CURRVAL / NEXTVAL
+-- 1. 사용가능
+-- 서부쿼리가 아닌 SELECT문
+-- INSERT문의 SELECT문
+-- INSERT문의 VALUES절
+-- UPDATE문의 SET절
+
+-- 2. 사용불가능
+-- VIEW의 SELECT절
+-- DISTINCT가 있는 SELECT문
+-- GROUP BY, HAVING, ORDER BY 절의 SELECT문
+-- SELECT, DELETE, UPDATE문의 서브쿼리
+-- CREATE TABLE, ALTER TABLE 명령의 DEFAULT값
+
+CREATE SEQUENCE SEQ_EID
+START WITH 300
+INCREMENT BY 1
+MAXVALUE 10000
+NOCYCLE
+NOCACHE;
+
+COMMIT;
+
+INSERT INTO EMPLOYEE
+VALUES(SEQ_EID.NEXTVAL, '홍길동', '620714-1222222',
+        'homg_gd@gmail.com', '01011113333',
+        'D2', 'J7', 'S1', 500000, 0.1, 200, SYSDATE, NULL, DEFAULT);
+
+SELECT * FROM EMPLOYEE;
+-- EMPLOYEE테이블에 홍길동 사원정보추가됨.
+
+-- 불가능
+CREATE TABLE TMP_EMPLOYEE(
+    E_ID NUMBER DEFAULT SEQ_EID.CURRVAL,
+    E_NAME VARCHAR2(20)
+);
+-- "column not allowed here"
+
+ROLLBACK;
+
+
+-- SEQUENCE와 TABLE모두 객체이다.
+-- ALTER을 사용하여 SEQUENCE변경
+ALTER SEQUENCE SEQ_EMPID
+INCREMENT BY 10
+MAXVALUE 400
+NOCYCLE
+NOCACHE;
+
+SELECT * FROM USER_SEQUENCES;
+SELECT SEQ_EMPID.NEXTVAL FROM DUAL; -- 320
+
+```
