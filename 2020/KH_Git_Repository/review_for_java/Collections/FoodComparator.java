@@ -15,11 +15,16 @@ public class FoodComparator implements Comparator<Food>{
 		int result=name1.compareTo(name2);
 		if(result==0) {
 			//name1, name2가 서로 같으면
-			
+			double cal1=food1.getCalories();
+			double cal2=food2.getCalories();
+			if(cal1>cal2)
+				return 1;
+			else if(cal1==cal2)
+				return 0;
+			else
+				return -1;
 		}
 		
-		return result;
-		
+		return result;	
 	}
-
 }
