@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 
 import list.samples.Food;
+import list.samples.FoodComparator;
 import list.samples.Music;
 
 public class LinkedList1 {
@@ -101,10 +102,13 @@ public class LinkedList1 {
 		//2) 정렬기준이 여러개인 경우 
 		list2.add(new Food("된장찌개"));
 		list2.add(new Food("김치찌개",980));
+		list2.add(new Food("된장찌개",990));
 		
 		// FoodComparator 을 가져와서 정렬
-//		System.out.println("after sorting list2 by Comparator\n=> "+list2);
-		
+		list2.sort(new FoodComparator());
+		System.out.println("after sorting list2 by Comparator\n=> "+list2);
+		// => [김치찌개, 돈까스, 된장찌개, 된장찌개, 부대찌개, 비빔냉면, 샌드위치, 에그스크램블, 키위]
+
 	}
 	
 	
@@ -201,8 +205,6 @@ public class LinkedList1 {
 		
 		// 정렬하기
 		// Music 정렬기준 => 여러개 => Comparator 이용
-
-		
 	}
 	
 }
