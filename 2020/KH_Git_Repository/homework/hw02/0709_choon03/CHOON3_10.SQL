@@ -1,0 +1,19 @@
+-- 문제10. 음악학과 학생들의 평점을 구하려고 한다.
+-- 음악학과 학생들의 학번/ 학생이름/ 전체 평점을 출력하는 SQL문장을 작성
+-- 단, 평점은 소수점 1자리까지만 반올림하여 표시한다.
+
+--1) 음악학과 학생들의 정보 조회하기
+SELECT *
+FROM TB_STUDENT
+        JOIN TB_DEPARTMENT USING (DEPARTMENT_NO)
+        JOIN TB_GRADE USING(STUDENT_NO)
+WHERE  DEPARTMENT_NAME ='음악학과';
+
+-- 2) 음악학과 학생들의 학점의 평균을 구한다.
+SELECT STUDENT_NO, STUDENT_NAME, ROUND(AVG(POINT),1)
+FROM TB_STUDENT
+        JOIN TB_DEPARTMENT USING (DEPARTMENT_NO)
+        JOIN TB_GRADE USING(STUDENT_NO)
+WHERE DEPARTMENT_NAME='음악학과'
+GROUP BY STUDENT_NO, STUDENT_NAME
+ORDER BY STUDENT_NO;
