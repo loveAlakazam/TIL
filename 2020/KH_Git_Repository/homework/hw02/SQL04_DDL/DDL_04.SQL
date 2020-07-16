@@ -1,0 +1,2 @@
+--문제4. TB_CLASS_TYPE 테이블의 NAME컬럼에 NULL값이 들어가지 않도록 속성을 변경하시오.
+ALTER TABLE TB_CLASS_TYPE MODIFY  NAME NOT NULL;
