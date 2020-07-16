@@ -1,0 +1,253 @@
+> # PROCEDURE
+
+- PL/SQL문을 저장하는 객체
+- 필요할 때마다 다시 입력할 필요없이 간단히 호출
+- 계속 불러와서 갖다쓰는 것.
+- PL/SQL 한단계 업그레이드
+  - 변수에 담아서 실행을 시킴.
+
+- 리턴값이 없는 void 함수와 같다.
+
+
+> ## PROCEDURE 시작
+
+```SQL
+--PROCEDURE: PL/SQL을 저장하는 객체
+CREATE TABLE EMP_DUP
+AS
+SELECT * FROM EMPLOYEE;
+
+SELECT* FROM EMP_DUP;
+
+
+
+--PLSQL을 담고있는 PROCEDURE만들기
+CREATE OR REPLACE PROCEDURE DEL_ALL_EMP
+IS
+-- PLSQL 만들기
+BEGIN
+    DELETE FROM EMP_DUP;
+    COMMIT;
+END;
+/
+-- Procedure DEL_ALL_EMP이(가) 컴파일되었습니다.
+
+EXECUTE DEL_ALL_EMP;
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+EXEC DEL_ALL_EMP;
+--EXECUTE DEL_ALL_EMP; 의 다른표현.
+
+SELECT * FROM EMP_DUP;
+-- 데이터가 지워져있음.
+
+COMMIT;
+```
+
+<BR>
+
+> ## 매개변수가 있는 PROCEDURE
+
+```SQL
+-- 매개변수가 있는 PROCEDURE
+-- 매개변수: (컬럼이름 컬럼타입)
+CREATE OR REPLACE PROCEDURE DEL_EMP_ID(V_EMP_ID EMPLOYEE.EMP_ID%TYPE)
+-- EMPLOYEE테이블의 EMP_ID의 컬럼타입으로한다.
+IS
+BEGIN
+    DELETE FROM EMPLOYEE
+        WHERE EMP_ID=V_EMP_ID;
+END;
+/
+--Procedure DEL_EMP_ID이(가) 컴파일되었습니다.
+
+
+-- 사용자입력: '&사번'
+EXEC DEL_EMP_ID('&사번');
+
+--200입력 => V_EMP_ID=200
+-- EMP_ID=V_EMP_ID이면 지워라.
+SELECT * FROM EMPLOYEE; --EMP_ID가 200인 사원(선동일) 삭제.
+
+ROLLBACK; --복원
+```
+
+<BR>
+
+<HR>
+
+> ## IN/OUT 매개변수가 있는 PROCEDURE
+
+- 바인드 변수
+  - SQL을 실행할 때, 사용값을 전달하는 통로역할.
+
+<BR>
+
+```SQL
+--전체코드
+CREATE OR REPLACE PROCEDURE SELECT_EMP_ID(
+    -- EMP_ID만 IN매개변수
+    -- 나머지는 OUT매개변수
+    V_EMP_ID IN EMPLOYEE.EMP_ID%TYPE,
+    V_EMP_NAME OUT EMPLOYEE.EMP_NAME%TYPE,
+    V_SALARY OUT EMPLOYEE.SALARY%TYPE,
+    V_BONUS OUT EMPLOYEE.BONUS%TYPE
+)
+IS
+BEGIN
+    SELECT EMP_NAME, SALARY, NVL(BONUS,0)
+    INTO V_EMP_NAME, V_SALARY, V_BONUS
+    FROM EMPLOYEE
+    WHERE EMP_ID = V_EMP_ID;
+END;
+/
+
+VARIABLE VAR_EMP_NAME VARCHAR2(30);
+VAR VAR_SALARY NUMBER;
+VAR VAR_BONUS NUMBER;
+
+PRINT VAR_EMP_NAME;
+PRINT VAR_SALARY;
+PRINT VAR_BONUS;
+
+--자동프린트
+SET AUTOPRINT ON;
+
+
+EXEC SELECT_EMP_ID('&사번', :VAR_EMP_NAME, :VAR_SALARY, :VAR_BONUS);
+-- 215입력
+--VAR_EMP_NAME
+-----
+--대북혼
+--VAR_SALARY
+---------
+--3760000
+--VAR_BONUS
+---
+--0
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+```
+
+<BR>
+
+```SQL
+-- IN/OUT 매개변수 있는 PROCEDURE
+-- IN 매개변수 : PROCEDURE 안에서 사용될 변수
+-- OUT 매개변수: PROCEDURE 밖(호출부)에서 사용될 변수
+
+CREATE OR REPLACE PROCEDURE SELECT_EMP_ID(
+    -- EMP_ID만 IN매개변수
+    -- 나머지는 OUT매개변수
+    V_EMP_ID IN EMPLOYEE.EMP_ID%TYPE,
+    V_EMP_NAME OUT EMPLOYEE.EMP_NAME%TYPE,
+    V_SALARY OUT EMPLOYEE.SALARY%TYPE,
+    V_BONUS OUT EMPLOYEE.BONUS%TYPE
+)
+IS
+BEGIN
+    SELECT EMP_NAME, SALARY, NVL(BONUS,0)
+    INTO V_EMP_NAME, V_SALARY, V_BONUS
+    FROM EMPLOYEE
+    WHERE EMP_ID = V_EMP_ID; --IN매개변수가 사용됨.
+    -- EMP_ID가 V_EMP_ID 인 사원들의 정보를 가지고온다.
+END;
+/
+--Procedure SELECT_EMP_ID이(가) 컴파일되었습니다.
+
+
+-- 바인드 변수
+-- BIND: 연결하다 묶다.
+-- SQL을 실행할 때 사용값을 전달하거나 전달 받을 수 있도록 통로역할을 하는 변수
+VARIABLE VAR_EMP_NAME VARCHAR2(30);
+VAR VAR_SALARY NUMBER;
+VAR VAR_BONUS NUMBER;
+
+PRINT VAR_EMP_NAME;
+-- VAR_EMP_NAME
+------------
+
+PRINT VAR_SALARY; -- VAR_SALARY
+--VAR_SALARY
+------------
+
+PRINT VAR_BONUS;
+--VAR_BONUS
+------------
+
+
+EXEC SELECT_EMP_ID('&사번', :VAR_EMP_NAME, :VAR_SALARY, :VAR_BONUS);
+-- 200입력
+--PL/SQL 프로시저가 성공적으로 완료되었습니다.
+
+
+PRINT VAR_EMP_NAME;
+--VAR_EMP_NAME
+---------------
+--선동일
+
+PRINT VAR_SALARY;
+--VAR_SALARY
+----------
+--   8000000
+
+PRINT VAR_BONUS;
+-- VAR_BONUS
+------------
+--       0.3
+
+```
+
+
+<BR>
+
+<HR>
+
+> # FUNCTION
+
+- <B>PROCEDURE</B> : 리턴값이 없음
+- <B>FUNCTION</B>  : 리턴값이 있다.
+
+```SQL
+-- FUNCTION
+CREATE OR REPLACE FUNCTION BONUS_CALC(V_EMP_ID EMPLOYEE.EMP_ID%TYPE)
+RETURN NUMBER  
+--리턴타입을 정한다.
+IS
+    V_SAL EMPLOYEE.SALARY%TYPE;
+    V_BONUS EMPLOYEE.BONUS%TYPE;
+    CALC_SAL NUMBER;
+BEGIN
+    SELECT SALARY, NVL(BONUS,0)
+    INTO V_SAL, V_BONUS
+    FROM EMPLOYEE
+    WHERE EMP_ID= V_EMP_ID;
+
+    CALC_SAL := (V_SAL + (V_SAL* V_BONUS))*12;
+
+    RETURN CALC_SAL;
+END;
+/
+
+VARIABLE VAR_CALC NUMBER;
+
+EXEC :VAR_CALC := BONUS_CALC('&사번');
+-- 215 입력.
+--VAR_CALC
+----------
+--45120000
+
+
+
+
+SELECT EMP_ID, EMP_NAME, BONUS_CALC(EMP_ID)
+FROM EMPLOYEE
+WHERE BONUS_CALC(EMP_ID)>100000000;
+-- 선동일 사원
+-- SELECT할때는 이제 EXEC를 안해도됨.
+```
+
+<BR>
+
+```SQL
+
+```
