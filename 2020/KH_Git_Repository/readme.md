@@ -39,7 +39,7 @@
 
 - [1. SQL문제- 춘대학교 01 -완성](./homework/hw02/0708_choon)
 - [2. SQL문제- 춘대학교 02 -완성](./homework/hw02/0708_choon02)
-- [3. SQL문제- 춘대학교 03 -미완](./homework/hw02/0709_choon03)
+- [3. SQL문제- 춘대학교 03 -완성](./homework/hw02/0709_choon03)
 
 <br>
 
@@ -48,7 +48,7 @@
 - [1. KH-SCOTT -완성](./homework/hw02/0708_scott)
 - [2. KH-SELECT -미완](./homework/hw02/0708_kh_select)
 - [3. KH-JOIN & SUBQUERY -완성](./homework/hw02/0709_subquery)
-- [4. KH-DDL - 미완](./homework/hw02/SQL04_DDL)
+- [4. KH-DDL - 완성](./homework/hw02/SQL04_DDL)
 - [5. KH-DML - 미완](./homework/hw02/SQL05_DML)
 
 <br>
