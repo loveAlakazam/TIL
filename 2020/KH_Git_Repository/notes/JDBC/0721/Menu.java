@@ -43,6 +43,7 @@ public class Menu {
 				mc.updateMember();
 				break;
 			case 5:
+				mc.deleteMember();
 				break;
 			case 0:
 				System.out.println("프로그램을 종료합니다.");
@@ -153,9 +154,15 @@ public class Menu {
 	}
 
 	public String inputUpdate() {
-		System.out.println("수정 값 입력: ");
+		System.out.print("수정 값 입력: ");
 		String input= sc.nextLine();
 		return input;
+	}
+
+	public char deleteMember() {
+		System.out.print("정말로 삭제하시겠습니까?(y/n)");
+		char isDeleted= sc.nextLine().toLowerCase().charAt(0);
+		return isDeleted;
 	}
 
 }
