@@ -294,7 +294,47 @@ public class MemberDAO {
 		// 완성시키기 오늘숙제!
 		PreparedStatement pstmt=null;
 		int result=0;
+		
+		//쿼리문을 프로퍼티 파일로부터 가져온다.
 		String query= prop.getProperty("updateMember" + sel);
-		return ;
+		
+		//PreparedStatement
+		try {
+			//쿼리문을 완성시켜 수행시킨다.
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, input); //변경값
+			pstmt.setString(2, memberId); //변경할 멤버 id
+			
+			//수정쿼리문 수행 executeUpdate()
+			result= pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteMember(Connection conn, String memberId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		
+		String query=prop.getProperty("deleteMember");
+		try {
+			
+			//쿼리문을 완성후 실행한다.
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, memberId);
+			
+			result=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 }
