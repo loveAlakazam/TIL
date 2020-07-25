@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>납품확인서</title>
+</head>
+
+<body>
+    <h1>접속 성공 결과화면</h1>
+    <fieldset>
+        
+        <fieldset>
+            <legend>납품자 정보</legend>
+            <label for="">이름: </label>
+            <span>{{results['name']}}</span>
+            <hr>
+
+            <label for="">이메일: </label>
+            <span>{{results['email']}}</span>
+            <hr>
+
+            <label for="">홈페이지: </label>
+            <span><a href="{{results['url']}}">{{results['url']}}</a></span>
+        </fieldset>
+
+        <fieldset>
+            <legend>납품 정보</legend>
+            <label for="">상품명: </label>
+            <span>{{results['product_name']}}</span>
+            <hr>
+
+            <label for="">납품 수량: </label>
+            <span>{{results['product_cnt']}}</span>
+            <hr>
+
+            <label for="">납품등급: </label>
+            <span>{{results['product_rank']}}</span>
+            <hr>
+
+            <label for="">기타사항</label>
+            <blockquote>{{results['product_etc']}}</blockquote>
+        </fieldset>
+        
+    </fieldset>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>product-form</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script>
+        function submitBtn() {
+            let name = $('#name').val();
+            let email =$('#email').val();
+            let url=$('#url').val();
+
+            let product_name=$('#product-name').val();
+            let product_cnt=$('#product-cnt').val();
+            let product_rank=$('#product-rank').val();
+            let product_etc=$('#product-etc').val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/access',
+                data: {
+                    name: name,
+                    email:email,
+                    url:url,
+                    product_name: product_name,
+                    product_cnt: product_cnt,
+                    product_rank: product_rank,
+                    product_etc: product_etc
+                },
+                success: function (response) {
+                    
+                }
+            });
+        }
+
+
+    </script>
+</head>
+
+<body>
+    <form action="http://localhost:5001/access" method="post">
+        <fieldset>
+            <legend>납품자 정보</legend>
+
+            <ol>
+                <li>
+                    <label>&nbsp;&nbsp;납품자명: </label>
+                    <input type="text" placeholder="name" 
+                        id="name" name="name">
+                </li>
+
+                <li>
+                    <label for="">&nbsp;&nbsp;email: </label>
+                    <input type="email" placeholder="answs@naver.com" id="email" name="email">
+                </li>
+
+                <li>
+                    <label for="">&nbsp;&nbsp;홈페이지</label>
+                    <input type="url" placeholder="http://" id="url" name="url">
+                </li>
+            </ol>
+        </fieldset>
+
+        <fieldset>
+            <legend>납품 정보</legend>
+
+            <ul>
+                <li>&nbsp;&nbsp;상품명:
+                    <input type="text" name="product_name" 
+                    id="product-name">
+                </li>
+                <li>&nbsp;&nbsp;납품수량:
+                    <input type="number" min=100 max=500 step=10 placeholder="최소100" name="product_cnt"
+                        id="product-cnt">
+                </li>
+                <li>&nbsp;&nbsp;납품등급:
+                    <input type="range" min=1 max=5 step=1 name="product_rank"
+                    id="product-rank">
+                </li>
+                <li>&nbsp;&nbsp;기타사항<br>
+                    <textarea name="product_etc" cols="30" rows="10" 
+                    id="product-etc"></textarea>
+                </li>
+            </ul>
+
+        </fieldset>
+
+        <!--submit버튼을 누르면 form의 액션속성에 기재된 곳(플라스크 웹서버)에 요청-->
+        <input type="submit" value="send message">
+    </form>
+</body>
+
+</html>
