@@ -61,4 +61,29 @@
 
 <HR>
 
-# JDBC 과제
+# JDBC 실습
+- [1. JDBC과제1](./notes/JDBC/0720)
+- [2. JDBC과제2](./notes/JDBC/0721)
+- [3. JDBC과제3](./notes/JDBC/0722)
+
+<hr>
+
+<br>
+
+# Web Frontend
+
+> ## HTML
+
+- [html 기초 & 테이블 작성 숙제](./homework/hw03/01_html5/0723/homework01.html)
+
+- [ 미디어 태그 숙제](./homework/hw03/01_html5/0724/homework02.html)
+- [ 폼태그 숙제](./homework/hw03/01_html5/0724/templates/product.html)
+  - [(자습)flask 웹 서버연결](./homework/hw03/01_html5/0724/server.py)
+
+> ## CSS
+
+> ## JavaScript & JQuery
+
+> ## Ajax
+
+<hr>
