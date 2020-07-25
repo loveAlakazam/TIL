@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7/24 숙제</title>
+    <style>
+        td.info, td.imgs, td.columns{
+            text-align:center;
+        }
+
+        td.columns{
+            font-weight:100;
+        }
+
+        td.interest{
+            padding-right:20px;
+        }
+
+        img.imgs{
+            width:200px;
+            height:300px;
+        }
+
+        video{
+            width:500px;
+            height:500px;
+        }
+    </style>
+</head>
+<body>
+    <table border=1>
+        <caption>
+            <h2>하늘에 있는 슈슈야 너가 너무 그립고 보고싶다.</h2>
+        </caption>
+        <tr>
+            <td rowspan=2 colspan=2>
+                <img src="./imgs/대표사진.jpeg" alt="대표사진"
+                    width=300 height=300>
+            </td>
+            <td class="columns">이름</td>
+            <td class="columns">생년월일</td>
+            <td class="columns">성별</td>
+            <td class="columns">견종</td>
+            <td class="columns">특기</td>
+        </tr>
+
+        <tr>
+            <td class="info"><b>슈슈</b></td>
+            <td class="info">2005년 12월 31일</td>
+            <td class="info">여자</td>
+            <td class="info">슈나우저</td>
+            <td class="interest">
+                <ul>
+                   <li>사람음식 식탐왕</li>
+                   <li>호기심 왕</li>
+                   <li>귀엽다</li>
+                   <li>외부인에게 사납지만 우리가족을 좋아함</li>
+                   <li>산책을 너무 좋아함</li>
+                   <li>푹신한 침대와 이불 방석을 좋아함</li>
+                   <li>털이 많을 때 곰돌이같음</li>
+                </ul>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan=2 class="imgs">
+                <img src="./imgs/사진1.jpg" class="imgs" alt="사진1">
+            </td>
+            <td colspan=2 class="imgs" width=300 height=300>
+                <img src="./imgs/사진2.jpg" class="imgs" alt="사진2">
+            </td>
+
+            <td colspan=2 class="imgs" width=300 height=300>
+                <img src="./imgs/사진3.jpg" class="imgs" alt="사진3">
+
+            </td>
+            <td colspan=2 class="imgs" width=300 height=300>
+                <img src="./imgs/사진4.jpg" class="imgs" alt="사진4">
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan=2 class="info">식탁옆에서 쉬고있는 슈슈</td>
+            <td colspan=2 class="info">푹신한 이불위의 슈슈</td>
+            <td colspan=2 class="info">식탐이 정말 많은 슈슈</td>
+            <td colspan=2 class="info">쇼파밑에 뭔가를 발견한 슈슈</td>
+        </tr>
+
+        <tr>
+            <td colspan=7 class="columns">동영상</td>
+        </tr>
+
+        <tr>
+            <td colspan=7 class="imgs">
+                <video src="./imgs/동영상.mp4" controls></video>
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan=7 class="info">정말 사나운 녀석... 저때 손을 흔들었을뿐인데 ㅠㅠ</td>
+        </tr>
+      
+    </table>
+</body>
+</html>
