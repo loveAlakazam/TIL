@@ -77,7 +77,7 @@
 - [html 기초 & 테이블 작성 숙제](./homework/hw03/01_html5/0723/homework01.html)
 
 - [ 미디어 태그 숙제](./homework/hw03/01_html5/0724/homework02.html)
-- [ 폼태그 숙제](./homework/hw03/01_html5/0724/templates/product.html)
+- [ 폼태그 숙제](./homework/hw03/01_html5/0724/templates/productform.html)
   - [(자습)flask 웹 서버연결](./homework/hw03/01_html5/0724/server.py)
 
 > ## CSS
