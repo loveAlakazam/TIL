@@ -85,14 +85,17 @@ def solution5_6():
 
 
 def add_start_to_end(start, end):
-    return [i for i in range(start, end+1)]
+    return sum(i for i in range(start, end+1))
+#     return [i for i in range(start, end+1)]
 
 def solution5_7():
     start=int(input('시작 숫자(정수): '))
     end=int(input('끝 숫자(정수): '))
-    for e in add_start_to_end(start, end):
-        print(e, end=' ')
-    print()
+    result=add_stat_to_end(start,end)
+    print('합: %d' %result)
+#     for e in add_start_to_end(start, end):
+#         print(e, end=' ')
+    
 
 
 
