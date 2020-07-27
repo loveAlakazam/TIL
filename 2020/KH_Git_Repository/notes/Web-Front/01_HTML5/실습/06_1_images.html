@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이미지 관련 실습</title>
+</head>
+<body>
+	<h1>이미지 관련태그</h1>
+	<p>src 속성에 경로를 설정하여 이미지 파일을 불러온다.</p>
+	<img src="./sample/image/river1.PNG">
+	img태그는 인라인 요소
+	
+	<hr>
+	
+	<h2>자주 사용하는 속성들</h2>
+	<h3>alt 속성</h3>
+	<p>
+		화면 낭독기는 이미지를 읽을 수 없기 때문에
+		대체되는 텍스트가 필요하며 다르게는 사진의 경로가
+		잘못되거나 이미지를 제대로 표현할 수 없을 경우에
+		대체 텍스트의 용도로 사용가능하다.
+	</p>
+	<img src="./sample/image/river3.PNG" alt="river3 존재하지 않은 파일입니다.">
+
+
+	<br>
+	
+	<h3>width와 height속성</h3>
+	<p>
+		사진의 높이와 너비 지정 가능
+		고정 단위나 가변단위로 지정 가능
+	</p>
+	
+	<h4>고정 크기 단위(default: pixel)</h4>
+	<p>고정크기단위: 화면사이즈가 바뀌어도 크기가 변하지 않는다.</p>
+	<img src="sample/image/flower1.PNG" width="200" height=150>
+	<img src="sample/image/flower2.PNG" width="200" height=150>
+	<img src="sample/image/flower3.PNG" width="200" height=150>
+	<img src="sample/image/flower4.PNG" width="200" height=150>
+	<img src="sample/image/flower5.PNG" width="200" height=150>
+	
+	<br>
+	
+	<h4>가변 크기 단위(use %)</h4>
+	<p>가변크기단위: 화면사이즈가 바뀌어도 크기가 변한다.</p>
+	<img src="sample/image/flower1.PNG" width="15%" height=150>
+	<img src="sample/image/flower2.PNG" width="15%" height=150>
+	<img src="sample/image/flower3.PNG" width="15%" height=150>
+	<img src="sample/image/flower4.PNG" width="15%" height=150>
+	<img src="sample/image/flower5.PNG" width="15%" height=150>
+	
+	<hr>
+	
+	<h4>이미지 구역을 2개로 나누어 각각 링크 설정</h4>
+	<img src="./sample/image/river1.PNG" usemap="#LinkMap"/>
+	<map name="LinkMap">
+		<!--
+		shape: 모양
+		coord: 위치
+		 -->
+		<area shape="rect" coords="0, 0, 300, 500" href="http://www.naver.com" taget="_self">
+		<!-- taget: _self: 현재 자기자신페이지에서 링크페이지를 연다. -->
+		
+		<area shape="rect" coords="300, 0, 600, 500" href="http://www.google.com" target="_blank">
+		<!-- taget: _blank : 새탭에서 링크페이지를 연다(새로운 창에서 열기) -->
+		
+	</map>
+	
+</body>
+</html>

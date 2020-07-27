@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>목록 관련 태그</title>
+</head>
+
+<body>
+	<h2>순서없는 목록태그(&lt;ul&gt;)</h2>
+	<ul>
+		<li>HTML5
+			<ul>
+				<li>글자관련</li>
+				<li>목록관련</li>
+			</ul>
+		</li>
+			
+		<li>CSS</li>
+		<li>JavaScript</li>
+		<li>JQuery</li>
+	</ul>
+	
+	<blockquote>
+	순서가 없는 목록의 불릿 기호는 css를 통해 변경할 수 있으며
+	들여쓰면 불릿 기호는 알아서 변함.
+	</blockquote>
+	
+	<hr>
+	
+	<h2>순서있는 목록태그(&lt;ol&gt;)</h2>
+	<h3>화면구현 수업 내용</h3>
+	<ol>
+		<li>HTML5
+			<ol>
+				<li>글자 관련</li>
+				<li>목록 관련</li>
+			</ol>
+		</li>
+		<li>CSS3</li>
+		<li>JavaScript</li>
+		<li>JQuery</li>
+	</ol>
+	
+	<blockquote>
+	순서가 있는 목록 태그의 숫자는 	속성을 이용하여 변경할 수 없으며 <br>
+	기본값은 숫자로 되어있고 1부터 시작한다.
+	</blockquote>
+	
+	<br>
+	<h3>속성 변경 연습</h3>
+	<h4>영문 소문자로 표기하기</h4>
+	<ol type="a">
+		<li>HTML5
+			<ol>
+				<li>글자 관련</li>
+				<li>목록 관련</li>
+			</ol>
+		</li>
+		<li>CSS3</li>
+		<li>JavaScript</li>
+		<li>JQuery</li>
+	</ol>
+	
+	<br>
+	<h4>영문 대문자로 표기하기</h4>
+	<ol type='A'>
+		<li>HTML5
+			<ol>
+				<li>글자 관련</li>
+				<li>목록 관련</li>
+			</ol>
+		</li>
+		<li>CSS3</li>
+		<li>JavaScript</li>
+		<li>JQuery</li>
+	</ol>
+	
+	<br>
+	<h4>로마 숫자 소문자로 표기하기</h4>
+	<ol type="i"> <!--default: 1-->
+		<li>HTML5
+			<ol>
+				<li>글자 관련</li>
+				<li>목록 관련</li>
+			</ol>
+		</li>
+		<li>CSS3</li>
+		<li>JavaScript</li>
+		<li>JQuery</li>
+		<li>web-framework
+			<ol>
+				<li>Flask</li>
+				<li>Django</li>
+			</ol>
+		</li>
+		<li>python</li>
+		<li>type-script</li>
+		<li>ruby</li>
+		<li>react native</li>	
+	</ol>
+	
+	
+	<br>
+	<h4>시작값 변경하기</h4>
+	<!-- 띄어쓰기가 포함된 속성을 넣으면 구분자로 인식하게됨. -->
+	<!-- 띄어쓰기를 구분하도록 "", ''을 넣음. -->
+	<ol type='i' start='3'>
+		<li>HTML5
+			<ol>
+				<li>글자 관련</li>
+				<li>목록 관련</li>
+			</ol>
+		</li>
+		<li>CSS3</li>
+		<li>JavaScript</li>
+		<li>JQuery</li>
+		<li>web-framework
+			<ol>
+				<li>Flask</li>
+				<li>Django</li>
+			</ol>
+		</li>
+		<li>python</li>
+		<li>type-script</li>
+		<li>ruby</li>
+		<li>react native</li>
+			
+	</ol>
+	
+	
+	
+	<br>
+	<h4>역순으로 표시하기</h4>
+	<ol type='i' start='10' reversed="reversed">
+		<li>HTML5
+			<ol>
+				<li>글자 관련</li>
+				<li>목록 관련</li>
+			</ol>
+		</li>
+		<li>CSS3</li>
+		<li>JavaScript</li>
+		<li>JQuery</li>
+		<li>web-framework
+			<ol>
+				<li>Flask</li>
+				<li>Django</li>
+			</ol>
+		</li>
+		<li>python</li>
+		<li>type-script</li>
+		<li>ruby</li>
+		<li>react native</li>	
+	</ol>
+	
+	
+	<br>
+	<h4>로마 숫자 대문자로 표기하기</h4>
+	<ol type="I"> <!--default: 1-->
+		<li>HTML5
+			<ol>
+				<li>글자 관련</li>
+				<li>목록 관련</li>
+			</ol>
+		</li>
+		<li>CSS3</li>
+		<li>JavaScript</li>
+		<li>JQuery</li>
+		<li>web-framework
+			<ol>
+				<li>Flask</li>
+				<li>Django</li>
+			</ol>
+		</li>
+		<li>python</li>
+		<li>type-script</li>
+		<li>ruby</li>
+		<li>react native</li>	
+	</ol>
+	
+	<hr>
+	<h2>설명 목록태그(&lt;dl&gt;)</h2>
+	<dl>
+		<dt>이곳은 목록의 제목을 적는 곳입니다.</dt>
+		<dd>이곳은 목록에 대한 설명을 적는 곳입니다.
+			여러줄 작성이 가능하다.
+			들여쓰기가 적용된다.
+			
+			그러나 자동줄바꿈은 적용안된다.
+		</dd>
+		
+		<br>
+		<dt>이곳은 제목을 적는 곳입니다.</dt>
+		<dd>들여쓰기는 가능하지만</dd>
+		<dd>목록별로 설명에 들어가는 행의 개수를 다르게 적을 수 있다.</dd>
+		<dd>한개의 dt에 여러개의 dd를 넣을 수 있다.</dd>
+	</dl>
+
+</body>
+</html>
