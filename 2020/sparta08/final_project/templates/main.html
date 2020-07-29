@@ -52,7 +52,7 @@
                 <!-- 검색결과 숨기기 / 유튜브방송데이터 업데이트-->
                 <li class="nav-item" role="presentation">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-                        aria-controls="profile" aria-selected="false" onclick="hideResult();updateYoutubes();">유튜브 맛집 탐방 후기 보고 결정할래!</a>
+                        aria-controls="profile" aria-selected="false" onclick="hideResult();">유튜브 맛집 탐방 후기 보고 결정할래!</a>
                 </li>
 
                 <!--(nav 탭) 맛집방송-->
@@ -140,7 +140,7 @@
                                     <option value="사당">사당</option>
                                     <option value="방배동">방배동</option>
                                     <option value="한남동">한남동</option>
-                                    <option value="구로동">구로동</option>
+                                    <option value="수원역">수원역</option>
                                 </select>
                             </div>
 
@@ -162,26 +162,40 @@
 
                         <div class="search_container">
                             <div class="brod_btn_groups">
-                                <button type="button" class="brod_btn btn btn-light flavor-today"
+                                <!-- 
+                                    <button type="button" 
+                                    id="flavor-today"
+                                    class="brod_btn btn btn-light flavor-today"
                                     onclick="flavorToday();">
                                     <img width="200px" height="200px"
                                         src="https://img2.sbs.co.kr/img/sbs_cms/WE/2018/05/09/WE51834038_ori.jpg"
-                                        alt="">
-                                </button>
-
-                                <button type="button" class="brod_btn btn btn-light flavor-master"
+                                        alt="생방송투데이"> 
+                                    </button>
+                                    
+                                    <button type="button" 
+                                    class="brod_btn btn btn-light flavor-master"
+                                    id="flavor-master"
                                     onclick="flavorMaster();">
                                     <img width="200px" height="200px"
                                         src="data:image/png;base64,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"
-                                        alt="">
-                                </button>
+                                        alt="생활의달인">
+                                    </button>
 
-                                <button type="button" class="brod_btn btn btn-light flavor-info"
-                                    onclick="flavorInfos();">
-                                    <img width="200px" height="200px"
-                                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSdNgg1uTPTbZs-QcNxsBsDQPWgmclSc-stPQ&usqp=CAU"
-                                        alt="">
-                                </button>
+                                    <button type="button"
+                                        class="brod_btn btn btn-light flavor-info"
+                                        id="flavor-infos"
+                                        onclick="flavorInfos();">
+                                        <img width="200px" height="200px"
+                                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSdNgg1uTPTbZs-QcNxsBsDQPWgmclSc-stPQ&usqp=CAU"
+                                            alt="생생정보통">
+                                    </button>
+                                -->
+
+                                <div  class="flavor-btns" id="flavor-today" onclick="flavorToday();"></div>
+
+                                <div class="flavor-btns" id="flavor-master" onclick="flavorMaster();"></div>
+
+                                <div class="flavor-btns" id="flavor-infos" onclick="flavorInfos();"></div>
 
                             </div>
                         </div>
