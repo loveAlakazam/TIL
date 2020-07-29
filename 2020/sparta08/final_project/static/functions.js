@@ -89,35 +89,35 @@ function updateNaverBlogs() {
     });
 }
 
-//유튜브 데이터를 업데이트한다.
-function updateYoutubes(){
-    // 메뉴옵션
-    let menu_options= $('#inputGroupSelect_youtube').children();
+// //유튜브 데이터를 업데이트한다.
+// function updateYoutubes(){
+//     // 메뉴옵션
+//     let menu_options= $('#inputGroupSelect_youtube').children();
 
-    console.log(menu_options);
-    let menus=[]; //메뉴 리스트
+//     console.log(menu_options);
+//     let menus=[]; //메뉴 리스트
 
-    // "장소선택"을 제외한 나머지 옵션을 구한다.
-    for(let i=1; i<menu_options.length; i++){
-        let current=menu_options[i].text + ' 맛집';
-        menus.push(current);
-    }
-    // 리스트 검색결과가 0보다 크면
-    if(menus.length>0){
-        console.log(menus);
+//     // "장소선택"을 제외한 나머지 옵션을 구한다.
+//     for(let i=1; i<menu_options.length; i++){
+//         let current=menu_options[i].text + ' 맛집';
+//         menus.push(current);
+//     }
+//     // 리스트 검색결과가 0보다 크면
+//     if(menus.length>0){
+//         console.log(menus);
 
-        $.ajax({
-            type:'POST',
-            url:'/update/youtubes',
-            data:{'menus_give': menus},
-            success: function(response){
-                if(response['result']=='success'){
-                    console.log('유튜브 데이터 업로드 완료!')
-                }
-            }
-        });
-    }
-}
+//         $.ajax({
+//             type:'POST',
+//             url:'/update/youtubes',
+//             data:{'menus_give': menus},
+//             success: function(response){
+//                 if(response['result']=='success'){
+//                     console.log('유튜브 데이터 업로드 완료!')
+//                 }
+//             }
+//         });
+//     }
+// }
 
 
 
@@ -201,10 +201,10 @@ function searchYoutubes() {
     console.log('클라이언트가 선택한 메뉴=> ', selectLocation); //출력
 
     let searchKeyword= selectLocation; //검색키워드 
-    if (selectLocation !='장소선택'){
-        //selectLocation + 맛집  키워드로 검색한다.
-        searchKeyword+= ' 맛집';
-    }
+    //     if (selectLocation !='장소선택'){
+    //         //selectLocation + 맛집  키워드로 검색한다.
+    //         searchKeyword+= ' 맛집';
+    //     }
     console.log('searchKeyword: ',searchKeyword);
 
     //ajax이용
