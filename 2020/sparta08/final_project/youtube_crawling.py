@@ -20,13 +20,18 @@ def collect_youtubes(query):
                 YOUTUBE_API_VERSION,
                 developerKey= DEVELOPER_KEY)
 
-    #검색결과 크롤링
+    # 검색결과 크롤링
+    # q: query(지역이름) + 맛집 : 검색질의어
+    # pageToken: 페이지 토큰
+    # order: 유튜브 게시글 정렬순서 (최신 영상을 우선순위로함)
+    # 영상 코드나 정보를 모두 읽을 수 있음
+    # maxResults: 수집하려는 데이터 개수 150
     search_response=youtube.search().list(
-        q=query,
+        q=query + ' 맛집',
         pageToken='CDIQAA',
         order='date',
         part='snippet',
-        maxResults=50
+        maxResults=150
     ).execute()
 
     #검색대상에 해당하는 데이터를 몽고디비에 넣는다.
@@ -80,8 +85,17 @@ def update_youtubes(menu_options):
 
 def main():
     # 수집이 잘됐는지 미리 테스트
-    collect_youtubes('강남역 맛집')
+    # (2020.7.29 이전) 맛집 유튜브 영상볼래 버튼을 누를 때마다 유튜브 API를 호출하여 몽고디비에 저장된 영상을 계속 업데이트
+    # api 할당량이 exceeded(api 사용 할당량 한도초과)되어 더 이상 api호출을 할 수 없는 문제에 부딪힘.
     
+    # (2020.7.29 업데이트 ) API를 이용하여
+    # 각 지역의 유튜브 영상 데이터 150개씩를 수집한 뒤
+    # mongodb의 youtubes 콜렉션에 영상데이터를 저장한다.
+    collect_youtubes('강남역 맛집')
+    locations=['강남역', '잠실', '홍대', '건대', '신사동', '압구정', '왕십리', '사당', '방배동', '한남동', '수원역']
+    for location in locations:
+        collect_youtubes(location)
+    print('몽고디비 데이터 수집을 완료 했습니다!')
 
 if __name__=='__main__':
     main()
