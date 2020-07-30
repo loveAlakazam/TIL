@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>7월 30일 자바스크립트 숙제</title>
+    <style>
+        .info-form{
+            width: 80%;
+            padding-left: 5%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>자바스크립트 숙제</h1>
+    <h3>(Homework)text박스의 value값 읽어오기</h3>
+    <form>
+        <fieldset class="info-form">
+            <legend>이름 입력</legend>
+            <label>이름: </label>
+		    <input type="text" name="userName" id="userName">
+            <input type="button" value="input값 확인" onclick="readName()">
+            <script>
+                function readName(){
+                    //id가 userName인 input태그의 value를 가지고 온다.
+                    var userName= document.getElementById('userName').value;
+                    console.log(userName);
+
+                    var area3=document.getElementById('area3');
+
+                    if(userName.trim()!='' && userName!=null){
+                        area3.innerHTML='<h4>'+userName+'님<br></h4>';
+                        area3.style.color='rgb(255,133,255)';
+                        checkedHobbies();
+                    }else{
+                        alert('이름을 입력해주세요!');
+                    }
+                }
+
+                function checkedHobbies(){
+                    var hobbies= document.getElementsByName('hobby');
+                    var checkedHobbies= document.getElementById('my-hobby-box');
+                    console.log(hobbies);
+
+                    for(var i=0; i<hobbies.length; i++){
+                        if(hobbies[i].checked ==true){
+                            console.log(hobbies[i]);
+                            checkedHobbies.innerHTML+=hobbies[i].value+'<br>';
+                        }
+                    }
+                }
+            </script>
+        </fieldset>
+        <fieldset class="info-form">
+            <br>
+            <legend>취미</legend>
+            <table>
+                <tr>
+                    <td><input type="checkbox" name="hobby" value="game" id="game"><label>게임</label></td>
+                    <td><input type="checkbox" name="hobby" value="music" id="music"><label>음악감상</label></td>
+                    <td><input type="checkbox" name="hobby" value="movie" id="movie"><label>영화보기</label></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="hobby" value="독서" id="book"><label>독서</label></td>
+                    <td><input type="checkbox" name="hobby" value="travle" id="travle"><label>여행</label></td>
+                    <td><input type="checkbox" name="hobby" value="exercise" id="exercise"><label>운동</label></td>
+                </tr>
+            </table>
+        </fieldset>
+    </form>
+    <br>
+    
+    <fieldset class="info-form">
+        <lengend>나의 취미</lengend>
+        <div id="area3" class="area"></div>
+        <div id="my-hobby-box"></div>
+    </fieldset>
+    <!-- 
+        텍스트 필드에 이름을 입력하고 버튼을 누르면 div에 이름이 뜨고
+        이름을 입력하지 않은 상태에서 버튼을 누르면 "이름을 입력하세요" 라는 alert창이 뜸.
+    -->
+
+</body>
+
+</html>
