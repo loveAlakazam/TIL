@@ -84,8 +84,8 @@
 
 > ## JavaScript & JQuery
 
-- [자바스크립트 숙제1](./hw03/03_javascript/homework01.html)
-- [자바스크립트 숙제2](./hw03/03_javascript/0731/)
+- [자바스크립트 숙제1](./homework/hw03/03_javascript/homework01.html)
+- [자바스크립트 숙제2](./homework/hw03/03_javascript/0731/)
 
 
 > ## Ajax
