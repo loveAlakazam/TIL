@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta lang='ko'>
+	<meta charset="UTF-8">
+	<title>자바스크립트 개요</title>
+	<!-- <script src="../js/sample.js"></script> -->
+	
+	
+	<style>
+		.area{
+			width:300px;
+			height: 100px;
+			border: 1px solid black;
+			overflow: scroll;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>자바스크립트 개요</h1>
+	<hr><hr>
+	<h2>스크립트 언어</h2>
+	<blockquote>
+		스크립트 언어는...<br>
+		기본 프로그램의 동작을 사용자의 요구사항에 맞게 수행되도록 해주는 용도로 사용된다.
+	</blockquote>
+	
+	<hr>
+	
+	<h2>자바스크립트 사용법</h2>
+	<ol>
+		<li><a >태그에 직접 간단한 소스코드를 작성해서 실행하는 방법</a></li>
+		<li>script태그에 작성하여 실행하는 방법</li>
+		<li>별도의 js파일로 작성해서 파일을 불러와서 실행하는 방법</li>
+	</ol>
+	
+	<br>
+	<h3 id="case1">태그에 직접 자바스크립트 코드를 작성하여 실행</h3>
+	
+	<!-- 
+		<button onclick="window.alert('클릭되었습니다~');>
+			클릭하세요
+		</button> 
+	-->
+	<button onclick="alert('클릭되었습니다~');">
+		클릭하세요!
+	</button>
+	
+	<br><br>
+	
+	<h3 id="case2">script태그에 작성하여 실행하는 방법</h3>
+	<button onclick="internalClick();">클릭하세요</button>
+	<script>
+		function internalClick(){
+			window.alert('script태그 안에있는 함수 internalClick()를 실행했습니다.');
+		}
+	</script>
+	
+	<br><br>
+	
+	<h3 id="case3">별도의 js파일로 작성하여 파일을 불러와서 실행하는 방법</h3>
+	<button onclick="external();">
+		클릭하세요.
+	</button>
+	
+	<hr>
+	
+	<h2>자바스크립트의 데이터 입출력</h2>
+	
+	<h4>document.write() 로 출력</h4>
+	<script>
+		//브라우저화면에 바로 출력.
+		//서버로부터 받는 내용을 바로 출력할 수 있다.
+		document.write('document.write()로 출력한 결과');
+	</script>
+	
+	
+	<h4>window.alert()로 알림창 띄우기</h4>
+	<script>
+		//window.alert('window.alert()로 alert 띄우기.');
+		alert('alert()로 alert띄우기.');
+	</script>
+	
+	<br><br>
+	
+	<h4>innerHTML로 요소내용 변경</h4>
+	
+	<div id="div1">
+		자바스크립트에서 tag-element 값을 읽거나 값을 변경할 때 innerHTML 속성을 사용한다.
+	</div>
+	<br>
+	
+	<button onclick="checkInnerHTML();">innerHTML</button>
+	<script>
+		function checkInnerHTML(){
+			//get~: 갖고 온다.
+			//id가 div1인  요소를 갖고오겠다.
+			var divElement=document.getElementById('div1');
+			//alert(divElement);
+			
+			//콘솔창에 출력
+			//console.log(divElement);
+			console.log(divElement.innerText); 
+			
+			console.log(divElement.innerHTML);
+			divElement.innerHTML="빨리 취업하자 은강아.";
+			
+			//이어붙이기
+			divElement.innerHTML+=" 화이팅";
+			
+			//콘솔화면에 출력되는 출력문구가 같으면 숫자가 생기고
+			//콘솔화면에 출력되는 출력문구가 앞의것과 다를경우 계속 출력.
+		}
+	</script>
+	
+	<h4>console.log()로 개발자 도구 콘솔화면에 출력</h4>
+	<p>개발자 도구로 콘솔화면에 출력하고자 할때, 디버깅할때 주로 사용</p>
+	<button onclick="checkConsole()">console.log</button>
+	<script>
+		function checkConsole(){
+			console.log('콘솔화면에 출력한다.');
+			window.console.log('window는 생략이 가능하다.');
+		}
+	</script>
+	
+	<br>
+	<hr>
+	<h3>데이터 입력</h3>
+	<h4>window.confirm() 으로 입력</h4>
+	<p>
+		어떤 질문에 대해 "예/아니오" 의 결과를 얻을 때 사용한다.<br>
+		확인 버튼과 취소버튼이 나타나며 확인버튼을 클릭할 경우 <strong>true</strong>를 리턴하고<br>
+		취소버튼을 클릭하면 <strong>false</strong>를 리턴한다.
+	</p>
+	<button onclick="checkConfirm();">confirm()</button>
+	<script>
+		function checkConfirm(){
+			//var result= window.confirm('확인과 취소를 누를 수 있습니다.');
+			
+			var result= confirm('확인과 취소를 누를 수 있습니다.');
+			
+			
+			console.log(result); // 기본자료형 (파란색글자)
+			console.log('true'); // 문자열true (검정색글자)
+			
+			if(result){
+				alert('확인하셨습니다.');
+			}else{
+				alert('취소하셨습니다.');
+			}
+		}
+	</script>
+	
+	<h4>window.prompt()로 입력</h4>
+	<p>
+		텍스트 필드, 확인, 취소 버튼이 있는 대화상자<br>
+		출력하고 입력한 메시지 내용을 리턴값으로 돌려받음.<br>
+	</p>
+	<button onclick="checkPrompt();">window.prompt()</button>
+	<div id="yourName"></div>
+	<script>
+		function checkPrompt(){
+			var result= window.prompt('당신의 이름을 입력해주세요');
+			console.log(result);
+			
+			if(result != null && result.trim()!=''){
+				var name=document.getElementById('yourName');
+				var sayHi= result+'님 환영합니다.';
+				name.innerHTML= sayHi;
+				alert(sayHi);
+			}
+			
+		}
+	</script>
+	
+	
+	<br>
+	<hr>
+	<h4>HTML 태그 접근</h4>
+	
+	<ul>
+		<li><strong>getElement</strong>ById('아이디명')
+			<ul>
+				<li>아이디는 겹치면 안되며, 유일해야한다.</li>
+				<li>실은 중복해도 상관없지만, <strong>아이디는 유일하게 사용하는게 좋다..</strong></li>
+			</ul>
+		</li>
+		
+		<br>
+		
+		<li><strong>getElements</strong>ByName('이름')
+			<ul>
+				<li>name이 같은 태그가 여러개일 수 있다.</li>
+				<li>여러개이기때문에 배열에 담아서 리턴이 된다.</li>
+			</ul>
+		</li>
+		
+		<br>
+		
+		<li><strong>getElements</strong>ByClass('클래스이름')
+			<ul>
+				<li>클래스이름이 같은 태그가 여러개일 수 있다.</li>
+				<li>여러개이기때문에 배열에 담아서 리턴이 된다.</li>
+			</ul>
+		</li>
+		
+		<br>
+		
+		<li><strong>getElements</strong>ByTagName('태그이름')
+			<ul>
+				<li>태그이름이 같은 태그가 여러개일 수 있다.</li>
+				<li>여러개이기때문에 배열에 담아서 리턴이 된다.</li>
+			</ul>
+		</li>
+	</ul>
+	
+	<hr>
+	
+	<h2>HTML 태그에 접근하기</h2>
+	<h3>아이디로 접근</h3>
+	<div id="area1" class="area"></div>
+	<br>
+	<button onclick="accessId();">아이디로 접근</button>
+	
+	
+	<script>
+		function accessId(){
+			var area1=document.getElementById('area1');
+			console.log(area1);
+			
+			area1.style.backgroundColor='beige';
+			area1.innerHTML+="아이디로 접근 성공<BR>";
+		}
+	</script>
+	
+	<BR><BR>
+	<h3>태그명으로 접근</h3>
+	<ul>
+		<li>목록1</li>
+		<li>목록2</li>
+		<li>목록3</li>
+		<li>목록4</li>
+		<li>목록5</li>
+	</ul>
+	<button onclick="accessTagName();">태그명으로 접근</button>
+	<script>
+		// 태그이름이 li에 저장한다.
+		function accessTagName(){
+			
+			//현재 html에 있는 모든 li들을 싹다 갖고옴.
+			var lis=document.getElementsByTagName('li');
+			console.log(lis);
+			
+			var changeColor=50;
+			for(var i=0; i<lis.length; i++){
+				// lis안의 원소 하나를 콘솔에 출력
+				console.log(lis[i]);
+				
+				lis[i].style.backgroundColor="rgb("+changeColor+",220, 130)";
+				changeColor+=10;	
+			}
+		}
+	</script>
+	
+	
+	<h3>name으로 접근</h3>
+	<form>
+		<fieldset>
+			<legend>취미</legend>
+			<table>
+				<tr>
+					<td><input type="checkbox" name="hobby" value="game" id="game"><label>게임</label></td>
+					<td><input type="checkbox" name="hobby" value="music" id="music"><label>음악감상</label></td>
+					<td><input type="checkbox" name="hobby" value="movie" id="movie"><label>영화보기</label></td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="hobby" value="독서" id="book"><label>독서</label></td>
+					<td><input type="checkbox" name="hobby" value="travle" id="travle"><label>여행</label></td>
+					<td><input type="checkbox" name="hobby" value="exercise" id="exercise"><label>운동</label></td>
+				</tr>
+			</table>
+		</fieldset>
+	</form>
+	
+	<div id="area2" class="area"></div>
+	<br>
+	<button onclick="accessName();">name으로 접근</button>
+	
+	<script>
+		function accessName(){
+			var hobby= document.getElementsByName('hobby');
+			var checkItem="";
+			
+			document.getElementById('area2').innerHTML='';
+			for(var i=0; i<hobby.length; i++){
+				//console.log(hobby[i]);
+				//checked 속성으로=> 체크한 것만을 가져온다.
+				if(hobby[i].checked==true){
+					checkItem += '취미 '+hobby[i].value + '을 선택함 <br>';
+				}	
+			}
+			
+			document.getElementById('area2').innerHTML=checkItem;
+			
+		}
+	</script>
+	<br>
+	
+	<h3>(Homework)text박스의 value값 읽어오기</h3>
+	<form>
+		<label>이름: </label>
+		<input type="text" name="userName" id="userName">
+		
+		<input type="button" value="input값 확인" onclick="readValue()">
+	</form>
+	<br>
+	<div id="area3" class="area"></div>
+	<!-- 
+		텍스트 필드에 이름을 입력하고 버튼을 누르면 div에 이름이 뜨고
+		이름을 입력하지 않은 상태에서 버튼을 누르면 "이름을 입력하세요" 라는 alert창이 뜸.
+	 -->
+</body>
+</html>
