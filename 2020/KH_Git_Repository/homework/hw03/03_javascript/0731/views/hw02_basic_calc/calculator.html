@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,56 +21,73 @@
         <option value="%">%</option>
     </select>
     <input type="number" name="math-items">
-    <input type="submit" name="equal" value="=" onclick="getResult();"> <!--계산 실행-->
+    <input type="submit" name="equal" value="=" onclick="getResult();">
+    <!--계산 실행-->
     <input type="text" name="result" id="result" readonly=true>
     <script>
-        function getResult(){
+        function getResult() {
             //피연산자를 구한다.
-            var items=document.getElementsByName('math-items');
-            var item1= Number(items[0].value);
-            var item2= Number(items[1].value);
+            var items = document.getElementsByName('math-items');
+            var item1 = Number(items[0].value);
+            var item2 = Number(items[1].value);
 
             //선택된 연산자를 구한다.
-            var operator=document.getElementById('operator').value;
-            
+            var operator = document.getElementById('operator').value;
+
             //연산 결과 박스
-            var result_box= document.getElementById('result');
-            result_box.innerText='';
-            result_box.style.backgroundColor='white';
-            result_box.style.color='black';
+            var result_box = document.getElementById('result');
+            result_box.innerText = '';
+            result_box.style.backgroundColor = 'white';
+            result_box.style.color = 'black';
 
             //연산 결과
-            var result=0;
-            console.log('item1: '+item1);
-            console.log('item2: '+ item2);
+            var result = 0;
+            console.log('item1: ' + item1);
+            console.log('item2: ' + item2);
             console.log(result);
 
-            switch(operator){
-                case "+": 
-                    result=item1+item2;break;
+            switch (operator) {
+                case "+":
+                    result = item1 + item2; break;
                 case "-":
-                    result=item1-item2;break;
+                    result = item1 - item2; break;
                 case "*":
-                    result=item1*item2;break;
+                    result = item1 * item2; break;
                 case "/":
-                    if(item2!=0){
-                        result=item1/item2;
-                    }else{
+                    result = item1 / item2;
+                    if (!isFinite(result)) {
+                        //무한
+                        result = '연산불가';
+                    }
+                    break;
+                // if(item2!=0){
+                //     result=item1/item2;
+                // }else{
+                //     result='연산불가';
+                //     result_box.style.backgroundColor='red';
+                //     result_box.style.color='white';
+                // }break;
+                case "%":
+                    result=item1%item2;
+                    if(!isFinite(result)){
                         result='연산불가';
-                        result_box.style.backgroundColor='red';
-                        result_box.style.color='white';
                     }break;
-                case "%":if(item2!=0){
-                        result=item1%item2;
-                    }else{
-                        result='연산불가';
-                        result_box.style.backgroundColor='red';
-                        result_box.style.color='white';
-                    }break;
+                    // if (item2 != 0) {
+                    //     result = item1 % item2;
+                    // } else {
+                    //     result = '연산불가';
+                    //     result_box.style.backgroundColor = 'red';
+                    //     result_box.style.color = 'white';
+                    // } break;
             }
             console.log(result);
-            result_box.value=result;
+            if(result=='연산불가'){
+                result_box.style.backgroundColor='red';
+                result_box.style.color='white';
+            }
+            result_box.value = result;
         }
     </script>
 </body>
+
 </html>
