@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        .container-box {
+            float: left;
+            clear: both;
+            margin: 10px auto;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Practice 3</h1>
+    <fieldset>
+        <legend>회원가입</legend>
+        <div class="container-box">
+            <label>아이디: </label>
+            <input type="text" id="input_id" name="input_id" onchange="isAvailableId();">
+            <!-- <input type="button" value="아이디 확인" onclick="isAvailableId();"> -->
+            <div id="id-result"></div>
+            <script>
+                function isAvailableId() {
+                    // 사용자가 입력한 아이디
+                    var user_input_id = document.getElementById('input_id').value;
+                    console.log(user_input_id);
+
+                    $.ajax({
+                        type: 'post',
+                        url: 'check_id',
+                        data: { 'input_id': user_input_id },
+                        success: function (response) {
+                            // 아이디 확인 박스
+                            var id_result_box = document.getElementById('id-result');
+                            id_result_box.innerHTML = '';
+                            id_result_box.style.fontWeight = 'bolder';
+
+                            if (response['result'] == 'fail') {
+                                //아이디 길이가 3미만 & 이미 존재하는 아이디라면
+                                id_result_box.innerHTML = response['error_msg'];
+                                id_result_box.style.color = 'red';
+                            } else {
+                                //몽고디비에 저장이 가능한 아이디라면
+                                id_result_box.innerHTML = response['success_msg'];
+                                id_result_box.style.color = 'green';
+                            }
+                        }
+                    });
+                }
+            </script>
+        </div>
+        <br clear="both">
+
+        <div class="container-box">
+            <label>패스워드: </label>
+            <input type="password" id="input_pwd" name="input_pwd" onchange="isSamePwd();">
+        </div>
+        <br clear="both">
+
+        <div class="container-box">
+            <label>비밀번호 확인: </label>
+            <input type="password" id="input_pwd2" name="input_pwd2" onchange="isSamePwd();">
+            <span id="same-pwd-result"></span>
+            <script>
+                function isSamePwd() {
+                    //비밀번호 박스 글자
+                    let isSamePwd = $('#same-pwd-result');
+                    isSamePwd.text('');
+
+                    //JQuery를 이용하여 비밀번호 구하기
+                    let input_pwd = $('#input_pwd').val();
+                    let input_pwd2 = $('#input_pwd2').val();
+                    console.log(input_pwd);
+                    console.log(input_pwd2);
+                    if (input_pwd.length <= 3 || input_pwd2.length <= 3) {
+                        isSamePwd.text('비밀번호가 너무 짧습니다! 다시 입력해주세요!');
+                        isSamePwd.css('color', 'rgb(255,0,0)');
+                    } else {
+
+                        if (input_pwd == input_pwd2) {
+                            //입력한 비밀번호가 일치한다면
+                            isSamePwd.text('비밀번호가 일치합니다.');
+                            isSamePwd.css('color', 'rgb(0,255,0)');
+                        } else {
+                            //입력한 비밀번호가 일치하지 않으면
+                            isSamePwd.text('비밀번호가 일치하지 않습니다.');
+                            isSamePwd.css('color', 'rgb(255,0,0)');
+                        }
+                    }
+                }
+            </script>
+        </div>
+        <br clear="both">
+
+        <div class="container-box">
+            <label>이름</label>
+            <input type="text" id="input_name" name="input_name">
+        </div>
+        <br clear="both">
+
+        <!--버튼을 누르면 localhost:5001/join_member 페이지를 요청함.-->
+        <input type="submit" value="회원가입" onclick="submitInfo();">
+        <script>
+            function submitInfo() {
+                //아이디, 비밀번호, 비밀번호 확인, 이름 이 모두 입력됐는지 확인
+                var user_id = document.getElementById('input_id').value;
+                var user_pwd = document.getElementById('input_pwd').value;
+                var user_pwd_again = document.getElementById('input_pwd2').value;
+                var user_name = document.getElementById('input_name').value;
+
+                if (user_id == '' && user_id.trim() == '') {
+                    alert('아이디를 입력해주세요!');
+                    document.getElementById('input_id').focus();
+                    return;
+                }
+
+                if (user_pwd == '' && user_pwd.trim() == '') {
+                    alert('비밀번호를 입력해주세요!');
+                    document.getElementById('input_pwd').focus();
+                    return;
+                }
+
+                if (user_pwd_again == '' && user_pwd_again.trim() == '') {
+                    alert('비밀번호 확인 입력을 해주세요!');
+                    document.getElementById('input_pwd2').focus();
+                    return;
+                }
+
+                if (user_name == '' && user_name.trim() == '') {
+                    alert('이름을 입력해주세요!');
+                    document.getElementById('input_name').focus();
+                    return; 
+                }
+
+                //아이디 결과창이 "사용가능한 아이디" 인가?
+                var id_result = document.getElementById('id-result');
+                var pwd_result = document.getElementById('same-pwd-result');
+                console.log(id_result);
+                console.log(pwd_result);
+
+                //아이디가 사용가능한 아이디이고, 비밀번호가 일치하다면
+                if (id_result.innerText == '사용 가능한 아이디입니다!' && pwd_result.innerText == '비밀번호가 일치합니다.') {
+                    //데이터 베이스에 회원정보를 등록한다.
+                    $.ajax({
+                        type: 'post',
+                        url: 'join_member',
+                        data: {
+                            'input_id': user_id,
+                            'input_pwd': user_pwd,
+                            'input_name':user_name
+                        },
+                        success: function (response) {
+                            //데이터베이스 추가 성공
+                            if(response['result']=='success'){
+                                alert(response['user_name']+'님 환영합니다 ^^!');
+                            }
+                        }
+                    });
+                } else {
+                    //아이디가 일치하지 사용가능한 아이디가 아니거나, 비밀번호가 일치하지 않다면
+                    if (id_result.innerHTML != '사용 가능한 아이디입니다!') {
+                        alert('아이디가 이미 존재합니다!');
+                        focus();
+                    }
+                    else if (pwd_result != '비밀번호가 일치합니다.') {
+                        alert('비밀번호가 일치하지 않습니다!');
+                        focus();
+                    }
+                }
+            }
+        </script>
+    </fieldset>
+
+</body>
+
+</html>

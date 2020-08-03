@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 배열</title>
+<style>
+.area{
+	border: 1px solid red;
+	min-height: 160px;
+	overflow:auto;
+}
+</style>
+</head>
+
+<body>
+	<h1>배열</h1>
+	
+	<p> 자바스크립트에서는 자료형 지정이 없기 때문에 한 배열 안에 모든 자료형 보관이 가능하다</p>
+	<div id="area1" class="area"></div>
+
+	<br>
+	<button onclick="arrayTest1()">확인하기</button>
+	<script>
+		function arrayTest1(){
+			var area= document.getElementById('area1');
+			
+			// 배열에 있는 원소를 초기화.
+			// 각 원소들의 타입들은 서로 달라도 문제없다.
+			// 즉 자바스크립트의 배열은 파이썬의 리스트처럼 타입에 상관없이 어떠한 데이터든지 넣을 수 있다.
+			var arr=['최은강', 454152, true, [3,5,2,11,2], {'abra': 63, 'kadabra': 64}];
+			console.log(arr);
+			area1.innerHTML=arr+'<br>';
+		}
+	</script>
+	
+	<hr>
+	
+	<h1>배열 선언 및 초기화</h1>
+	<p>
+		배열 선언 시 크기를 지정하지 않고 선언할 수 도 있고<br>
+		크기를 정하고 선언할 수 있음.
+	</p>
+	<div id="area2" class="area"></div>
+	<br>
+	<button onclick="areaTest2();">확인하기</button>
+	<script>
+		function areaTest2(){
+			var area= document.getElementById('area2');
+			
+			var arr1= new Array(); //크기 지정안하고 배열을 만든다.
+			console.log(arr1);
+			console.log('arr1.length: '+ arr1.length);
+			
+			
+			var arr2= new Array(3); //배열의 크기를 3으로 지정한다.
+			console.log(arr2);
+			console.log('arr2.length: '+ arr2.length);
+			
+			area.innerHTML= "배열1과 배열2를 선언<br>";
+			area.innerHTML += "arr1 : " + arr1 + "/ arr2: "+ arr2; 
+			
+			
+			arr1[0]='귤';
+			arr1[1]='사과';
+			arr1[2]='체리';
+			for(var i=3; i<5; i++)
+				arr1[i]=prompt('과일이름을 입력해주세요');
+			
+			area.innerHTML+= "<br>arr1에 값을 대입"+ arr1+"<br>";
+			console.log('arr1.length: '+arr1.length);
+			
+			arr2[0]='자동차';
+			arr2[1]='비행기';
+			arr2[2]='배';
+			arr2[3]= '기차';
+			arr2[4]= 'KTX';
+			area2.innerHTML += 'arr2에 값 대입'+ arr2+"<br>";
+			console.log('arr2.length: '+arr2.length);
+			
+			var arr3= new Array('red', 'green', 'blue');
+			area.innerHTML += "arr3초기화 "+ arr3;
+			
+			var arr4= ['java', 'oracle', 'jdbc', 'python', 'aws', 'cloud', 'linux'];
+			area.innerHTML +="<br>arr4초기화 : " + arr4;
+			
+		}
+	</script>
+	
+	
+	<br>
+	
+	<h2>배열 메소드</h2>
+	<p>	array도 하나의 객체이기 때문에 배열에서 활용할 수 있는 메소드가 존재한다.</p>
+	
+	<h3>indexOf()</h3>
+	<p>	배열에서 요소가 위치한 인덱스를 리턴한다.</p>
+	<div id="area3" class="area"></div>
+	<br>
+	<button onclick="methodTest1();">확인하기</button>
+	<script>
+		function methodTest1(){
+			var area= document.getElementById('area3');
+			var arr= ['사과', '딸기', '바나나', '키위', '복숭아', '파인애플', '귤'];
+			
+			area.innerHTML+= "arr: "+arr+"<br>";
+			console.log(arr);
+			
+			area.innerHTML+="바나나가 있는 인덱스: "+ arr.indexOf('바나나')+"<br>";
+			area.innerHTML+="arr배열에 없는 과일의 인덱스를 구해보자: "+ arr.indexOf('망고스틴')+"<br>";
+			
+		}
+	</script>
+	
+	<hr>
+	<h2>concat(배열명)</h2>
+	<p> 여러개의 배열을 결합한다.</p>
+	<hr>
+	
+	<h2>join()</h2>
+	<p>배열을 결합하여 문자열로 반환</p>
+	<div id="area5" class="area"></div>
+	
+	<button onclick="methodTest2();">확인하기</button>
+	<script>
+		function methodTest2(){
+			var area= document.getElementById('area5');
+			var arr= ['강남', '역삼', '교대', '선릉', '사당', '옥수', '왕십리'];
+			
+			var arrJoin= arr.join();
+			area.innerHTML+='arr의 자료형: '+ typeof(arr) + "<br>";
+			area.innerHTML+= 'arr을 문자열로 합치기: '+ arrJoin+"<br>";
+			area.innerHTML+= 'arrJoin의 자료형: '+typeof(arrJoin); 
+		}
+	</script>
+	
+	<hr>
+	
+	<h2>reverse()</h2>
+	<p>배열의 순서를 뒤집기</p>
+	
+	<hr>
+	
+	<h2>sort()</h2>
+	<p>배열을 오름차순/내림차순 으로 정렬</p>
+	<div id="area6" class="area"></div>
+	<br>
+	<button onclick="methodTest3();">정렬결과 확인하기</button>
+	<script>
+		function methodTest3(){
+			var area= document.getElementById('area6');
+			var nums = [1,33,22, 12,52134,35, 3, 11];
+			
+			console.log(nums.sort());
+			
+			console.log(nums.sort(function(a,b){return b-a;}));
+			
+			area.innerHTML+= 'arr1의 값 :' + nums+ "<br>";
+			
+			//문자열을 정렬 
+			area.innerHTML+= 'arr1 오름차순정렬(문자열정렬): '+ nums.sort() + "<br>";
+			
+			//진짜 오름차순정렬
+			/*
+				left>right => left가 right보다 크다.
+				left=right => 같다
+				left<right => left가 right보다 작다
+			*/
+			area.innerHTML+= 'arr1오름차순 정렬: '+ nums.sort(function(left, right){return left-right;})+"<br>";
+			
+			area.innerHTML+= 'arr1내림차순 정렬: '+ nums.sort(function(left, right){return right-left;})+"<br>";
+			
+		}
+	</script>
+	
+	<hr>
+	
+	<h3>push()와 pop()</h3>
+	<p>
+		push(): 배열의 끝에 요소를 넣는다<br>
+		pop(): 배열의 끝에있는 요소를 뺀다.<br>
+	</p>
+	
+	<div id="area7" class="area"></div>
+	<br>
+	<button onclick="methodTest4();">확인하기</button>
+	<script>
+		function methodTest4(){
+			var area= document.getElementById('area7');
+			arr=[ 1,2,3,4, 5];
+			area.innerHTML+= 'arr 값 확인하기: '+ arr + "<br>";
+			
+			area.innerHTML+= 'arr.push(3): '+ arr.push(3)+ "<br>"; //push한 인덱스번호에 3을 넣는다.
+			area.innerHTML+= 'arr.push(3) 이후의 arr값 :' + arr+"<br>";
+			
+			area.innerHTML+= 'arr.pop(): ' + arr.pop()+"<br>";
+			area.innerHTML+= arr+"<br>";
+		}
+	</script>
+	<br>
+	<h3>shift( )와 unshift( )</h3>
+	<p>
+		shift(): 배열의 맨앞에 있는  요소를 제거<br>
+		unshift(): 배열의 맨앞에 있는 요소 추가<br>
+	</p>
+	<div id="area8" class="area"></div>
+	<br>
+	<button onclick="methodTest5();">확인하기</button>
+	<script>
+		function methodTest5(){
+			var area = document.getElementById('area8');
+			var arr=['야구', '축구', '농구', '볼링', '탁구', '테니스'];
+			
+			area.innerHTML+='arr의 기본값: '+ arr+"<br>";
+			
+			area.innerHTML += 'arr.shift(): ' + arr.shift()+"<br>";// 맨앞에있는 원소
+			area.innerHTML += "AFTER shift() => " + arr+"<br>";//맨앞에있는 원소 "야구"를  제거
+			
+		
+			area.innerHTML += 'arr.unshift(): '+ arr.unshift('당구') +"<br>"; // (추가후 배열의개수 5->6)
+			area.innerHTML += 'AFTER unshift(): '+ arr+"<br>"; //맨앞에있는 원소에 "당구"를 추가. 
+		}
+	</script>
+	
+	<br>
+	<hr>
+	<h3>slice()와 splice()</h3>
+	<p>
+		slice(): 배열에 있는 요소를 뽑아내기<br>
+		splice(): 배열의 인덱스 위치 요소 제거 및 추가 <br>
+	</p>
+	<div id="area9" class="area"></div>
+	<br>
+	<button onclick="methodTest6();">확인하기</button>
+	<script>
+		function methodTest6(){
+			var area= document.getElementById('area9');
+			var arr= ['java', 'database', 'python', 'css', 'no-sql', 'html', 'javascript(vanilla)', 'pymongo', 'flask' , 'pandas' , 'web-scraping'];
+			area.innerHTML+= 'arr: '+ arr+'<br>';
+			
+			
+			// arr.slice(2,4) => 인덱스 2, 인덱스3
+			// slice()는 원본에 영향을 미치지 않는다.
+			area.innerHTML += 'arr.slice(2,4): '+ arr.slice(2,4) + '<br>';
+			
+			area.innerHTML += '원본 arr에 영향을 미치지 않는다 : '+ arr+' ('+arr.length+')<br><br>';
+		
+			// arr.splice(2,4) => 인덱스2, 인덱스
+			area.innerHTML+='arr.splice(2,2, "spring"): '+ arr.splice(2,2,'spring') + '<br>';
+			// python, css => python과 css 자리에 spring을 넣겠다.
+			
+			console.log(arr);
+			area.innerHTML+='splice 후 arr: '+ arr+'<br><br>';
+			
+			arr.push('JQuery');
+			area.innerHTML += "push후 arr: "+ arr+"<br>";
+			
+			// 2번인덱스 이후의 원소들 모두 추출
+			area.innerHTML += "arr.splice(2):  "+ arr.splice(2)+ '<br><br>';
+			
+			// 0,1번 인덱스에 해당하는 원소만 남아있음.
+			area.innerHTML += "splice()는 arr을 변동시키는가? "+ arr+'<br>';
+		}
+	</script>
+	
+	
+	<h3>toString()</h3>
+	<p>
+		배열을 문자열로 반환<br>
+		join()메소드와 같은 기능을 하고 있지만<br>
+		join()은 메소드 실행시 아무것도 넣지 않으면 ','로 합쳐지고<br>
+		괄호안에 매개변수를 넣는다면, 그것이 구분자 역할을 하면서 그걸로 합쳐짐<br>
+		<br>
+		반면, toString()은 매개변수안에 구분자가 없어서 기본적으로 합치는 기능만 함.<br>
+	</p>
+	<div id="area10" class="area"></div>
+	<br>
+	<button onclick="methodTest7();">확인하기</button>
+	<script>
+		function methodTest7(){
+			var area = document.getElementById('area10');
+			
+			var arr= ['비가', '오니까', '맛있는', '부추전이', '먹고싶다.'];
+			var strJoin = arr.join(' ');
+			console.log(strJoin);
+			area.innerHTML+= 'strJoin=arr.join(\' \'): '+strJoin+'<br>';
+			
+			var str= arr.toString();
+			
+			area.innerHTML +='기본 arr 출력: '+ arr+"<br>";
+			area.innerHTML += 'arr.toString(): ' + str + "<br>";
+			area.innerHTML += "typeof(str): "+ typeof(str)+"<br>";
+		}
+	</script>
+</body>
+</html>

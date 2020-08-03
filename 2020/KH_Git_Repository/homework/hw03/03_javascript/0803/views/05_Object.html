@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 - 객체</title>
+    <style>
+        .area {
+            min-height: 220px;
+            border: 3px solid skyblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>객체</h1>
+    <h2>객체 선언 및 호출</h2>
+    <p>
+        중괄호 {}를 사용하여 객체를 생성하고 속성에는 모든 자료형이 올 수 있음 <br>
+        객체는 키 값을 사용하여 속성을 식별한다.
+    </p>
+
+    <button onclick="test1()">실행확인1</button>
+    <div id="area1" class="area"></div>
+    <script>
+        function test1() {
+            //객체 생성
+
+            //객체는 마치 python의 딕셔너리와 같다.
+            //속성은  ','로 구분한다.
+            var product = {
+                //속성을 넣는다.
+                pName: 'dry-mango',
+                type: 'pickle',
+                ingredient: ['mango', 'sugar'],
+                origin: 'Philippines'
+            };
+
+            console.log(product);
+
+            var area = document.getElementById('area1');
+            area.innerHTML += 'product: ' + product + '<br><br>';
+
+            area.innerHTML += '<b>객체명[\'속성명\']으로 접근: </b><br>';
+            area.innerHTML += "product['pName']: " + product['pName'] + '<br>';
+            area.innerHTML += "product['type']: " + product['type'] + '<br>';
+            area.innerHTML += "product['ingredient']: " + product['ingredient'] + '<br>';
+
+            for (var i = 0; i < product['ingredient'].length; i++) {
+                area.innerHTML += 'product["ingredient"][' + i + ']: ' + product['ingredient'][i] + '<br>';
+            }
+            area.innerHTML += "<br>product['origin']: " + product['origin'] + '<br>';
+
+
+            area.innerHTML += '<br><br><b>객체명.속성명 으로 접근: </b><br>';
+            area.innerHTML += "product.pName: " + product.pName + '<br>';
+            area.innerHTML += "product.type: " + product.type + '<br>';
+            area.innerHTML += "product.ingredient: " + product.ingredient + '<br>';
+            for (var i = 0; i < product.ingredient.length; i++) {
+                area.innerHTML += "product.ingredient[" + i + ']: ' + product.ingredient[i] + '<br>';
+            }
+
+            area.innerHTML += "<br>product.origin: " + product.origin + '<br>';
+
+        }
+    </script>
+
+
+    <h3>객체 키 식별자 테스트</h3>
+    <p>
+        객체의 키는 모든 문자열을 사용가능 하지만
+        식별자로는 사용할수 없는 단어를 키로 사용한 경우
+        무조건 대괄호를 사용해야 객체 요소에 접근이 가능하다.
+    </p>
+    <button onclick="test2();">실행확인</button>
+    <div id="area2" class="area"></div>
+    <script>
+        function test2(){
+            var objTest={
+                'love$Us': 'KH정보교육원',
+                'love_U': 'G반',
+                'age twenty': '박신우'
+            };
+
+            var area= document.getElementById('area2');
+            console.log(objTest);
+
+            area.innerHTML += 'objTest.love$Us : '+ objTest.love$Us+'<br>';
+            area.innerHTML += 'objTest.love_U: '+ objTest.love_U+'<br>';
+            
+            //띄어쓰기가 포함된 키값에서는 . 구분자로 인식 못함.
+            //그러므로 띄어쓰기가 포함된 키값인 경우에는 [] 대괄호를 이용한다.
+            // area.innerHTML += 'objTest.aget twenty: '+ objTest.age twenty;
+            area.innerHTML += 'objTest[aget twenty]: '+ objTest['age twenty'];
+        }
+    </script>
+
+    <hr>
+    <h2>객체 속성 추가 및 제거</h2>
+    <p>
+        처음 객체 생성 이후 속성을 추가하거나 제거하는 것을 <br>
+        <blockquote>동적으로 속성을 추가한다/제거한다.</blockquote> 라고한다.
+    </p>
+    <button onclick="test3();">확인하기</button>
+    <div id="area3" class="area"></div>
+    <script>
+        function test3(){
+            var student ={}; //빈 객체
+            //(같은 표현) var student= new Object();
+            
+            console.log(student); // {}
+
+            //객체에 속성을 추가한다.
+            student.name='alakazam';
+            student.hobby= 'programming & seeing webtoons';
+            student.strength="python & backend & programming";
+            student.dream="developing programming skills and making more understandable codes";
+
+            console.log(student);
+            student.toString=function(){
+                var str="";
+                //this: student 객체 자신
+                for(var key in this){
+                    //key: 속성의 키를 반환환다
+
+                    //key가 toString이 아니라면.
+                    if(key != 'toString'){
+                        str+=key+' : '+ this[key]+'<br>';
+                    }
+                }
+                return str;
+            }   
+
+            // document.getElementById('area3').innerHTML= student.toString();
+            document.getElementById('area3').innerHTML=student;
+            
+            delete(student.hobby); //student의 hobby라는 키를 지운다.
+            document.getElementById('area3').innerHTML=student;
+        }
+    </script>
+
+</body>
+</html>

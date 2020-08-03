@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 기초문법</title>
+<style>
+	.area{
+		border: 1px solid black;
+		height: 180px;
+	
+		overflow: scroll;
+	}
+	
+</style>
+</head>
+
+<body>
+	<h1>기본 문법</h1>
+	<hr><hr>
+	<h2>변수와 자료형</h2>
+	<h3>변수 선언</h3>
+	<p>
+		함수 내부에서 'var 변수명;' 으로 선언하면 지역변수가 된다.<br><br>
+		
+		함수 내부에서 '변수명;' 으로 선언하거나  	<br>
+		함수 밖에서 '변수명;' 혹은 'var 변수명;'으로 선언하면 전역변수가 됨.<br>
+		
+		전역변수와 지역변수가 동일한 이름인 경우 함수 내부에서 변수명을 호출하면 지역변수가 우선권을 가짐<br>
+		
+		전역변수 사용 시 'window.변수명' 혹은 'this.변수명' 으로 표현하여
+		
+		지역변수와 구분<br>
+		
+		전역변수는 해당 window내에서 어디든 사용할 수 있으며, 지역변수는 해당 함수 내에서만 사용 가능.
+	</p>
+	<script>
+		// 전역변수 선언
+		str1= "전역변수";
+		
+		var str2= "var 전역변수";
+		
+		// 페이지가 로드됐을 때 자동으로 실행하는 함수 구현
+		window.onload= function(){
+			// 자바스크립트에서 페이지가 모두 로드되면
+			// 실행되는 함수 구현 시 사용한다.
+			
+			// 한 페이지에서 하나의 window.onload만 사용가능하다
+			// 하나만 사용할 수 있다는 단점을 해결하기 위해 JQuery에서 다른 함수를 제공한다.
+			// JQuery에서 제공해주는 함수
+			// $(document).ready(function(){
+			// 			... 
+			// });
+			
+			//지역변수 선언: 지역변수 앞에는 var를 붙임.
+			var str1= "지역변수1";
+			var str3= "지역변수2";
+			
+			console.log('str1: '+ str1); 				//지역변수1
+			console.log('this.str1: '+ this.str1); 		//전역변수1
+			console.log('window.str1: '+ window.str1);	//전역변수1
+			
+			console.log('str2: '+ str2); 				//var 전역변수
+			console.log('this.str2: '+ str2); 			//var 전역변수
+			console.log('window.str2: '+ window.str2); 	//var 전역변수 
+			
+			
+			console.log('str3: '+ str3); 				//지역변수2
+			console.log('this.str3: '+ this.str3);		//undefined
+			console.log('window.str3: '+ window.str3);	//undefined(없는애들 불러옴)
+		
+			what= '난뭘까?'; //전역변수: var가 없기때문에
+			showWhat();
+		}
+		
+		function showWhat(){
+			console.log(what); 			//난뭘까?
+			console.log(this.what); 	//난뭘까?
+			console.log(window.what); 	//난뭘까?
+		}
+	</script>
+	
+	
+	<br><br>
+	<h3>자료형</h3>
+	<blockquote>
+		자바스크립트에서는 자료형별로 변수 타입이 지정되지 않고<br>
+		리터럴에 의해 자료형을 결정한다.
+	</blockquote>
+	<button onclick="typeTest()">자료형 테스트</button>
+	<br>
+	<div id="area1" class="area"></div>
+	<script>
+		function typeTest(){
+			var name="박신우";
+			var age= 20;
+			var check=true;
+			
+			//배열
+			var hobby= ['축구', '농구', '야구'];
+			
+			//객체
+			var user={
+					name: '박신우',
+					age: 20,
+					id: 'rosemary4110'
+			}
+			
+			
+			//함수
+			var testFunction= function testFunction(num1, num2){
+				var sum= num1+num2;
+				alert(sum);
+			}
+			
+			var area1= document.getElementById('area1');
+			area1.innerHTML += name;
+			
+			console.log(typeof(hobby));
+			console.log(typeof(user));
+			console.log(typeof(testFunction));
+			console.log(typeof(area1));
+			
+			
+			area1.innerHTML += name+'<br>';
+
+			area1.innerHTML += age+'<br>';
+
+			area1.innerHTML += check+'<br>';
+
+			area1.innerHTML += hobby+'<br>';
+
+			area1.innerHTML += user+'<br>';
+			area1.innerHTML += testFunction+'<br>';
+		}
+	</script>
+	<hr>
+	
+	<h2>데이터 형변환</h2>
+	<h3>문자열과 숫자의 '+'연산</h3>
+	<p>
+		문자열 + 숫자 = 문자열<br>
+		숫자 + 숫자 + 문자열 = 숫자가 먼저 계산되고 뒤의 문자열과 합쳐진다.
+	</p>
+	<button onclick="testPlus()">문자열과 숫자 더하기 연산</button>
+	<div id="area2" class="area"></div>
+	<script>
+		function testPlus(){
+			var test1= 7+7; //14
+			var test2= 7+'7'; //77
+			var test3= '7'+ 7; //77
+			var test4= '7'+ '7';//77
+			var test5= 7+7+'7';//147
+			var test6= 7+'7'+7;//777
+			var test7= '7'+7+7;//777
+			var test8= '7'+(7+7);//714
+			
+			var area = document.getElementById('area2');
+			var tests= [test1, test2, test3, test4, test5, test6, test7, test8];
+			for (var i=0; i<tests.length;i++){
+				area.innerHTML+= tests[i]+"<br>";
+			}
+		}
+	</script>
+	
+	<h3>typeof() 연산자</h3>
+	<p>
+		값의 자료형을 확인하는 연산자<br>
+		선언 시 자료형을 지정하지 않기 때문에 변수명만으로 데이터의 자료형 확인이 불가능하다.
+	</p>
+	
+	<button onclick="typeofTest()">typeof() 확인</button>
+	<br><br>
+	<div id="area3" class="area"></div>
+	<script>
+		function typeofTest(){
+			var name="박신우";
+			var age= 20;
+			var check=true;
+			
+			//배열
+			var hobby= ['축구', '농구', '야구'];
+			
+			//객체
+			var user={
+					name: '박신우',
+					age: 20,
+					id: 'rosemary4110'
+			}
+			
+			
+			//함수
+			var testFunction= function testFunction(num1, num2){
+				var sum= num1+num2;
+				alert(sum);
+			}
+			
+			var area1= document.getElementById('area1');
+			area1.innerHTML += name;
+			
+			var temp;
+			
+			var area= document.getElementById('area3');
+			var elements= [name, age, check, hobby, user, testFunction, area1, temp];
+			for(var i=0; i<elements.length; i++){
+				area.innerHTML+= typeof(elements[i])+"<br>";
+			}
+		}
+	</script>
+	
+	
+	<h3>강제 형변환</h3>
+	<button onclick="castingTest();">casting 테스트</button>
+	<script>
+		function castingTest(){
+			var num1 = 2;
+			var num2= '3';
+			
+			console.log(num1+num2); // 23
+			console.log(num1+parseInt(num2)); // 5
+			console.log(num1+Number(num2));
+			console.log(num1+ parseFloat(num2));
+		}
+	</script>
+	
+	
+	<hr>
+	
+	<h2>연산자</h2>
+	<h3>자바와 다른 연산자</h3>
+	<h4>=== 연산자와 !==연산자</h4>
+	<p>설명부분</p>
+	
+	<button onclick="opTest();">확인</button>
+	<br><br>
+	<div id="area4" class="area"></div>
+	
+	<script>
+		function opTest(){
+			var check1=1;
+			var check2='1';
+			
+			
+			var area= document.getElementById('area4');
+			area.innerHTML+="Using Operator == (안의 표기방식 문자열1과 숫자1을 모두 같다고 판단.)<br>";
+			area.innerHTML+=(check1==1)+"<br>";
+			area.innerHTML+=(check1=='1')+"<br>";
+			area.innerHTML+=(check2==1)+"<br>";
+			area.innerHTML+=(check2=='1')+"<br><br>";
+			
+			area.innerHTML+="Using Operator === (자료형까지 같이 비교)<br>";
+			area.innerHTML+=(check1===1)+"<br>";
+			area.innerHTML+=(check1==='1')+"<br>";
+			area.innerHTML+=(check2===1)+"<br>";
+			area.innerHTML+=(check2==='1')+"<br>";
+		}
+	</script>
+	<hr>
+	
+	<h2>조건문과 반복문</h2>
+	<h3>조건문</h3>
+	<h4>if</h4>
+	<button onclick="ifTest()">if 버튼</button>
+	
+	<script>
+			
+		//당신의 성별은 무엇입니까?
+		function ifTest(){
+			var gender=prompt('당신의 성별을 입력해주세요. (f/m): ');
+					
+			console.log(gender);
+			
+			if(gender==='f' ){
+				alert('여자입니다.');
+			}else if(gender==='m'){
+				alert('남자입니다.');
+			}else{
+				alert('잘못입력하셨습니다.');
+			}
+		}
+	</script>
+	
+	<h4>switch</h4>
+	<button onclick="switchTest();">switch 버튼</button>
+	<script>
+		//현재 몇 월입니까? 라는 안내문구를 띄우고 현재달을 받아온다.
+		// 몇월달인지 따라 달의 마지막 날짜를 day라는 변수에 넣는다.
+		//마지막에는 month월은 day일까지이빈다라는 알림창 띄우기
+		function switchTest(){
+			var month= Number(prompt('현재는 몇월입니까?'));
+			console.log(month);
+			console.log(typeof(month));
+			var day;
+			switch(month){
+			case 2:
+				day=28;
+				break;
+				
+			case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+				day=31; 
+				alert(month+'월은 '+day+'일까지 입니다');
+				break;
+				
+			case 4: case 6: case 9: case 11:
+				day=30;
+				alert(month+'월은 '+day+'일까지 입니다');
+				break;
+				
+			default:
+				alert('잘못입력하셨습니다.');
+			}
+		}
+	</script>
+	
+	<br>
+	
+	<h4>for - in 반복문</h4>
+	<button onclick="forInTest()">for-in button</button>
+	<script>
+		function forinTest(){
+			var result='';
+			var array=[1,2,3,4,5,6,7,8,9,10];
+			for(var i in array){
+				console.log(i);
+				result+=array[i]+' ';
+			}
+		}
+	</script>
+</body>
+</html>

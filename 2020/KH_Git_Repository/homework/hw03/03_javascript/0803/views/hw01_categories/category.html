@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카테고리</title>
+
+    <style>
+        #selected-categories {
+            border: 5px dashed red;
+            padding: 10px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Practice1</h1>
+    <fieldset>
+        <legend>책 선택</legend>
+        <table>
+            <tr>
+                <td rowspan=2>
+                    <input type="checkbox" value="전체선택" name="book-type-all" id="select-all" onclick="selectAll();" />
+                    <label>전체선택</label>
+                    <script>
+                        function selectAll() {
+                            var select_all_btn = document.getElementById('select-all');
+
+                            //전체 선택 버튼이 선택됐는지 확인
+                            var is_checked = select_all_btn.checked;
+                            console.log('전체선택 버튼이 선택됐는가? :' + is_checked);
+                            var books = document.getElementsByName('book-type');
+
+                            if (is_checked == true) {
+                                //"전체선택"버튼이 체크가 되어있다면 => 체크를 했을때 모두 체크
+                                books.forEach(book => {
+                                    book.checked = true;
+                                });
+
+                            } else {
+                                //"전체선택" 버튼이 체크가 안돼어있다면=> 체크안된 박스들을 체크해제
+                                for (var i in books) {
+                                    books[i].checked = false;
+                                }
+                            }
+                        }
+                    </script>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="종합" name="book-type" onchange="changedClicked();"/>
+                    <label>종합</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="소설" name="book-type" onchange="changedClicked();"/>
+                    <label>소설</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="시/에세이" name="book-type" onchange="changedClicked();"/>
+                    <label>시/에세이</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="경제" name="book-type" onchange="changedClicked();"/>
+                    <label>경제</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="자기계발" name="book-type" onchange="changedClicked();"/>
+                    <label>자기계발</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="아동" name="book-type" onchange="changedClicked();"/>
+                    <label>아동</label>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="checkbox" value="여행" name="book-type" onchange="changedClicked();"/>
+                    <label>여행</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="과학" name="book-type" onchange="changedClicked();"/>
+                    <label>과학</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="역사" name="book-type" onchange="changedClicked();"/>
+                    <label>역사</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="외국어" name="book-type" onchange="changedClicked();"/>
+                    <label>외국어</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="컴퓨터" name="book-type" onchange="changedClicked();"/>
+                    <label>컴퓨터</label>
+                </td>
+
+                <td>
+                    <input type="checkbox" value="만화" name="book-type" onchange="changedClicked();"/>
+                    <label>만화</label>
+                </td>
+                <script>
+                    function isAllchecked(){
+                        var books=document.getElementsByName('book-type');
+                        for(var i in books){
+                            var now= books[i];
+
+                            // 책종류 하나라도 체크가 안되어있다면
+                            if(now.checked==false)
+                                return false;
+                        }
+                        return true;
+                    }
+
+                    function changedClicked(){
+
+                        //전체선택이 선택된 상태인가?
+                       
+                        var allChecked= document.getElementById('select-all');
+
+                        //모든 책이 선택되어있는가?
+                        var isAllTypeChecked=isAllchecked();
+
+                        console.log('전체선택이 선택됐는가? => allChecked: '+ allChecked.checked);
+                        console.log('실제 책카테고리가 선택됐는가? => isAllTypeChecked: '+ isAllTypeChecked);
+
+                        if(isAllTypeChecked==false){
+                            //모든 종류의 책이 선택안됨 + 전체선택이 선택됨 => 전체선택 해제
+                            allChecked.checked=false;
+                        }else if(isAllTypeChecked==true){
+                            //모든종류의 책이 선택됨 + 전체선택이 안됨=> 전체선택됨
+                            allChecked.checked=true;
+                        }
+                        console.log('전체선택 선택여부=>'+allChecked.checked);
+                    
+                    }
+                </script>
+            </tr>
+        </table>
+    </fieldset>
+    <BR>
+    <input type="submit" value="카테고리 선택" onclick="showSelected();">
+    <fieldset id="selected-categories">
+        <legend>선택된 책</legend>
+        <div id="selected-books-box"></div>
+    </fieldset>
+    <script>
+        function showSelected() {
+            var selectedBooks = document.getElementsByName('book-type');
+            var resultBox = document.getElementById('selected-books-box');
+
+            //초반에 비우기.
+            resultBox.innerHTML = '';
+
+            var checked = [];
+            for (var i = 0; i < selectedBooks.length; i++) {
+                if (selectedBooks[i].checked) {
+                    checked.push(selectedBooks[i]); //check된 카테고리를 넣는다.
+                }
+            }
+
+            for (var i in checked) {
+                console.log(checked[i]);
+                if(i!=checked.length-1)
+                    resultBox.innerHTML += checked[i].value + ' / ';
+                else
+                    resultBox.innerHTML += checked[i].value;
+            }
+        }
+    </script>
+</body>
+</html>
