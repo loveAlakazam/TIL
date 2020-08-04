@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숙제5</title>
+    <style>
+        #legend-title{
+            text-align:center;
+        }
+
+        .radios{
+            text-align: center;
+            padding: 20px;
+        }
+
+        .radio-btns{
+            margin-left:10px;
+        }
+
+        .div-boxes{
+            display:none;
+            margin: 30px;
+            padding: 30px;
+            background-color:#ccc
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Practice 5</h1>
+    <fieldset>
+        <legend id="legend-title">검색할 항목을 선택하세요</legend>
+        <form class="radios">
+            <input name="select-option" class="radio-btns" type="radio" id="input-title"><label>제목</label>
+            <input name="select-option" class="radio-btns" type="radio" id="input-date"><label>날짜</label>
+            <input name="select-option" class="radio-btns" type="radio" id="input-author"><label>작성자</label>
+        </form>
+    </fieldset>
+
+    <div id="div-title" class="div-boxes">
+        <p>검색할 제목을 입력하세요.</p>
+        <input type="text" id='search-title'>
+        <input type="submit" value="검색" onclick="searchNaver();" >
+    </div>
+
+    <div id="div-date" class="div-boxes">
+        <p>검색할 날짜를 선택하세요.</p>
+        <input type="date">
+        <input type="datetime-local">
+        <input type="submit" value="검색">
+    </div>
+
+    <div id="div-author" class="div-boxes">
+        <p>검색할 작성자 아이디를 입력하세요.</p>
+        <input type="text">
+        <input type="submit" value="검색">
+    </div>
+
+    <script>
+        function searchNaver(){
+            var query=document.getElementById('search-title').value;
+            if(query.trim()=='' || query==''){
+                alert('검색어를 입력해주세요!');
+                return;
+            }
+            console.log(query);
+            var search_query_str=location='https://search.naver.com/search.naver?sm=top_hty&fbm=1&ie=utf8&query='+query;
+            document.getElementById('search-naver').onclick=search_query_str;
+
+        }
+
+        // input-title 아이디인 radio버튼을 누르면
+        document.getElementById('input-title').onclick=function(){
+            document.getElementById('div-title').style.display="block";
+            document.getElementById('div-date').style.display='none';
+            document.getElementById('div-author').style.display='none';
+
+        }
+
+        // input-date 아이디인 radio버튼을 누르면
+        document.getElementById('input-date').onclick=function(){
+            document.getElementById('div-date').style.display='block';  
+            document.getElementById('div-title').style.display="none";         
+            document.getElementById('div-author').style.display='none';
+
+        }
+
+        // input-author 아이디인 radio버튼을 누르면
+        document.getElementById('input-author').onclick=function(){
+            document.getElementById('div-author').style.display='block';
+            document.getElementById('div-title').style.display="none"; 
+            document.getElementById('div-date').style.display='none';
+        }
+    </script>
+    
+</body>
+</html>

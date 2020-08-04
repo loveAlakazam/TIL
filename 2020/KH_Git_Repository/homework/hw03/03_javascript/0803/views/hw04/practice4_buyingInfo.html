@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숙제4</title>
+    <style>
+        .box {
+            min-height: 100px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Practice 4</h1>
+    <fieldset class="box">
+        <legend>구매 정보</legend>
+        <ul>
+            <li>
+                <label>구매자: </label>
+                <input id="buyer_name" name="buyer_name" type="text" placeholder="구매자의 이름을 입력하세요">
+            </li>
+
+            <li>
+                <label>상품명: </label>
+                <input id="product_name" name="product_name" type="text" placeholder="구매 상품명을 입력하세요">
+
+            </li>
+
+            <li>
+                <label>가격: </label>
+                <input id="price" name="price" type="text" placeholder="구매 가격을 입력하세요">
+            </li>
+
+            <li>
+                <label>구매수량: </label>
+                <input id="cnt" name="cnt" type="number" min=10 max=100 step=10 placeholder="최소10">
+
+            </li>
+
+            <li>
+                <label>납품 등급: </label>
+                <input type="range" id="level" min=1 max=10 step=2 name="level">
+            </li>
+
+            <li>
+                <label>기타사항: </label>
+                <textarea name="etc" id="etc" cols="30" rows="10"></textarea>
+            </li>
+        </ul>
+    </fieldset>
+    <br>
+    <input type="submit" value="입력값 출력하기" onclick="show_info();">
+
+    <script>
+        function show_info() {
+            var result_box = document.getElementById('result');
+            result_box.innerHTML = '';
+
+            var buyer_name = document.getElementById('buyer_name').value;
+            if (buyer_name.trim() == '' || buyer_name == '') {
+                alert('이름을 입력해주세요!');
+                return;
+            }
+
+            var product_name = document.getElementById('product_name').value;
+            if (product_name.trim() == '' || product_name == '') {
+                alert('상품명을 입력해주세요!');
+                return;
+            }
+            var price = document.getElementById('price').value;
+            if (price.trim() == '' || price == '') {
+                alert('가격을 입력해주세요!');
+                return;
+            }
+
+            var cnt = document.getElementById('cnt').value;
+            if (cnt.trim() == '' || cnt == '') {
+                alert('수량을 입력해주세요!');
+                return;
+            }
+
+            var level = document.getElementById('level').value;
+            var etc = document.getElementById('etc').value;
+
+
+            console.log(cnt);
+            console.log(price);
+            console.log(level);
+            console.log(etc);
+
+            result_box.innerHTML += '구매자명: ' + buyer_name + "<BR>";
+            result_box.innerHTML += '상품명: ' + product_name + "<BR>";
+            result_box.innerHTML += '가격: ' + price + "만원<br>";
+            result_box.innerHTML += '구매수량: ' + cnt + "<br>";
+            result_box.innerHTML += '납품 등급: ' + level + "<br>";
+            result_box.innerHTML += '기타사항: ' + etc + '<br>';
+        }
+    </script>
+
+
+    <br><br>
+    <fieldset id="result" class="box">
+
+    </fieldset>
+</body>
+
+</html>
