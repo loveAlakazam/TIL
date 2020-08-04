@@ -76,23 +76,23 @@
     <button onclick="test2();">실행확인</button>
     <div id="area2" class="area"></div>
     <script>
-        function test2(){
-            var objTest={
+        function test2() {
+            var objTest = {
                 'love$Us': 'KH정보교육원',
                 'love_U': 'G반',
                 'age twenty': '박신우'
             };
 
-            var area= document.getElementById('area2');
+            var area = document.getElementById('area2');
             console.log(objTest);
 
-            area.innerHTML += 'objTest.love$Us : '+ objTest.love$Us+'<br>';
-            area.innerHTML += 'objTest.love_U: '+ objTest.love_U+'<br>';
-            
+            area.innerHTML += 'objTest.love$Us : ' + objTest.love$Us + '<br>';
+            area.innerHTML += 'objTest.love_U: ' + objTest.love_U + '<br>';
+
             //띄어쓰기가 포함된 키값에서는 . 구분자로 인식 못함.
             //그러므로 띄어쓰기가 포함된 키값인 경우에는 [] 대괄호를 이용한다.
             // area.innerHTML += 'objTest.aget twenty: '+ objTest.age twenty;
-            area.innerHTML += 'objTest[aget twenty]: '+ objTest['age twenty'];
+            area.innerHTML += 'objTest[aget twenty]: ' + objTest['age twenty'];
         }
     </script>
 
@@ -100,45 +100,86 @@
     <h2>객체 속성 추가 및 제거</h2>
     <p>
         처음 객체 생성 이후 속성을 추가하거나 제거하는 것을 <br>
-        <blockquote>동적으로 속성을 추가한다/제거한다.</blockquote> 라고한다.
+    <blockquote>동적으로 속성을 추가한다/제거한다.</blockquote> 라고한다.
     </p>
     <button onclick="test3();">확인하기</button>
     <div id="area3" class="area"></div>
     <script>
-        function test3(){
-            var student ={}; //빈 객체
+        function test3() {
+            var student = {}; //빈 객체
             //(같은 표현) var student= new Object();
-            
+
             console.log(student); // {}
 
             //객체에 속성을 추가한다.
-            student.name='alakazam';
-            student.hobby= 'programming & seeing webtoons';
-            student.strength="python & backend & programming";
-            student.dream="developing programming skills and making more understandable codes";
+            student.name = 'alakazam';
+            student.hobby = 'programming & seeing webtoons';
+            student.strength = "python & backend & programming";
+            student.dream = "developing programming skills and making more understandable codes";
 
             console.log(student);
-            student.toString=function(){
-                var str="";
+            student.toString = function () {
+                var str = "";
                 //this: student 객체 자신
-                for(var key in this){
+                for (var key in this) {
                     //key: 속성의 키를 반환환다
 
                     //key가 toString이 아니라면.
-                    if(key != 'toString'){
-                        str+=key+' : '+ this[key]+'<br>';
+                    if (key != 'toString') {
+                        str += key + ' : ' + this[key] + '<br>';
                     }
                 }
                 return str;
-            }   
+            }
 
             // document.getElementById('area3').innerHTML= student.toString();
-            document.getElementById('area3').innerHTML=student;
-            
-            delete(student.hobby); //student의 hobby라는 키를 지운다.
-            document.getElementById('area3').innerHTML=student;
+            document.getElementById('area3').innerHTML = student;
+
+            delete (student.hobby); //student의 hobby라는 키를 지운다.
+            document.getElementById('area3').innerHTML = student;
         }
     </script>
 
+    <h2>객체 배열</h2>
+    <h3>객체와 배열을 사용한 데이터 관리</h3>
+    <button onclick="test4();">실행확인</button>
+    <div id="area4" class="area"></div>
+    <script>
+        function test4() {
+            var students = [{ name: '박신우', java: 90, oracle: 56, HTML5: 56, CSS3: 44, javascript: 34 },
+            { name: '남나눔', java: 45, oracle: 76, HTML5: 34, CSS3: 33, javascript: 56 },
+            { name: '문미미', java: 76, oracle: 34, HTML5: 54, CSS3: 56, javascript: 22 },
+            { name: '강건강', java: 43, oracle: 77, HTML5: 12, CSS3: 76, javascript: 34 },
+            { name: '봉보배', java: 76, oracle: 88, HTML5: 55, CSS3: 34, javascript: 54 },
+            { name: '정재주', java: 98, oracle: 23, HTML5: 76, CSS3: 23, javascript: 45 },
+            { name: '송성실', java: 34, oracle: 33, HTML5: 13, CSS3: 54, javascript: 45 },
+            { name: '도대담', java: 56, oracle: 56, HTML5: 34, CSS3: 77, javascript: 32 },
+            { name: '윤예의', java: 34, oracle: 88, HTML5: 77, CSS3: 78, javascript: 22 },
+            { name: '황하하', java: 88, oracle: 90, HTML5: 99, CSS3: 98, javascript: 87 }];
+
+            console.log(students);
+
+            for(var i in students){
+                console.log(students[i]);
+
+                //각 학생의 getSum이라는 키에 대한 value는 함수이다.
+                students[i].getSum= function(){
+                    return this.java + this.oracle+ this.HTML5 + this.CSS3+ this.javascript;
+                }
+
+                students[i].getAvg=function(){
+                    return this.getSum() / 5;
+                }
+            }
+
+            console.log(students);
+
+            var area= document.getElementById('area4');
+            for(var i in students){
+                area.innerHTML+= '이름: '+ students[i].name + '/ 총점: '+ students[i].getSum()+ '/ 평균: '+ students[i].getAvg()+'<br>';
+            }
+        }
+    </script>
 </body>
+
 </html>

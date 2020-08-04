@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM(Browser Object Model) 객체</title>
+    <style>
+        .area {
+            border: 3px solid #fe3c;
+            height: 300px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <H1>BOM (Browser Object Model)</H1>
+    <h2>location 객체</h2>
+    <p>브라우저 주소 표시줄과 관련된 객체</p>
+
+    <button onclick="test1();">실행확인</button>
+    <div id="area1" class="area"></div>
+    <script>
+        function test1() {
+            var area = document.getElementById('area1')
+            for (var key in location) {
+                area.innerHTML += (key + " : " + location[key] + '<br>');
+            }
+        }
+    </script>
+
+    <hr>
+    <h2>location.href</h2>
+    <p>페이지 이동</p>
+    <button onclick="location.href='http://www.naver.com'">네이버로 이동</button>
+    <button onclick="location='http://www.naver.com'">네이버로 이동</button>
+
+    <hr>
+    <h3>reload()</h3>
+    <p>페이지를 새로고침하는 메소드</p>
+
+    <!-- 맨상단으로 올라와서 새로고침 -->
+    <button onclick="location=location">새로고침1</button>
+    <button onclick="location.href=location.href">새로고침2</button>
+
+    <!-- 제자리에서 새로고침-->
+    <button onclick="location.reload();">새로고침3</button>
+
+    <hr>
+    <h3>assign()과 replace()</h3>
+    <p>
+        두 메소드 모두 location자원을 제공한 url의 자원으로 재지정하는 메소드(페이지 이동) <br>
+        하지만 replace()는 assign()과 다르게 history에 현재 resource를 남기지 않는다.
+    </p>
+
+    <!-- 뒤로가기가 가능 -->
+    <button onclick="location.assign('http://google.com')">GO INTO GOOGLE</button>
+
+    <!-- 뒤로가기가 안됨 object=> 바로 구글/ 리소스를 남기지 않는다.-->
+    <button onclick="location.replace('http://google.com')">GO INTO GOOGLE2</button>
+
+    <br>
+    <hr>
+    <h2>navigator객체</h2>
+    <p>웹페이지를 실행하고 있는 <strong>브라우저에 대한 정보</strong>를 가지고 있는 객체</p>
+    <button onclick="test2();">실행확인</button>
+    <div id="area2" class="area"></div>
+    <script>
+        function test2() {
+            var area = document.getElementById('area2');
+            for (var key in navigator) {
+                area.innerHTML += key + ':' + navigator[key] + '<br>';
+            }
+        }
+    </script>
+
+    <br>
+    <hr>
+    <h2>history 객체</h2>
+    <p>브라우저 방문 기록과 관련된 객체</p>
+    
+    <button onclick="history.back();">back()</button>
+    <button onclick="history.go(-1)">go(-1)</button>
+
+    <button onclick="history.forward();">forward()</button>
+    <button onclick="history.go(1)">go(1)</button>
+
+    <input type="number" id="num">
+    <button onclick="test3();">go()</button>
+    
+    <script>
+        function test3(){
+            var num=document.getElementById('num').value;
+            
+            history.go(num);
+        }
+    </script>
+    <hr>
+    <br>
+    <h2>screen 객체</h2>
+    <p>웹 브라우저 화면이 아닌 운영체제 화면(모니터)의 속성을 가지는 객체</p>
+    <button onclick="test4_1();">실행확인</button>
+    <br>
+    <button onclick="test4_2();">팝업테스트</button>
+    
+
+    <div id="area4" class="area"></div>
+    <script>
+        function test4_1(){
+            var area= document.getElementById('area4');
+            area.innerHTML='';
+            for(var key in screen){
+                area.innerHTML+= key + " : " + screen[key] +"<br>";
+            }
+        }
+
+        function test4_2(){
+            var child=window.open('', '', 'width='+ screen.width +', height= ' + screen.height);
+            child.resizeTo(500, 300);
+
+            child.document.write("<button onclick='resizeTo(1000,500);'>크기변경</button>");
+
+            //몇초마다 이 함수를 실행하겠다.
+            setInterval(function(){
+                child.resizeBy(-20, -20); //사이즈가 -20픽셀단위로 줄어듦.
+                child.moveBy(10,10); //이동
+            }, 500); //0.5초 : 500/ 1초: 1000
+        }
+    </script>
+</body>
+
+</html>
