@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트</title>
+    <style>
+        .area {
+            min-height: 100px;
+            border: 5px solid silver;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>이벤트</h1>
+    <h2>이벤트 설정방법</h2>
+    <h3>고전 이벤트 모델</h3>
+    <button id="test1">test1() 실행확인</button>
+    <button id="test2">test2() 실행확인</button>
+    <button id="test3">test3() 실행확인 - test1이벤트 제거</button>
+    <div id="area1" class="area"></div>
+    <script>
+        var area = document.getElementById('area1');
+        var test1 = document.getElementById('test1');
+        var test2 = document.getElementById('test2');
+
+        test1.onclick = function () {
+            area.innerHTML += 'test1이 실행되었습니다.<br>';
+        }
+
+        test2.onclick = function () {
+            area.innerHTML += `test2가 실행되었습니다.<br>`;
+        }
+
+        test3.onclick = function () {
+            area.innerHTML += `test3이 실행되면서 test1이벤트를 제거되었다.<br>`;
+
+            //test1 이벤트 발생을 없애버림.
+            test1.onclick = null;
+        }
+    </script>
+
+    <br>
+    <hr>
+    <h2>이벤트 발생 객체</h2>
+    <button id="test3_1">배경전환 버튼 실행확인</button>
+    <script>
+        //누르면 버튼배경 검정색, 글자색: 하얀색
+        var isClicked = false;
+        var test3_1 = document.getElementById('test3_1');
+        test3_1.onclick = function () {
+
+            if (isClicked == false) {
+                test3_1.style.backgroundColor = 'black';
+                test3_1.style.color = 'white';
+                isClicked = true;
+            } else {
+
+                test3_1.style.backgroundColor = 'white';
+                test3_1.style.color = 'black';
+                isClicked = false;
+
+            }
+        }
+    </script>
+
+    <br>
+    <hr>
+
+    <h3>인라인 모델</h3>
+    <button onclick="alert('test4가 실행됨.')" ;>
+        test4() 실행확인
+    </button>
+
+    <br>
+    <hr>
+
+    <h3>표준 이벤트 모델</h3>
+    <button id="test5">test5() 실행확인</button>
+    <button id="test6">test6() 실행확인</button>
+    <div id="area6" class="area"></div>
+    <script>
+        var test5 = document.getElementById('test5');
+        var test6 = document.getElementById('test6');
+        var area = document.getElementById('area6');
+
+        //이벤트 리스너 추가하기
+
+        //test5에 클릭이벤트 발생 => fn_test5_1()이벤트 발생
+        test5.addEventListener('click', fn_test5_1); //fn_test5_1() function에 연결
+        function fn_test5_1() {
+            area6.innerHTML += `test5가 클릭되었습니다.<br>`;
+        }
+
+        //마우스 오버 이벤트
+        test5.addEventListener('mouseover', fn_test5_2);
+        function fn_test5_2() {
+            area6.innerHTML += `test5가 마우스 오버되었습니다<br>`;
+        }
+
+        test6.addEventListener('mouseover', function () {
+            area.innerHTML += `test6이 실행되면서, test5의 마우스오버 이벤트 제거함<br>`;
+            test5.removeEventListener('mouseover', fn_test5_2);
+        });
+    </script>
+
+    <h2>기본 이벤트 제거1</h2>
+    <fieldset>
+        <legend style="text-align:center;">회원가입 페이지</legend>
+        <form>
+            이름: <input type="text" name="name" id="name">
+            <br>
+            아이디: <input type="text" name="userId" id="userId">
+            <BR>
+            비밀번호: <input type="password" name="userPwd" id="userPwd">
+            <br>
+            비밀번호확인: <input type="password" name='userPwdConfirm' id="userPwdConfirm">
+            <br>
+            <input type="submit" value="submit" onclick="return test7();">
+        </form>
+    </fieldset>
+
+    <script>
+        function test7() {
+            var name = document.getElementById('name').value;
+            var userId = document.getElementById('userId').value;
+            var userPwd = document.getElementById('userPwd').value;
+            var userPwdConfirm = document.getElementById('userPwdConfirm').value;
+
+            console.log(userPwd);
+            console.log(userPwdConfirm);
+            console.log(`name: ${name} / userId: ${userId} / userPwd: ${userPwd}/ userPwdConfirm: ${userPwdConfirm}`);
+            if (!(userPwd == userPwdConfirm)) {
+                alert('비밀번호가 서로 다릅니다!');
+                return false; //안넘어감.
+            } else {
+                alert('비밀번호가 일치합니다.');
+                return true; //넘어감.
+            }
+        }
+    </script>
+
+
+    <h2>기본이벤트 제거2</h2>
+    <fieldset>
+        <legend style="text-align:center;">회원가입 페이지</legend>
+        <form>
+            이름: <input type="text" name="name" id="name2">
+            <br>
+            아이디: <input type="text" name="userId" id="userId2">
+            <BR>
+            비밀번호: <input type="password" name="userPwd" id="userPwd2">
+            <br>
+            비밀번호확인: <input type="password" name='userPwdConfirm' id="userPwdConfirm2">
+            <br>
+            <input type="submit" value="제출" onclick="test8();">
+        </form>
+    </fieldset>
+
+    <script>
+        function test8() {
+            var name = document.getElementById('name2').value;
+            var userId = document.getElementById('userId2').value;
+            var userPwd = document.getElementById('userPwd2').value;
+            var userPwdConfirm = document.getElementById('userPwdConfirm2').value;
+
+            console.log(userPwd);
+            console.log(userPwdConfirm);
+            if (!(userPwd == userPwdConfirm)) {
+                alert('비밀번호가 서로 다릅니다!');
+                document.getElementById('userPwdConfirm2').select();
+                // return false; //안넘어감.
+            } else {
+                alert('비밀번호가 일치합니다.');
+                // return true; //넘어감.
+            }
+        }
+    </script>
+
+</body>
+
+</html>
