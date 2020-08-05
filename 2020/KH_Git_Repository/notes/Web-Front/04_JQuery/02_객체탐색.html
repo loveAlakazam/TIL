@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>객체 탐색</title>
+    <style>
+        .test{
+            background: rgb(240,101, 210);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>객체 탐색</h1>
+    <h2>필터 메소드를 사용해 문서 객체를 선택할 수 있다</h2>
+    <h4 class="test">test-a</h4>
+    <h4 class="test">test-b</h4>
+    <h4 class="test">test-c</h4>
+    <h4 class="test">test-d</h4>
+    <h4>test-e</h4>
+    <h4 class="test">test-f</h4>
+    <script>
+        // $(function(){
+        //     $('h4').filter(':even').css({'background':'tomato', 'color': 'white'});
+        //     $('h4').filter(':odd').css({'background':'yellowgreen', 'color': 'white'});
+        // });
+
+        $(function(){
+            $('h4').filter(':even').css({'background':'tomato', 'color': 'white'});
+        
+            //홀수번째 인덱스에 해당하는 부분에 적용
+            $('h4').filter(function(index){
+                return index%2==1;
+            }).css({'background': 'yellowgreen', 'color': 'white'});
+        
+        
+            $('h4').first().css('font-size', '1.5em');
+            
+            //마지막에 위치한 h4의 텍스트(innerText)를 가져온다.
+            console.log($('h4').last().text());
+            $('h4').last().text($('h4').last().text()+': The last element');
+
+
+            var eq3= $('h4').eq(3);
+            eq3.text(eq3.text()+' : eq()메소드로 필터링 됨');
+
+            $('h4').not('.test').css({'background':'yellow', 'color': 'black'});
+        });
+    </script>
+</body>
+</html>

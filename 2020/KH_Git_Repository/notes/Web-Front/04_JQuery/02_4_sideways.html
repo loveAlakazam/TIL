@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <title>Side Ways</title>
+    <style>
+        .wrap,
+        .wrap * {
+            border: 1px solid lightgray;
+            display: block;
+            padding: 5px;
+            margin: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>객체 탐색</h1>
+    <h2>탐색(순회) 메소드</h2>
+    <div class="wrap">div(parent)
+        <p>p</p>
+        <span>span</span>
+        <h4>h4</h4>
+        <h5>h5</h5>
+        <p>p</p>
+    </div>
+    <script>
+        $(function(){
+            console.log($('h4').siblings());
+            $('h4').siblings().css({'color': 'red', 'border': '2px solid red'});
+            
+            //형제중 p태그인것만 스타일 적용
+            $('h4').siblings('p').css({'color':'orange', 'border': '2px solid orange'});
+            
+            //h4의 다음 형제
+            $('h4').next().css({'color': 'blue', 'border': '2px solid blue'});
+        
+            $('h4').nextAll().css({'font-size': '3em'});
+
+            // h4의 형제들중에서 p바로 이전까지만(p는 포함안됨.)
+            $('h4').nextUntil('p').css('border', 'dashed');
+
+            // h4형제들중 바로 이전
+            $('h4').prev().css({'background': 'red', 'color':'white'});
+        
+            $('h4').prevAll().css({'background': 'beige', 'color': 'red'});
+
+            $('h4').prevUntil('p').css('border','double');
+        });
+    </script>
+
+</body>
+
+</html>
