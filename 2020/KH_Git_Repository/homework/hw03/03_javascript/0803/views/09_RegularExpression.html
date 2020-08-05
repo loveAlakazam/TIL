@@ -209,21 +209,23 @@
             area.innerHTML += `${regExp11}  : ${src.replace(regExp11, '($&)')}<br>`;
             //  /AB*A/g : (AA) (ABA) (ABBA) (ABBBA)
 
-            var regExp12; //{}를 이용해서 만들기
+            var regExp12=/AB{0,}A/g; //{}를 이용해서 만들기
             area.innerHTML += `${regExp12} : ${src.replace(regExp12, '($&)')}<br>`;
+
 
             var regExp21 = /AB+A/g;
             area.innerHTML += `${regExp21} : ${src.replace(regExp21, '($&)')}<br>`;
             //  /AB+A/g : AA (ABA) (ABBA) (ABBBA)
 
-            var regExp22; // {} 를 이용해서 만들기
+            var regExp22=/AB{1,}A/g; // {} 를 이용해서 만들기
             area.innerHTML += `${regExp22} : ${src.replace(regExp22, '($&)')}<br>`;
+
 
             var regExp31 = /AB?A/g;
             area.innerHTML += `${regExp31} : ${src.replace(regExp31, '($&)')}<br>`
             //  /AB?A/g : (AA) (ABA) ABBA ABBBA
 
-            var regExp32; //{}를 이용해서 만들기
+            var regExp32=/AB{0,1}A/g; //{}를 이용해서 만들기
             area.innerHTML += `${regExp32} : ${src.replace(regExp32, '($&)')}<br>`
         }
     </script>
@@ -258,6 +260,7 @@
             area.innerHTML += `${regExp4} : ${str2.replace(regExp4, '($&)')}<br>`;
             area.innerHTML += `${regExp5} : ${str2.replace(regExp5, '($&)')}<br>`;
             area.innerHTML += `${regExp6} : ${str2.replace(regExp6, '($&)')}<br>`;
+        
         }
     </script>
 
@@ -303,7 +306,27 @@
             var regExp6= /\S/g;
             area.innerHTML += `${regExp6} : ${src.replace(regExp6, '($&)')}<br>`;
         
+
             //메타 문자를 사용하지 않고 []로 표현하기
+            area.innerHTML+=`<HR><BR>메타 문자를 사용하지 않고 []로 표현하기<BR>`;
+
+            var regExp7= /[0-9]/g;
+            area.innerHTML += `${regExp7} : ${src.replace(regExp7, '($&)')}<br>`;
+        
+            var regExp8= /[^0-9]/g;
+            area.innerHTML += `${regExp8} : ${src.replace(regExp8, '($&)')}<br>`;
+        
+            var regExp9= /[A-Za-z0-9_]/g;
+            area.innerHTML += `${regExp9} : ${src.replace(regExp9, '($&)')}<br>`;
+        
+            var regExp10= /[^A-Za-z0-9_]/g;
+            area.innerHTML += `${regExp10} : ${src.replace(regExp10, '($&)')}<br>`;
+        
+            var regExp11= /[ \n\t]/g;
+            area.innerHTML += `${regExp11} : ${src.replace(regExp11, '($&)')}<br>`;
+        
+            var regExp12= /[^ \n\t]/g;
+            area.innerHTML += `${regExp12} : ${src.replace(regExp12, '($&)')}<br>`;
         }
     </script>
 
@@ -327,12 +350,65 @@
 
 
     <h2>포인트 . </h2>
-    <p>________의 의미</p>
+    <p> . 의 의미: 임의의 한글자를 의미한다.</p>
     <button onclick="point();">실행확인</button>
     <div id="point" class="area"></div>
     <script>
         function point(){
             var area= document.getElementById('point');
+
+            var regExp1= /a.b/;
+            area.innerHTML += `${regExp1} : ab=> ${regExp1.test('ab')}<br>`; //false
+            area.innerHTML += `${regExp1} : a아b=> ${regExp1.test('a아b')}<br>`; //true
+            area.innerHTML += `${regExp1} : a아뵤b=> ${regExp1.test('a아뵤b')}<br>`; //false
+        
+            var regExp2= /xy./;
+            area.innerHTML +=`<br><br>${regExp2}: xyz => ${regExp2.test('xyz')}<br>`;//true
+            area.innerHTML +=`${regExp2}: xyz => ${regExp2.test('xy z')}<br>`;// true
+            
+            area.innerHTML +=`${regExp2}: xyz => ${regExp2.test('wxy')}<br>`;//false
+            area.innerHTML +=`${regExp2}: wxy => ${regExp2.test('wxy ')}<br>`;//true
+
+
+            var regExp3= /in.$/; // in뒤에 있고 맨뒤에 한글자
+            area.innerHTML += `<br><BR>${regExp3} : going => ${regExp3.test('going')}<br>`;//true
+            area.innerHTML += `${regExp3}: inner => ${regExp3.test('inner')}<br>`;//false
+        }
+    </script>
+    <br>
+    <h2>예제</h2>
+    <h3>주민등록번호</h3>
+    <p>
+        주민번호의 유효성 체크<br>
+        생년월일 - 성별 숫자 6
+    </p>
+    <input type="text" id="ssn">
+    <button onclick="validate();">주민번호 확인</button>
+    <script>
+        function validate(){
+            //입력한 주민번호 갖고오기
+            var pno= document.getElementById('ssn').value;
+            console.log(pno);
+
+            //맨앞에 숫자가 2개가 들어가야된다.
+            //\d{2} : 생년
+            //(0[1-9]|1[0-2]): 생월
+            //(0[1-9]|1[0-9]|2[0-9]|3[0-1]): 생일
+            //[1-4]: 성별숫자
+            //\d{6}: 여섯자리 나머지 숫자
+            var regExp=/^\d{2}(0[0-9]|1[0-9])(0[1-9]|[1-2][0-9]|3[01])-[1-4]\d{6}$/;
+
+            var result=regExp.test(pno);
+            console.log(result);
+
+            //잘입력했으면 "정상입력!" 알람창
+            if(result){
+                alert('주민번호를 정상입력하셨습니다.');
+            }
+            //잘입력하지 못했으면 "잘못입력!" 알람창을 띄운다.
+            else{
+                alert('주민번호 잘못 입력하셨습니다.');
+            }
         }
     </script>
 </body>
