@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery - Effect</title>
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <style>
+        .menu {
+            width: 300px;
+            height: 30px;
+            border-radius: 10px;
+            text-align: center;
+            background: yellowgreen;
+            border: 1px solid green;
+            cursor: pointer;
+        }
+
+        .contents {
+            border: 1px solid lightgray;
+            width: 300px;
+            height: 200px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>효과</h1>
+    <h2>show()와 hide()</h2>
+    <p>
+        문서 객체를 크게 하며 보여주거나 작게하며 사라짐
+    </p>
+    <button id="show">보이기</button>
+    <button id="hide">숨기기</button>
+    <button id='toggle'>Toggle</button>
+    <br>
+    <img src="images/river1.PNG" alt="river" id="river">
+    <script>
+        $('#show').click(function () {
+            // $('#river').show();
+            // 숫자가 커질수록 천천히 진행함.
+            // 숫자가 작을 수록 빨리 진행함.
+            $('#river').show(1500);
+        });
+
+        $('#hide').click(function () {
+            // $('#river').hide();
+            $('#river').hide(500);
+        });
+
+        // toggle버튼을 누를 때마다
+        // 사진이 보였다가 안보였다가 반복하게 구현
+
+        //방법1
+        var cnt = 0;
+        $('#toggle').click(function () {
+            cnt++;
+            if (cnt % 2 == 1) {
+                $('#river').hide();
+                console.log($('#river').css('display'));
+            } else {
+                $('#river').show();
+                console.log($('#river').css('display'));
+            }
+        });
+
+        //방법2
+        $('#toggle').click(function () {
+            if ($('#river').css('display') != 'none') {
+                $('#river').hide();
+            } else {
+                $('#river').show();
+            }
+        });
+
+        //방법3. toggle
+        $('#toggle').click(function () {
+            $('#river').toggle(20);
+        });
+    </script>
+
+    <h2>slideDown()과 slideUp()</h2>
+    <div class="menu">첫번째 메뉴</div>
+    <p class="contents">내용1</p>
+
+    <div class="menu">두번째 메뉴</div>
+    <p class="contents">내용2</p>
+    
+    <div class="menu">세번째 메뉴</div>
+    <p class="contents">내용3</p>
+    
+    <div class="menu">네번째 메뉴</div>
+    <p class="contents">내용4</p>
+    
+    <div class="menu">다섯번째 메뉴</div>
+    <p class="contents">내용5</p>
+
+    <script>
+        //방법1
+        // $('.menu').click(function(){
+        //     console.log($(this)); //클릭한 나
+
+        //     //나의 바로 밑 요소
+        //     if($(this).next().css('display')=='none'){
+        //         $(this).next().slideDown();
+        //     }else{
+        //         $(this).next().slideUp();
+        //     }
+        // });
+
+        //방법2
+        $('.menu').click(function(){
+            $(this).next().slideToggle();
+        });
+    </script>
+    
+    <hr>
+    <h2>fadeIn() 와 fadeOut()</h2>
+    <button id="fadeIn">fadeIn()</button>
+    <button id="fadeOut">fadeOut()</button>
+    <button id="fadeToggle">toggle()</button>
+    <img id='flower' src="images/flower1.png" alt="flowers1">
+    <script>
+        $('#fadeIn').click(function(){
+            $('#flower').fadeIn(1500);
+        });
+
+        $('#fadeOut').click(function(){
+            $('#flower').fadeOut(1500);
+        });
+
+        //마우스를 올라가고 내려간다.
+        $('#flower').hover(function(){
+            $(this).fadeTo(700, 0.01);
+        }, function(){
+            $(this).fadeTo(700, 1);
+        });
+
+        $('#fadeToggle').click(function(){
+            $('#flower').fadeToggle();
+        });
+
+    </script>
+
+
+    
+
+</body>
+
+</html>

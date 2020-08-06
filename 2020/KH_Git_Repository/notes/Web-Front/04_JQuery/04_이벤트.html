@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <title>JQuery Event</title>
+
+    <style>
+        .test {
+            width: 150px;
+            height: 50px;
+            border: 1px solid black;
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .outer {
+            width: 100px;
+            height: 50px;
+            background: powderblue;
+            padding: 30px;
+        }
+
+        .inner {
+            width: 100%;
+            height: 100%;
+            background: white;
+        }
+
+        .reverse {
+            background: 'black';
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>이벤트</h1>
+    <h2>이벤트 관련 속성</h2>
+    <p>
+        이벤트 핸들러의 매개인자로 event객체 전달 <br>
+        인라인에서는 event말고는 다른 키워드는 불가
+    </p>
+    <button onclick="test1(event);">실행확인</button>
+    <script>
+        function test1(e) {
+            console.log(e);
+            console.log('e.type: ' + e.type);
+            console.log('e.target: ' + e.target);
+            console.log('e.screenX: ' + e.screenX);
+        }
+    </script>
+
+    <hr>
+    <h2>이벤트 연결과 종류</h2>
+    <h3>on()과 off()</h3>
+    <p>
+        on(): 이벤트연결 <br>
+        off(): 연결된 이벤트 제거 <br>
+    </p>
+
+    <div id="onOff" class="test">기본상태</div>
+    <script>
+        $(function () {
+            $('#onOff').on('click', function () {
+                console.log(event.target);
+            });
+
+            //이벤트도 여러개를 정의할 수 있다.
+            $('#onOff').on({
+                'mouseenter': function () {
+                    //마우스를 올릴때
+                    //내자신에 css를 삽입
+                    $(this).css({ 'background': 'beige', 'color': 'black' }).text('마우스 올라감!');
+                }, 'mouseleave': function () {
+                    $(this).css({ 'background': 'white', 'color': 'black' }).text('마우스 내려감');
+                }, 'click': function () {
+                    //이벤트 :this가 발생 => 마우스 엔터와 마우스 리브 이벤트를 제거
+                    $(this).off('mouseenter').off('mouseleave').css('background', 'white').text('기본상태');
+                }
+            });
+        });
+    </script>
+    <br>
+    <hr>
+    <h3>one()</h3>
+    <p>이벤트를 한번만 연결할 때 사용</p>
+    <div id="eventOne" class='test'>기본상태</div>
+
+    <script>
+        $(function () {
+            $('#eventOne').one('click', function () {
+                alert('처음이자 마지막 이벤트 발생');
+            }).css('cursor', 'pointer');
+        });
+    </script>
+
+    <br>
+    <hr>
+    <h2>이벤트 종류</h2>
+    <h3>마우스 이벤트</h3>
+    <h4>mouseover/mouseout(), mouseenter/mouseleave()</h4>
+    <div class='outer' id='mouseEvent1'>
+        <div class='inner'></div>
+    </div>
+    <br>
+    <div class='outer' id='mouseEvent2'>
+        <div class='inner'></div>
+    </div>
+    <script>
+        $(function () {
+
+            // mouseover/ mouseout: ;자식요소에 접근했을 때도 똑같이 이벤트가 발생한다.
+            $('#mouseEvent1').mouseover(function () {
+                //마우스 오브 이벤트
+                console.log($(this).attr('id') + ' over!');
+            }).mouseout(function () {
+                //마우스 아웃 이벤트
+                console.log($(this).attr('id') + 'out!');
+            });
+
+            // mouseenter/ mouseleave: 자식요소에 접근했을 때 이벤트가 발생하지 않음. 자기자신에게만 이벤트 발생.
+            $('#mouseEvent2').mouseenter(function () {
+                console.log($(this).attr('id') + ' enter!');
+            }).mouseleave(function () {
+                console.log($(this).attr('id') + ' leave!');
+            });
+        });
+    </script>
+    <hr>
+    <h4>hover()</h4>
+    <p>
+        mouseenter()와 mouseleave()를 동시에 사용하는 효과
+    </p>
+    <div id='hoverEvent' class='test'></div>
+    <script>
+        $(function () {
+            // hover() 가 일어날때 발생하는 함수는 2개
+            $('#hoverEvent').hover(function () {
+                //앞: mouseenter, 
+                console.log('난 언제? / enter');
+                // $(this).addClass('reverse');
+                $(this).toggleClass('reverse');
+
+            }, function () {
+                // 뒤: mouseleave
+                console.log('난 이때!/ leave');
+                // $(this).removeClass('reverse');
+                $(this).toggleClass('reverse');
+            });
+        });
+    </script>
+
+    <hr>
+    <h3>키보드 이벤트</h3>
+    <h4>keydown(), keypress(), keyup()</h4>
+    <textarea id="keyEvent" cols="40" rows="5"></textarea>
+    <script>
+        $(function () {
+            //한글은 입력안됨
+            $('#keyEvent').keydown(function (e) {
+                // 꾹 누를때 (계속입력할 때), 계속 지울수있다.
+                console.log('key down: ' + e.key);
+            });
+
+
+            $('#keyEvent').keypress(function (e) {
+                console.log('keypress: ' + e.key);
+            });
+
+            // 쭉입력하다가 키보드에서 손을 떼는 순간
+            $('#keyEvent').keyup(function (e) {
+                console.log('key-up: ' + e.key);
+            });
+        });
+    </script>
+
+    <hr>
+    <h4>동적으로 글자수 세기</h4>
+    <span id="counter">0</span>/150 <br>
+    <textarea id="textTest" cols="50" rows="10"></textarea>
+    <script>
+
+        var cnt = $('#counter').val();
+        console.log
+
+        $(function () {
+            $('#textTest').keypress(function (e) {
+                console.log(e);
+                console.log(e.key);
+                var innerText = $('textText').val();
+                console.log(innerText);
+                //현재글자수
+                // $('#counter').val(); 
+            });
+
+            $('#textTest').keyup(function (e) {
+                console.log(e.key);
+            })
+
+
+        });
+    </script>
+</body>
+
+</html>
