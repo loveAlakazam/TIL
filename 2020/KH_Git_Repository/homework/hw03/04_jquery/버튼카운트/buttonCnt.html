@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>버튼 카운트</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <style>
+        .square{
+            width:100px;
+            height: 100px;
+            background: rgb(2,30,77);
+            border:1px solid black;
+            text-align:center;
+            background-position: center center;
+            color: rgb(255,255,255);
+            margin: 30px;
+            font-size:30px;
+            display:inline-block;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>버튼 카운트</h1>
+    <button class="square" id="box1">0</button>
+    <button class="square" id="box2">0</button>
+    <button class="square" id="box3">0</button>
+</body>
+
+<script>
+    var redColorVal=2;
+    var greenColorVal=30;
+    var blueColorVal=77;
+
+    //첫번째 박스를 누르면
+    $('#box1').click(function(){
+        //박스의 숫자값을 가져온다.
+        var boxNumber1=Number($(this).text());
+        boxNumber1+=1;
+        console.log(boxNumber1);
+        $(this).text(boxNumber1);
+
+        //값이 바뀐다.
+        // boxNumber1.text(boxNumber1);
+        redColorVal+=(boxNumber1*10);
+        greenColorVal+=(boxNumber1*11);
+        blueColorVal +=(boxNumber1*11);
+
+        $(this).css('background', `rgb(${redColorVal},${greenColorVal} , ${blueColorVal})`);
+
+    });
+</script>
+</html>
