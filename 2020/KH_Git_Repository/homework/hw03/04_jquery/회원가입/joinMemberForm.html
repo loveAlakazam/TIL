@@ -50,7 +50,7 @@
     <h1>입력 양식 이벤트</h1>
     <div id="wrap">
         <h2 align="center">회원가입</h2>
-        <form>
+        <form  name="signup" action="joinMemberForm.html" method='post'>
             <table>
                 <tr>
                     <td class="item" rowspan=2><label>이름</label></td>
@@ -95,7 +95,10 @@
                 </tr>
 
                 <tr>
-                    <td colspan=3><input type="reset"> &nbsp; <input type="submit" onclick="submitForm();"></td>
+                    <td colspan=3>
+                        <input type="reset" id="resetBtn"> &nbsp; 
+                        <input type="submit" id="submitBtn">
+                    </td>
                 </tr>
             </table>
         </form>
@@ -171,6 +174,8 @@
 
             // // str1에 정규표현식 regExp에 들어있는 글자가 있다면 제일 먼저 나오는 글자를 가져온다.
             // console.log(`regExp.exec(str1) =>${resultExec}`);
+        }).change(function(){
+            $(this).css({'border':'solid 1px black', 'border-radius':'1px'});
         });
 
 
@@ -216,6 +221,8 @@
                 result['userId']=false;
             }
 
+        }).change(function(){
+            $(this).css({'border':'solid 1px black', 'border-radius':'1px'});
         });
 
 
@@ -245,6 +252,8 @@
                 pwd1ResultBox.css('color', 'red');
                 result['pwd1']=false;
             }
+        }).change(function(){
+            $(this).css({'border':'solid 1px black', 'border-radius':'1px'});
         });
 
 
@@ -271,6 +280,8 @@
                 pwd2ResultBox.css('color', 'red');
                 result['pwd2']=false;
             }
+        }).change(function(){
+            $(this).css({'border':'solid 1px black', 'border-radius':'1px'});
         });
 
         //이메일 확인//
@@ -292,11 +303,31 @@
             }else{
                 result['email']=false;
             }
+        }).change(function(){
+            $(this).css({'border':'solid 1px black', 'border-radius':'1px'});
         });
 
+        //초기화 버튼이 눌렀을 때 실행하는 함수
+        $('#resetBtn').click(function(){
+            //이름
+            $('#name').css({'background':'white', 'border': '1px solid black'});//이름 입력창 배경색 변경
+            $('#nameResult').text(''); //이름 결과박스에 있는 텍스트를 없앤다.
+
+            //아이디
+            $('#userId').css({'background':'white', 'border': '1px solid black'});
+            $('#idResult').text('');
+
+            //비밀번호
+            $('#pwd1').css({'background':'white', 'border': '1px solid black'});
+            $('#pwd1Result').text('');
+
+            //비밀번호 확인
+            $('#pwd2').css({'background':'white', 'border': '1px solid black'});
+            $('#pwd2Result').text('');
+        });
 
         //"제출" 버튼을 눌렀을 때 실행하는 함수
-        function submitForm(){
+        $('#submitBtn').click(function(){
             confirm('폼을 전송하시겠습니까?');
 
             //전역변수 result를 호출
@@ -317,7 +348,7 @@
             //결과창에 로그인한 회원이름을 출력한다.
             var successMember= $('#result');
             successMember.text(`이름: ${$('#name').val()}`);
-        }
+        });
 
     </script>
 </body>
