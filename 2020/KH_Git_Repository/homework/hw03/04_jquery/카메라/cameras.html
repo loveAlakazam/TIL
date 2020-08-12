@@ -67,12 +67,12 @@
                     //큰사진 상자에 있는 이미지를 변경
                     //호버한 사진
                     var picture_url=$(this).find('img').attr('src');
-                    picture_url='<img src="'+picture_url+'" />'
+                    picture_url=picture_url;
                     console.log(picture_url);
 
                     var pictureBox=$('#getPicture').find('img');
                     console.log(pictureBox);
-                    pictureBox.attr('src', picture_url);
+                    pictureBox.attr('src',picture_url);
                 },
 
                 'mouseleave':function(){
