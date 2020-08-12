@@ -185,31 +185,37 @@
     <script>
         //자동으로 함수를 실행한다.
         $(function () {
-            //현재 글자수 -counter찾기
-            let counter = $('#counter');
-            console.log(counter);
 
-
-
-            //초기 글자수
-           
-            
-
-
-            //여러개 이벤트를 연결한다.
             $('#textTest').on({
+                'keyup': function () {
+                    //입력한 글자의 개수
+                    var textLength = $(this).val().length;
+                    var counter = $('#counter');
+                    counter.text(textLength);
+                    console.log(textLength);
+
+                    if (textLength > 150) {
+                        counter.css('color', 'red');
+                    } else {
+                        counter.css('color', 'black');
+                    }
+                },
                 'keypress': function () {
+                    //입력한 글자의 개수
+                    var textLength = $(this).val().length;
+                    var counter = $('#counter');
+                    counter.text(textLength);
+                    console.log(textLength);
 
-
-                }, 'keyup': function () {
-                    // console.log(counter);
-                    // console.log(counter_len);
-                    // console.log(textAreaLength);
-
-                }, 'keydown': function () {
-
+                    if (textLength > 150) {
+                        counter.css('color', 'red');
+                    } else {
+                        counter.css('color', 'black');
+                    }
                 }
             });
+
+
         });
     </script>
 </body>
