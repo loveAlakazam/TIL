@@ -1,0 +1,68 @@
+.container{
+    background:beige;
+    padding-top: 100px;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: row; 
+    /*중심축을 가로로한다.*/
+    
+    flex-wrap: wrap; 
+    /*컴포넌트가 많을경우, 자동으로 아래로 내려놓게한다.*/
+
+    /* justify-content: space-between; */
+     /*컨테이너 안에있는 아이템들을 적당한 공간량을 갖고 간격을 유지하게하는것.*/
+    
+     align-items: baseline; 
+     /*글자를 비슷하게 정렬*/
+}
+
+.item{
+    width:40px;
+    height: 40px;
+    border: 1px solid black;
+}
+
+.item1{
+    background:#ef9a9a;
+    /* order: 2; */
+    flex-grow: 1;
+    /*첫번째 요소가 화면을 꽉채우려고함*/
+    /*브라우저화면의 크기가 작아지면 어쩔수없이 줄어들긴함.*/
+}
+
+.item2{
+    background:#f48fb1;
+}
+
+.item3{
+    background:#ce93d8;
+}
+
+.item4{
+    background:#b39ddb;
+}
+
+.item5{
+    background:#90caf9;
+}
+
+.item6{
+    background: #a5d6a7;
+}
+
+.item7{
+    background:#e6ee9c;
+}
+
+.item8{
+    background:#f0cd33;
+}
+
+.item9{
+    background:#e2f068;
+}
+
+.item10{
+    background:#f38748;
+}

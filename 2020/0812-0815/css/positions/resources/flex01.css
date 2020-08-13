@@ -1,0 +1,124 @@
+.container{
+    background:beige;
+    height: 100vh;
+    /*
+        vh: view port hight
+        부모에 상관없이 보이는 뷰포트를 100%로 나타내겠다.
+    */
+    display: flex;
+
+    /*가로축을 중심축으로 한다.*/
+    flex-direction: row;
+
+    /*가로축을 중심으로 하고, 순서는 거꾸로*/
+    /* flex-direction: row-reverse; */
+    
+    /*세로축을 중심축으로 한다.*/
+    /* flex-direction: column; */
+
+    /*세로축을 중심으로 하고, 순서는 거꾸로*/
+    /* flex-direction: column-reverse */
+
+    /*flex-wrap: 한줄에 빼곡히 붙어있다.
+        flex의 기본 flex-wrap속성값은 nowrap이다.
+        wraping을 안한다.
+        꽉차면, 아래로 내려가서 정렬하지 않고
+        그냥 그 해당 row 에서 모두를 표현
+
+        따라서 nowrap
+        꽉차면 화면을 줄여도 한줄에 계속 붙어있는것을 의미한다.
+    */
+    /* flex-wrap: nowrap;  */
+
+
+    
+    /* flex-wrap: wrap-reverse; */
+    /*
+    화면이 꽉차면 알아서 내려와서 정렬한다.
+    */
+    
+    flex-wrap: nowrap;
+
+    /*flex-flow: flex-driection flex-wrap*/
+    /* flex-flow: column nowrap; */
+
+    flex-flow: row wrap;
+
+    /*
+    justify-content
+    아이템을 어떻게 배치할건가?
+    */
+    /* justify-content: flex-end; */
+    /*
+    아이템 순서를 유지하되, 오른쪽으로 배치*/
+
+    flex-direction:row; /*밑에서 아래쪽으로 배치한다.*/
+    flex-wrap:nowrap;
+    /* justify-content: flex-end; */
+    /* justify-content: center; */
+    /*아이템의 순서를 유지하되
+    */
+
+    /* 왼쪽, 오른쪽 스페이스를 합쳐서 떨어져있게하는것 */
+    /* justify-content: space-around; */
+    /* justify-content: space-evenly; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+
+    /*텍스트가 균등하게 보여주기*/
+    align-items:baseline;
+
+    /*반대축 아이템을 지정*/
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-between;
+    align-content: center;
+
+}
+
+.item{
+    width:40px;
+    height: 40px;
+    border: 1px solid black;
+}
+
+.item1{
+    background:#ef9a9a;
+}
+
+.item2{
+    background:#f48fb1;
+}
+
+.item3{
+    background:#ce93d8;
+}
+
+.item4{
+    background:#b39ddb;
+}
+
+.item5{
+    background:#90caf9;
+}
+
+.item6{
+    background: #a5d6a7;
+}
+
+.item7{
+    background:#e6ee9c;
+}
+
+.item8{
+    background:#f0cd33;
+}
+
+.item9{
+    background:#e2f068;
+}
+
+.item10{
+    background:#f38748;
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>01_Servlet</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  
+  <!-- servlet 매핑 두가지가 짝으로 나뉘어야한다.  -->
+  <!-- 
+  	실행순서
+  	1) 서버실행하면 => Servers안에 있는 web.xml이 먼저 실행
+   	
+   -->
+  <servlet>
+  	<!-- servlet-name: 이름을 붙여준다. -->
+  	<servlet-name>TestServlet1</servlet-name>
+  	
+  	<!-- servlet-class: 서블릿 역할하는 클래스를 붙여준다. -->
+  	<servlet-class>com.kh.servlet.TestServlet1</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>TestServlet1</servlet-name>
+  	
+  	<!-- 
+  	url요청을 받으면.. servlet 매핑에 있는 url패턴들 중에
+  	testServlet1.do 가 들어있다면, 그에 맞는 servlet-name과 일치하는 태그를 찾아서
+  	그 url을 처리하는 클래스로 찾아간다.(com.kh.servlet.TestServlet1)
+  	
+  	url을보고 찾아서, 맞는 클래스로 접근 
+  	데이터 전달방식이 Get방식이기때문에
+  	doGet()함수를 실행한다.
+  	
+  	-->
+  	<url-pattern>/testServlet1.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  <!-- servlet 매핑 -->
+  <servlet>
+  	<servlet-name>TestServlet2</servlet-name>
+  	<servlet-class>com.kh.servlet.TestServlet2</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>TestServlet2</servlet-name>
+  	<url-pattern>/testServlet2.do</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+</web-app>
