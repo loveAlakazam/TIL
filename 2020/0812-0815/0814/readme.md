@@ -34,6 +34,26 @@ File > New > Dynamic Web Project
 7) Finish 버튼을 누른다.
 ```
 
+> ## 아파치 톰캣서버 서버포트 변경하기
+
+```
+
+1) 하단에 있는 탭메뉴 중 "Servers" 탭을 클릭한다.
+
+2) Tomcat v9.0 Server at localhost [Stopped, Synchronized] 부분을 더블클릭
+
+3) 새로운 창이 뜬다. 여러개의 메뉴가 있는데 그중 "Ports" 메뉴와 "Server Options"에 있는 내용만 변경한다.
+
+- Ports 메뉴
+  - 포트번호: 8005 => 8905 로 변경
+  - HTTP/1.1: 8080 => 8985 로 변경
+  - 포트번호는 다른 앱이 사용하는 포트번호와 중복되지 않게한다.
+  
+- Server Options 메뉴
+  - "Serve modules without publishing" 부분의 체크박스를 클릭한다.
+
+```
+
 
 <hr>
 
