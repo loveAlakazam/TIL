@@ -48,11 +48,131 @@ File > New > Dynamic Web Project
   - 포트번호: 8005 => 8905 로 변경
   - HTTP/1.1: 8080 => 8985 로 변경
   - 포트번호는 다른 앱이 사용하는 포트번호와 중복되지 않게한다.
-  
+
 - Server Options 메뉴
   - "Serve modules without publishing" 부분의 체크박스를 클릭한다.
 
 ```
+
+<br>
+
+> ## 파일 뜯어보기
+
+```
+프로젝트를 실행했을 때
+
+url 주소가 "http://localhost:9080/Sevlet_Practice01/" 인 것은
+전체 프로젝트를 실행하는 것이고
+
+url 주소가 "http://localhost:9080/Sevlet_Practice01/index.html"인 것은
+해당 html파일을 본 것이라고 할 수 있다.
+
+```
+
+
+- 어떻게 index페이지를 먼저 보여줄 수 있을까?
+- WEB-INF 폴더 안에 있는 web.xml코드에서 welcome-file이 서버에 접속했을 때 나타나는 페이지를 가리킨다.
+
+```xml
+<welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+</welcome-file-list>
+
+```
+
+
+> ## Get방식에서 페이지 연결하기
+
+- testServlet1.html
+
+```html
+<!--
+testServlet1.html
+위치: WebContent/servlet/testServlet1.html
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Get방식 </title>
+</head>
+<body>
+	<h1>GET방식 </h1>
+	<form action="/Sevlet_Practice/testServlet1.do" method="get" name="testfrm">
+		<ul>
+			<li>
+				<label>이름: </label>
+				<input type="text" name="name" size="10">
+				<br>
+				<label>성별: </label>
+				<input type="radio" name="gender" value="남자">
+				<input type="radio" name="gender" value="여자">
+			</li>
+		</ul>
+		<input type="submit" name="okBtn" id="okBtn" value="확인">
+
+	</form>
+</body>
+</html>
+```
+
+<br>
+
+- 실행했을 때 부딪히게 될 에러
+  - 400번대 에러 브라우저관련 에러
+    - 400 에러 : url에 대응되는 페이지가 유효하지 않거나, 데이터가 잘못됐거나
+    - 404 에러 : `page not found`(페이지가 찾을 수 없다는 에러)
+      - 페이지가 존재하지 않다거나
+      - 뷰에서 url을 잘못 적었거
+      - 경로를 잘 못적음.
+      - 서블릿에서 받아준 것에서 잘못됨.
+
+  - 500번대 에러 : 로직(logic)과 관련된 에러
+
+<br>
+
+- 서블릿 설계 규약
+  - 서블릿은 HttpServlet 클래스를 상속받는다.
+
+  - 서블릿 페이지와 연결할 자바코드 TestServlet1.java
+
+  ```java
+  // TestServlet1.java
+    package com.kh.servlet;
+
+    import java.io.IOException;
+
+    import javax.servlet.ServletException;
+    import javax.servlet.http.HttpServlet;
+    import javax.servlet.http.HttpServletRequest;
+    import javax.servlet.http.HttpServletResponse;
+
+    public class TestServlet1 extends HttpServlet {
+
+  	@Override
+  	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+  	}
+
+  	@Override
+  	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+  	}
+  }
+
+  ```
+
+  - <strong>Sevlet Mapping</strong>: 서블릿페이지와 url을 연결한다.
+  ```
+  ```
+
+
 
 
 <hr>

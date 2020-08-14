@@ -7,7 +7,7 @@
     flex-direction: row; 
     /*중심축을 가로로한다.*/
     
-    flex-wrap: wrap; 
+    /* flex-wrap: wrap;  */
     /*컴포넌트가 많을경우, 자동으로 아래로 내려놓게한다.*/
 
     /* justify-content: space-between; */
@@ -26,17 +26,27 @@
 .item1{
     background:#ef9a9a;
     /* order: 2; */
-    flex-grow: 1;
+    /* flex-grow: 2; */
     /*첫번째 요소가 화면을 꽉채우려고함*/
     /*브라우저화면의 크기가 작아지면 어쩔수없이 줄어들긴함.*/
+    /* flex-shrink: 2; */
+    flex-basis: 10%
 }
 
 .item2{
     background:#f48fb1;
+    /* flex-grow:1; */
+    /* flex-shrink: 1; */
+
+    /*아이템들이 공간을 얼마를 차지하는지 세부적으로 알려줌.*/
+    flex-basis: 60%;
 }
 
 .item3{
     background:#ce93d8;
+    /* flex-grow:1; */
+    /* flex-shrink:1; */
+    flex-basis: 30%;
 }
 
 .item4{
