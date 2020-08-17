@@ -231,8 +231,30 @@ $brew install git
 <br>
 
 ```
-$docker run -d -p 80:80 docker/getting-started
+$ docker run -d -p 80:80 docker/getting-started
 ```
+
+<br>
+
+> # docker 로그인
+```
+$ docker login
+Username: ek12mv2 (닉네임)
+Password:
+```
+
+<br>
+
+> # Oracle 11g 다운로드
+
+```
+$ docker search oracle-xe-11g
+
+$ docker pull jaspeen/oracle-xe-11g
+
+```
+
+
 
 > ## oracle-xe-11g 설치
 
@@ -248,5 +270,23 @@ $ docker pull deepdiver/docker-oracle-xe-11g
 $ docker run -d -p 49160:22 -p 49161:1521 deepdiver/docker-oracle-xe-11g
 ```
 
+
+
 [참고자료](
 https://romeoh.tistory.com/entry/Oracle-docker%EC%97%90-Oracle-11g-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
+
+
+<br>
+
+> ## ojdbc 파일 얻기
+
+- ojdbc를 다운로드한다.
+  - [여기서 다운로드 하자](https://www.oracle.com/database/technologies/jdbcdriver-ucp-downloads.html)
+  - 사용되는 ojdbc파일은 `ojdbc6.jar`이다.
+
+
+[참고자료](https://seongjaemoon.github.io/database/2018/02/18/database-oracle6.html)
+
+[도커로 xe설치 - 참고자료](https://clearstar0817.tistory.com/11)
+
+[도커 개념정리](https://jungwoon.github.io/docker/2019/01/11/Docker-1/)
