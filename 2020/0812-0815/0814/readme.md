@@ -222,58 +222,48 @@ testServlet1.html
 
 # Oracle Database
 
-> ## docker 설치
+> ## 1. 도커 계정 로그인
 
-```
-$brew install git
-```
-
-<br>
-
-```
-$ docker run -d -p 80:80 docker/getting-started
-```
-
-<br>
-
-> # docker 로그인
 ```
 $ docker login
-Username: ek12mv2 (닉네임)
-Password:
+도커 계정 이름 (ek12mv2)
+도커 비밀번호
 ```
 
-<br>
-
-> # Oracle 11g 다운로드
-
-```
-$ docker search oracle-xe-11g
-
-$ docker pull jaspeen/oracle-xe-11g
-
-```
-
-
-
-> ## oracle-xe-11g 설치
+> ## 2. 도커 이미지를 다운로드
 
 ```
 $ docker pull deepdiver/docker-oracle-xe-11g
 ```
 
-<br>
-
-> ## docker에서 oracle-xe-11g를 실행
+> ## 3. 이미지를 컨테이너로 생성한 뒤에 실행한다.
 
 ```
 $ docker run -d -p 49160:22 -p 49161:1521 deepdiver/docker-oracle-xe-11g
 ```
 
+> ## 4. 컨테이너 목록 출력
+
+```
+$ docker ps
+```
+
+> ## 5. 데이터베이스 (sql developer)
 
 
-[참고자료](
-https://romeoh.tistory.com/entry/Oracle-docker%EC%97%90-Oracle-11g-%EC%84%A4%EC%B9%98%ED%95%98%EA%B8%B0)
+데이터베이스 생성하기 (**초록색 십자버튼**)
+
+위에서부터 순서대로
+
+```
+Name: localhost 
+사용자 이름: system 
+비밀번호: oracle 
+포트번호 :49161
+```
+
+## 비밀번호 만료기간이 7일이라서, 생성한뒤에 비밀번호를 변경한다.
+
 
 
 <br>
@@ -285,7 +275,7 @@ https://romeoh.tistory.com/entry/Oracle-docker%EC%97%90-Oracle-11g-%EC%84%A4%EC%
   - 사용되는 ojdbc파일은 `ojdbc6.jar`이다.
 
 
-[참고자료](https://seongjaemoon.github.io/database/2018/02/18/database-oracle6.html)
+[ojdbc6.jar파일 얻기-참고자료](https://seongjaemoon.github.io/database/2018/02/18/database-oracle6.html)
 
 [도커로 xe설치 - 참고자료](https://clearstar0817.tistory.com/11)
 
