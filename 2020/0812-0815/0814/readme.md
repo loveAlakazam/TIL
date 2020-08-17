@@ -142,6 +142,9 @@ testServlet1.html
 
   - 서블릿 페이지와 연결할 자바코드 TestServlet1.java
 
+  - doPost()는 doGet()을 먼저 실행한 후에 넘긴다.
+  - doGet()메소드에서 웹페이지(.jsp, .html)에서 데이터를 받을 때 body내에서 표현을 하려면
+
   ```java
   // TestServlet1.java
     package com.kh.servlet;
@@ -168,12 +171,52 @@ testServlet1.html
 
   ```
 
-  - <strong>Sevlet Mapping</strong>: 서블릿페이지와 url을 연결한다.
+  - `WebContent > WEB-INF > web.xml`에서 서블릿매핑을 한다.
+    - `<strong>Sevlet Mapping</strong>`: 서블릿페이지와 url을 연결한다.
+
+    - <b>`<servlet>`안에 `<servlet-name>`과 `<servlet-mapping>`안에 있는 `<servlet-name>`이 일치해야한다.</b>
+
+
+  ```xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <web app>
+
+
+    <!--servlet 매핑
+      : testServlet1.do와 TestServlet1.java를 연결한다.  
+    -->
+    <servlet>
+      <servlet-name>TestServlet1</servlet-name>
+      <servlet-class>com.kh.servlet.TestServlet1</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+      <servlet-name>TestServlet1</servlet-name>
+      <url-pattern>testServlet1.do</url-pattern>
+    </servlet-mapping>
+  </web app>
   ```
-  ```
 
+- 실행 순서
+  - 웹서버 실행
+  - `Servers > web.xml` 이실행
+  - `WebContent > WEB-INF > web.xml`이 실행
+    - `<welocome-file-list>`실행 : 시작페이지
+    - `web.xml`에 기재된 url(`testServlet1.do`)을 본다.
+    - url에 매핑된 서블릿네임(`<servlet-name>`)을 찾아서 연결된 <b>서블릿 클래스</b>를 찾는다.
+    - 이 url을 처리하는 해당 서블릿 클래스를 찾아서 실행한다.(컴파일)
 
+    - GET방식이라면 `doGet()` 함수가 실행되고
+    - POST방식이라면 `doPost()`함수가 실행된다.
 
+<br>
+
+- ### `RequestDispatcher.forward()` 와 `response.sendRedirect()`
+  - `RequestDispatcher.forward()`
+    - 뷰(view)한테 보낼 데이터가 존재할 때 사용
+
+  - `response.sendRedirect()`
+    - 뷰만 띄운다. (보낼 데이터를 필요로하지 않을 때)
 
 <hr>
 
