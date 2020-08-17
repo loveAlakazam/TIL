@@ -290,3 +290,5 @@ https://romeoh.tistory.com/entry/Oracle-docker%EC%97%90-Oracle-11g-%EC%84%A4%EC%
 [도커로 xe설치 - 참고자료](https://clearstar0817.tistory.com/11)
 
 [도커 개념정리](https://jungwoon.github.io/docker/2019/01/11/Docker-1/)
+
+[도커 컨테이너/이미지 삭제](https://brunch.co.kr/@hopeless/10)
