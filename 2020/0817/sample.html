@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>슬랙 질문과 답변 - 바닐라 js</title>
+</head>
+<body>
+    <input type="button" id="target" value="버튼클릭">
+    <script>
+        region=[{a:'가', b:'나'}, {c:'다', d:'라'}, {e: '마', f:'바'}];
+        let t= document.getElementById('target');
+        
+        t.addEventListener('click', function(){
+            //버튼이 클릭되자마자 발생하는 이벤트
+
+            //for문으로 region의 상호명정보/마커위치정보/주소정보를 모은다.
+            //상호명정보(region[0]), 마커위치정보(region[1]), 주소정보(region[2])의 길이가 모두 2로 동일할때
+            for(let i=0; i<region.length; i++){
+                console.log(region[i]);   
+            }
+
+        });
+    </script>
+
+</body>
+</html>
