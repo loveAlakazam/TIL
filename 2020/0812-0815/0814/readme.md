@@ -70,7 +70,7 @@ url 주소가 "http://localhost:9080/Sevlet_Practice01/index.html"인 것은
 ```
 
 
-- 어떻게 index페이지를 먼저 보여줄 수 있을까?
+- ### 어떻게 index페이지를 먼저 보여줄 수 있을까?
 - WEB-INF 폴더 안에 있는 web.xml코드에서 welcome-file이 서버에 접속했을 때 나타나는 페이지를 가리킨다.
 
 ```xml
@@ -197,26 +197,26 @@ testServlet1.html
   </web app>
   ```
 
-- 실행 순서
-  - 웹서버 실행
-  - `Servers > web.xml` 이실행
-  - `WebContent > WEB-INF > web.xml`이 실행
+- ### 실행 순서
+  - #### 웹서버 실행
+  - #### `Servers > web.xml` 이실행
+  - #### `WebContent > WEB-INF > web.xml`이 실행
     - `<welocome-file-list>`실행 : 시작페이지
     - `web.xml`에 기재된 url(`testServlet1.do`)을 본다.
     - url에 매핑된 서블릿네임(`<servlet-name>`)을 찾아서 연결된 <b>서블릿 클래스</b>를 찾는다.
     - 이 url을 처리하는 해당 서블릿 클래스를 찾아서 실행한다.(컴파일)
 
-    - GET방식이라면 `doGet()` 함수가 실행되고
-    - POST방식이라면 `doPost()`함수가 실행된다.
+    - <strong>GET방식이라면 `doGet()` 함수가 실행되고</strong>
+    - <strong>POST방식이라면 `doPost()`함수가 실행된다.</strong>
 
 <br>
 
 - ### `RequestDispatcher.forward()` 와 `response.sendRedirect()`
-  - `RequestDispatcher.forward()`
-    - 뷰(view)한테 보낼 데이터가 존재할 때 사용
+  - #### `RequestDispatcher.forward()`
+    - <strong>뷰(view)한테 보낼 데이터가 존재할 때 사용</strong>
 
-  - `response.sendRedirect()`
-    - 뷰만 띄운다. (보낼 데이터를 필요로하지 않을 때)
+  - #### `response.sendRedirect()`
+    - <strong>뷰만 띄운다. (보낼 데이터를 필요로하지 않을 때)</strong>
 
 <hr>
 
