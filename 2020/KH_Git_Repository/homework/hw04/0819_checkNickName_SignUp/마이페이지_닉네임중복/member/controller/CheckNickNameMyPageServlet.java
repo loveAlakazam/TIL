@@ -1,7 +1,6 @@
 package member.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,12 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
 
-
-@WebServlet("/checkNickName.me")
-public class CheckNickNameServlet extends HttpServlet {
+/**
+ * Servlet implementation class CheckNickNameMyPageServlet
+ */
+@WebServlet("/checkNickNameMyPage.me")
+public class CheckNickNameMyPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public CheckNickNameServlet() {
+    public CheckNickNameMyPageServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +31,7 @@ public class CheckNickNameServlet extends HttpServlet {
 		
 		request.setAttribute("result", result); //nickName이 중복됐는지 쿼리결과를 세팅
 		request.setAttribute("checkedNickName", nickName); //입력한 nickName 값을 세팅
-		request.getRequestDispatcher("WEB-INF/views/member/checkNickNameForm.jsp").forward(request, response);
+		request.getRequestDispatcher("WEB-INF/views/member/checkNickNameFormMyPage.jsp").forward(request, response); //세팅한값을 dispatcher가 가리키는 페이지에게로 보냄.
 		
 	}
 

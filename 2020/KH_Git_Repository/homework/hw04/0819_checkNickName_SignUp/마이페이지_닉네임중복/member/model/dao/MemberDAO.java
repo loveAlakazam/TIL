@@ -206,4 +206,31 @@ public class MemberDAO {
 		return result;
 	}
 
+
+	public int updateMember(Connection conn, Member myInfo) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		
+		//아이디, 비밀번호를 제외한 나머지 정보를 수정한다.
+		String query= prop.getProperty("updateMember");
+		try {
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, myInfo.getUserName());
+			pstmt.setString(2, myInfo.getNickName());
+			pstmt.setString(3, myInfo.getPhone());
+			pstmt.setString(4, myInfo.getEmail());
+			pstmt.setString(5, myInfo.getAddress());
+			pstmt.setString(6, myInfo.getInterest());
+			pstmt.setString(7, myInfo.getUserId());
+			
+			result=pstmt.executeUpdate(); //쿼리문 실행결과
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 }

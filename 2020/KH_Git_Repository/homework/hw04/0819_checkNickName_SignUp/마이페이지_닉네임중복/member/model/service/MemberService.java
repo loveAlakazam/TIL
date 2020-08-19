@@ -71,4 +71,18 @@ public class MemberService {
 		return result;
 	}
 
+	public int updateMember(Member myInfo) {
+		Connection conn=getConnection();
+		int result=new MemberDAO().updateMember(conn, myInfo);
+		if(result>0) {
+			//회원정보 수정 성공
+			commit(conn);
+		}else {
+			//회원정보 수정실패
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }
