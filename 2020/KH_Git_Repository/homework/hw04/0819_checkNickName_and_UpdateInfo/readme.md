@@ -203,7 +203,7 @@ public class CheckNickNameFormMyPageServlet extends HttpServlet {
 </head>
 <body>
 	<h2>닉네임 중복 검사</h2>
-	<form action="<%=request.getContextPath() %>/checkNickName.me" id="nickNameCheckForm" >
+	<form action="<%=request.getContextPath() %>/checkNickNameMyPage.me" id="nickNameCheckForm" >
 		<input type="text" id="inputNickName" name="inputNickName">
 		<input type="submit" value="중복확인">
 	</form>
@@ -212,10 +212,11 @@ public class CheckNickNameFormMyPageServlet extends HttpServlet {
 	<br>
 	<%
 	/*
-		중복확인 버튼을 누르면 -> url "/checkNickName.me" 와 연결된 서블릿 CheckNickNameServlet.java에서
+		중복확인 버튼을 누르면 -> url "/checkNickNameMyPage.me" 와 연결된 서블릿 CheckNickNameMyPageServlet.java에서
 		처리한 결과데이터 result와 checkedNickName을  
 		request.getAttribute()함수를 이용하여 가져온다.
 	*/
+
 	if(request.getAttribute("result")!=null){ //만일 닉네임 중복여부 결과값이 null이 아니라면
 		int result=(int)request.getAttribute("result");
 		if(result>0){ // 중복된 닉네임
@@ -264,9 +265,9 @@ public class CheckNickNameFormMyPageServlet extends HttpServlet {
 
 <br>
 
-## 4. CheckNickNameServlet.java
+## 4. CheckNickNameMyPageServlet.java
 
-- `/checkNickName.me` url과 매핑된 서블릿이다.
+- `/checkNickNameMyPage.me` url과 매핑된 서블릿이다.
 - 이때까지는 컨트롤러에 해당한다.
 
 ```java
@@ -299,7 +300,7 @@ public class CheckNickNameServlet extends HttpServlet {
 
 		request.setAttribute("result", result); //nickName이 중복됐는지 쿼리결과를 세팅
 		request.setAttribute("checkedNickName", nickName); //입력한 nickName 값을 세팅
-		request.getRequestDispatcher("WEB-INF/views/member/checkNickNameForm.jsp").forward(request, response); //세팅한값을 dispatcher가 가리키는 페이지에게로 보냄.
+		request.getRequestDispatcher("WEB-INF/views/member/checkNickNameFormMyPage.jsp").forward(request, response); //세팅한값을 dispatcher가 가리키는 페이지에게로 보냄.
 
 	}
 
