@@ -420,6 +420,11 @@ public class MemberDAO {
 
 > # 회원정보 수정하기
 
+## 0. myPage.jsp
+
+- 수정하기 버튼을 누르면 url('/updateForm.me')를 요청한다.
+- 요청한 url과 연결된 서블릿(MemberUpdateFormServlet.java)이 요청에대한 처리를 한다.
+
 ## 1. MemberUpdateFormServlet.java
 
 ```java
