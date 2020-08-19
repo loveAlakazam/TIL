@@ -12,6 +12,8 @@
       앞의 서블릿과 연결페이지인 `checkNickNameForm.jsp`에서 <form>태그 id,
       modal창 크기 지정);
 
+<BR>
+
   ```html
   <!-- 페이지의 일부만 발췌했습니다. -->
   <form action="<%=request.getContextPath()%>/insert.me" method="post"
