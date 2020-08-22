@@ -1,11 +1,11 @@
 > # 수업 필기 노트
 
 - [1. 자바 기초](./notes/JAVA_BASIC)
-- [2. ORACLE_DB] (./notes/ORACLE_DATABASE)
-- [3. JDBC] (./notes/JDBC)
+- [2. ORACLE_DB](./notes/ORACLE_DATABASE)
+- [3. JDBC](./notes/JDBC)
 - [4. Web front - HTML, CSS, JS, JQuery](./notes/Web-Front)
 - [5. Servelet & JSP](./notes/JSP_Servlet)
-- [6. AJax & JSON & GSON] (./notes/AJAX)
+- [6. AJax & JSON & GSON](./notes/AJAX)
 
 <hr>
 
