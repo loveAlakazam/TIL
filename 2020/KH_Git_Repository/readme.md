@@ -1,3 +1,14 @@
+> # 수업 필기 노트
+
+- [1. 자바 기초](./notes/JAVA_BASIC)
+- [2. ORACLE_DB] (./notes/ORACLE_DATABASE)
+- [3. JDBC] (./notes/JDBC)
+- [4. Web front - HTML, CSS, JS, JQuery](./notes/Web-Front)
+- [5. Servelet & JSP](./notes/JSP_Servlet)
+- [6. AJax & JSON & GSON] (./notes/AJAX)
+
+<hr>
+
 # KH 정보 교육원 프로젝트 활동
 - [mini 프로젝트](./projects/mini)
 - [semi 프로젝트](./projects/semi)
@@ -72,7 +83,7 @@
 
 # Web Frontend
 
-> ## HTML
+> ## HTML & CSS
 
 - [html 기초 & 테이블 작성 숙제](./homework/hw03/01_html5/0723/homework01.html)
 
@@ -80,12 +91,26 @@
 - [ 폼태그 숙제](./homework/hw03/01_html5/0724/templates/productform.html)
   - [(자습)flask 웹 서버연결](./homework/hw03/01_html5/0724/server.py)
 
-> ## CSS
+<BR>
 
 > ## JavaScript & JQuery
 
 - [자바스크립트 숙제1](./homework/hw03/03_javascript/homework01.html)
 - [자바스크립트 숙제2](./homework/hw03/03_javascript/0731/)
+- [자바스크립스 숙제3](./homework/hw03/03_javascript/0803)
+
+- [JQuery 숙제1](./homework/hw03/04_jquery/버튼카운트/)
+- [JQuery 숙제2](./homework/hw03/04_jquery/카메라/)
+- [JQuery 숙제3](./homework/hw03/04_jquery/회원가입/)
+
+<BR>
+  
+  
+> ## 서블릿
+
+- [공지사항 게시글 수정하기](./homework/hw04/0818_updateNotice/)
+- [회원가입페이지-닉네임 중복 확인하기](./homework/hw04/0819_checkNickName_SignUp)
+- [마이페이지-닉네임중복 확인/회원정보 수정](./homework/hw04/0819_checkNickName_UpdateInfo)
 
 
 > ## Ajax
