@@ -110,7 +110,7 @@
 
 - [공지사항 게시글 수정하기](./homework/hw04/0818_updateNotice/)
 - [회원가입페이지-닉네임 중복 확인하기](./homework/hw04/0819_checkNickName_SignUp)
-- [마이페이지-닉네임중복 확인/회원정보 수정](./homework/hw04/0819_checkNickName_UpdateInfo)
+- [마이페이지-닉네임중복 확인/회원정보 수정](./homework/hw04/0819_checkNickName_and_UpdateInfo)
 
 
 > ## Ajax
