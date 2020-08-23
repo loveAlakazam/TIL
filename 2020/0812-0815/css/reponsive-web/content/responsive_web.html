@@ -1,37 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Clone Coding - Youtube Mobile</title>
 
-        <!-- API: font-awesome-->
-        <script src="https://kit.fontawesome.com/09697e2134.js" crossorigin="anonymous"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clone Coding - Youtube Mobile</title>
 
-        <!-- API: Google Fonts-->
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-    </head>
+    <!-- API: font-awesome-->
+    <script src="https://kit.fontawesome.com/09697e2134.js" crossorigin="anonymous"></script>
 
-    <body>
-        <header>
-            <div class="logo">
-                <i class="fab fa-youtube"></i>
-                <span class="title">Youtube UI</span>
-            </div>
+    <!-- API: Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 
-            <div class="icons">
-                <i class="fas fa-search"></i>
-                <i class="fas fa-elipsis"></i>
-            </div>
-        </header>
-        
-        <section class="player">
-            <video src="" controls></video>
-        </section>
-        
+    <!--css/ js-->
+    <script src="responsive_web.js"></script>
+    <link rel="stylesheet" href="responsive_web.css">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <i class="fab fa-youtube"></i>
+            <span class="title">Youtube UI</span>
+        </div>
+
+        <div class="icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-elipsis"></i>
+        </div>
+    </header>
+
+    <section class="player">
+        <video src="images/videos/coffee_kkang.mp4" controls></video>
+    </section>
+
+
+
+    <div class="infoAndUpNext">
         <section class="info">
             <div class="metadata">
                 <ul class="hashtags">
+                    <li>#커피깡</li>
+                    <li>#자바 미니 프로젝트</li>
                     <li>#DreamCoding</li>
                     <li>#DreamCoders</li>
                     <li>#Elie</li>
@@ -40,39 +50,38 @@
 
                 <div class="titleAndButton">
                     <span class="title">
-                        >Clone Coding: Youtube Mobile Web-Site 유튜브 모바일 웹사이트 따라만들기 | 
+                        Clone Coding: Youtube Mobile Web-Site 유튜브 모바일 웹사이트 따라만들기 |
                         프론트엔드 개발자 입문편: HTML, CSS, JavaScript 드림코딩과
                         함께하는 프론트 엔드 실전 입문편
                     </span>
-                    
+
                     <button class="moreBtn">
                         <i class="fas fa-caret-down"></i>
                     </button>
                 </div>
-                
-                <div class="views">
-                    <span class="views">1M views 1 month ago</span>
-                </div>
+
+
+                <span class="views">1M views 1 month ago</span>
             </div>
 
             <ul class="actions">
                 <li>
-                    <buttons><i class="fas fa-thumbs-up"></i>1K</buttons>
+                    <button><i class="fas fa-thumbs-up"></i>1K</button>
                 </li>
                 <li>
-                    <buttons><i class="fas fa-thumbs-down"></i>0</buttons>
+                    <button><i class="fas fa-thumbs-down"></i>0</button>
                 </li>
                 <li>
-                    <buttons><i class="fas fa-share"></i>공유</buttons>
+                    <button><i class="fas fa-share"></i>공유</button>
                 </li>
                 <li>
-                    <buttons><i class="fas fa-plus"></i>저장</buttons>
+                    <button><i class="fas fa-plus"></i>저장</button>
                 </li>
                 <li>
-                    <buttons><i class="fas fa-ellipsis-v"></i></buttons>
+                    <button><i class="fas fa-ellipsis-v"></i></button>
                 </li>
             </ul>
-            
+
             <div class="channels">
                 <img src="images/avatar.png" alt="avatar">
                 <div class="info">
@@ -80,50 +89,66 @@
                     <span class="subscribers">구독자 10만명</span></div>
             </div>
         </section>
-        
+
         <section class="UpNext">
             <span class="title">다음 동영상</span>
             <ul>
                 <li class="item">
-                    <img src="" alt="">
+                    <img src="images/kk.JPG" alt="kk">
                     <div class="info">
-                        <span class="title"></span>
-                        <span class="name"></span>
-                        <span class="views"></span>
+                        <span class="title">동물의숲 개가수</span>
+                        <span class="name">K.K</span>
+                        <span class="views">10M</span>
 
                     </div>
                     <button class="moreBtn">
-                        <i class="fas fa-elipsis-v"></i>
+                        <i class="fas fa-ellipsis-v"></i>
                     </button>
-                    
+
                 </li>
 
                 <li class="item">
-                    <img src="" alt="">
+                    <img src="images/alakazam.png" alt="alakazam">
                     <div class="info">
-                        <span class="title"></span>
-                        <span class="name"></span>
-                        <span class="views"></span>
+                        <span class="title">후딘(alakazam)</span>
+                        <span class="name">loveAlakazam</span>
+                        <span class="views">20K</span>
 
                     </div>
                     <button class="moreBtn">
-                        <i class="fas fa-elipsis-v"></i>
+                        <i class="fas fa-ellipsis-v"></i>
                     </button>
                 </li>
 
                 <li class="item">
-                    <img src="" alt="">
+                    <img src="images/treasurePlanet.JPG" alt="">
                     <div class="info">
-                        <span class="title"></span>
-                        <span class="name"></span>
-                        <span class="views"></span>
+                        <span class="title">보물성</span>
+                        <span class="name">Treasure Planet</span>
+                        <span class="views">30M</span>
 
                     </div>
                     <button class="moreBtn">
-                        <i class="fas fa-elipsis-v"></i>
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                </li>
+
+
+                <li class="item">
+                    <img src="images/으어어....JPG" alt="">
+                    <div class="info">
+                        <span class="title">보물성</span>
+                        <span class="name">Treasure Planet</span>
+                        <span class="views">30M</span>
+
+                    </div>
+                    <button class="moreBtn">
+                        <i class="fas fa-ellipsis-v"></i>
                     </button>
                 </li>
             </ul>
         </section>
-    </body>
+    </div>
+</body>
+
 </html>
