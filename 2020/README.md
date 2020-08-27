@@ -33,8 +33,16 @@
 
 <hr>
 
-# [우아한 테크러닝 - React와 TypeScript ](./woowaTech-front202009/)
+# 우아한 테크러닝 - React와 TypeScript 
 
+- [0901](./woowaTech-learning/0901)
+- [0903](./woowaTech-learning/0903)
+- [0908](./woowaTech-learning/0908)
+- [0910](./woowaTech-learning/0910)
+- [0915](./woowaTech-learning/0915)
+- [0917](./woowaTech-learning/0917)
+- [0922](./woowaTech-learning/0922)
+- [0924](./woowaTech-learning/0924)
 
 <hr>
 
