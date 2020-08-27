@@ -33,7 +33,7 @@
 
 <hr>
 
-> ## [우아한 테크러닝 - React와 TypeScript ](./woowaTech-front202009/)
+# [우아한 테크러닝 - React와 TypeScript ](./woowaTech-front202009/)
 
 
 <hr>
