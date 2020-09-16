@@ -6,7 +6,7 @@
 - [4. Web front - HTML, CSS, JS, JQuery](./notes/Web-Front)
 - [5. Servelet & JSP](./notes/JSP_Servlet)
 - [6. AJax & JSON & GSON](./notes/AJAX)
-
+- [7. JSP-ActionTags / JSTL ](./JSP-Action-Tag/)
 <hr>
 
 # KH 정보 교육원 프로젝트 활동
@@ -104,8 +104,8 @@
 - [JQuery 숙제3](./homework/hw03/04_jquery/회원가입/)
 
 <BR>
-  
-  
+
+
 > ## 서블릿
 
 - [공지사항 게시글 수정하기](./homework/hw04/0818_updateNotice/)
