@@ -36,7 +36,13 @@
 # 표준 액션 태그
 
 - `jsp:include` : 현재 페이지에 특정 페이지를 포함할 때 사용
-- `jsp:forward`: `requestDispatcher()`와 동일 페이지로 이동. 현재 페이지 접근 시 특정 페이지로 이동.
+- `jsp:forward`:
+  - `requestDispatcher()`와 동일 페이지로 이동. 현재 페이지 접근 시 특정 페이지로 이동.
+
+  - 전달하는 페이지에서 request, response 를 같이 전달한다.
+
+
+
 - `jsp:param`:
   -  `<jsp:include>`, `<jsp:forward>`의 하위요소로 사용된다.
   - 페이지에서 페이지를 이동할 때 보내주는 값들을 담는다.
@@ -151,3 +157,38 @@
 <%-- property="nai" 는 Person클래스의 getNai()를 호출 --%>
 나이: <jsp:getProperty property="nai" name="person1"/><br>
 ```
+
+
+# EL (Expression Language)
+
+- `<%= %>`, `out.print()`와 같이 JSP에 쓰이는 JAVA코드를 간결하게 사용하는 방법
+- 화면에 포현하고자 하는 코드를 `${value}` 형식으로 표현하여 작성.
+
+- 예시
+```jsp
+${value}
+
+
+<%=request.getParameter("name") %>
+${param.name}
+```
+
+## EL 연산자 기호
+
+- (좌)연산자 => (우) EL표기
+  - `/` => `div`
+  - `%` => `mod`
+  - `||` => `or`
+  - `!` => `not`
+  - `<` => `lt`(less than)
+  - `<=` => `le`(less or equal)
+  - `>` => `gt`(greater than)
+  - `>=` => `ge`(greater or equal)
+  - `==` => `eq`
+  - `!=` => `ne`
+  - `null` => `empty`
+
+- page/ request / session / application Scope => scope영역에 해당하는 객체에 접근하다.
+
+- param : 전달된 파라미터 값을 받아올 때 사용
+- paramValues: 전달된 파라미터들을 배열로 받아올 때 사용
