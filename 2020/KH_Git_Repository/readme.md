@@ -6,12 +6,16 @@
 - [4. Web front - HTML, CSS, JS, JQuery](./notes/Web-Front)
 - [5. Servelet & JSP](./notes/JSP_Servlet)
 - [6. AJax & JSON & GSON](./notes/AJAX)
-- [7. JSP-ActionTags / JSTL ](./JSP-Action-Tag/)
+- [7. JSP-ActionTags / JSTL ](./notes/JSP-Action-Tag/)
+- [8. Nexacro ](./notes/Nexacro)
+- [9. Spring ](./notes/Spring)
+- [10. MyBatis ](./notes/MyBatis)
+
 <hr>
 
 # KH 정보 교육원 프로젝트 활동
-- [mini 프로젝트](./projects/mini)
-- [semi 프로젝트](./projects/semi)
+- [mini 프로젝트 - 커피깡 ](https://github.com/KHAcademyProject2020/miniProject)
+- [semi 프로젝트- Good Ball ](https://github.com/KHAcademyProject2020/Semi-Project)
 - [final 프로젝트](./projects/final)
 
 <hr>
@@ -113,6 +117,9 @@
 - [마이페이지-닉네임중복 확인/회원정보 수정](./homework/hw04/0819_checkNickName_and_UpdateInfo)
 
 
-> ## Ajax
+> ## JSTL
+
+- 
+
 
 <hr>
