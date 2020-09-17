@@ -121,7 +121,7 @@
 # 버튼 만들기
 
 - 메뉴 손(:hand:) 옆에 있는 회색버튼
-- 이벤트 만들(오른쪽 프로퍼티창 번개:thunder: 모양 아이콘 클릭)
+- 이벤트 만들(오른쪽 프로퍼티창 번개 :thunder: 모양 아이콘 클릭)
 
 ```javascript
 // 버튼을 더블클릭 => 스크립트영역으로 이동.
@@ -186,6 +186,9 @@ nexacro (24328)> UD 2:20:0:667   마이 이벤트 동작
 
 ```
 
+<br>
+
+# 입력창(edit) 만들기 / 입력창의 입력내용 가져오기 & 변경하기
 
 - `edit` : 왼쪽에서 다섯번째 컴포넌트
   - `<input type="text">`와 같다.
@@ -220,3 +223,130 @@ this.editFunc=function(){
   this.Edit100.set_value('넥사크로 별거아니네~');
 }
 ```
+
+<br>
+
+# C_Div.xfdl - `div` 영역 만들기
+
+- 왼쪽에서 9번째 컴포넌트를 가져온다.
+- java.swing 의 JPanel과 같은 역할이다.
+  - JPanel: 패널 안에있는 패널과 컴포넌트를 넣을 수 있다.
+  - 컴포넌트를 div에 넣으면 알아서 넣어진다.
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="C_Div" width="1280" height="720" titletext="New Form">
+    <Layouts>
+      <Layout height="720" mobileorientation="landscape" width="1280">
+
+        <Div id="Div00" taborder="0" text="Div00" left="8" top="3" width="222" height="215" color="aqua" border="3px solid black" background="aqua">
+          <Layouts>
+            <Layout>
+              <!-- div내부에 있는 컴포넌트-->
+              <!--static -->
+              <Static id="Static00" taborder="0" text="Static00" left="1" top="5" width="212" height="33" onclick="Div00_Static00_onclick"/>
+
+              <!-- button(div안에 있는 버튼) -->
+              <Button id="Button00" taborder="1" text="Button00" left="11" top="46" width="192" height="48"/>
+
+              <!-- edit -->
+              <Edit id="Edit00" taborder="2" left="9" top="107" width="195" height="38"/>
+            </Layout>
+          </Layouts>
+        </Div>
+
+        <!-- div밖 버튼-->
+        <Button id="Button00" taborder="1" text="div밖 버튼" left="267" top="62" width="70" height="36"/>
+      </Layout>
+    </Layouts>
+  </Form>
+</FDL>
+
+```
+
+<hr>
+
+# D_Edit.xfdl
+
+- edit(`<input type="text">`)
+  - 속성
+    - `maxLength`: 입력을 허용하는 최대길이
+      - 기본값: 0
+      - 값설정: 설정한 길이가 입력할 수 있는 최대길이가 된다.
+
+    - `autoskip`: 바로 다음 입력창으로 커서가 이동.
+      - 기본값: false
+      - true로 변경하면 => maxLength길이만큼 입력 후에는 바로 아래의 입력창으로 커서가 이동된다.
+
+    - `taborder`: 탭키를 눌렀을 때 이동되는 순서
+      - taborder 숫자가 클수록, 이동되는 순서가 가장나중이되고, 반대로 숫자가 작을 수록 먼저 입력할 수 있게끔 커서가 깜빡인다.
+
+      - 즉, taborder가 0일때 가장 먼저 사용자로부터  입력을 받는다.
+
+    - `displaynulltext`: html의 input태그의 속성인 `placeholder` (ex. 입력예시문구)와 같다.
+
+    - `readonly` :입력 못하게끔 함.
+    - `password`: 입력형태가 비밀번호 형식으로 바뀜.
+      - `<input type="password">`
+
+<hr>
+
+# E_MaskEdit.xfdl
+
+- 맨 왼쪽에서 `edit` 바로 오른쪽 컴포넌트(`maskEdit`)
+- mask: filter가 있다.
+  - 값을 입력받을 때 규격을 정한다.
+  - javascript에서의 정규표현식과 같다.
+  - 해당 `maskEdit` 의 `Properties에서` `format`과 `type`을 설정해줘야한다.
+
+  - **문자열 maskEdit 1**
+
+    - format을 "@@@@@@@@@"을 했고 해당 maskedit에 문자열을 입력해봤는데 문자열(영어/ 한글/ 특수문자) 입력이 안됨
+    - 숫자입력은 가능함.
+    - `Action`의 `type`을 `number`로 했다.
+
+  - **문자열 maskEdit 2**
+    - format을 "\*\*\*\*\*\*\*\*\*\"로(길이) 했다.
+    - `type`을 `string`으로 한다.
+    - 알파벳만 입력이 가능하다.
+
+  - **문자열 maskEdit 3**
+    - format을 "999999999"로 했다.
+    - `type`을 `string`으로 했다.
+
+
+  - **숫자 maskEdit**
+    - format에 "#######"을하고
+    - `type`을 `number`로 한다.
+
+    - `type`이 `string`인 상태에서 `format`은 `######`일때 결과는 숫자만 입력이 가능하게 되어있다.
+
+    - 특정 형태의 숫자 입력 폼만들기
+      - 예) `15000`=> `15,000`
+      - fomat을 `#,###`으로하면
+        - 각 자리수마다 `,`가 알아서 찍힌다.
+
+    - 핸드폰 번호 형식으로 입력폼 폼만들기
+      - 예) `01012345678`=> `010-1234-5678`
+      - format을 `###-####-####` 으로 한다.
+      - type을 `string`으로 한다.
+
+<br>
+
+# 넥사크로 다시 열기
+
+- 프로젝트 저장소 > nexacro17 > `testNexacro17.xprj` 파일을 선택
+
+<br>
+
+# F_CheckBox_Radio.xfdl
+
+- `CheckBox`를 선택 (div의 오른쪽에서 3번째)
+- 체크하고 싶다면 해당 CheckBox의 Property에서 `value`를 `true`로 한다.
+
+- `Radio`를 선택 (div의 오른쪽에서 2번째)
+  - 처음에 RadioBox버튼이 보이지 않는다.
+  - 그 이유는 Property의 `Binding의 innerdataset`이 무엇인지를 설정하지 않았기 때문이다..
+    - 종류만 따로 만든다.
+    - 컬럼/ datacolumn(radio버튼에 표현될 라벨값)
