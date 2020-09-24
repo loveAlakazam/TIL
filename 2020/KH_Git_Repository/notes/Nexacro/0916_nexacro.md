@@ -34,6 +34,7 @@
 
 - 기본 서비스 그룹: `Base`
 - 서비스 그룹 추가하기
+  - ### `TypeDefinition > Services> 마우스 우클릭 Edit/ Services 더블클릭`
   - `Services` 더블클릭 ==> + 클릭 ==> form 클릭 ==> Work로 이름변경
   - 서비스그룹 안에 폼 만들기
     - Work 서비스 그룹 클릭 => 상단메뉴 File => new => form 클릭
