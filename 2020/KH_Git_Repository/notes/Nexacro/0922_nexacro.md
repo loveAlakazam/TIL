@@ -123,3 +123,49 @@ this.fn_open=function(sid, surl){
 
 
 ![](./frame_result.gif)
+
+
+<br><br><br>
+
+> # Application 전역함수 만들기
+
+- ### `App_MDI`
+  - edit Script에서 접근 / 하위 Script에서 접근.
+
+```js
+var objApp= nexacro.getApplication();
+
+this.gfn_open =function(sid, surl){
+	var parentFrame= objApp.mainframe.VFrameSet00.HFrameSet00.WorkFrame;
+	parentFrame.set_formurl(surl);
+}
+```
+
+<br>
+
+- ### Form_Top.xfdl
+
+```js
+var objApp= nexacro.getApplication();
+
+
+// 메뉴에 대한 onmenuclick 함수를 정의
+this.Menu00_onmenuclick = function(obj:nexacro.Menu,e:nexacro.MenuClickEventInfo)
+{
+	var sid=e.id;
+
+	//sid에 해당하는 열의 url값을 찾아주는 함수
+	//m_id가 sid에 들어오면=> sid에 해당하는 m_url에서 찾아서 반환시켜라.
+	var surl=objApp.menu_Dataset.lookup("m_id", sid, "m_url");
+
+	objApp.gfn_open(sid,surl);
+};
+
+```
+
+![](./top_menu_result.gif)
+
+<br><br><br>
+
+
+> # js파일을 include하기
