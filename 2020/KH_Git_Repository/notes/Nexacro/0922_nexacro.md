@@ -49,6 +49,12 @@
 
 - Form_Top, Form_Left, Form_Work
 - 전역데이터셋: Application variable에서 만든다.
+  - 만든 전역데이터셋(menu_data)과 메뉴(Menu)컴포넌트를 연결
+    - *captioncolumn* : `m_name`
+    - *idcolumn*: `m_id`
+    - *levelcolumn*: `m_level`
+  - 따라서... Form_Top에서 메뉴바가 생성된다.
+
 
 - ### Form_Left
   - row0
