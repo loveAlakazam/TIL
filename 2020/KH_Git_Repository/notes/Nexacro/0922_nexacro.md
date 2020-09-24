@@ -169,3 +169,38 @@ this.Menu00_onmenuclick = function(obj:nexacro.Menu,e:nexacro.MenuClickEventInfo
 
 
 > # js파일을 include하기
+
+- ### menu.xjs
+
+```js
+var objApp= nexacro.getApplication();
+
+this.xfn_open=function(sid, surl){
+	var parentFrame= objApp.mainFrame.VFrameSet00.HFrameSet00.WorkFrame;
+	parentFrame.set_formurl(surl);
+}
+```
+
+<br>
+
+- ### Form_Left.xfdl
+
+```js
+include "Work2::menu.xjs";
+
+var objApp=nexacro.getApplication();
+
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+
+	var sid=objApp.menu_Dataset.getColumn(e.row, "m_id");
+	var surl=objApp.menu_Dataset.getColumn(e.row, "m_url");
+
+	//콘솔 출력: nexacro.getApplication.trace(~);
+	nexacro.getApplication().trace(sid);
+	nexacro.getApplication().trace(surl);
+
+	//this.fn_open(sid,surl)
+	this.xfn_open(sid, surl);
+}
+```
