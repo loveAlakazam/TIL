@@ -7,6 +7,13 @@
 
 - 추가한 컴포넌트를 보여줌.
 
+- XCSS 파일 추가하기 방법
+  - File > New > Nexacro style sheet(.xcss) > target 체크
+  - Application_Desktop(프로젝트ID) 오른쪽 마우스 클릭 > Add > Style
+
+- 어떤 컴포넌트를 대상으로 할지 추가
+  - 방법1: `Selector Explorer에서 오른쪽마우스 클릭 > Add Selector 클릭`
+  - 방법2: `+{}` 클릭
 
 > # XJS 실습 - 날짜 차이 알아보기
 
