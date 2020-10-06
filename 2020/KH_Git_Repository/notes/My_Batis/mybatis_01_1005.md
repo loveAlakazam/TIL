@@ -36,6 +36,9 @@
 
 - Mapper설정파일을 통해 JDBC를 구현한 영속성 프레임워크
 - MyBatis 흐름
+- Mapper: query에 대한 정보를 가지고 있다.
+  - select/ update / insert / delete를 쓸건지
+  - `id`: 이 쿼리를 부르기 위한 이름. id를 통해서 쿼리문을 불러오겠다.
 
 ![](./mybatis_동작흐름01.PNG)
 
