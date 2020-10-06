@@ -11,7 +11,8 @@
 
 # 프레임워크 종류
 
-|:구분:|:종류:|:설명:|
+|구분|종류|설명|
+|:--:|:--:|:--:|
 |**영속성**| **MyBatis** , Hibernate|데이터의 저장, 조회, 변경, 삭제를 다루는 클래스 및 설정 파일을 라이브러리화하여 구현|
 |자바|Spring Framework|Java EE를 통한 Web Application개발에 초점을 맞춰 필요한 요소들을 모듈화하여 제공|
 |화면구현|Bootstrap, Foundation, MDL| FE를 보다 쉽게 구현할 수 있는 틀 제공|
@@ -42,15 +43,20 @@
 
 - MyBatis동작구조
 
-  - `sql Session Factory Builder(Object)` =(객체 생성/  build(inputStream:myBatis-config.xml파일연결))=>`sql Session Factory(Object)` =(생성/ openSession())=>`sql Session(Object)`=(실행)=>`selectOne`/ `selectList`/ `selectMap` / `insert`/ `update`/ `delete`
+  - `sql Session Factory Builder(Object)` =( 객체 생성/  build(inputStream:myBatis-config.xml파일연결) )  =>`sql Session Factory(Object)` =( 생성/ openSession() )=>`sql Session(Object)`=( 실행 )=>`selectOne`/ `selectList`/ `selectMap` / `insert`/ `update`/ `delete`
 
 ![](./mybatis_동작구조02.PNG)
 
+<br><br>
 
-## MyBatis 개념 및 흐름
 
-## mybatis-config.xml
+- 필기
 
-## mapper 설정하기
+`<jsp:include>` : 표준 액션 태그
 
-## MyBatis 활용하기
+
+# myBatis- SqlSession
+
+- 그동안 우리는 common패키지에 `JDBCTemplate.java`에서 commit, rollback처리 그리고 커넥션연결, close를 다 직접짰다.
+
+- SqlSession은 commit, rollback, close(resultSet, PrepareStatement, Statement)에 대한 처리코드를 직접 작성하지 않아도 된다.
