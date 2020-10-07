@@ -1,18 +1,20 @@
 # :computer: 나만의 IT 용어 사전
 
 <details>
-    <summary>IT 용어</summary>
+<summary>IT 용어</summary>
 
-    - 비즈니스로직(business logic) [:link:](#비즈니스-로직-(business-logic))
-    - 동기/비동기 [:link:](#동기/비동기)
-    - 프록시(Proxy) [:link:](#프록시(Proxy))
-    - 쿠키(cookie) [:link:](#쿠키(cookie))
-    - 세션(session) [:link:](#세션(session))
-    - refactoring [:link:](#refactoring)
-    - 콜백함수(callback function) [:link:](#콜백함수(callback-function))
+- 비즈니스로직(business logic) [:link:](#비즈니스-로직-(business-logic))
+- 동기/비동기 [:link:](#동기/비동기)
+- 프록시(Proxy) [:link:](#프록시(Proxy))
+- 쿠키(cookie) [:link:](#쿠키(cookie))
+- 세션(session) [:link:](#세션(session))
+- refactoring [:link:](#refactoring)
+- 콜백함수(callback function) [:link:](#콜백함수(callback-function))
 
 </details>
 
+
+<br>
 
 ```
 개발자관련 자료를 읽다보면, 내가 모르거나 아리송한 용어들이 많이 나오는데
