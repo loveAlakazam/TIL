@@ -3,13 +3,13 @@
 <details>
 <summary>IT 용어</summary>
 
-- 비즈니스로직(business logic) [:link:](#비즈니스-로직-(business-logic))
+- 비즈니스로직(business logic) [:link:](#비즈니스로직)
 - 동기/비동기 [:link:](#동기/비동기)
-- 프록시(Proxy) [:link:](#프록시(Proxy))
-- 쿠키(cookie) [:link:](#쿠키(cookie))
-- 세션(session) [:link:](#세션(session))
+- 프록시(Proxy) [:link:](#프록시)
+- 쿠키(cookie) [:link:](#쿠키)
+- 세션(session) [:link:](#세션)
 - refactoring [:link:](#refactoring)
-- 콜백함수(callback function) [:link:](#콜백함수(callback-function))
+- 콜백함수(callback function) [:link:](#콜백함수)
 
 </details>
 
@@ -30,10 +30,12 @@
 
 <br><br>
 
-# 비즈니스로직 (business logic)
+# 비즈니스로직
 
 - 참고자료
     - [참고 자료1](https://m.blog.naver.com/anjdieheocp/20117559228)
+
+#### 비즈니스 로직 (business logic)
 
 - 데이터베이스와 사용자 인터페이스 사이의 정보 교환을 처리하는 알고리즘을 설명하는 비기술적 용어
 
@@ -111,7 +113,7 @@
 
 <br>
 
-# 프록시(Proxy)
+# 프록시
 
 - 참고자료
     - [참고 자료1](https://ko.wikipedia.org/wiki/%ED%94%84%EB%A1%9D%EC%8B%9C_%EC%84%9C%EB%B2%84)
@@ -134,10 +136,13 @@
 
 <br>
 
-# 쿠키(cookie)
+# 쿠키
 
 - 참고자료
     - [참고자료 1](https://developer.mozilla.org/ko/docs/Web/HTTP/Cookies)
+
+
+#### 쿠키 (cookie)
 
 - HTTP 쿠키(웹쿠키, 브라우저 쿠키)는 서버가 사용자의 웹브라우저에 전송하는 작은 데이터 조각
 
@@ -155,13 +160,13 @@
 
 <br>
 
-# 세션(session)
+# 세션
 
 - 참고자료
     - 정보처리기사 필기(이기적)
     - 정보처리기사 실기(시나공)
 
-#### session
+#### 세션 (session)
 
 - 두 이용자 사이의 연결을 의미한다.
 - 세션 계층은 연결을 원하는 두 이용자 사이의 세션 설정 및 유지를 가능하게 해줌으로써, 두 이용자간의 대화를 관리 및 파일 복구 등의 기능을 지원한다.
@@ -212,12 +217,15 @@
 
 <br>
 
-# 콜백함수(callback function)
+# 콜백함수
 
 - 참고자료
     - [참고자료 1](https://dalkomit.tistory.com/65)
     - [참고자료 2](https://satisfactoryplace.tistory.com/18)
     - [참고자료 3](https://hees-dev.tistory.com/33)
+
+#### 콜백함수(callback function)
+
 
 - 함수안에서 함수를 부르는 것.
 
