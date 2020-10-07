@@ -2,22 +2,17 @@
 
 <details>
     <summary>IT 용어</summary>
-
-
-
-    - [비즈니스로직(business logic)](#비즈니스-로직-(business-logic))
-    - [동기/비동기](#동기/비동기)
-    - [프록시(Proxy)](#프록시(Proxy))
-    - [쿠키(cookie)](#쿠키(cookie))
-    - [세션(session)](#세션(session))
-    - [refactoring](#refactoring)
-    - [콜백함수(callback function)](콜백함수(callback-function))
-
+    - 비즈니스로직(business logic) [:link:](#비즈니스-로직-(business-logic))
+    - 동기/비동기 [:link:](#동기/비동기)
+    - 프록시(Proxy) [:link:](#프록시(Proxy))
+    - 쿠키(cookie) [:link:](#쿠키(cookie))
+    - 세션(session) [:link:](#세션(session))
+    - refactoring [:link:](#refactoring)
+    - 콜백함수(callback function) [:link:](콜백함수(callback-function))
 </details>
 
 
 ```
-
 개발자관련 자료를 읽다보면, 내가 모르거나 아리송한 용어들이 많이 나오는데
 
 훗날 내가 개발자가 되어 협업을 하게되면 소통이 기본전제인데 용어하나 때문에 소통을 못하는, 그들의 말을 외계어마냥 이해하지 못하는, 손해보는 일이 없기를 바라는 마음으로 꾸준히 모르는 용어가 생기면 그때그때 정리하는 습관을 들이자.
