@@ -9,8 +9,8 @@
     - 쿠키(cookie) [:link:](#쿠키(cookie))
     - 세션(session) [:link:](#세션(session))
     - refactoring [:link:](#refactoring)
-    - 콜백함수(callback function) [:link:](콜백함수(callback-function))
-    
+    - 콜백함수(callback function) [:link:](#콜백함수(callback-function))
+
 </details>
 
 
