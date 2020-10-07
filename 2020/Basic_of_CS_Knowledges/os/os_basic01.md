@@ -2,25 +2,20 @@
 
 ## 1. 운영체제(OS) 정의
 
-```markdown
-
-### 운영체제란,
-
-컴퓨터 시스템의 자원들을 효율적으로 관리하고
+**운영체제**란, 컴퓨터 시스템의 자원들을 효율적으로 관리하고
 사용자가 컴퓨터를 편리하고 효과적으로 사용할 수 있도록 환경을 제공해주는
 여러 프로그램들의 집합
 
+<br>
+
 An **operating system** is a program that manages a computer's hardware.
 It also provides a basis for application programs and acts as an intermediary between the computer user and the computer hardware.
-
-```
 
 <br>
 
 ## 2. 운영체제 목적
 
 
-```markdown
 - 컴퓨터 시스템의 **처리량**과 **신뢰성**을 최대화 한다.
 - 컴퓨터 시스템의 **반환시간**, **응답시간**, **처리시간**, **대기시간**, **경과시간**을 최소화한다.
 
@@ -31,7 +26,6 @@ It also provides a basis for application programs and acts as an intermediary be
 - 주변 장치를 관리한다.
 - 시스템의 이식성(호환성)을 높인다.
 
-```
 
 - 반환 시간(Turn around time)
 
@@ -44,10 +38,10 @@ It also provides a basis for application programs and acts as an intermediary be
 
 ## 3. 운영체제 역할
 
-```markdown
 - 운영체제는 스스로 어떤 기능도 수행하지 않고 `다른 응용프로그램이 유용한 작업을 할 수 있도록 환경을 마련`해준다.
 
 - 하드웨어와 사용자 사이에 내부 및 외부 인터페이스를 제공한다.
+    - **`인터페이스`**: 서로 다른 두 시스템 또는 사용자와 컴퓨터를 소프트웨어로 이어주는 부분이나 장치
 
 - 컴퓨터 자원을 여러 사용자가 효율적으로 나누어 사용할 수 있도록 자원을 관리한다.
 
@@ -61,9 +55,24 @@ It also provides a basis for application programs and acts as an intermediary be
 
 - 응용 프로그램들이 컴퓨터의 제한된 자원들을 공유할 수 있도록 자원을 관리.
 
-```
 
 <br>
 
 ## 4. 운영체제의 특징
+
+- 사용자에게 편리한 인터페이스 환경을 제공
+- 컴퓨터 시스템의 자원을 효율적으로 관리
+
+- **하드웨어**
+    - **중앙처리 장치(CPU)**: 컴퓨터 장치를 제어 및 데이터를 처리
+    - **기억 장치**: 데이터를 저장
+    - **통신 장치**: 외부와의 통신을 담당
+    - **입출력 장치**: 데이터의 입력과 출력을 담당
+
+<br>
+
+- **커널(kernel)**
+    - 운영체제 핵심기능(`프로세스 관리`, `메모리 관리`, `파일 관리`)을 모아 놓은 것.
+    - `운영체제 성능에 중요한 역할.`
+
 
