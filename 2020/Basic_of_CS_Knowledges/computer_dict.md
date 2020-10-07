@@ -2,6 +2,7 @@
 
 <details>
     <summary>IT 용어</summary>
+
     - 비즈니스로직(business logic) [:link:](#비즈니스-로직-(business-logic))
     - 동기/비동기 [:link:](#동기/비동기)
     - 프록시(Proxy) [:link:](#프록시(Proxy))
@@ -9,6 +10,7 @@
     - 세션(session) [:link:](#세션(session))
     - refactoring [:link:](#refactoring)
     - 콜백함수(callback function) [:link:](콜백함수(callback-function))
+    
 </details>
 
 
