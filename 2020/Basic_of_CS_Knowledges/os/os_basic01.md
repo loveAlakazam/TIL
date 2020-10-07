@@ -6,9 +6,10 @@
 사용자가 컴퓨터를 편리하고 효과적으로 사용할 수 있도록 환경을 제공해주는
 여러 프로그램들의 집합
 
-<br>
+<br><br>
 
-An **operating system** is a program that manages a computer's hardware.
+An **operating system** is a program that manages a computer's hardware.<br>
+
 It also provides a basis for application programs and acts as an intermediary between the computer user and the computer hardware.
 
 <br>
@@ -45,7 +46,7 @@ It also provides a basis for application programs and acts as an intermediary be
 
 - 컴퓨터 자원을 여러 사용자가 효율적으로 나누어 사용할 수 있도록 자원을 관리한다.
 
-- 프로세서(처리기, CPU) 프로세스, 기억장치(주/보조 기억 장치), 입출력 장치를 관리한다.
+- 프로세서(처리기, CPU) 프로세스, 기억장치(주/보조 기억 장치), 입출력 장치, 파일 및 정보등의 자원들을 관리한다.
 
 - 컴퓨터를 초기화 시켜 작업을 수행할 수 있는 상태로 유지시키는 역할
 
@@ -55,8 +56,22 @@ It also provides a basis for application programs and acts as an intermediary be
 
 - 응용 프로그램들이 컴퓨터의 제한된 자원들을 공유할 수 있도록 자원을 관리.
 
+- 자원을 효율적으로 관리하기 위해서 자원의 `스케줄링` 기능을 제공한다.
+    - **`스케줄링(scheduling)`**: 어떤 자원을 `누가`, `언제`, `어떤 방식`으로 사용할지를 결정하는 것이다.
+
+- 데이터를 관리하고 데이터 및 자원의 공유기능, 자원을 보호하는 기능을 제공
 
 <br>
+
+- 운영체제의 주요 자원 관리
+
+|자원|기능|
+|:--:|:--:|
+|프로세스 관리| - 프로세스 스케줄링 및 동기화 관리 담당<br>- 프로세스 생성과 제거 / 시작과 정지/ 메시지 전달 등의 기능을 담당|
+|기억장치 관리|프로세스에게 메모리 할당 및 회수 관리 담당|
+|주변장치 관리|입출력 장치 스케줄링 및 전반적인 관리 담당|
+|파일 관리|파일의 생성과 삭제, 변경, 유지 등의 관리 담당|
+
 
 ## 4. 운영체제의 특징
 
@@ -72,7 +87,33 @@ It also provides a basis for application programs and acts as an intermediary be
 <br>
 
 - **커널(kernel)**
-    - 운영체제 핵심기능(`프로세스 관리`, `메모리 관리`, `파일 관리`)을 모아 놓은 것.
+    - 운영체제 핵심기능(**`프로세스 관리`**, **`메모리 관리`**, **`파일 관리`**)을 모아 놓은 것.
     - `운영체제 성능에 중요한 역할.`
+    
+- 운영체제 종류
+    - 컴퓨터 운영체제
+        - windows
+        - mac OS
+        - Linux
+        - UNIX
+
+    - 모바일 운영체제
+        - Android
+        - iOS
+        - Tizen
+
+    - 개인용 / 서버용 운영체제
+        - 개인용 PC
+            - Windows
+            - MS DOS
+            - Mac OS
+        - 서버용 PC
+            - Linux
+            - UNIX
+
+        
 
 
+## 5. 운영체제 기능
+
+- 프로세서
