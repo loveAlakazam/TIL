@@ -28,11 +28,14 @@ It also provides a basis for application programs and acts as an intermediary be
 - 시스템의 이식성(호환성)을 높인다.
 
 
-- 반환 시간(Turn around time)
+- 운영체제 성능 평가 기준
+    - `처리 능력(Throughput)` : 일정 시간 내에 시스템이 처리하는 일의 양
 
-- 사용 가능도(availability)
+    - `반환 시간(Turn around time)` : 시스템 작업을 의뢰한 시간부터 처리가 완료될 때까지 걸리는 시간
 
-- 신뢰도(reliability)
+    - `사용 가능도(availability)` : 시스템을 사용할 필요가 있을 때 즉시 사용 가능한 정도
+
+    - `신뢰도(reliability)` : 시스템이 주어진 문제를 정확하게 해결하는 정도
 
 
 <br>

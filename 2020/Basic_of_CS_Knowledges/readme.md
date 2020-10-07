@@ -8,6 +8,7 @@
     - ### [데이터베이스(RDBMS)](./db)
     - ### [데이터베이스(No-SQL)](./nosql)
     - ### [서버프로그래밍](./serverprogramming)
+    - ### [나만의 IT 용어 사전](./computer_dict.md)
 
 - ## 참고서적
     - 운영체제/ 네트워크
@@ -19,3 +20,5 @@
             - 공룡책(Operating System Concepts 원서)
         - 네트워크
         
+
+
