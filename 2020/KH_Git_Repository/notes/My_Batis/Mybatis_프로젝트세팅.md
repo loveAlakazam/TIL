@@ -1,15 +1,18 @@
 # :computer: Dynamic Web Project 만들기
 
 <details>
+
 <summary>요약</summary>
-- 1. 프로젝트 만들기 [:baby_chick:](#1.-프로젝트-만들기)
-- 2. 서버 연결하기 [:baby_chick:](#2.-서버-연결하기)
-- 3. jar파일 연결 [:baby_chick:](#3.-jar파일-연결)
+
+- 1. 프로젝트 만들기 [:baby_chick:](#프로젝트-만들기)
+- 2. 서버 연결하기 [:baby_chick:](#서버-연결하기)
+- 3. jar파일 연결 [:baby_chick:](#jar파일-연결)
+
 </details>
 
 <br>
 
-> ## 1. 프로젝트 만들기
+> ## 프로젝트 만들기
 
 - #### (1) 오른쪽 마우스 클릭
 - #### (2) New
@@ -57,7 +60,7 @@
 
 <br><br>
 
-> ## 2. 서버 연결하기
+> ## 서버 연결하기
 
 > #### (1) 하단 **`Servers`** 탭 클릭
 > #### (2) 만일 서버가 존재하지 않는다면 **`No servers are available Click this link to create a new server`** 링크 클릭
@@ -78,7 +81,7 @@
 
 <br><br>
 
-> ## 3. jar파일 연결
+> ## jar파일 연결
 
 - #### **`ojdbc6.jar`** 파일은 **`WebContent/WEB-INF/lib`** 에 넣는다.
 - #### 그동안 사용한 jar 파일들
