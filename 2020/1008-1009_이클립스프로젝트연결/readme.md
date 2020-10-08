@@ -109,6 +109,8 @@
 
 ![](./방법2/5_0.png)
 
+<br>
+
 - #### 검색란에 `encoding` 입력후, **Encoding을 `ISO 10646/Unicode(UTF-8)`로 설정**
 
 - #### General > Workspace
@@ -136,6 +138,13 @@
   - `Apply and Close` 버튼 클릭
 
 ![](./방법2/5_jsp.PNG)
+
+
+<br>
+
+- #### 검색란에 `spelling` 입력 후, **Encoding을 `UTF-8`로 설정**
+
+![](./방법2/spelling.png)
 
 <br><br>
 
