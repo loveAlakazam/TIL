@@ -42,7 +42,7 @@
 
 - github desktop 화면(**github계정으로 로그인해야합니다!**)
 
-![](1.PNG)
+![](./방법2/1.PNG)
 
 <BR>
 
@@ -52,26 +52,42 @@
 - (1) 상단메뉴 `File`  클릭
 - (2) `Clone Repository` 클릭
 
-![](2.PNG)
+![](./방법2/2.PNG)
 
 <BR>
 
 - (3) `Final-Project` 프로젝트 클론하여 **로컬저장소** 만들기
   - **`로컬 저장소`** 와 **`원격 저장소`**
-    - **로컬 저장소**: 개인 컴퓨터에서 코드 저장소를 의미합니다.
+    - **로컬 저장소**: 개인 컴퓨터(로컬)에서 코드 저장소를 의미합니다.
     - **원격 저장소**: 깃헙 웹사이트 코드 저장소를 의미합니다. 즉 로컬저장소에서 코드를 push하면 원격저장소에 저장이 됩니다.
 
   - `로컬 저장소` 위치는 사진에서 보이는 것과 같이 **`내문서/Github`** 으로 해주세요.
   - ### **즉, local path를 변경하지 말고, 그대로 두세요.**
 
 
-![](3.png)  
+![](./방법2/3.png)  
 
+<br>
 
 4. 샘플 프로젝트(`Sample_WebProject`) 불러오기
 
+- (0) 연결 후, 로컬저장소 확인하기.
+  - 제 로컬 저장소 위치는 `내문서/Github/Final-Project` 입니다.
+
+![](./방법2/4_0.PNG)
+
+<BR>
+
+- 샘플 프로젝트 위치는 `내문서/Github/Final-Project/Sample_WebProject` 입니다.
+  - 샘플은 연동방법을 숙지하기 위해서 만들어놓은 임시 프로젝트입니다!
+
+- Final 프로젝트 최종코드는 `내문서/Github/Final-Project/Trip2reap_TeamCode` 입니다.
+
+![](./방법2/4_1.PNG)
+
 - (1) eclipse를 켭니다.
-- (2) eclipse에서 불러올 Workspace 경로를 Github 로컬
+- (2) eclipse에서 불러올 Workspace 경로를 Github 로컬저장소 위치로 합니다.
+
 
 5. Github Pushing하기
 
