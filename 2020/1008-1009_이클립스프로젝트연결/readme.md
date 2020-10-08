@@ -53,8 +53,8 @@
 ## 3. Final-Project Repository 연결하기.
 
 
-- ### (1) 상단메뉴 **`File`**  클릭
-- ### (2) **`Clone Repository`** 클릭
+> ### (1) 상단메뉴 **`File`**  클릭
+> ### (2) **`Clone Repository`** 클릭
 
 ![](./방법2/2.png)
 
@@ -111,30 +111,30 @@
 
 <br>
 
-- #### 검색란에 `encoding` 입력후, **Encoding을 `ISO 10646/Unicode(UTF-8)`로 설정**
+- ### 검색란에 `encoding` 입력후, **Encoding을 `ISO 10646/Unicode(UTF-8)`로 설정**
 
-- #### General > Workspace
+- ### General > Workspace
   - `Apply` 버튼 클릭
 
 ![](./방법2/5_general.png)
 
 <br>
 
-- #### Web > CSS Files
+- ### Web > CSS Files
   - `Apply` 버튼 클릭
 
 ![](./방법2/5_css.PNG)
 
 <br>
 
-- #### Web > HTML Files
+- ### Web > HTML Files
   - `Apply` 버튼 클릭
 
 ![](./방법2/5_html.PNG)
 
 <br>
 
-- #### Web > JSP Files
+- ### Web > JSP Files
   - `Apply and Close` 버튼 클릭
 
 ![](./방법2/5_jsp.PNG)
@@ -142,7 +142,7 @@
 
 <br>
 
-- #### 검색란에 `spelling` 입력 후, **Encoding을 `UTF-8`로 설정**
+- ### 검색란에 `spelling` 입력 후, **Encoding을 `UTF-8`로 설정**
 
 ![](./방법2/spelling.png)
 
@@ -161,9 +161,9 @@
 
 <BR>
 
-- errorPage.jsp를 추가했습니다.
-- 수정되거나 새로운 파일이 추가되면, `Package Explorer`을 보면 파일이나 프로젝트에 **`?`** 표시가 뜹니다.
-- 즉, 파일 수정과 추가가 일어났으며, 변경사항이 생겼으므로 *커밋을 해야한다*는 걸 의미해요.
+- 저는 errorPage.jsp를 추가했습니다.
+- ### 수정되거나 새로운 파일이 추가되면, `Package Explorer`을 보면 파일이나 프로젝트에 **`?`** 표시가 뜹니다.
+- ### 즉, 파일 수정과 추가가 일어났으며, 변경사항이 생겼으므로 *커밋을 해야한다*는 걸 의미해요.
 
 <br>
 
@@ -173,16 +173,16 @@
 
 <br>
 
-- #### 먼저 다른 사람이 공동작업을 할 수 있으니, **`Fetch Origin`** 버튼을 눌러서 **pull**합시다.
+- ### 먼저 다른 사람이 공동작업을 할 수 있으니, **`Fetch Origin`** 버튼을 눌러서 **pull**합시다.
 
 
 ![](./방법2/6_3.png)
 
 <br>
 
-- ####  **`Fetch Origin`** 버튼을 눌렀음에도 **`pull`** 이 없으면, **push**를 해도 됩니다.
+- ###  **`Fetch Origin`** 버튼을 눌렀음에도 **`pull`** 이 없으면, **push**를 해도 됩니다.
 
-- #### commit버튼을 누르면 **`push`** 버튼을 누르라고 떠요.
+- ### commit버튼을 누르면 **`push`** 버튼을 누르라고 떠요.
 
 ![](./방법2/6_4.png)
 
@@ -208,9 +208,3 @@
 
 - 여러사람이 공동작업을 할 때, **코드를 합치는 것** 을 의미합니다.
 - 주의사항은 *pull을 안한 상태에서, 동시에 작업한 코드를 push하면 충돌이 일어납니다!*
-
-
-
-
-
-<br><br>
