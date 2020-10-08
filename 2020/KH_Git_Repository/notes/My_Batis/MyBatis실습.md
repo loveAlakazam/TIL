@@ -483,29 +483,42 @@ public class Template {
 
 > ### mybatis-config.xml 을 저장하자.
 
+![](./mybatis실습_img/resources.PNG)
+
 - (1) dynamic web 프로젝트 클릭
 - (2) 오른쪽 마우스 클릭
 - (3) New
 - (4) Source Folder
 - (5) 이름: resources
-
-![](./mybatis실습_img/resources.PNG)
+- (6) Finish 버튼 클릭
 
 <br><br>
 
-- (6) [mybatis-config.xml dtd파일 설정하기](./Mybatis_프로젝트세팅.md#116)
-
-- (7) finish버튼 클릭
-- (8) resources 패키지 클릭 -> 마우스 우클릭
-- (9) New -> other클릭
-- (10) xml -> next -> 이름: `mybatis-config`
 
 ![](./mybatis실습_img/xml_mybatis_config.PNG)
 
-- (11) mybatis-config.xml
+- (8) `Java Resources`안에 있는 `resources` 패키지 클릭 -> 마우스 우클릭
+- (9) New -> other클릭
+- (10) xml -> next -> 이름: `mybatis-config` -> next
 
+- (11) Create XML file from a DTD file 선택 후 next
+![](./mybatis실습_img/mybatis_config_2.PNG)
 
-<br>
+<BR>
+
+- (12) Select XML Catalog entry 클릭 후 Next선택 (key와 uri는 사진과, :point_down: 아래 참고.)
+  - KEY: `-//mybatis.org//DTD Config 3.0//EN`
+  - URI: `http://mybatis.org/dtd/mybatis-3-config.dtd`
+
+<BR>
+
+![](./mybatis실습_img/mybatis_config_3.PNG)
+
+<BR>
+
+![](./mybatis실습_img/mybatis_config_4.PNG)
+
+<BR><BR>
 
 <hr>
 

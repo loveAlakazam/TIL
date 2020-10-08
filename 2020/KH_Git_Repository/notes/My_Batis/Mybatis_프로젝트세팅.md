@@ -157,6 +157,8 @@
 
 <br><BR>
 
+- xml 파일 만들기(Java Resources/resources패키지에 저장.)
+
 ![](./mybatis실습_img/mybatis_config_1.PNG)
 
 <BR>
