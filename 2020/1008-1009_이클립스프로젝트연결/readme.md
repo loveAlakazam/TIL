@@ -135,7 +135,7 @@
 - #### Web > JSP Files
   - `Apply and Close` 버튼 클릭
 
-![](./방법2/5_JSP.PNG)
+![](./방법2/5_jsp.PNG)
 
 <br><br>
 
