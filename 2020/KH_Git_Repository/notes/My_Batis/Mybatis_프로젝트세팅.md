@@ -4,6 +4,7 @@
 
 <summary>요약</summary>
 
+- 0. MyBatis 설치하기 [:baby_chick:](#Mybatis-설치하기)
 - 1. 프로젝트 만들기 [:baby_chick:](#프로젝트-만들기)
 - 2. 서버 연결하기 [:baby_chick:](#서버-연결하기)
 - 3. jar파일 연결 [:baby_chick:](#jar파일-연결)
@@ -12,7 +13,20 @@
 
 <br>
 
-> ## 프로젝트 만들기
+> ## MyBatis 설치하기
+
+- [mybatis3.5.6 다운로드 페이지](https://github.com/mybatis/mybatis-3/releases)
+
+- `mybatis-3.5.6 zip 링크` 클릭
+
+- ibatis vs mybatis
+  - mybatis는 기존 ibatis의 한계점인 동적쿼리와 annotation처리를 보강함.
+  - ibatis는 현재 비활성화 상태이며, 참고만 가능.
+
+
+<br><br>
+
+> ## Dynamic Web Project 자바프로젝트 만들기
 
 - #### (1) 오른쪽 마우스 클릭
 - #### (2) New
@@ -96,6 +110,55 @@
         - `taglibs-standard-jstlel-1.2.5.jar`
         - `taglibs-standard-spec-1.2.5.jar`
 
+<br><br>
+
+
+> # DTD 등록하여, mybatis-config.xml을 바로 불러오기.
+
+- 목적: configuration 파일의 위치를 기억하기가 어렵다.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+</configuration>
+```
+
+- 으악 너무 귀찮고, 너무길어!!
+- 바로 불러올 수있는 방법이 없을까?
+
+<br><br>
+
+
+- 매번 쓰지말고, 항상 불러올 수 없을까?
+
+
+```
+1. Window 탭 > Preferences > XML > XML Catalog
+
+2. User Specified Entries 선택
+
+3. Add 버튼 클릭
+```
+
+![](./mybatis실습_img/xml_1.png)
+
+<br><br>
+
+
+![](./mybatis실습_img/xml_2.PNG)
+
+**`Location`** : http://mybatis.org/dtd/mybatis-3-config.dtd
+
 <br>
+
+**`Key`**: -//mybatis.org//DTD Config 3.0//EN
+
+
+
+
+
+
 
 [:arrow_up:](#)
