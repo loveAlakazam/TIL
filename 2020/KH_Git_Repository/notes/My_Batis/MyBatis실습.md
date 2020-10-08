@@ -491,24 +491,18 @@ public class Template {
 
 ![](./mybatis실습_img/resources.PNG)
 
-- (6) finish버튼 클릭
-- (7) resources 패키지 클릭 -> 마우스 우클릭
-- (8) New -> other클릭
-- (9) xml -> next -> 이름: `mybatis-config`
+<br><br>
+
+- (6) [mybatis-config.xml dtd파일 설정하기](./Mybatis_프로젝트세팅.md#116)
+
+- (7) finish버튼 클릭
+- (8) resources 패키지 클릭 -> 마우스 우클릭
+- (9) New -> other클릭
+- (10) xml -> next -> 이름: `mybatis-config`
 
 ![](./mybatis실습_img/xml_mybatis_config.PNG)
 
-- (10) mybatis-config.xml
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
-<configuration>
-
-</configuration>
-```
-
-- (11) 미리만들어놔서 불러오고 싶다.
+- (11) mybatis-config.xml
 
 
 <br>

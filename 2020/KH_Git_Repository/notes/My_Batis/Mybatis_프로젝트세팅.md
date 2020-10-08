@@ -155,6 +155,47 @@
 
 **`Key`**: -//mybatis.org//DTD Config 3.0//EN
 
+<br><BR>
+
+![](./mybatis실습_img/mybatis_config_1.PNG)
+
+<BR>
+
+![](./mybatis실습_img/mybatis_config_2.PNG)
+
+<BR>
+
+![](./mybatis실습_img/mybatis_config_3.PNG)
+
+<BR>
+
+![](./mybatis실습_img/mybatis_config_4.PNG)
+
+<BR>
+
+```
+4. Java Resources > resources 패키지 선택
+
+5. New > other > xml 클릭 > 이름: mybatis-config
+
+
+6. next 클릭
+
+7. create XML file from a DTD file 클릭
+
+8. next
+
+9. Select XML Catalog entry 선택하고
+
+Key: -//mybatis.org//DTD Config 3.0//EN
+
+URI: http://mybatis.org/dtd/mybatis-3-config.dtd
+
+인 DTD 파일을 선택 후 next
+
+10. 빨간색 밑줄이 없으면 그대로 Finish버튼 클릭
+```
+
 
 
 
