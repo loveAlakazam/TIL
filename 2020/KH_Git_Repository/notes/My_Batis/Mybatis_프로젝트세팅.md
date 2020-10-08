@@ -27,7 +27,7 @@
 > #### (3) 톰캣 서버 버젼 선택: **`Apache Tomcat v9.0`**
 > #### (4) Next
 
-<BR>
+<BR><br>
 
 ![](./mybatis_setting_img/2.png)
 
@@ -35,20 +35,20 @@
 > #### (2-4) 톰캣 서버 위치 - `apache-tomcat-9.x 디렉토리 경로`를 찾으면 된다.
 > #### (2-5) Finish 버튼 클릭
 
-<br>
+<br><br>
 
 ![](./mybatis_setting_img/1.PNG)
 
 > #### (3) Next 버튼 클릭
 
-<br>
+<br><br>
 
 ![](./mybatis_setting_img/3.png)
 
 > #### (1) Default output folder 경로 수정: **`WebContent/WEB-INF/classes`**
 > #### (2) Next 버튼 클릭
 
-<br>
+<br><br>
 
 ![](./mybatis_setting_img/4.png)
 
@@ -67,7 +67,7 @@
 
 > #### (4) Finish 버튼 클릭
 
-<br>
+<br><br>
 
 ![](./mybatis_setting_img/5.png)
 
@@ -76,7 +76,7 @@
 > #### (5-3) `Serve modules without publishing` 체크박스 체크표시!
 > #### (5-4) 서버 저장하기( 단축키: `ctrl`+`s` )
 
-<br>
+<br><br>
 
 > ## 3. jar파일 연결
 
