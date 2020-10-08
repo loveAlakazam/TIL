@@ -150,3 +150,37 @@
 
 - JDBC와 다르게, mybatis에서는 트랜젝션처리와 close()처리를 안해도된다.
   - mybatis는 sqlSession이 지원한다.
+
+<BR><BR><BR>
+
+<hr>
+
+<br>
+
+# mybatis-config.xml
+
+> ## `<transactionManager>`
+
+- 트랜젝션을 어떻게 제어 (commit/ rollback)
+
+- 트랜젝션을 누가 관리할 것인가?
+
+|종류|정의|
+|:--:|:--:|
+|JDBC|수동으로 트랜젝션을 처리<BR>직접 처리<BR>수동 COMMIT|
+|MANAGED|자동으로 트랜젝션을 처리<BR>트랜젝션에 대해 어떠한 직접적인 영향을 행사하지 않음.<BR>자동 COMMIT<BR>컨테이너가 모든 트랜젝션의 생명주기를 관리한다.|
+
+- 컨테이너가 관리: 서블릿 직접 관리.
+
+<br>
+
+> ## `<dataSource>`
+
+- 실제 DB 접속에 관한 정보들을 넣는 태그.
+- type이 ConnectionPool을 사용여부에 따라서 다르다.
+
+|종류|정의|
+|:--:|:--:|
+|POOLED|Connection객체를 새로 만들지 않고(미리 만들어놓고) 사용.<br>객체를 만드는데 걸리는 시간이 줄어든다.<br>사용자의 요청이 있을 때 DB에 연결하여 명령을 실행하고 명령이 종료되어도 연결이 종료되지 않고 POOL에 저장하여 요청이 올 때 꺼내서 재사용한다.<BR>Web Application에서 흔하게 많이 사용되는 방법이다.|
+|UNPOOLED|그때그때마다 Connection객체를 새로 만드는 것.<br>|
+|JNDI||

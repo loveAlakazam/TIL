@@ -199,7 +199,10 @@ URI: http://mybatis.org/dtd/mybatis-3-config.dtd
 ```
 
 
+<br><br>
 
+
+> # mybatis-config xml 태그 순서
 
 
 
