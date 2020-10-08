@@ -34,62 +34,65 @@
 
 > ## (1) Github Desktop 설치하기
 
-1. [Github desktop 설치 페이지](https://desktop.github.com/)
+## 1. [Github desktop 설치 페이지](https://desktop.github.com/)
 
-2. `Download for Windows(64bit)` 버튼 클릭
+## 2. **`Download for Windows(64bit)`** 버튼 클릭
 
-- OS사양(OS: 운영체제/ Windows, MacOS, Linux 등)에 따라서 버튼에 다르게 나타냅니다.
-
-- github desktop 화면(**github계정으로 로그인해야합니다!**)
+- ### :point_down: github desktop 화면
+- 단, **github계정으로 로그인해야합니다!**
 
 ![](./방법2/1.PNG)
 
+<BR><br>
+
+## 3. Final-Project Repository 연결하기.
+
+
+- ### (1) 상단메뉴 **`File`**  클릭
+- ### (2) **`Clone Repository`** 클릭
+
+![](./방법2/2.png)
+
 <BR>
 
-3. Final-Project Repository 연결하기.
-
-
-- (1) 상단메뉴 `File`  클릭
-- (2) `Clone Repository` 클릭
-
-![](./방법2/2.PNG)
-
-<BR>
-
-- (3) `Final-Project` 프로젝트 클론하여 **로컬저장소** 만들기
-  - **`로컬 저장소`** 와 **`원격 저장소`**
-    - **로컬 저장소**: 개인 컴퓨터(로컬)에서 코드 저장소를 의미합니다.
-    - **원격 저장소**: 깃헙 웹사이트 코드 저장소를 의미합니다. 즉 로컬저장소에서 코드를 push하면 원격저장소에 저장이 됩니다.
-
-  - `로컬 저장소` 위치는 사진에서 보이는 것과 같이 **`내문서/Github`** 으로 해주세요.
-  - ### **즉, local path를 변경하지 말고, 그대로 두세요.**
-
+- ### (3) `Final-Project` 프로젝트 클론하여 **로컬저장소** 만들기
 
 ![](./방법2/3.png)  
 
 <br>
 
-4. 샘플 프로젝트(`Sample_WebProject`) 불러오기
+- **로컬 저장소** 와 **원격 저장소**
+  - **로컬 저장소**: 개인 컴퓨터(로컬)에서 코드 저장소를 의미합니다.
+  - **원격 저장소**: 깃헙 웹사이트 코드 저장소를 의미합니다. 즉 로컬저장소에서 코드를 push하면 원격저장소에 저장이 됩니다.
 
-- (0) 연결 후, 로컬저장소 확인하기.
-  - 제 로컬 저장소 위치는 `내문서/Github/Final-Project` 입니다.
+- `로컬 저장소` 위치는 사진에서 보이는 것과 같이 **`내문서/Github`** 으로 해주세요.
+
+- ### **즉, local path를 변경하지 말고, 그대로 두세요.**
+
+<br><br>
+
+## 4. 샘플 프로젝트(`Sample_WebProject`) 불러오기
+
+- ### (0) 연결 후, 로컬저장소 확인하기.
+  - 제 로컬 저장소 위치는 **`내문서/Github/Final-Project`** 입니다.
 
 ![](./방법2/4_0.PNG)
 
 <BR>
 
-- 샘플 프로젝트 위치는 `내문서/Github/Final-Project/Sample_WebProject` 입니다.
+
+- ### (1) eclipse를 켜서 `Sample_WebProject`를 엽니다.
+
+- 샘플 프로젝트 위치(**`로컬저장소 위치`**)는 **`내문서/Github/Final-Project/Sample_WebProject`** 입니다.
   - 샘플은 연동방법을 숙지하기 위해서 만들어놓은 임시 프로젝트입니다!
 
 - Final 프로젝트 최종코드는 `내문서/Github/Final-Project/Trip2reap_TeamCode` 입니다.
 
 ![](./방법2/4_1.PNG)
 
-- (1) eclipse를 켭니다.
-- (2) eclipse에서 불러올 Workspace 경로를 Github 로컬저장소 위치로 합니다.
+<br><BR>
 
-
-5. Github Pushing하기
+## 5. Github Pushing하기
 
 **push**란?
 
@@ -99,11 +102,11 @@
   - 김기쁨, 김수진, 이수진, 이규호, 최은강 5명이 올린 전체코드가 [원격저장소](https://github.com/KHAcademyProject2020/Final-Project)에 있습니다.
 
 
-6. 다른사람 코드를 Pull 받기
+## 6. 다른사람 코드를 Pull 받기
 
 - **다운로드**를 의미합니다.
 
-7. Merge
+## 7. Merge
 
 - 여러사람이 공동작업을 할 때, **코드를 합치는 것** 을 의미합니다.
 - 주의사항은 *pull을 안한 상태에서, 동시에 작업한 코드를 push하면 충돌이 일어납니다!*
