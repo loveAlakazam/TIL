@@ -3,6 +3,8 @@
 <details>
 <summary>IT 용어</summary>
 
+- 선점/비선점 [:link:](#선점/비선점)
+
 - 비즈니스로직(business logic) [:link:](#비즈니스로직)
 - 동기/비동기 [:link:](#동기/비동기)
 - 프록시(Proxy) [:link:](#프록시)
@@ -19,16 +21,50 @@
 ```
 개발자관련 자료를 읽다보면, 내가 모르거나 아리송한 용어들이 많이 나오는데
 
-훗날 내가 개발자가 되어 협업을 하게되면 소통이 기본전제인데 용어하나 때문에 소통을 못하는, 그들의 말을 외계어마냥 이해하지 못하는, 손해보는 일이 없기를 바라는 마음으로 꾸준히 모르는 용어가 생기면 그때그때 정리하는 습관을 들이자.
+훗날 내가 개발자가 되어 협업을 하게되면 소통이 기본전제인데 용어하나 때문에 소통을 못하는
+
+그들의 말을 외계어마냥 이해하지 못하는, 손해보는 일이 없기를 바라는 마음으로 
+
+꾸준히 모르는 용어가 생기면 그때그때 정리하는 습관을 들이자.
 ```
 
 <br>
 
+# 선점/비선점
+
+#### 작업 스케줄링
+
+- 어떤 작업이 시스템의 자원들을 차지할 수 있도록 할 것인가를 결정한다.
 
 
+#### 선점형 스케줄링(preemptive scheduling)
+
+- 하나의 프로세스가 CPU를 차지하고 있을 때, 다른 프로세스가 현재 프로세스를 중단시키고 자신이 CPU를 차지하는 스케줄링이다.
+- 높은 우선순위를 가진 프로세스들이 가장 먼저 처리를 요구하는 시스템에서 사용된다. 
+
+- 선점형 스케줄링 종류
+    - RR(Round Robin scheduling)
+    - SRT(Shotyrdy Remaining Time scheduling)
+
+<br>
+
+#### 비선점형 스케줄링(non-preemptive scheduling)
+
+- 한 프로세스가 CPU(자원)를 할당 받으면 다른 프로세스는 CPU를 그 프로세스로부터 점유할 수 없다.
+- 모든 프로세스들은 공정하다.
+- **한 프로세스가 작업을 끝날 때까지 다른 프로세스에게 자원(CPU)를 할당할 수 없다.**
 
 
-<br><br>
+- 비선점 스케줄링 종류
+    - FIFO (First In First Out)
+    - 우선순위(priority scheduling)
+    - FCFS (First Come First Server scheduling)
+    - SJF(Shortest Job First scheduling)
+    - HRN (Hightest Response ratio Next scheduling)
+    - 기한부 (deadline scheduling)
+
+
+<br>
 
 # 비즈니스로직
 
