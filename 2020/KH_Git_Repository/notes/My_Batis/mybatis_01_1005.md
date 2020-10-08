@@ -63,3 +63,21 @@
 - 그동안 우리는 common패키지에 `JDBCTemplate.java`에서 commit, rollback처리 그리고 커넥션연결, close를 다 직접짰다.
 
 - SqlSession은 commit, rollback, close(resultSet, PrepareStatement, Statement)에 대한 처리코드를 직접 작성하지 않아도 된다.
+
+
+<br><br>
+
+# memberMapper을 myBatis에서 등록해야한다.
+
+- 발생 예외: `org.apache.ibatis.exceptions.PersistenceException `
+
+- 해결방법
+  - `mybatis-config`에서 `<mapper>`태그를 이용해서 추가할것.
+
+
+- 발생 예외: `Cannot find class: oracle.jdbc.driver.OracleDriver`
+
+- 해결방법: `ojdbc6`이 없어서. => `WEB-INF/lib`에 넣는다.
+
+
+- 로그인 후: userId, userPwd가 모두 null이 뜬다.
