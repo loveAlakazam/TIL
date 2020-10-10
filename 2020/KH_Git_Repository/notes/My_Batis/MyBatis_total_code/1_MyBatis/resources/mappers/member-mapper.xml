@@ -38,7 +38,7 @@
 			resultMap="memberResultSet">
 		select *
 		from member
-		where user_id=#{userId} and user_pwd=#{userPwd}
+		where user_id=#{userId} and user_pwd=#{userPwd} and m_status='Y'
 	</select>
 	
 	<!--
@@ -89,4 +89,30 @@
 				SYSDATE, SYSDATE, DEFAULT )
 	</insert>
 	
+	<!-- [update] 
+		dao에서 전달하는 매개변수 m은 Member 객체  타입이다.
+		(별칭: Member로함/ 실제: member.model.vo.Member )
+	-->
+	<update id="updateMember" parameterType="Member">
+		UPDATE MEMBER
+		SET USER_NAME=#{userName}, NICKNAME=#{nickName}, EMAIL=#{email},
+			BIRTHDAY=#{birthday}, GENDER=#{gender}, PHONE=#{phone},	ADDRESS=#{address}
+		WHERE USER_ID=#{userId}
+	</update>
+	
+	
+	<update id="pwdUpdate" parameterType="map">
+		<!-- map의 key로 파라미터 구분을 한다. -->
+		UPDATE MEMBER
+		SET USER_PWD=#{newPwd}
+		WHERE USER_ID=#{userId} AND USER_PWD=#{userPwd}
+	</update>
+	
+	
+	<delete id="deleteMember" parameterType="string">
+	
+		UPDATE MEMBER
+		SET M_STATUS='N'
+		WHERE USER_ID=#{userId}
+	</delete>
 </mapper>
