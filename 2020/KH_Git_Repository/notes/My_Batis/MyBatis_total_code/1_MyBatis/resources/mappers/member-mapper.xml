@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<!-- 
+	<select></select>: select쿼리문 실행할때 사용하는 태그이다.
+	
+	여러개의 select쿼리문이 존재하므로, 이들을 구분하는 이름인 id옵션이 필요하다.
+	
+	[id 옵션] 여러 쿼리문들을 구분하기 위해서 사용됨.
+	[parameterType 옵션] 
+	- DAO로부터 전달되는 객체(Member)를 받아야함
+	- DAO가 mapper한테 인자값을 보내줘야하고, mapper은 이 인자의 타입(parameterType)을 설정하여 인자를 받는다. 
+	
+	mapper쿼리문은 대소문자 상관없다.
+	리터럴은 대소문자 구분할 수 있다.
+	mapper쿼리문에서는 서브쿼리 작성도 가능하다.
+	주석을 달을 수 있다. HTML주석과 유사하다.
+	-->
+	<!--
+	<select id="loginMember" parameterType="member.model.vo.Member" resultType="member.model.vo.Member">
+		SELECT * 
+		FROM MEMBER 
+		  MemberDAO의 selectMember()메소드 안에 있는
+			 Member타입의 인자 m으로부터 필드를 부른다.
+			 
+			 ${userId}, #{userPwd} : 파라미터값.
+			 파라미터 값은 MemberDAO의 selectMember()메소드의  Member타입의 인자 m으로부터 받는다.
+			 
+			 이 객체를 member-mapper.xml에서 id가 loginMember인 쿼리한테 보내야한다.
+			 그러면 loginMember쿼리는 받는입장에서 어떤타입으로 받는지를 명시해야된다.
+		
+		WHERE USER_ID=#{userId} AND USER_PWD=#{userPwd}
+	</select>
+	-->
+	
+	<!--  id가 memberResultSet인 resultMap을 참고하여 쿼리문을 수행하겠다. -->
+	<select id="loginMember" parameterType="member.model.vo.Member" 
+			resultMap="memberResultSet">
+		select *
+		from member
+		where user_id=#{userId} and user_pwd=#{userPwd}
+	</select>
+	
+	<!--
+	[resultMap]
+	Member에 관한 resultSet 받아온 것을 매핑시켜놓음 
+	
+	[id옵션] resultMap을 부르기위한 이름이다.
+	-->
+	<resultMap type="Member" id="memberResultSet">
+		<!-- 
+		<id>: 테이블의 기본키(PRIMARY KEY) 
+		<result>: 테이블의 일반컬럼
+		
+		property: 필드이름
+		column: 테이블 컬럼이름
+		
+		컬럼명과 필드명이 같으면 지정안해도 되지만
+		특정컬럼만 선택할 때, 매칭이 제대로 안되는 경우를 고려해서
+		컬럼명과 필드명이 서로 같더라도 직접 지정하는게 좋다.
+		-->
+		
+		<!-- primary key -->
+		<id property="userId" column="USER_ID"/>
+		
+		<!-- column -->
+		<result property="userPwd" column="USER_PWD"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="nickName" column="NICKNAME"/>
+		<result property="email" column="EMAIL"/>
+		<result property="birthday" column="BIRTHDAY"/>
+		<result property="gender" column="GENDER"/>
+		<result property="phone" column="PHONE"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="enrollDate" column="ENROLL_DATE"/>
+		<result property="updateDate" column="UPDATE_DATE"/>
+		<result property="mStatus" column="M_STATUS"/>
+	</resultMap>
+	
+	
+	<!-- 데이터베이스에 넣으므로, 테이블의 컬럼순으로 나열하기.
+		INSERT는 반환값이 INT이므로 이미 mybatis에서 설정되었으므로
+		resultType을 안써도된다!
+	 -->
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES(#{userId}, #{userPwd}, #{userName}, #{nickName}, 
+				#{email}, #{birthday}, #{gender}, #{phone}, #{address}, 
+				SYSDATE, SYSDATE, DEFAULT )
+	</insert>
+	
+</mapper>

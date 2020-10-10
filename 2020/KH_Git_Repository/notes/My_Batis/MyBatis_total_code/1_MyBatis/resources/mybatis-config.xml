@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!--DB에 연결할 설정 정보를 선언하는 부분  
+		[environments -	default 옵션]
+		- 여러개의 db에 연결할 수있다.
+		- 기본적으로 어떤 db랑 연결할 건지를 설정한다.
+		- default 옵션에는 기본적으로 연결할 db의 id를 넣으면 된다.
+		
+		- 연결 설정을 여러개 생성하여 아이디로 구분하고
+		- 기본적으로 연결할 설정 정보를 설정하는 속성이다.
+	-->
+	
+	
+	<properties resource="/driver.properties"/>
+	
+	
+	<!-- settings: MyBatis와 관련된 기본 세팅을 선언한다. -->
+	<settings>
+		<!-- 
+		jdbcTypeForNull을 설정하지 않으면
+		데이터가 NULL로  전송하게 될 때, 빈칸(white space)로 표현한다. 
+		
+		설정을 하면, 데이터값이 NULL일때  NULL로 표현하도록 한다. 
+		
+		value옵션의 값은 반드시 대문자로 표현해야한다. Null, null은 널값으로 인지하지 못한다.
+		-->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<!--
+	 [typeAliases]
+	 타입(parameterType, resultType) 이름이 너무 길때 별칭을 사용하여 나타낼 수있는 태그이다.
+	-->
+	<typeAliases>
+		<typeAlias type="member.model.vo.Member" alias="Member"/>
+	</typeAliases>
+	
+	
+	<environments default="development">
+		<!-- 
+					
+		[environments]
+		- id를 통해서  db의 설정정보를 구분하고 연결할 수있다.
+		-->
+		<environment id="development">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<!-- 직접입력하여 드라이버 정보를 불러오는 방식 -->
+				<!-- 
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="MyBatis"/>
+				<property name="password" value="MyBatis"/> 
+				-->
+				
+				<!-- 프로퍼티에 저장된 드라이버정보를 불러오는 방식  ${}는 EL이 아니다.-->
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			
+			
+			</dataSource>
+		</environment>
+	</environments>
+	
+	
+	<!-- 사용할 mapper를 등록한다. -->
+	<mappers>
+		<mapper resource="/mappers/member-mapper.xml"/>
+	</mappers>
+	
+</configuration>
