@@ -523,7 +523,36 @@ public class Template {
 > # mybatis-config.xml 파일
 
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!--DB에 연결할 설정 정보를 선언하는 부분  
+		[environments -	default 옵션]
+		- 여러개의 db에 연결할 수있다.
+		- 기본적으로 어떤 db랑 연결할 건지를 설정한다.
+		- default 옵션에는 기본적으로 연결할 db의 id를 넣으면 된다.
 
+		- 연결 설정을 여러개 생성하여 아이디로 구분하고
+		- 기본적으로 연결할 설정 정보를 설정하는 속성이다.
+	-->
+	<environments default="development">
+
+		<!--
+
+		[environments]
+		- id를 통해서  db의 설정정보를 구분하고 연결할 수있다.
+		-->
+		<environment id="development">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="MyBatis"/>
+				<property name="password" value="MyBatis"/>
+			</dataSource>
+		</environment>
+	</environments>
+</configuration>
 ```
 
 
