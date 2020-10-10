@@ -426,10 +426,48 @@ public class LoginServlet extends HttpServlet {
   - 그런데 Mybatis에서는... Connection을 필요로하지 않고, **`sqlSession`** 을 반환하는 템플릿 클래스를 만들어서 연결.
 
 ```java
+package member.model.service;
 
+import static common.Template.getSqlSession;
+
+import org.apache.ibatis.session.SqlSession;
+
+import member.model.vo.Member;
+
+public class MemberService {
+
+	public Member selectMember(Member m) {
+		SqlSession session = getSqlSession();
+		System.out.println(session);
+
+		Member member=null;
+		return member;
+	}
+
+}
 ```
 
 <br>
+
+> ## 데이터베이스 연결
+
+### 1. SQL Developer - 데이터베이스 계정 만들기
+
+```sql
+-- SYSTEM 계정에서 진행.
+
+-- DB계정 생성하기 (계정이름: MyBatis/ 패스워드: MyBatis)
+CREATE USER MyBatis IDENTIFIED BY MyBatis;
+
+-- MyBatis 계정에 권한 부여하기
+GRANT RESOURCE, CONNECT TO MyBatis;
+```
+
+### 2. [실습 관련 SQL 쿼리문]
+
+- 계정을 `MyBatis`로 해야한다.
+
+<br><BR>
 
 > ## Template.java
 
@@ -555,8 +593,338 @@ public class Template {
 </configuration>
 ```
 
+<br><br>
 
+> ## mybatis-config.xml - db driver관련 정보를 프로퍼티에 저장 및 프로퍼티로부터 드라이버정보를 불러오는 방법
+
+
+- ### 프로퍼티 파일 만들기 -  `driver.properties`
+  - `Java Resources/resources` 마우스 우클릭 => `New` => `Other`=> `File`
+  - 파일명: `driver.properties`
+
+```
+driver=oracle.jdbc.driver.OracleDriver
+url=jdbc:oracle:thin:@localhost:1521:xe
+userName=MyBatis
+password=MyBatis
+
+```
+
+- ### `mybatis-config.xml` 코드
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!--DB에 연결할 설정 정보를 선언하는 부분  
+		[environments -	default 옵션]
+		- 여러개의 db에 연결할 수있다.
+		- 기본적으로 어떤 db랑 연결할 건지를 설정한다.
+		- default 옵션에는 기본적으로 연결할 db의 id를 넣으면 된다.
+
+		- 연결 설정을 여러개 생성하여 아이디로 구분하고
+		- 기본적으로 연결할 설정 정보를 설정하는 속성이다.
+	-->
+	<environments default="development">
+
+		<!--
+
+		[environments]
+		- id를 통해서  db의 설정정보를 구분하고 연결할 수있다.
+		-->
+		<environment id="development">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<!-- 직접입력하여 드라이버 정보를 불러오는 방식 -->
+				<!--
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="MyBatis"/>
+				<property name="password" value="MyBatis"/>
+				-->
+
+				<!-- 프로퍼티에 저장된 드라이버정보를 불러오는 방식  ${}는 EL이 아니다.-->
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+
+	<properties resource="/driver.properties"/>
+</configuration>
+
+```
+
+<br>
+
+- 바로 위에 있는 `mybatis-config.xml`에서 에러가 발생한다. 어디서부터 잘못된것일까?
+
+- `mybatis-config.xml`은 mybatis에 관한 모든 설정정보를 갖고 있다.
+
+- 그리고, 구성하는 여러 태그가 있는데, 태그들의 순서가 정해져있다.
+  - **태그들의 순서를 반드시 지켜야한다.**
+  - 따라서 `<properties>` 태그의 위치는 `<environments>`보다 위에 있어야한다.
+
+- 태그들의 순서를 지키지 않을 때, 아래와 같은 에러메시지를 발생한다.
+
+
+```
+[error message]
+
+The content of element type "configuration" must match
+
+"(properties?,settings?,typeAliases?,typeHandlers?,objectFactory?,objectWrapperFactory?,reflectorFactory?,plugins?,environments?,databaseIdProvider?,mappers?)".
+```
+
+<br><BR>
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+	<!--DB에 연결할 설정 정보를 선언하는 부분  
+		[environments -	default 옵션]
+		- 여러개의 db에 연결할 수있다.
+		- 기본적으로 어떤 db랑 연결할 건지를 설정한다.
+		- default 옵션에는 기본적으로 연결할 db의 id를 넣으면 된다.
+
+		- 연결 설정을 여러개 생성하여 아이디로 구분하고
+		- 기본적으로 연결할 설정 정보를 설정하는 속성이다.
+	-->
+
+
+	<properties resource="/driver.properties"/>
+
+
+	<!-- settings: MyBatis와 관련된 기본 세팅을 선언한다. -->
+	<settings>
+		<!--
+		jdbcTypeForNull을 설정하지 않으면
+		데이터가 NULL로  전송하게 될 때, 빈칸(white space)로 표현한다.
+
+		설정을 하면, 데이터값이 NULL일때  NULL로 표현하도록 한다.
+
+		value옵션의 값은 반드시 대문자로 표현해야한다. Null, null은 널값으로 인지하지 못한다.
+		-->
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+
+	<environments default="development">
+
+		<!--
+
+		[environments]
+		- id를 통해서  db의 설정정보를 구분하고 연결할 수있다.
+		-->
+		<environment id="development">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<!-- 직접입력하여 드라이버 정보를 불러오는 방식 -->
+				<!--
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="MyBatis"/>
+				<property name="password" value="MyBatis"/>
+				-->
+
+				<!-- 프로퍼티에 저장된 드라이버정보를 불러오는 방식  ${}는 EL이 아니다.-->
+				<property name="driver" value="${driver}"/>
+				<property name="url" value="${url}"/>
+				<property name="username" value="${username}"/>
+				<property name="password" value="${password}"/>
+
+
+			</dataSource>
+		</environment>
+	</environments>
+
+
+</configuration>
+
+```
+
+<BR>
+
+> ## MemberService.java 코드 추가
+
+```java
+package member.model.service;
+
+import static common.Template.getSqlSession;
+
+import org.apache.ibatis.session.SqlSession;
+
+import member.model.dao.MemberDAO;
+import member.model.vo.Member;
+
+public class MemberService {
+
+	public Member selectMember(Member m) {
+		SqlSession session = getSqlSession();
+		System.out.println(session);
+
+		Member member=new MemberDAO().selectMember(session, m);
+		return member;
+	}
+
+}
+```
+
+<br><br>
+
+- 로그인은 결과값이 최대 1개이다. (회원이다: 1,  회원이 아니다: 0)
+- `sqlSession`객체의 `selectOne()` 메소드를 사용하여 db로부터 데이터를 불러온다.
+
+<br>
+
+- selectOne() 메소드는 인자개수에따라 메소드 오버로딩이 되어있다. 둘의 차이점은 무엇일까? 특히 인자 arg0과 arg1은 각각 무슨역할을 할까?
+  - `session.selectOne(String arg0) : T-SqlSession`
+  - `session.selectOne(String arg0, Object arg1) : T-SqlSession`
+
+- ### 인자 `arg0`과 `arg1`의 역할?
+  - #### `arg0` : 어느 쿼리를 가지고올지에 대한 id를 의미함.
+    - **쿼리문 이름**
+    - **쿼리문은 `mapper.xml`에서 작성한다.**
+  - #### `arg1` :
+
+- ### `mapper.xml` :  쿼리에 대한 정보를 갖고있다. 쿼리문을 작성할 수 있다.
+
+<br>
+
+> # mapper.xml 설정하기
+
+- ### mapper.xml 파일 만들기
+  - (1) 패키지 만들기
+    - 패키지 이름: **mappers**
+    - 패키지 저장위치: **`Java Resources`/`resources`**
+
+  - (2) member-mapper.xml 파일 만들기
+    - xml파일이름: **member-mapper**
+    - 저장위치: **`Java Resources`/ `resource` / `mappers`**
+
+<br>
+
+- `member-mapper.xml`- 직접 입력하는 방법
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0 EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+```
+<br>
+
+- ### dtd파일을 만들어서 불러오는 방법
+  - (1) DTD파일 만들기
+    - `Window` > `Preferences` > `XML` > `XML Catalog`
+    - `User Specified Entries`선택하고 `Add`버튼 클릭
+    - **Location: `http://mybatis.org/dtd/mybatis-3-mapper.dtd`**
+    - **Key: `-//mybatis.org//DTD Mapper 3.0//EN`**
+
+  - (2) member-mapper.xml 파일 만들기
+    - 저장위치: **`Java Resources`/ `resource` / `mappers`**
+    - `New` > `Other` > `XML File` > Next버튼 클릭
+    - xml파일이름: **member-mapper**
+    - Next 버튼 클릭
+    - `Create XML file from a DTD file` 선택 > Next버튼 클릭
+    - `Select XML Catalog entry` 선택
+      - Key가 `-//mybatis.org//DTD Mapper 3.0//EN` 인 카탈로그 선택 후, Next버튼 클릭
+
+    - **Root element**가 `mapper`로 되어있고, 빨간색 밑줄이 없으면, Finish버튼 클릭
+
+
+<br>
+
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper>
+
+	<select id="loginMember"></select>
+</mapper>
+
+```
 
 <hr>
 
+<br>
+
+[GO TO TOP :point_up:](#)
+
+<br><br>
+
 # 2020.10.06
+
+> ## MyBatis 정리
+
+- 후에 Spring을 이용하여, MyBatis와 연결을 한다.
+
+- JDBC에서는 Connection을 사용했지만, MyBatis에서는 SqlSession을 통해서 이용한다.
+
+- `mybatis-config.xml`: mybatis에 대한 모든 설정을 갖고있다.
+  - `<configuration>`내에서 사용되는 여러 개의 태그
+    - **`<properties>`**: 외부에 있는 프로퍼티 파일들을 불러올 때 사용하는 태그이다.
+    - **`<settings>`**: mybatis에 대한 기본 설정 정보을 갖고있는태그
+    - **`<environments>`**: db에 연결할 설정정보를 갖고 있다.
+      - **default** 인자: `<environment>`의 **`id`** 를 넣는다.
+      - 기본적으로 연결할 db를 설정하는 것이며, 인자의 id의 값은, 해당 id에 대응되는 db정보를 기본으로 하겠다는 것이다.<br>
+      - 예시: 아래코드 `<environments default="sample01">`은 id가 `sample01`인 `environment`를 기본으로 연결할 데이터베이스로 설정하겠다는 의미이다.<br>
+
+
+      ```xml
+      <environments default="sample01">
+        <environment id="sample01">
+          <transactionManager type="JDBC"></transactionManager>
+          <dataSource type="POOLED">
+            <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+      			<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+      			<property name="username" value="MyBatis"/>
+      			<property name="password" value="MyBatis"/>
+          </dataSource>
+        </environment>
+
+        <environment id="sample02">
+        </environment>
+
+        <environment id="sample03">
+        </environment>
+      </environments>
+      ```
+
+      - **`<environment>`**
+        - **`<transactionManager>`**
+          - 트랜젝션에 대해서 어떻게 관리를 할 것인지.
+          - 자동커밋(MANAGED)/수동커밋(JDBC) 에 대한 설정
+
+        - **`<dataSource>`**: 실제연결할 DB정보를 가져온다.
+          - **<property>** : 드라이버에 대한 정보
+<br>
+
+- `web.xml` : application에 대한 전체 설정정보.
+
+<br>
+
+> ## member-mapper.xml
+
+```xml
+
+```
+
+<br>
+
+- `parameterType`: DAO에서 mapper로 인자값을 보내려고할때, 인자의 타입을 설정하여 받아야한다.
+
+
+
+<br>
+
+> ##
+
+
+<BR>
+
+[GO TO TOP :point_up:](#)
+
+<br><br>

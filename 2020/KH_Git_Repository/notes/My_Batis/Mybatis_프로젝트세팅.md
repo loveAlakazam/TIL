@@ -198,13 +198,25 @@ URI: http://mybatis.org/dtd/mybatis-3-config.dtd
 10. 빨간색 밑줄이 없으면 그대로 Finish버튼 클릭
 ```
 
+<br>
+
+
+> # mapper.xml
+
+- sql 쿼리에 대한 정보를 담고있다.
+- 쿼리문을 작성하는 곳이다.
+- id로 쿼리문을 구분한다.
+
+<br>
+
+
+>> ## `<select>`태그
+
+- `<select></select>`: select쿼리문 실행할때 사용하는 태그이다.
+
+- 여러개의 select쿼리문이 존재하므로, 이들을 구분하는 이름인 id옵션이 필요하다.
+
 
 <br><br>
-
-
-> # mybatis-config xml 태그 순서
-
-
-
 
 [:arrow_up:](#)

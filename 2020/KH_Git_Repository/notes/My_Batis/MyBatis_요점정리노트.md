@@ -184,3 +184,56 @@
 |POOLED|- Connection객체를 새로 만들지 않고(미리 만들어놓고) 사용.<br>- 객체를 만드는데 걸리는 시간이 줄어든다.<br>- 사용자의 요청이 있을 때 DB에 연결하여 명령을 실행하고 명령이 종료되어도 연결이 종료되지 않고 POOL에 저장하여 요청이 올 때 꺼내서 재사용한다.<BR>- Web Application에서 흔하게 많이 사용되는 방법이다.|
 |UNPOOLED|- 그때그때마다 Connection객체를 새로 만드는 것.<br>- DB요청이 올때마다 실시간으로 커넥션 객체를 만들고 닫는다.<BR>- 미리 객체를 만들어놓는 방식이 아니므로, 느리다.|
 |JNDI|수업과 관련이 조금 멀으므로 생략.|
+
+<BR>
+
+> ## `mybatis-config.xml` 은 태그의 순서가 존재한다.
+
+- 태그의 순서를 지키지 않으면 아래와 같은 에러메시지를 볼 수 있다.
+
+```
+The content of element type "configuration" must match
+
+ "(properties?,
+   settings?,
+   typeAliases?,
+   typeHandlers?,
+   objectFactory?,
+   objectWrapperFactory?,
+   reflectorFactory?,
+   plugins?,
+   environments?,
+   databaseIdProvider?,
+   mappers?)".
+```
+
+<br>
+
+> ## MyBatis 내장 별칭
+
+
+|Java 자료형| MyBatis 타입|
+|:--:|:--:|
+|byte|_byte|
+|long|_long|
+|short|_short|
+|int|_int, _integer|
+|float|_float|
+|double|_double|
+|boolean|_boolean|
+|String|string|
+|Byte|byte|
+|Short|short|
+|Long|long|
+|Integer|int, integer|
+|Double|double|
+|Float|float|
+|Boolean|boolean|
+|Date|date|
+|Object|object|
+|Map|map|
+|HashMap|hashmap|
+|List|list|
+|ArrayList|arraylist|
+|Collection|collection|
+|Iterator|iterator|
