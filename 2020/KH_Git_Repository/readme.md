@@ -8,8 +8,11 @@
 - [6. AJax & JSON & GSON](./notes/AJAX)
 - [7. JSP-ActionTags / JSTL ](./notes/JSP-Action-Tag/)
 - [8. Nexacro ](./notes/Nexacro)
-- [9. Spring ](./notes/Spring)
-- [10. MyBatis ](./notes/MyBatis)
+- [9. MyBatis ](./notes/My_Batis)
+  - [2020.10.05 ~2020.10.06 - mybatis 실습](./notes/My_Batis/MyBatis실습.md)
+  - [MyBatis 요점정리](./notes/My_Batis/MyBatis_요점정리노트.md)
+  - [MyBatis 프로젝트 세팅](./notes/My_Batis/Mybatis_프로젝트세팅.md)
+- [10. Spring ](./notes/Spring)
 
 <hr>
 
@@ -119,7 +122,9 @@
 
 > ## JSTL
 
-- 
+> ## MyBatis
+
+
 
 
 <hr>
