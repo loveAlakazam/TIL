@@ -13,17 +13,115 @@
 
   - [Java프로젝트에 Github에 쉽게 연동하기(with Eclipse)- 프로삽질러 개발로그](https://d-e-v.tistory.com/3)
 
+  - [Github에 있는 자바프로젝트를 이클립스에 import시키기](https://zgundam.tistory.com/161)
+    - 기쁨, 규호, 수진L, 수진K 가 봐야될 부분입니다.
+
 
 - #### **주의사항**
-  - 팀에서 eclipse연결해서 프로젝트 작업하는 경우는 유료이다.
-    - 현재 소속팀: KHAcademyProject2020의 Final-Project
 
-  - 개인 github의 repository를 새로 생성하여 연결해야한다.
+> ## 1. 이클립스 프로젝트를 Github와 연결하기 - 프로삽질러 개발로그 참고
 
-  - 저는 `프로삽질러 개발로그`를 참고했습니다.
+> ## 2. Github에 있는 자바프로젝트를 이클립스에 받는 방법 - zgundam 티스토리블로그 참고
+
+### 1. 새 폴더를 만듭니다.
+
+- 이 새 폴더(final_project_kh)는 앞으로 여러분이 사용하게 될 eclipse workspace 입니다.
+- 제가 만든 새폴더의 디렉토리 경로는 `/Users/ek/final_project_kh`이고,
+- eclipse workspace 경로입니다.
+
+<br>
 
 
-> ## 1. 방법2부터 작성후에 시도해보겠습니다 ^_^
+- 깃허브 래포지토리를 이클립스프로젝트를 다운로드하는 방법은 3가지가 있습니다.
+  - (방법1) github desktop을 이용
+  - (방법2) git bash를 이용
+
+
+<br><br>
+
+- 방법은 각자가 편하다고 생각하는 방법으로 하면됩니다. 저는 (방법1)로 진행하겠습니다.
+
+### 2. (방법1) 깃허브 desktop을 이용하는 방법
+
+- (1) 초록색버튼 Code 클릭
+- (2) Open with Github Desktop
+
+![](./방법1/2.png)
+
+<br><br>
+
+### 3. local path를 이클립스 workspace 경로로 설정하기
+
+![](./방법1/3.png)
+
+<br>
+
+![](./방법1/4.png)
+
+<br>
+
+- clone repository를 성공시킨 모습은 아래와 같습니다!
+
+![](./방법1/5.png)
+
+<br><br>
+
+
+### 4. 이클립스를 켭니다.
+
+- local path를 찾습니다. 저의 local path는 `/Users/ek/final_project_kh` 입니다.
+
+![](./방법1/6.png)
+
+<br>
+
+- 언어 encoding/spelling 설정이 잘되어 있는지 확인해주세요!
+  - ### [windows10 - encoding/spelling 세팅](# 4-3 eclipse 인코딩 설정하기)
+  - mac os는 기본언어가 utf-8이라서 윈도우와 다르게 따로 설정할 필요없습니다.
+
+<br><br>
+
+### 5. github에 있는 자바 프로젝트 import하기
+
+- ### (1) Project Explorer에서 `import projects...` 클릭!
+- ### (2) `Git` > `Projects from Git` 클릭 후 Next
+- ### (3) `Existing local repository` 클릭 후 Next
+- ### (4) `Add` 클릭 > Browse클릭
+  - Directory는 local path 디렉토리경로를 올립니다. (저의경우는, `/Users/ek/final_project_kh` 네요.)
+  - Search results에 나오는 .git을 체크!
+  - 아래 사진처럼 나와야됩니다!
+- ### (5) Finish버튼 클릭
+
+<br>
+
+![](./방법1/7.png)
+
+<br>
+
+- ### (6) 아래 사진처럼 나왔다면, next버튼 클릭
+
+![](./방법1/8.png)
+
+<br>
+
+- ### (7) `import existing Eclipse project` 선택 후 next 버튼 클릭
+
+![](./방법1/9.png)
+
+<br>
+
+- ### (8) 사진처럼 프로젝트가 존재하면, Finish버튼 클릭!
+
+![](./방법1/10.png)
+
+### 6.
+
+
+
+
+
+
+
 
 
 
@@ -37,7 +135,7 @@
 - 장점: githubDesktop만 있다면, 연결과정이 쉽다. 그러나 인코딩 표현이 달라지면 깨질 가능성이 높다.
 
 
-> ## (1) Github Desktop 설치하기
+> ## Github Desktop 설치하기
 
 ## 1. [Github desktop 설치 페이지](https://desktop.github.com/)
 
@@ -53,14 +151,14 @@
 ## 3. Final-Project Repository 연결하기.
 
 
-> ### (1) 상단메뉴 **`File`**  클릭
-> ### (2) **`Clone Repository`** 클릭
+> ### 3-1 상단메뉴 **`File`**  클릭
+> ### 3-2 **`Clone Repository`** 클릭
 
 ![](./방법2/2.png)
 
 <BR>
 
-> ### (3) `Final-Project` 프로젝트 클론하여 **로컬저장소** 만들기
+> ### 3-3 `Final-Project` 프로젝트 클론하여 **로컬저장소** 만들기
 
 ![](./방법2/3.png)  
 
@@ -80,7 +178,7 @@
 
 ## 4. 샘플 프로젝트(`Sample_WebProject`) 불러오기
 
-> ### (1) 연결 후, 로컬저장소 확인하기.
+> ### 4-1 연결 후, 로컬저장소 확인하기.
   - 제 로컬 저장소 위치는 **`내문서/Github/Final-Project`** 입니다.
 
 ![](./방법2/4_0.PNG)
@@ -88,7 +186,7 @@
 <BR>
 
 
-> ### (2) eclipse를 켜서 `Sample_WebProject`를 엽니다.
+> ### 4-2 eclipse를 켜서 `Sample_WebProject`를 엽니다.
 
 ![](./방법2/4_1.PNG)
 
@@ -103,7 +201,7 @@
 
 <br><br>
 
-> ### (3) eclipse 인코딩 설정하기
+> ### 4-3 eclipse 인코딩 설정하기
 
 - #### `Window` 상단 탭 메뉴 > `Preferences`
 
