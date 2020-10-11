@@ -33,11 +33,25 @@
     
 # Cache
 
-- HTTP Cache 참고영상
-
-![](https://www.youtube.com/watch?v=NxFJ-mJdVNQ)
+- [Cache 참고영상](https://www.youtube.com/watch?v=NxFJ-mJdVNQ)
 
 <br>
+
+## What is the Cache? :point_right: 데이터나 값을 미리 복사해놓는 임시 저장소
+
+## When use the Cache? 
+
+- :point_right: 원본데이터에 **접근하는 시간이 오래 걸리는 경우**
+- :point_right: 값을 **다시 계산하는 시간을 절약**하고 싶은 경우
+
+## Why use the Cache?
+
+- :point_right: 캐시에 **데이터를 미리 복사**해 놓으면 **계산**이나 **접근 시간이 없이 더빠른 속도로 데이터에 접근**할 수 있다.
+- **데이터 접근 속도** :point_up:
+- **비용** :point_down:
+
+
+<br><br>
 
 # 선점/비선점
 
