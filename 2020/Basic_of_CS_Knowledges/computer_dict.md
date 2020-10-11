@@ -3,6 +3,7 @@
 <details>
 <summary>IT 용어</summary>
 
+- Cache [:link:](#Cache)
 - 선점/비선점 [:link:](#선점/비선점)
 
 - 비즈니스로직(business logic) [:link:](#비즈니스로직)
@@ -15,7 +16,6 @@
 
 </details>
 
-
 <br>
 
 ```
@@ -26,7 +26,16 @@
 그들의 말을 외계어마냥 이해하지 못하는, 손해보는 일이 없기를 바라는 마음으로 
 
 꾸준히 모르는 용어가 생기면 그때그때 정리하는 습관을 들이자.
+
 ```
+
+<BR>
+    
+# Cache
+
+- HTTP Cache 참고영상
+
+![](https://www.youtube.com/watch?v=NxFJ-mJdVNQ)
 
 <br>
 
