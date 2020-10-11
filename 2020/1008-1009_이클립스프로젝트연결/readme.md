@@ -104,6 +104,8 @@ The superclass "javax.servlet.http.HttpServlet" was not found on the Java Build 
 
 - [깃허브 push/pull/merge방법](https://developer0513.tistory.com/43)
 
+- **push방법: 팀프로젝트 마우스 우클릭 > Team > Push to Upstream> Git perspective로 가서 Git staging에서 커밋하기**
+- **pull방법: git perspective > Git repository에 연결된 프로젝트 마우스 우클릭 > Pull...**
 
 <br><br>
 
