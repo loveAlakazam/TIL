@@ -9,11 +9,11 @@
 - 이 방법으로 시도하다가 ~내 필기자료 다 날라갔다...ㅠ.ㅠ~
 
 - #### 참고자료
-  - [eclipse프로젝트를 github에 연동해서 형상관리하기-준스파파](https://junspapa-itdev.tistory.com/46)
 
   - [Java프로젝트에 Github에 쉽게 연동하기(with Eclipse)- 프로삽질러 개발로그](https://d-e-v.tistory.com/3)
 
-  - [Github에 있는 자바프로젝트를 이클립스에 import시키기](https://zgundam.tistory.com/161)
+
+  - [Github에 있는 자바프로젝트를 이클립스에 import시키기](https://tychejin.tistory.com/33)
     - 기쁨, 규호, 수진L, 수진K 가 봐야될 부분입니다.
 
 
@@ -21,108 +21,88 @@
 
 > ## 1. 이클립스 프로젝트를 Github와 연결하기 - 프로삽질러 개발로그 참고
 
-> ## 2. Github에 있는 자바프로젝트를 이클립스에 받는 방법 - zgundam 티스토리블로그 참고
+> ## 2. Github에 있는 프로젝트를 이클립스로 import 시키는 방법
 
-### 1. 새 폴더를 만듭니다.
+### 1. 자주 사용하는 이클립스 워크스페이스를 오픈합니다.
 
-- 이 새 폴더(final_project_kh)는 앞으로 여러분이 사용하게 될 eclipse workspace 입니다.
-- 제가 만든 새폴더의 디렉토리 경로는 `/Users/ek/final_project_kh`이고,
-- eclipse workspace 경로입니다.
+### 2. git perspective 불러오기
+
+- Windows > Perspective > Open Perspective > Others > Git
 
 <br>
 
+### 3. Clone git repository 클릭
 
-- 깃허브 래포지토리를 이클립스프로젝트를 다운로드하는 방법은 3가지가 있습니다.
-  - (방법1) github desktop을 이용
-  - (방법2) git bash를 이용
+![](./방법1/1.png)
 
+<br>
 
-<br><br>
+### 4. 연결할 깃헙 정보 입력과 현재 내 깃헙 계정을 입력한다.
 
-- 방법은 각자가 편하다고 생각하는 방법으로 하면됩니다. 저는 (방법1)로 진행하겠습니다.
-
-### 2. (방법1) 깃허브 desktop을 이용하는 방법
-
-- (1) 초록색버튼 Code 클릭
-- (2) Open with Github Desktop
+- #### 4-1 연결 repository의 uri를 복사한다.
 
 ![](./방법1/2.png)
 
-<br><br>
+<br>
 
-### 3. local path를 이클립스 workspace 경로로 설정하기
+- #### 4-2 연결 repository 정보 입력
 
 ![](./방법1/3.png)
 
 <br>
 
+- #### 4-3 master branch만 선택!
+
 ![](./방법1/4.png)
 
 <br>
 
-- clone repository를 성공시킨 모습은 아래와 같습니다!
+- #### 4-4 local path 정하기
+
+- 제 local path는 `내문서/Github` 로 했습니다.
+
+- 각자 원하는 위치에 저장하시면 됩니다!
 
 ![](./방법1/5.png)
 
 <br><br>
 
-
-### 4. 이클립스를 켭니다.
-
-- local path를 찾습니다. 저의 local path는 `/Users/ek/final_project_kh` 입니다.
+### 5. 프로젝트 import 하기
 
 ![](./방법1/6.png)
 
 <br>
 
-- 언어 encoding/spelling 설정이 잘되어 있는지 확인해주세요!
-  - ### [windows10 - encoding/spelling 세팅](# 4-3 eclipse 인코딩 설정하기)
-  - mac os는 기본언어가 utf-8이라서 윈도우와 다르게 따로 설정할 필요없습니다.
-
-<br><br>
-
-### 5. github에 있는 자바 프로젝트 import하기
-
-- ### (1) Project Explorer에서 `import projects...` 클릭!
-- ### (2) `Git` > `Projects from Git` 클릭 후 Next
-- ### (3) `Existing local repository` 클릭 후 Next
-- ### (4) `Add` 클릭 > Browse클릭
-  - Directory는 local path 디렉토리경로를 올립니다. (저의경우는, `/Users/ek/final_project_kh` 네요.)
-  - Search results에 나오는 .git을 체크!
-  - 아래 사진처럼 나와야됩니다!
-- ### (5) Finish버튼 클릭
-
-<br>
+- 아래 프로젝트가 잘 뜨면 finish버튼누른다.
 
 ![](./방법1/7.png)
 
 <br>
 
-- ### (6) 아래 사진처럼 나왔다면, next버튼 클릭
+- perspective를 java ee로 바꾸면, 프로젝트가 임포트됐음을 알 수 있습니다!
 
-![](./방법1/8.png)
+- 그런데 문제점은! 프로젝트에 x표시가 뜬다! 그것도 WebContent에서!
 
-<br>
+```
+[에러메시지 1]
+The superclass "javax.servlet.http.HttpServlet" was not found on the Java Build Path
+```
 
-- ### (7) `import existing Eclipse project` 선택 후 next 버튼 클릭
+> ## 해결방법 참고2, 참고3 을 참고했습니다.
 
-![](./방법1/9.png)
-
-<br>
-
-- ### (8) 사진처럼 프로젝트가 존재하면, Finish버튼 클릭!
-
-![](./방법1/10.png)
-
-### 6.
+- 해결1: 서버런타임을 apache tomcat 9.0으로 설정했습니다.
+- 해결2: jre library를 설정했습니다.
 
 
+- ### 서버를 만들지 않고, 내가 가지고 있는 기존 서버로 설정하고 싶다면 아래 블로그를 참고하면됩니다.
 
+- [해결방법 참고1](https://simuing.tistory.com/168)
 
+- [해결방법 참고2](https://hongeui.tistory.com/13)
 
+- [해경방법 참고3](https://jamesdreaming.tistory.com/164)
 
-
-
+- [깃허브 push/pull/merge방법](https://developer0513.tistory.com/43)
 
 
 <br><br>
