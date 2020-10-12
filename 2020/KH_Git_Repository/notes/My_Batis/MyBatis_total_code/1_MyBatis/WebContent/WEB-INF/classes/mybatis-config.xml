@@ -69,6 +69,7 @@
 	<!-- 사용할 mapper를 등록한다. -->
 	<mappers>
 		<mapper resource="/mappers/member-mapper.xml"/>
+		<mapper resource="/mappers/board-mapper.xml"/>
 	</mappers>
 	
 </configuration>
