@@ -35,6 +35,7 @@
 	<typeAliases>
 		<typeAlias type="member.model.vo.Member" alias="Member"/>
 		<typeAlias type="board.model.vo.Board" alias="Board"/>
+		<typeAlias type="board.model.vo.Reply" alias="Reply"/>
 	</typeAliases>
 	
 	

@@ -81,5 +81,29 @@ public class BoardDAO {
 		}
 		return list;
 	}
+	
+
+	public int updateCount(SqlSession session, int bId) throws BoardException {
+		int result=session.update("boardMapper.updateCount", bId);
+		if(result<=0) {
+			session.rollback();
+			session.close();
+			
+			throw new BoardException("게시글 상세 조회 - 조회수 카운트 실패");
+		}
+		return result;
+	}
+	
+
+	public Board selectBoardDetail(SqlSession session, int bId) throws BoardException {
+		Board board= session.selectOne("boardMapper.selectBoardDetail", bId);
+		
+		if(board==null) {
+			session.close();
+			throw new BoardException("게시글 상세조회에 실패하였습니다.");
+		}
+		return board;
+	}
+
 
 }

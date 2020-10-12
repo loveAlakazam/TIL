@@ -20,7 +20,7 @@
 	<jsp:include page="../common/menubar.jsp"/>
 		
 	<!------------- 0_1.로그인한 회원만 게시물 보기를 하기 위해 다음과같은 조건 추가  -------------->
-	<c:if test="${empty loginUser}">
+	<c:if test="${!empty loginUser}">
 		<div class="outer">
 			<br>
 			<h1 align="center">게시판</h1>
@@ -39,6 +39,9 @@
 				<!-- forEach를 통해 request에 담겨있는 list들을 하나씩 접근하여 출력 
 					임시변수 : var
 				-->
+				<%-- list찍어보기 
+				${list}
+				--%>
 				<c:forEach items="${list }" var="board">
 					<tr>
 						<td>${board.bId }</td>				
@@ -51,7 +54,52 @@
 			</table>
 			
 			<!-- 1_2. 게시물 리스트 페이징 부분 -->
-			<div class="pagingArea" align="center"></div>
+			<div class="pagingArea" align="center">
+				<!-- [이전] -->
+				<!--현재 페이지가 <=1 : 비활성화-->
+				<c:if test="${pi.currentPage <=1}">
+					[이전]
+				</c:if>
+				
+				<c:if test="${pi.currentPage >1 }">
+					<%-- 
+						<c:url>을 이용하여 url 링크연결 
+						loc: 현재 location: /selectList.bo
+						url: contextPath를 기본적으로 포함.
+					--%>
+					<c:url value="${loc }" var="blistBack">
+						<%--현재 위치에서 -1 --%>
+						<c:param name="currentPage" value="${pi.currentPage-1 }"></c:param>
+					</c:url>
+					<a href="${blistBack}">[이전]</a>
+				</c:if>
+				
+				<%--이전과 다음 사이번호 --%>
+				<c:forEach var="p" begin="${pi.startPage }"  end="${pi.endPage }">
+					<c:if test="${p eq pi.currentPage }" >
+						<font color='red' size="4"><b>[${p }]</b></font>
+					</c:if>
+					
+					<c:if test="${p ne pi.currentPage }">
+						<c:url var="blistCheck" value="${loc }">
+							<c:param name="currentPage" value="${p }"/>
+						</c:url>
+						<a href="${blistCheck }">${p }</a>
+					</c:if>
+				</c:forEach>
+				
+				
+				<%--다음 --%>
+				<c:if test="${pi.currentPage >= pi.maxPage}">
+					[다음]
+				</c:if>
+				<c:if test="${pi.currentPage < pi.maxPage }">
+					<c:url value="${loc }" var="blistNext">
+						<c:param name="currentPage" value="${pi.currentPage+1 }"/>
+					</c:url>
+					<a href="${blistNext }">[다음]</a>
+				</c:if>
+			</div>
 			
 			<!-----------  2. 상세보기 ------------->
 			<script type="text/javascript">

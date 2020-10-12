@@ -36,4 +36,57 @@
   	<result property="bStatus" column="B_STATUS"/>
   	
   </resultMap>
+  
+  <update id="updateCount" parameterType="_int" >
+  	update board
+  	set bcount= bcount +1
+  	where bId=#{bId}
+  </update>
+  
+  <select id="selectBoardDetail" parameterType="_int" resultMap="boardResultSet2">
+  	SELECT BID, BTYPE, BCONTENT, BWRITER, M1.NICKNAME AS B_NICKNAME, 
+	    BCOUNT, B_CREATE_DATE, B_MODIFY_DATE, B_STATUS, 
+	    RID, RCONTENT, REF_BID, M2.NICKNAME AS R_NICKNAME,
+	    R_CREATE_DATE, R_MODIFY_DATE, R_STATUS
+	FROM BOARD
+	    JOIN MEMBER M1 ON(BWRITER=M1.USER_ID)
+	    LEFT JOIN REPLY ON(BID=REF_BID)
+	    LEFT JOIN MEMBER M2 ON(RWRITER=M2.USER_ID)
+	WHERE B_STATUS='Y'
+			AND BID=#{bId}
+	ORDER BY RID DESC
+  </select>
+  <resultMap type="Board" id="boardResultSet2">
+  	<id property="bId" column="BID"/>
+  	<result property="bType" column="BTYPE"/>
+  	<result property="bTitle" column="BTITLE"/>
+  	<result property="bContent" column="BCONTENT"/>
+  	<result property="bWriter" column="BWRITER"/>
+  	
+  	<result property="nickName" column="B_NICKNAME"/>
+  	
+  	<result property="bCount" column="BCOUNT"/>
+  	<result property="bCreateDate" column="B_CREATE_DATE"/>
+  	<result property="bModifyDate" column="B_MODIFY_DATE"/>
+  	<result property="bStatus" column="B_STATUS"/>
+  	
+  	<!-- 
+  	1. REPLY는 여러개를 담을 수있다 => collection
+  	2. replyList 필드가 있다. 이는 ArrayList타입으로 되어있다.
+  	3. javaType설정: 내가 보내는 것은 ArrayList이다. 그러므로 collection으로 한다.
+  	4. ArrayList안에 Reply가 있으니까. 얘네들을 기준으로 매칭시켜서 갖고와라
+  	-->
+  	<collection property="replyList" javaType="java.util.ArrayList" resultMap="ReplyResultSet"></collection>
+  </resultMap>
+  
+  <!-- Reply에대한 resultMap -->
+  <resultMap type="Reply" id="ReplyResultSet">
+  	<id property="rId" column="RID"></id>
+  	<result property="rContent" column="RCONTENT"></result>
+  	<result property="refBid" column="REF_BID"></result>
+  	<result property="nickName" column="R_NICKNAME"></result>
+  	<result property="rCreateDate" column="R_CREATE_DATE"></result>
+  	<result property="rModifyDate" column="R_MODIFY_DATE"></result>
+	<result property="rStatus" column="R_STATUS"></result>
+  </resultMap>
 </mapper>

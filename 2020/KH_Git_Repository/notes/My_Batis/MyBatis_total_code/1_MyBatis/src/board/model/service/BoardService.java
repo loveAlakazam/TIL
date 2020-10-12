@@ -29,4 +29,22 @@ public class BoardService {
 		return list;
 	}
 
+	public Board selectBoardDetail(int bId) throws BoardException{
+		SqlSession session=getSqlSession();
+		// 상세게시판 조회
+		// 조회수 1증가 시키기
+		BoardDAO dao= new BoardDAO();
+		int result=dao.updateCount(session, bId);
+		
+		Board board =null;
+		if(result>0) {
+			// 상세게시판 불러오기
+			board= dao.selectBoardDetail(session, bId);
+			session.commit();
+			session.close();
+		}
+		
+		return board;
+	}
+
 }
