@@ -22,10 +22,10 @@ public class BoardService {
 		return listCount;
 	}
 
-	public ArrayList<Board> selectBoardList(PageInfo pi) {
+	public ArrayList<Board> selectBoardList(PageInfo pi) throws BoardException {
 		SqlSession session= getSqlSession();
 		ArrayList<Board> list= new BoardDAO().selectBoardList(session, pi);
-		
+		session.close();
 		return list;
 	}
 

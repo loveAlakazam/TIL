@@ -7,4 +7,33 @@
   	FROM BOARD
   	WHERE B_STATUS='Y'
   </select>
+  
+  <select id="selectBoardList"  resultMap="boardResultSet">
+  	SELECT *
+  	FROM BOARD
+    	JOIN MEMBER ON(BWRITER=USER_ID)
+	WHERE B_STATUS='Y'
+	ORDER BY BID DESC
+  </select>
+  
+  <!--
+  [BOARD테이블의 컬럼과 Board객체의 필드를 맞춘다.]
+  	1. board-mapper.xml에서 resultMap을 만든다.
+  	2. myBatis-config.xml에서 typeAlias를 만든다=> 즉 resultMap의 타입을 alias로 별칭(Board)으로하겠다는 뜻.
+  		(실제: board.model.vo.Board, alias: Board)
+  	3. 테이블의 컬럼과 필드를 연결한다.
+   -->
+  <resultMap type="Board" id="boardResultSet">
+  	<id property="bId" column="BID"/>
+  	<result property="bType" column="BTYPE"/>
+  	<result property="bTitle" column="BTITLE"/>
+  	<result property="bContent" column="BCONTENT"/>
+  	<result property="bWriter" column="BWRITER"/>
+  	<result property="nickName" column="NICKNAME"/>
+  	<result property="bCount" column="BCOUNT"/>
+  	<result property="bCreateDate" column="B_CREATE_DATE"/>
+  	<result property="bModifyDate" column="B_MODIFY_DATE"/>
+  	<result property="bStatus" column="B_STATUS"/>
+  	
+  </resultMap>
 </mapper>

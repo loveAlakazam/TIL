@@ -49,7 +49,10 @@ public class BoardListServlet extends HttpServlet {
 			
 			// pi를 보내준다.
 			ArrayList<Board> list= service.selectBoardList(pi);
-			
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+			request.getRequestDispatcher("WEB-INF/views/board/boardList.jsp").forward(request, response);
+		
 		} catch (BoardException e) {
 			request.setAttribute("message", e.getMessage());
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);

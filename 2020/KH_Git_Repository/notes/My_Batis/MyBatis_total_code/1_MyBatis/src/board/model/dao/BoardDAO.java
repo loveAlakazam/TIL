@@ -22,7 +22,7 @@ public class BoardDAO {
 		return listCount;
 	}
 
-	public ArrayList<Board> selectBoardList(SqlSession session, PageInfo pi) {
+	public ArrayList<Board> selectBoardList(SqlSession session, PageInfo pi) throws BoardException {
 		/*paging처리에서 mybatis가 편하다.*/
 		
 		/*
@@ -73,6 +73,12 @@ public class BoardDAO {
 		
 		//arg2: Rowbounds객체
 		ArrayList<Board> list=(ArrayList) session.selectList("boardMapper.selectBoardList", null, rowBounds);
+//		System.out.println(list);
+		
+		if(list==null) {
+			session.close();
+			throw new BoardException("게시글 조회 실패");
+		}
 		return list;
 	}
 

@@ -112,6 +112,10 @@
 			function home(){
 				location.href="${ contextPath }";
 			}
+			
+			function board(){
+				location.href="${contextPath}/selectList.bo";
+			}
 		</script>
 </body>
 </html>
