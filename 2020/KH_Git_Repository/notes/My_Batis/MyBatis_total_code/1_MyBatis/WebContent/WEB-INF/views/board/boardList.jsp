@@ -55,6 +55,22 @@
 			
 			<!-- 1_2. 게시물 리스트 페이징 부분 -->
 			<div class="pagingArea" align="center">
+				<!--  
+				[검색을 했는지 안했는지 확인]
+					
+					상세검색기능을 안했을 때, loc값을 '/selectList.bo'로 한다.
+					loc: /selectList.bo가 아닌
+				 -->
+				<c:if test="${searchValue eq null} ">
+					<c:set var="loc" value="/selectList.bo" scope="page"/>
+				</c:if> 
+				
+				<!-- 상세검색 기능을 했을 때, loc값을 '/search.bo' 로 한다. -->
+				<c:if test="${searchValue ne null} ">
+					<c:set var="loc" value="/search.bo" scope="page"/>
+				</c:if> 
+				
+			
 				<!-- [이전] -->
 				<!--현재 페이지가 <=1 : 비활성화-->
 				<c:if test="${pi.currentPage <=1}">
@@ -70,6 +86,12 @@
 					<c:url value="${loc }" var="blistBack">
 						<%--현재 위치에서 -1 --%>
 						<c:param name="currentPage" value="${pi.currentPage-1 }"></c:param>
+					
+						<!-- 검색결과가 존재한다면=> 이전 검색결과 유지하기위해서 -->
+						<c:if test="${searchValue ne null }">
+							<c:param name="searchCondition" value="${searchCondition }"/>
+							<c:param name="searchValue" value="${searchValue }"/>
+						</c:if>
 					</c:url>
 					<a href="${blistBack}">[이전]</a>
 				</c:if>
@@ -83,6 +105,13 @@
 					<c:if test="${p ne pi.currentPage }">
 						<c:url var="blistCheck" value="${loc }">
 							<c:param name="currentPage" value="${p }"/>
+						
+							<!-- 검색결과가 존재한다면=> 사이 페이징 검색결과 유지하기위해서 -->
+							<c:if test="${searchValue ne null }">
+								<c:param name="searchCondition" value="${searchCondition }"/>
+								<c:param name="searchValue" value="${searchValue }"/>
+							</c:if>
+						
 						</c:url>
 						<a href="${blistCheck }">${p }</a>
 					</c:if>
@@ -96,6 +125,12 @@
 				<c:if test="${pi.currentPage < pi.maxPage }">
 					<c:url value="${loc }" var="blistNext">
 						<c:param name="currentPage" value="${pi.currentPage+1 }"/>
+					
+						<!-- 검색결과가 존재한다면=> 다음 검색결과 유지하기위해서 -->
+						<c:if test="${searchValue ne null }">
+							<c:param name="searchCondition" value="${searchCondition }"/>
+							<c:param name="searchValue" value="${searchValue }"/>
+						</c:if>
 					</c:url>
 					<a href="${blistNext }">[다음]</a>
 				</c:if>
@@ -140,6 +175,8 @@
 	</div>
 	<script type="text/javascript">
 		function searchBoard(){
+			// searchCondition: 검색조건
+			// searchValue: 검색값
 			var searchCondition = $("#searchCondition").val();
 			var searchValue = $("#searchValue").val();
 			

@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import board.model.exception.BoardException;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
+import board.model.vo.SearchCondition;
 
 public class BoardDAO {
 
@@ -103,6 +104,32 @@ public class BoardDAO {
 			throw new BoardException("게시글 상세조회에 실패하였습니다.");
 		}
 		return board;
+	}
+
+	public int getSearchResultListCount(SqlSession session, SearchCondition sc) throws BoardException {
+		int result=session.selectOne("boardMapper.selectSearchResultCount", sc);
+		
+		if(result<=0) {
+			session.close();
+			throw new BoardException("검색 결과 카운트 조회에 실패하였습니다.");
+		}
+		return result;
+	}
+
+	public ArrayList<Board> selectSearchResultList(SqlSession session, SearchCondition sc, PageInfo pi) throws BoardException {
+		// offset: 한페이지당 몇개의 게시물을 건너뛸것인지
+		int offset= (pi.getCurrentPage()-1)*pi.getBoardLimit();
+		
+		RowBounds rowBounds = new RowBounds(offset,pi.getBoardLimit());
+		
+		//전달할 값 SearchCondition 객체가 있다.
+		ArrayList<Board> list= (ArrayList) session.selectList("boardMapper.selectSearchResultList", sc , rowBounds);
+		
+		if(list==null) {
+			session.close();
+			throw new BoardException("검색결과 리스트 조회에 실패하였습니다.");
+		}
+		return list;
 	}
 
 

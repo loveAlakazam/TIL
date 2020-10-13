@@ -9,6 +9,7 @@ import board.model.dao.BoardDAO;
 import board.model.exception.BoardException;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
+import board.model.vo.SearchCondition;
 public class BoardService {
 
 	public int getListCount() throws BoardException {
@@ -45,6 +46,24 @@ public class BoardService {
 		}
 		
 		return board;
+	}
+
+	public int getSearchResultListCount(SearchCondition sc) throws BoardException {
+		SqlSession session= getSqlSession();
+		int listCount= new BoardDAO().getSearchResultListCount(session, sc);
+		
+		//검색결과 조회 성공
+		session.close();
+		return listCount;
+	}
+
+
+	public ArrayList<Board> selectSearchResultList(SearchCondition sc, PageInfo pi) throws BoardException {
+		SqlSession session=getSqlSession();
+		ArrayList<Board> list= new BoardDAO().selectSearchResultList(session, sc, pi);
+		
+		session.close();
+		return list;
 	}
 
 }

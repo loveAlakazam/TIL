@@ -89,4 +89,47 @@
   	<result property="rModifyDate" column="R_MODIFY_DATE"></result>
 	<result property="rStatus" column="R_STATUS"></result>
   </resultMap>
+  
+  
+  
+  <!-- selectSearchResultCount -->
+  <select id="selectSearchResultCount" parameterType="SearchCondition" resultType="_int">
+  	SELECT COUNT(*)
+  	FROM BOARD
+  		JOIN MEMBER ON(BWRITER=USER_ID)
+  	WHERE B_STATUS='Y'
+  	
+  	<if test="writer != null">
+  		AND NICKNAME=#{writer}
+  	</if>
+  	
+  	<if test="title != null">
+  		AND BTITLE LIKE '%' || #{title} || '%'
+  	</if>
+  	
+  	<if test="content !=null">
+  		AND BCONTENT LIKE '%' || #{content} || '%'
+  	</if>
+  </select>
+  
+  <select id="selectSearchResultList" parameterType="SearchCondition" resultMap="boardResultSet">
+  	SELECT *
+  	FROM BOARD
+  		JOIN MEMBER ON (BWRITER=USER_ID)
+  	WHERE B_STATUS='Y'
+  	<choose>
+  		<when test="writer != null">
+  			AND NICKNAME= #{writer}
+  		</when>
+  		
+  		<when test="title != null">
+  			AND BTITLE LIKE '%' || #{title} || '%'
+  		</when>
+  		
+  		<otherwise>
+  			AND BCONTENT LIKE '%' || #{content} || '%'
+  		</otherwise>
+  	</choose>
+  	ORDER BY BID DESC
+  </select>
 </mapper>
