@@ -7,7 +7,7 @@
   - Spring Maven은 라이브러리를 알아서 추가하여 사용할 수 있다.
 
   - ### `pom.xml` : **라이브러리 정보**(라이브러리 등록 및 관리), **프로젝트 버젼정보 관리**
-
+  - ### `spring-context.xml`: **spring컨테이너가 실행해야하는 내용을 설정**, **spring이 하는 전체적인 것들을 관리**
 
 <br>
 
@@ -56,3 +56,33 @@ filter은 내가 요청전(후)에 들어가서 처리, 여러시점에서 요�
 - 스프링의 핵심부분
 - 객체 관리 => 객체 생성, 주기 표시.
 - DI, IOC 기능을 지원
+
+
+<br>
+
+> # Spring의 구성모듈
+
+|모듈이름|내용|
+|:--:|:--:|
+|||
+
+<br>
+
+
+webapp: WebContent와 같은 역할.
+
+`com.kh.spring` : `spring`은 context path이다.
+
+spring은 `home.jsp`를 `index.jsp`와 같은 welcome파일로 하나보다...
+
+dispatcher servelet
+- 내가 들어온 요청중에서 누가 들어왔는지를 컨트롤러에서 찾아주는 역할.
+
+
+```
+Dispatcher servlet
+=> requestMapping 요청처리(핸들러매핑)
+=> 비즈니스 로직 실행후 return
+=> dispatcherServlet이 다시 받음
+=> servlet-context.xml에서 ViewResolver실행
+```
