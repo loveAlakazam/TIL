@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  xmlns: 주로 사용함. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+ 
+	 
+	 <!-- <annotation-driven/> : annotation을 써서 객체를 만든다.  => mvc꺼
+	 	그러면 기본이 beans인것에서 불러오려면 mvc를 Namespaces에서 선택하고, 
+	 	mvc: 을 붙여야한다.
+	 -->
+	<mvc:annotation-driven/>
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+	
+	<!--beans가 기본이라서 태그 맨앞에 bean: 을 붙이지 않아도 바로 불러올 수 있다. -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/member"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	<context:component-scan base-package="com.kh.spring"/>
+</beans>
