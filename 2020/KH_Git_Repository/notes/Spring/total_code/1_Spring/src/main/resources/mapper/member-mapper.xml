@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+	<select id="memberLogin">
+		SELECT *
+		FROM MEMBER
+		WHERE ID=#{id} AND PWD=#{pwd} AND M_STATUS='Y'
+	</select>
+	<!--parameter type은 적지 않아도되지만, resultType은 기입해야함.  
+		컬럼과 필드 일치 시키기: RESULTMAP 입력필요. -->
+</mapper>

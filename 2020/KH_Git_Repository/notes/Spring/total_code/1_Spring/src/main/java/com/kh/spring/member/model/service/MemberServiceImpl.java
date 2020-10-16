@@ -4,6 +4,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.spring.member.model.dao.MemberDAO;
 import com.kh.spring.member.model.vo.Member;
 
 @Service("mService")
@@ -16,10 +17,12 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
+	@Autowired
+	private MemberDAO mDAO;
+	
 	@Override
 	public Member memberLogin(Member m) {
-		// TODO Auto-generated method stub
-		return null;
+		return mDAO.memberLogin(sqlSession, m);
 	}
 	
 
