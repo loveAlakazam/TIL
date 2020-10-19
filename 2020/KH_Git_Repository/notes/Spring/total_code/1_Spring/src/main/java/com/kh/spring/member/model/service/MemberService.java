@@ -11,6 +11,10 @@ public interface MemberService {
 	int updateMember(Member m);
 
 	int updatePwd(Member m);
+	/*
+	 * 선생님답
+	 int updatePwd(HashMap<String, String> map);
+	 * */
 
 	int deleteMember(Member m);
 

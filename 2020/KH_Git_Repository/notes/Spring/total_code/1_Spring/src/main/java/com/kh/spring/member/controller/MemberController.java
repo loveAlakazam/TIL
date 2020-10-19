@@ -411,6 +411,29 @@ public class MemberController {
 			//비밀번호가 일치하지 않다.=> 예외 발생
 			throw new MemberException("입력한 비밀번호가 일치하지 않습니다.");
 		}
+		/*
+		 //선생님 답
+		 //아이디 얻기; 정보 수정만 했을 때 비밀번호가 없을 것을 예상하여 모든 정보를 새로 얻어오는 과정.
+		 Member m= mService.memberLogin((Member) session.getAttribute("loginUser"));
+		 if(bcryptPasswordEncoder.matches(pwd, m.getPwd()){
+		 	String encNewPwd= bcryptPasswordEncoder.encode(newPwd);
+		 	m.setPwd(encNewPwd);
+		 	
+		 	HashMap<String, String> map= new HashMap<>();
+		 	map.put("id", m.getId());
+		 	map.put("newPwd", encNewPwd);
+		 	int result= mService.updatePwd(map);
+		 	if(result>0){
+		 		return "mypage";
+		 	}else{
+		 		throw new MemberException("비밀번호를 수정하였습니다.");
+		 	}
+		 }else{
+		 	throw new MemberException("기존 비밀번호가 틀렸습니다.");
+		 }
+		 
+		  
+		 * */
 
 	}
 	

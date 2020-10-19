@@ -49,6 +49,14 @@
 		SET PWD=#{pwd}, update_date=SYSDATE
 		WHERE ID=#{id} AND M_STATUS='Y' 
 	</update>
+	<!--비밀번호 수정 선생님답
+	<update id="updatePwd">
+		UPDATE MEMBER
+		SET PWD=#{pwd}
+		WHERE ID=#{id}
+	</update> 
+	
+	 -->
 	
 	<!-- 회원탈퇴 -->
 	<update id="deleteMember">

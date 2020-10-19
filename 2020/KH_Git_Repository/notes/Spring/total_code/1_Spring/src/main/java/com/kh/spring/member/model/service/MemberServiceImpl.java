@@ -41,6 +41,13 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.updatePwd(sqlSession, m);
 	}
 	
+	/*선생님답
+	 @Override
+	 public int updatePwd(HashMap<String, String> map){
+	 	return mDAO.updatePwd(sqlSession, map);
+	 }
+	 * */
+	
 	//회원탈퇴
 	@Override
 	public int deleteMember(Member m) {
