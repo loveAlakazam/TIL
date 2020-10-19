@@ -4,6 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+
 <meta charset="UTF-8">
 <title>마이페이지(mypage)</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/member-style.css" type="text/css">
@@ -11,6 +15,10 @@
 	#myInfoTable td{text-align: center;}
 </style>
 </head>
+
+
+
+
 <body>
 
 	<c:import url="../common/menubar.jsp"/>
@@ -83,7 +91,11 @@
 					<c:url var="mdelete" value="mdelete.me">
 						<c:param name="id" value="${ loginUser.id }"/><!-- 넘어갈 값이 있으니 param을 넣게 c:url을 쓰자 -->
 					</c:url>
-					<button type="button" onclick="checkDropMember();">회원탈퇴</button>
+					
+					<%--
+						<button type="button" onclick="checkDropMember();">회원탈퇴</button>
+					 --%>
+					<button type="button" id="dropMemberBtn">회원탈퇴</button>
 					<button type="button" onclick="location.href='home.do'">시작 페이지로 이동</button>
 				</td>
 			</tr>
@@ -91,11 +103,58 @@
 	</div>
 	
 <script>
-	function checkDropMember(){ //탈퇴하기 버튼을 누르면 checkDropMember()함수를 호출합니다.
-		
-		var isDrop=confirm('정말로 탈퇴하시겠습니까?'); // 확인을 먼저 받고
-		console.log(isDrop);
+	$(function(){
+		$('#dropMemberBtn').on('click', function(){
+			// sweet-alert : confirm 사용
+			swal({
+				title: "정말로 탈퇴하시겠습니까?",
+				text: "'예' 를 누르면 회원탈퇴가 됩니다!",
+				icon: "warning",
+				closeOnClickOutside: false,
+				buttons:{
+					cancle:{
+						text:'아니오',
+						value:false,
+					},
+					confirm:{
+						text:'예',
+						value: true,
+					}
+				},
+				dangerMode: true,
+				
+			})
+		.then((willDelete) => {
+				//confirm의 결과값을 result로 받는다.
+				console.log(willDelete);
+				if(willDelete){
+					//예 클릭
+					swal({
+						title: '회원탈퇴 성공',
+						text: '회원탈퇴를 성공하였습니다!',
+						icon:'success'
+					});
+					location.href='${mdelete}';
+						
+				}else{
+					//아니오 클릭
+					swal({
+						title: '회원탈퇴 취소!',
+						text: '회원탈퇴를 취소합니다!',
+						icon: 'error'
+					});
+				}
+				
+			});
+			
+		});
+	});
+	 
+	
+	/*
+	function checkDropMember(){
 		//확인 누름. => 탈퇴처리를 하는 url: mdelete.me를 호출...
+		var isDrop=confirm('정말로 탈퇴하시겠습니까?'); // 확인을 먼저 받고
 		if(isDrop){
 			location.href='${ mdelete }';
 			alert('성공적으로 회원탈퇴 되었습니다.');
@@ -105,8 +164,9 @@
 			location.href='home.do';
 			alert('회원탈퇴를 취소합니다.');
 		}
-		
 	}
+	*/
+	
 </script>	
 </body>
 </html>
