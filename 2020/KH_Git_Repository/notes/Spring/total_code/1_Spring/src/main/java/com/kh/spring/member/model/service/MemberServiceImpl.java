@@ -25,6 +25,25 @@ public class MemberServiceImpl implements MemberService {
 		return mDAO.memberLogin(sqlSession, m);
 	}
 	
+	@Override
+	public int insertMember(Member m) {
+		return mDAO.insertMember(sqlSession, m);
+	}
 
-
+	@Override
+	public int updateMember(Member m) {
+		return mDAO.updateMember(sqlSession, m);
+	}
+	
+	//비밀번호 수정
+	@Override
+	public int updatePwd(Member m) {
+		return mDAO.updatePwd(sqlSession, m);
+	}
+	
+	//회원탈퇴
+	@Override
+	public int deleteMember(Member m) {
+		return mDAO.deleteMember(sqlSession, m);
+	}
 }

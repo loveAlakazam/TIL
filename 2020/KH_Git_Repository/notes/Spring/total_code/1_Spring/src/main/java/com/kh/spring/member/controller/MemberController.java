@@ -1,6 +1,10 @@
 package com.kh.spring.member.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
+import com.kh.spring.member.model.exception.MemberException;
 import com.kh.spring.member.model.service.MemberService;
 import com.kh.spring.member.model.vo.Member;
 
@@ -50,6 +55,9 @@ public class MemberController {
 	//=> 인터페이스에 implemented된 클래스이름을 바꾸더라도, 그대로 적용된다.
 	@Autowired
 	private MemberService mService;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
 	
@@ -196,28 +204,55 @@ public class MemberController {
 	
 	
 	//3. session에 저장할 때 @SessionAttributes를 사용.
-	// Model에 Attribute를 추가될때 자동응로 키를 찾아 세션에 등록하는 기능을 제공한다.
+	// Model에 Attribute를 추가될때 자동으로 키를 찾아 세션에 등록하는 기능을 제공한다.
+//	@RequestMapping(value="login.me", method=RequestMethod.POST)
+//	public String login(@ModelAttribute Member m, Model model) {
+//		
+//		Member loginUser= mService.memberLogin(m);
+//		
+//		//login.me 위치 : "/WEB-INF/views/member"
+//		if(loginUser!=null) {
+//			//loginUser가 있으면 Session에 올린다.
+//			// => key: "loginUser"
+//			// => value: 래퍼런스변수명이 loginUser인 Member객체)
+//			model.addAttribute("loginUser",loginUser);
+//			return "redirect:home.do";
+//			
+//		} else {
+//			model.addAttribute("message", "로그인에 실패하였습니다.");
+//			return "../common/errorPage";
+//		}
+//	}
+	
+	//암호화 후 로그인
 	@RequestMapping(value="login.me", method=RequestMethod.POST)
 	public String login(@ModelAttribute Member m, Model model) {
-		
 		Member loginUser= mService.memberLogin(m);
 		
-		//login.me 위치 : "/WEB-INF/views/member"
-		if(loginUser!=null) {
-			//loginUser가 있으면 Session에 올린다.
-			// => key: "loginUser"
-			// => value: 래퍼런스변수명이 loginUser인 Member객체)
-			model.addAttribute("loginUser",loginUser);
-			return "redirect:home.do";
-			
-		} else {
-			model.addAttribute("message", "로그인에 실패하였습니다.");
-			return "../common/errorPage";
+		//bcryptPasswordEncoder.matches(rawPassword, encodedPassword)
+		/*
+		 * rawPassword :(m.getPwd()) 암호화되지 않은 패스워드
+		 * encodedPassword: (loginUser.getPwd()) 암호화가 된 인코딩된 패스워드
+		 * 
+		 * 어떻게 매치되는지는 공개되어있지 않다.
+		 * 맞으면 true / 틀리면 false => boolean타입으로 반환함.
+		 * */
+		boolean isPwdCorrect= bcryptPasswordEncoder.matches(m.getPwd(),  loginUser.getPwd());
+		if(isPwdCorrect) {
+			//비밀번호가 맞으면 넘어간다.
+			model.addAttribute("loginUser", loginUser);
+		}else {
+			//비밀번호가 틀리면 exception을 발생
+			throw new MemberException("로그인에 실패하였습니다.");
 		}
+		
+		System.out.println(m);
+		
+		return "redirect:home.do";
 	}
 	
 	// 로그아웃 컨트롤러
-	//로그아웃 1.
+	//로그아웃 컨트롤러 1.
 	//로그인 2번방법
 //	@RequestMapping("logout.me")
 //	public String logout(HttpSession session) {
@@ -225,7 +260,7 @@ public class MemberController {
 //		return "redirect:home.do";
 //	}
 	
-	//로그아웃 2.
+	//로그아웃 컨트롤러 2.
 	//3번방법
 	@RequestMapping("logout.me")
 	public String logout(SessionStatus status) {
@@ -252,8 +287,10 @@ public class MemberController {
 		//주소값 세팅
 		m.setAddress(post+ " / " + address1 + " / " + address2);
 //		System.out.println(m);
+
 		
-		//암호화처리 - 비밀번호 평문이 보이므로, 암호화를 한다.
+		//[암호화처리]
+		// 암호화처리 - 비밀번호 평문이 보이므로, 암호화를 한다.
 		//bcrypt 암호화 방식을 사용한다.
 		/*[bcrypt]
 		 => 1차로 암호화된 메세지를 수학적 연산을 통해 암호화 된 메시지인 digest를 생성.
@@ -261,11 +298,136 @@ public class MemberController {
 		 	값을 랜덤하게 생성하여 암호화가 계속 다르게 나오도록 함.
 		 => 라이브러리 추가하기: pom.xml에서 추가한다.
 		 * */
-		System.out.println(m);
+		String encPwd= bcryptPasswordEncoder.encode(m.getPwd());
+		System.out.println("encPwd=>"+ encPwd);
+		m.setPwd(encPwd);
 		
-		return "redirect:home.do";
+		int result=mService.insertMember(m);
+		//System.out.println(m);
+		if(result>0) {
+			return "redirect:home.do";
+		}else {
+			throw new MemberException("회원가입에 실패하였습니다");
+		}
+	}
+	
+	@RequestMapping("myinfo.me")
+	public String myInfoView() {
+		return "mypage";
+	}
+	
+	@RequestMapping("mupdateView.me")
+	public String updateFormView() {
+		//회원정보 수정페이지를 불러온다.
+		return "memberUpdateForm";
 	}
 	
 	
+	@RequestMapping("mupdate.me")
+	public String updateMember(@ModelAttribute Member m, @RequestParam("post") String post,
+														 @RequestParam("address1") String addr1,
+														 @RequestParam("address2") String addr2, Model model) {
+		m.setAddress(post + " / "+ addr1 + " / "+ addr2);
+		int result=mService.updateMember(m);
+		if(result>0) {
+			//세션에 있는것도 같이 수정
+			model.addAttribute("loginUser", m);
+			return "mypage";
+		}else {
+			throw new MemberException("회원정보 수정에 실패하였습니다.");
+		}
+	}
 	
+	/*2020.10.19 homework - 비밀번호 수정  & 회원탈퇴*/
+	//비밀번호 수정폼 페이지를 불러온다.
+	@RequestMapping("mpwdUpdateView.me")
+	public String updatePwdFormView() {
+		//비밀번호 수정페이지를 불러온다.
+		return "memberPwdUpdateForm";
+	}
+	
+	//비밀번호 수정버튼을 누를때 -> 비밀번호 수정 기능을 수행한다.
+	@RequestMapping("mPwdUpdate.me")
+	public String updatePwd(@ModelAttribute Member m, Model model, SessionStatus status, @RequestParam("pwd") String pwd,
+																						 @RequestParam("newPwd1") String newPwd1,
+																						 @RequestParam("newPwd2") String newPwd2) 
+	{
+		// raw Member m
+		// m.getPwd(): 암호화 되기 이전의 비밀번호를 출력한다.
+		System.out.println("현재 계정의 비밀번호 m.getPwd() => "+ m.getPwd());
+		
+		// loginUser
+		Member loginUser=(Member)model.getAttribute("loginUser");
+		System.out.println("현재로그인 계정 loginUser: "+loginUser);
+		
+		//loginUser.getPwd(): 암호화된 이후의 비밀번호를 출력한다.
+		System.out.println("loginUser.getPwd: "+loginUser.getPwd());
+		
+		//memberPwdUpdateForm.jsp에서 입력받은 비밀번호들을 불러온다.
+		//함수의 매개변수인 매개변수의 @RequestParam()을 통해서 폼에서 입력받은 비밀번호 데이터들을 받는다.
+		System.out.println("pwd => "+ pwd);
+		System.out.println("newPwd1 => "+ newPwd1);
+		System.out.println("newPwd2 => "+ newPwd2);
+		
+		//memberPwdUpdateForm.jsp 에서  입력받은 "현재 비밀번호"(pwd)를 구하자.
+		//"현재 비밀번호"와 loginUser.getPwd()가 일치하는가?
+
+		//bcryptPasswordEncoder.matches(rawPassword, encodedPassword)
+		//	rawPassword: 암호화 되기 이전 비밀번호 => 입력받은 비밀번호(pwd)
+		//	encodedPassword: 암호화 된 후의 비밀번호 => loginUser.getPwd()
+		boolean isCorrectCurrentPwd=bcryptPasswordEncoder.matches(pwd, loginUser.getPwd());
+		System.out.println("isCorrectCurrentPwd: "+ isCorrectCurrentPwd);
+		
+		if(isCorrectCurrentPwd) {
+			//"현재 비밀번호"와 loginUser.getPwd()가 일치하다.
+			//newPwd1과 newPwd2가 서로 일치하는가?
+			boolean isEqualNewPwds= newPwd1.equals(newPwd2);
+			if(isEqualNewPwds) {
+				//새로운 비밀번호 2개 모두 일치
+				
+				//새로운 비밀번호를 암호화한다.
+				String encNewPwd= bcryptPasswordEncoder.encode(newPwd2);
+				
+				//비밀번호를 새로운 비밀번호로 변경시킨다.
+				m.setId(loginUser.getId());
+				m.setPwd(encNewPwd);
+				
+				System.out.println(m);
+				//서비스를 호출하여 비밀번호 변경기능 수행.
+				int result=mService.updatePwd(m);
+				if(result>0) {
+					//비밀번호 수정이완료되면 로그아웃을 시키자.
+					status.setComplete();
+					return  "redirect:home.do";
+				}else {
+					throw new MemberException("비밀번호 변경에 실패하였습니다.");
+				}
+				
+			}else {
+				//새로운 비밀번호 2개 모두 불일치
+				throw new MemberException("새로운 비밀번호가 서로 일치하지 않습니다!");
+			}
+		}else {
+			//비밀번호가 일치하지 않다.=> 예외 발생
+			throw new MemberException("입력한 비밀번호가 일치하지 않습니다.");
+		}
+
+	}
+	
+	//회원탈퇴
+	@RequestMapping("mdelete.me")
+	public String deleteMember(@ModelAttribute Member m, Model model, SessionStatus status) {
+		
+		Member loginMember=(Member)model.getAttribute("loginUser");
+//		System.out.println("m=> "+ m);
+		int result=mService.deleteMember(m);
+		if(result>0) {
+			//탈퇴 성공!
+			status.setComplete(); //로그아웃 시키고
+			return "redirect:home.do"; //원래 홈페이지로 돌아간다.
+		}else {
+			//탈퇴 실패!
+			throw new MemberException("회원탈퇴하는데 실패하였습니다.");
+		}
+	}
 }
