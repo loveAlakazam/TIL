@@ -19,7 +19,7 @@
 	
 	<!--beans가 기본이라서 태그 맨앞에 bean: 을 붙이지 않아도 바로 불러올 수 있다. -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/views/member"/>
+		<property name="prefix" value="/WEB-INF/views/member/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	<context:component-scan base-package="com.kh.spring"/>

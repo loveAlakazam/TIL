@@ -2,12 +2,15 @@ package com.kh.spring.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.kh.spring.member.model.service.MemberService;
-import com.kh.spring.member.model.service.MemberServiceImpl;
 import com.kh.spring.member.model.vo.Member;
 
 /*controller로 가기위해서...
@@ -37,6 +40,7 @@ import com.kh.spring.member.model.vo.Member;
 : 
  
  * */
+@SessionAttributes("loginUser")
 @Controller
 public class MemberController {
 	//의존성주입 - 내가 mService 참조변수에  MemberServiceImpl객체를 넣는다.
@@ -52,7 +56,9 @@ public class MemberController {
 	/*
 	 [파라미터 전송방법]
 	 1. HttpServletRequest을 통해 전송받기
+	 	=> HttpServletRequest 객체의 getParameter() 메소드를 이용.
 	 	=> JSP/Servlet방식
+	 	
 	 	
 	 2. requestAnnotation param
 	 */
@@ -93,22 +99,25 @@ public class MemberController {
 //			return "redirect:home.do";
 //	}
 	
-	//4. @ModelAttribute Annotation방식
-	//여러개의 값들을 받아야할 때 => 객체로 받는다.
-	@RequestMapping(value="login.me", method=RequestMethod.POST)
-	public String login(@ModelAttribute Member m) {
-		
-		//결합도가 높은 코드: 좋은코드가 될 수가 없다.
-		//결합도가 낮추는게 좋다. 
-		//=> Interface를 사용하는게 좋다.
-		
-		//인터페이스는 레퍼런스 변수 역할을 한다. - 인터페이스를 넣는다해도 새로운객체를 만든다...
-		//결합도를 낮추기위해서는?
-//		MemberService mService= new MemberServiceImpl();
-//		System.out.println(mService);
-		mService.memberLogin(m);
-		return "redirect:home.do";
-	}
+//	//4. @ModelAttribute Annotation방식
+//	//여러개의 값들을 받아야할 때 => 객체로 받는다.
+//	@RequestMapping(value="login.me", method=RequestMethod.POST)
+//	public String login(@ModelAttribute Member m) {
+//		
+//		//결합도가 높은 코드: 좋은코드가 될 수가 없다.
+//		//결합도가 낮추는게 좋다. 
+//		//=> Interface를 사용하는게 좋다.
+//		
+//		//인터페이스는 레퍼런스 변수 역할을 한다. - 인터페이스를 넣는다해도 새로운객체를 만든다...
+//		//결합도를 낮추기위해서는?
+////		MemberService mService= new MemberServiceImpl();
+////		System.out.println(mService);
+//		Member loginUser= mService.memberLogin(m);
+//		System.out.println(loginUser);
+//		return "redirect:home.do";
+//		
+//	}
+	
 	
 	// 5. @ModelAttribute생략하기.
 //	@RequestMapping(value="login.me", method=RequestMethod.POST)
@@ -119,5 +128,144 @@ public class MemberController {
 //		
 //		return "redirect:home.do";
 //	}
+
+	
+	
+	// 2020.10.19
+	
+//	@RequestMapping(value="login.me", method=RequestMethod.POST)
+//	public String login(@ModelAttribute Member m, HttpSession session) {
+//		
+//		Member loginUser= mService.memberLogin(m);
+//		
+//		if(loginUser!=null) {
+//			session.setAttribute("loginUser",loginUser);
+//		}
+//		
+//		return "redirect:home.do";
+//		
+//	}
+	
+	// 요청 후 전달하고자 하는 데이터가 있을 경우.
+	// 1. Model 객체를 사용한다. 
+	/*
+	 Model => 값을 갖겠다
+	 => map형식: (key, value)
+	 => scope: request
+	 * */
+//	@RequestMapping(value="login.me", method=RequestMethod.POST)
+//	public String login(@ModelAttribute Member m, HttpSession session, Model model) {
+//		
+//		Member loginUser= mService.memberLogin(m);
+//		
+//		//login.me 위치 : "/WEB-INF/views/member"
+//		if(loginUser!=null) {
+//			session.setAttribute("loginUser",loginUser);
+//			return "redirect:home.do";
+//		} else {
+//			model.addAttribute("message", "로그인에 실패하였습니다.");
+//			
+//			return "../common/errorPage";
+//		}
+//	}
+	
+	//2. Model & View
+	/*
+	 내가 보내줄값(Model: map(Key, Value))과 
+	 최종적으로 보여줄 뷰(View: RequestDispatcher.forward할 뷰페이지 정보를 담고있다.)
+	 까지 같이 보내준다.
+	 
+	 반환타입은  ModelAndView
+	 * */
+//	@RequestMapping(value="login.me", method=RequestMethod.POST)
+//	public ModelAndView login(@ModelAttribute Member m, HttpSession session, ModelAndView mv) {
+//		
+//		Member loginUser= mService.memberLogin(m);
+//		
+//		//login.me 위치 : "/WEB-INF/views/member"
+//		if(loginUser!=null) {
+//			session.setAttribute("loginUser",loginUser);
+//			mv.setViewName("redirect:home.do"); //mv.setViewName: 뷰네임을 넘긴다.
+//			
+//		} else {
+//			mv.addObject("message", "로그인에 실패하였습니다.");
+//			mv.setViewName("../common/errorPage");
+//		}
+//		return mv;
+//	}
+	
+	
+	//3. session에 저장할 때 @SessionAttributes를 사용.
+	// Model에 Attribute를 추가될때 자동응로 키를 찾아 세션에 등록하는 기능을 제공한다.
+	@RequestMapping(value="login.me", method=RequestMethod.POST)
+	public String login(@ModelAttribute Member m, Model model) {
+		
+		Member loginUser= mService.memberLogin(m);
+		
+		//login.me 위치 : "/WEB-INF/views/member"
+		if(loginUser!=null) {
+			//loginUser가 있으면 Session에 올린다.
+			// => key: "loginUser"
+			// => value: 래퍼런스변수명이 loginUser인 Member객체)
+			model.addAttribute("loginUser",loginUser);
+			return "redirect:home.do";
+			
+		} else {
+			model.addAttribute("message", "로그인에 실패하였습니다.");
+			return "../common/errorPage";
+		}
+	}
+	
+	// 로그아웃 컨트롤러
+	//로그아웃 1.
+	//로그인 2번방법
+//	@RequestMapping("logout.me")
+//	public String logout(HttpSession session) {
+//		session.invalidate();
+//		return "redirect:home.do";
+//	}
+	
+	//로그아웃 2.
+	//3번방법
+	@RequestMapping("logout.me")
+	public String logout(SessionStatus status) {
+		status.setComplete();
+		return "redirect:home.do";
+	}
+	
+	//회원가입  페이지로 이동
+	@RequestMapping("enrollView.me")
+	public String enrollView() {
+		return "memberJoin";
+	}
+	
+	//회원가입하기
+	@RequestMapping("minsert.me")
+	public String insertMember(@ModelAttribute Member m, @RequestParam("post") String post,
+														 @RequestParam("address1") String address1,
+														 @RequestParam("address2") String address2) {
+		//멤버를 어떻게 받을까? => 필드가 너무 많으니까.. 
+		//					 ModelAttribute를 이용하여 한번에 멤버정보를 받자.
+		//ContextLoaderListener: 서버를 돌아가고있는데, 백단(컨트롤러, 서비스, dao)수정할경우에 발생(업데이트 안된상태)
+		//해결방법: 다시 서버를 시작하는게 좋다.
+		
+		//주소값 세팅
+		m.setAddress(post+ " / " + address1 + " / " + address2);
+//		System.out.println(m);
+		
+		//암호화처리 - 비밀번호 평문이 보이므로, 암호화를 한다.
+		//bcrypt 암호화 방식을 사용한다.
+		/*[bcrypt]
+		 => 1차로 암호화된 메세지를 수학적 연산을 통해 암호화 된 메시지인 digest를 생성.
+		 => salt값 : "랜덤값(random value)"  
+		 	값을 랜덤하게 생성하여 암호화가 계속 다르게 나오도록 함.
+		 => 라이브러리 추가하기: pom.xml에서 추가한다.
+		 * */
+		System.out.println(m);
+		
+		return "redirect:home.do";
+	}
+	
+	
 	
 }

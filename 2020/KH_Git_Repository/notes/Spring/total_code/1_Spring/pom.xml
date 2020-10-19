@@ -184,6 +184,27 @@
 		</dependency>
 		
 		
+		<!-- 10.19 -->
+		<!-- Adding spring security module(스프링 보안 모듈 추가- bcrypt) 
+			스프링 5.2.9버젼에서는 동작이 안되기때문에 버젼을 낮춘다.
+		-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.2.2.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.2.2.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.2.2.RELEASE</version>
+		</dependency>
 	</dependencies>
 	
     <build>
