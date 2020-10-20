@@ -82,7 +82,7 @@ public class BoardController {
 	
 	@RequestMapping("binsert.bo")
 	public String boardInsert(@ModelAttribute Board b, @RequestParam("uploadFile") MultipartFile uploadFile,
-													   HttpServletRequest request) 
+													   HttpServletRequest request) throws BoardException 
 	{
 		//		System.out.println("b=> "+ b);
 		//		System.out.println("uploadFile=> "+ uploadFile);
@@ -98,13 +98,21 @@ public class BoardController {
 			 *조건식 !uploadFile.getOriginalFilename().equals("")(의미: 파일을 넣었다. , 업로드파일명이 ""이 아니다.)
 			 *조건식 uploadFile != null && !uploadFile.isEmpty()  와 의미가 같다.(파일이 비어있지않고, null이 아니다)
 			 * */
-			saveFile(uploadFile, request); //saveFile() : 파일 경로를 저장
+			String renameFileName= saveFile(uploadFile, request);//파일경로저장
+			if(renameFileName !=null) {
+				b.setOriginalFileName(uploadFile.getOriginalFilename());
+				b.setRenameFileName(renameFileName);
+			}
+		}
+		int result= bService.insertBoard(b);
+		if(result<0) {
+			throw new BoardException("게시글 등록에 실패하였습니다!"); 
 		}
 		
 		return "redirect:blist.bo";
 	}
 	
-	public void saveFile(MultipartFile file, HttpServletRequest request) {
+	public String saveFile(MultipartFile file, HttpServletRequest request) {
 		//resource에 접근
 		String root=request.getSession().getServletContext().getRealPath("resources");
 		
@@ -125,5 +133,31 @@ public class BoardController {
 		String originFileName= file.getOriginalFilename();
 		String renameFileName= sdf.format(new Date(System.currentTimeMillis()))+"."
 								+originFileName.substring(originFileName.lastIndexOf(".") +1 );
+		
+		String renamePath=folder+"\\"+ renameFileName;
+		try {
+			file.transferTo(new File(renamePath));
+		}  catch(Exception e) {
+			System.out.println("파일전송 에러: "+ e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return renameFileName;
+	}
+	
+	@RequestMapping("bdetail.bo")
+	public ModelAndView boardDetail(@RequestParam("bId") int bId, 
+							  @RequestParam("page") int page, ModelAndView mv) throws BoardException {
+		Board board= bService.selectBoard(bId);
+		
+		
+		if(board!=null) {
+			mv.addObject("board", board)
+			.addObject("page", page)
+			.setViewName("boardDetailView");
+		}else {
+			throw new BoardException("게시글 상세보기에 실패하였습니다.");
+		}
+		return mv;
 	}
 }

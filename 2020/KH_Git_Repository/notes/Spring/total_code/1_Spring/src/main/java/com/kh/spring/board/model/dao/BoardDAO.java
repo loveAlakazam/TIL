@@ -23,4 +23,17 @@ public class BoardDAO {
 		
 	}
 
+	public int insertBoard(SqlSessionTemplate sqlSession, Board b) {
+		return sqlSession.insert("boardMapper.insertBoard", b);
+	}
+
+	public int addReadCount(SqlSessionTemplate sqlSession, int bId) {
+		return sqlSession.update("boardMapper.addReadCount", bId);
+	}
+
+	public Board selectBoard(SqlSessionTemplate sqlSession, int bId) {
+		
+		return (Board)sqlSession.selectOne("boardMapper.selectBoard", bId);
+	}
+
 }
