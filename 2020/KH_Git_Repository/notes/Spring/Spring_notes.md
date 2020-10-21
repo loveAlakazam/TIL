@@ -767,3 +767,366 @@ public class HomeController {
 > ### Spring 웹 애플리케이션
 
 ![](./spring_web.png)
+
+<br><br>
+
+<hr>
+
+<br>
+
+# jsp파일 - 한글이 나오게끔 설정하는 방법
+
+> ### 추가 코드 - 맨위에 추가한다.
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	    pageEncoding="UTF-8"%>
+```
+
+<br>
+
+> ### 사용예시(views/common/menubar.jsp)
+
+```jsp
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>menubar</title>
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<style>
+	.nav {margin-left:auto; margin-right:auto; text-align: center;}
+	.menu {
+		display:inline-block; background:#e4fc41; text-align:center;
+		line-height:50px; width:150px; height:50px; border-radius:20px;
+		margin-left: 5%; margin-right: 5%;
+	}
+	.menu:hover {background:#b0c903; font-weight: bolder; cursor:pointer;}
+	a:link {color: black; text-decoration: none;}
+	a:visited {color: black; text-decoration: none;}
+</style>
+</head>
+<body>
+
+	<!-- 메뉴바는 어느 페이지든 포함하고 있을 테니 여기서 contextPath 변수 값 만들기 -->
+	<c:set var="contextPath" value="${ pageContext.servletContext.contextPath }" scope="application"/>
+
+	<h1 align="center">Finally, SPRING</h1>
+	<br>
+
+	<div class="loginArea" align="right">
+		<c:if test="${ empty sessionScope.loginUser }">
+			<form action="login.me" method="post">
+				<table id="loginTable" style="text-align:center;">
+					<tr>
+						<td>아이디</td>
+						<td><input type="text" name="id"></td>
+						<td rowspan="2">
+							<button id="loginBtn">로그인</button>
+						</td>
+					</tr>
+					<tr>
+						<td>비밀번호</td>
+						<td><input type="password" name="pwd"></td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<button type="button" onclick="location.href='enrollView.me'">회원가입</button>
+							<button type="button">아이디/비밀번호 찾기</button>
+						</td>
+					</tr>
+				</table>
+			</form>
+		</c:if>
+		<c:if test="${ !empty sessionScope.loginUser }">
+			<h3 align="right">
+				<c:out value="${ loginUser.name }님 환영합니다."/> <!-- c:out 활용 -->
+				<c:url var="myinfo" value="myinfo.me"/>
+				<c:url var="logout" value="logout.me"/>
+				<button onclick="location.href='${myinfo}'">정보보기</button>
+				<button onclick="location.href='${logout}'">로그아웃</button>
+			</h3>
+		</c:if>
+	</div>
+
+	<!-- 위처럼 c:url을 통해서 지정할 수도 있지만 지금까지 해왔던 것처럼 바로 href에 url을 넣어도 상관없음 -->
+	<div class="menubar">
+		<div class="nav">
+			<div class="menu"><a href="home.do">HOME</a></div>
+			<div class="menu"><a href="blist.bo">게시판</a></div>
+		</div>
+	</div>
+</body>
+</html>
+```
+
+<br><BR>
+
+<HR>
+
+# url 패턴을 바꾼다.
+
+- `/`로 처리하면 한군데(HomeController)에서만 처리하게됨.
+
+- ### 요청 url 패턴 중 `*.do` 인 패턴일 때, `DispatcherServlet`을 호출하여 처리한다.
+
+<br>
+
+> ### web.xml (src/main/webapp/WEB-INF/web.xml)
+
+```xml
+<servlet>
+  <servlet-name>appServlet</servlet-name>
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  <init-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+  </init-param>
+  <load-on-startup>1</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>appServlet</servlet-name>
+  <!-- <url-pattern>/</url-pattern> -->
+
+  <!-- *.do 로 된 url요청만 servlet-context.xml 을 불러와 처리하도록 한다. -->
+  <url-pattern>*.do</url-pattern>
+</servlet-mapping>
+```
+
+<BR>
+
+
+> ### *.do가 아닌 회원관련 url 매핑인 *.me 로 구분지을 수 있다.
+
+> ### web.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:root-context.xml
+			/WEB-INF/spring/spring-security.xml
+		</param-value>
+	</context-param>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+  <!--.do 관련 url요청에 대한 매핑. -->
+	<!-- Processes application requests -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+
+		<!-- *.do 로 된 url요청만 servlet-context.xml 을 불러와 처리하도록 한다. -->
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+
+
+
+
+	<!--사용자가 등록:  회원관련 서블릿(.me) -->
+	<servlet>
+		<servlet-name>memberServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+
+      <!-- member와 관련된 xml -->
+			<param-value>/WEB-INF/spring/appServlet/member-context.xml</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>memberServlet</servlet-name>
+		<url-pattern>*.me</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+```
+
+<br>
+
+> ### member-context.xml 등록하기
+
+- 저장위치: **src/main/webapp/WEB-INF/spring/appServlet**
+- 파일 생성 순서
+  - **New**  
+  - **Spring Bean Configuration File**
+  - 파일이름 작성
+  - Next
+  - **context - http://www.springframework.org/schema/context** 클릭
+  - Select desired XSD (가장 맨밑/가장최근 버젼)
+  - Finish  버튼클릭
+
+<br>
+
+> ### member-context.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+	<mvc:annotation-driven/>
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+
+    <!-- 회원관련 뷰 경로를 넣는다: /WEB-INF/vies/member/ -->
+		<property name="prefix" value="/WEB-INF/views/member/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	<context:component-scan base-package="com.kh.spring"/>
+</beans>
+```
+
+<br><br>
+
+> # servlet-context.xml VS member-context.xml
+
+> ## servlet-context.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	<annotation-driven />
+
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<context:component-scan base-package="com.kh.spring" />
+</beans:beans>
+
+```
+
+<br>
+
+> ## member-context.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<mvc:annotation-driven/>
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/member/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+  
+	<context:component-scan base-package="com.kh.spring"/>
+</beans>
+```
+
+
+<BR><br><br>
+
+> ### HomeController.java
+
+```java
+package com.kh.spring;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+@Controller
+public class HomeController {
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+
+    //home.jsp를 호출.
+		return "home";
+	}
+}
+```
+
+<br>
+
+> ### servlet-context.xml
+
+- home.do 요청에대한 처리를 수행 후에, web.xml의 `<param-value>`에서 제시된  `servlet-context.xml`을 참고하여 "뷰(String,리턴값)"를 결정하여 리턴한다.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	<annotation-driven />
+
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<context:component-scan base-package="com.kh.spring" />
+
+</beans:beans>
+```
+
+<br><br>
