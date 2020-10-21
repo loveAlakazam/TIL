@@ -490,3 +490,278 @@ Spring을 다른 여러모듈을 사용함에 있어서 별도의 추상화 레�
 |**ModelAndView**|컨트롤러가 처리한 결과 정보 및 뷰 선택에 필요한 정보를 담음|
 |**ViewResolver**|컨트롤러의 처리결과를 생성할 View를 결정한다.|
 |**View**|컨트롤러의 처리 결과 화면을 생성한다. JSP나 Velocity템플릿 파일등을 View로 사용.|
+
+<br><br>
+
+<hr>
+
+<br>
+
+> ## 초기 spring 프로젝트 동작 뜯어보기
+
+- spring 프로젝트를 만들어지면, 기본적으로 `home.jsp` 파일을 만든다.
+
+- `home.jsp`를 welcome파일로 잡는가..?
+  - 순서
+    - 1. 서버에 있는 `web.xml`을 수행
+    - 2. spring 프로젝트의 전체 애플리케이션 설정정보인 `web.xml`을 수행
+      - 그런데 여기엔 welcome파일이 존재하지 않음!
+      - 없다면 서버의 welcome-file 리스트를 조회...
+        - 그런데 서버의 `web.xml`에는 `index.html`/`index.jsp`를 기준으로하네?
+        - 그런데 애플리케이션 프로젝트에는 `index.jsp`가 존재하지 않아.
+        - 어 그런데 왜 돌아가지? 어 그런데 왜 서버실행할때 `home.jsp`를 페이지를 랜더링하는거지?
+
+<br>
+
+> ### web.xml (server의 web.xml)
+
+```xml
+<web-app>
+  <!--중략 -->
+  <welcome-file-list>
+      <welcome-file>index.html</welcome-file>
+      <welcome-file>index.htm</welcome-file>
+      <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
+```
+
+> ### web.xml (스프링 프로젝트: WEB-INV/web.xml)
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+  <!-- 서블릿과 필터에 대해서 -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/root-context.xml</param-value>
+	</context-param>
+
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- Processes application requests -->
+  <!-- servlet, servlet-mapping 태그를 이용하여 servlet을 연결.-->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+</web-app>
+
+```
+
+<br>
+
+```xml
+<servlet>
+  <servlet-name>appServlet</servlet-name>
+  <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  <init-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+  </init-param>
+  <load-on-startup>1</load-on-startup>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>appServlet</servlet-name>
+  <url-pattern>/</url-pattern>
+</servlet-mapping>
+```
+
+- 이름을 `appServlet`으로 하여, `<servlet>`과 `<servlet-mapping>`을 연결.
+
+- 처음으로 url이 `/`로 요청할 때, `org.springframework.web.servlet.DispatcherServlet`을 호출하여 요청을 받는다.
+
+- `<init-param>`: 처음시작할 때 `/WEB-INF/spring/appServlet/servlet-context.xml`을 참고한다.
+
+
+<br>
+
+> ### servlet-context.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<context:component-scan base-package="com.kh.spring" />
+
+</beans:beans>
+```
+
+<br>
+
+> ### Spring MVC
+
+![](./spring_mvc.png)
+
+<br>
+
+- HandlerMapping과 ViewResolver은?
+
+
+<br>
+
+> ### HomeController.java
+
+```java
+package com.kh.spring;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+public class HomeController {
+
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	/**
+	 * Simply selects the home view to render by returning its name.
+	 */
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+
+		String formattedDate = dateFormat.format(date);
+
+		model.addAttribute("serverTime", formattedDate );
+
+		return "home";
+	}
+
+}
+
+```
+
+- `return home;`: `home.jsp`의 `home`을 말함!
+  - 알아서 home.jsp를 찾아간다!
+  - 즉, String으로 리턴했는데, `jsp파일`을 찾아간다.
+
+- EL : `serverTime`을 formattedDate로 한다.
+
+<BR>
+
+- ### **`DispatcherServlet` 역할**
+
+ - 요청에 대한 처리를 그 요청을 누가 처리를 할것인지를 담당 컨트롤러를 찾아서 연결.
+  - 컨트롤러들을 뒤져서 `/`url요청을 담당하는 컨트롤러를 찾는다.
+
+<br>
+
+- ### **Handler Mapping 역할**
+
+  - HomeController.java에 있는 HandlerMapping
+  - **요청 url `/`을 담당하는 메소드를 찾는다.**
+  - 컨트롤러 중에서 어떠한 메소드에서 요청url에 대한 처리를 하는지를 결정함.
+
+  ```java
+  @RequestMapping(value = "/", method = RequestMethod.GET)
+  ```
+
+<br>
+
+- 컨트롤러를 거쳐서 비즈니스 로직(Service=>DAO=>DB)를 거친 후에 다시 web.xml로 돌아와서.. **`<param-value>`의 값(servlet-context.xml)을 참조한다.**
+
+```xml
+<init-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+</init-param>
+```
+
+<br>
+
+> ### servlet-context.xml
+
+```xml
+<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <beans:property name="prefix" value="/WEB-INF/views/" />
+  <beans:property name="suffix" value=".jsp" />
+</beans:bean>
+```
+
+- prefix: jsp 파일의 경로를 받는다.
+- suffix: jsp 파일의 확장자를 받는다.
+- 그래서 HomeController의 home() 리턴값이 "home"인 이유이다.
+  - 따라서 반환값이 "home"인 것은 뷰인 "home.jsp"를 부르는 것을 의미한다.
+
+- ViewResolver 객체가 prefix와 suffix를 붙여서 뷰를 보내도록한다.
+
+<br>
+
+> ### home.jsp
+
+```jsp
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<html>
+<head>
+	<title>Home</title>
+</head>
+<body>
+<h1>
+	Hello world!  
+</h1>
+
+<P>  The time on the server is ${serverTime}. </P>
+</body>
+</html>
+
+```
+
+<br>
+
+> ### Spring 웹 애플리케이션
+
+![](./spring_web.png)
