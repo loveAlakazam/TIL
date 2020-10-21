@@ -160,4 +160,80 @@ public class BoardController {
 		}
 		return mv;
 	}
+	
+	
+	@RequestMapping("bupView.bo")
+	public ModelAndView boardUpdateView(@RequestParam("bId") int bId, @RequestParam("page") int page, ModelAndView mv) {
+		Board board= bService.selectBoard(bId);
+		mv.addObject("board", board)
+		.addObject("page", page)
+		.setViewName("boardUpdateForm");
+		
+		return mv;
+	}
+	
+	@RequestMapping("bupdate.bo")
+	public ModelAndView boardUpdate(@ModelAttribute Board b, @RequestParam("page") int page,
+													   @RequestParam("reloadFile") MultipartFile reloadFile,
+													   HttpServletRequest request,
+													   ModelAndView mv) throws BoardException{
+		
+		//수정이전에 파일을 올려놓은 상태라면
+		if(reloadFile !=null && !reloadFile.isEmpty()) {
+			
+			//기존에 올렸던 파일이 null이 아니라면..
+			if(b.getRenameFileName() !=null) {
+				//기존에 올렸던 파일을 지운다.
+				deleteFile(b.getRenameFileName(), request);
+			}
+			
+			// 새로 업데이트할 파일 
+			String renameFileName= saveFile(reloadFile, request);
+			
+			if(renameFileName !=null) {
+				//새로 업데이트할 파일이 null이 아니라면
+				b.setOriginalFileName(reloadFile.getOriginalFilename());
+				b.setRenameFileName(renameFileName);
+			}
+		}
+		
+		// 파일업데이트
+		int result= bService.bUpdateBoard(b);
+		
+		//수정 성공
+		if(result>0) {
+			mv.addObject("page", page)
+			.setViewName("redirect:bdetail.bo?bId="+b.getbId());
+		}else {
+			throw new BoardException("게시판 수정에 실패하였습니다.");
+		}
+		
+		return mv;
+	}
+	
+	public void deleteFile(String fileName, HttpServletRequest request) {
+		String root= request.getSession().getServletContext().getRealPath("resources");
+		String savePath= root+ "\\buploadFiles";
+		File f = new File(savePath + "\\" + fileName);
+		
+		//파일이 존재한다면
+		if(f.exists()) {
+			f.delete(); //파일을 지운다.
+		}
+	}
+	
+	@RequestMapping("bdelete.bo")
+	public String deleteBoard(@RequestParam("bId") int bId, HttpServletRequest request) throws BoardException {
+		Board b= bService.selectBoard(bId);
+		if(b.getOriginalFileName()!=null) {
+			deleteFile(b.getRenameFileName(), request);
+		}
+		int result = bService.deleteBoard(bId);
+		if(result>0) {
+			return "redirect:blist.bo";
+		}else {
+			throw new BoardException("게시물 삭제에 실패하였습니다.");
+		}
+		
+	}
 }

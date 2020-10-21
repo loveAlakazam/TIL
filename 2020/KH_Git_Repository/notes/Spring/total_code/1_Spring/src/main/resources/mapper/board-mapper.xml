@@ -44,4 +44,20 @@
 		WHERE BID=#{bId} AND B_STATUS='Y'
 	</select>
 	
+	<update id="updateBoard">
+		UPDATE BOARD
+		SET BTITLE=#{bTitle}, BCONTENT=#{bContent},
+			<if test="originalFileName != null">
+				ORIGINAL_FILENAME=#{originalFileName}, 
+			</if>
+			RENAME_FILENAME=#{renameFileName},
+			B_MODIFY_DATE=SYSDATE
+		WHERE BID=#{bId} AND B_STATUS='Y'
+	</update>
+	
+	<update id="deleteBoard">
+		UPDATE BOARD
+		SET B_STATUS='N'
+		WHERER BID=#{bID} AND B_STATUS='Y'
+	</update>
 </mapper>
