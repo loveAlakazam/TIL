@@ -738,6 +738,8 @@ public class HomeController {
 
 - ViewResolver 객체가 prefix와 suffix를 붙여서 뷰를 보내도록한다.
 
+- 폴더 안에 있는 jsp를 호출하고 싶다면 `디렉토리경로/이름.jsp` 식으로 호출.
+
 <br>
 
 > ### home.jsp
