@@ -53,4 +53,10 @@ public class MemberServiceImpl implements MemberService {
 	public int deleteMember(Member m) {
 		return mDAO.deleteMember(sqlSession, m);
 	}
+	
+	//아이디중복확인
+	@Override
+	public int checkIdDup(String id) {
+		return mDAO.checkIdDup(sqlSession, id);
+	}
 }

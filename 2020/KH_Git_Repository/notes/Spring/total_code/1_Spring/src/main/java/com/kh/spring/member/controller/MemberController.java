@@ -1,6 +1,9 @@
 package com.kh.spring.member.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -452,5 +455,16 @@ public class MemberController {
 			//탈퇴 실패!
 			throw new MemberException("회원탈퇴하는데 실패하였습니다.");
 		}
+	}
+	
+	
+	@RequestMapping("dupid.me")
+	public void dupId(String id, HttpServletResponse response) throws IOException {
+		int result= mService.checkIdDup(id);
+		boolean isUsable= (result ==0)? true: false;
+		
+		//PrintWriter을 이용
+		response.getWriter().print(isUsable);
+		
 	}
 }

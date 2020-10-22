@@ -10,6 +10,10 @@
 <style type="text/css">
 	#boardDetailTable{width: 800px; margin: auto; border-collapse: collapse; border-left: hidden; border-right: hidden;}
 	#boardDetailTable tr td{padding: 5px;}
+	.replyTable{
+		margin:auto; 
+		width: 500px;
+	}
 </style>
 </head>
 <body>
@@ -82,6 +86,106 @@
 		<button onclick="location.href='home.bo'">시작 페이지로 이동</button>
 		<button onclick="location.href='${ blist }'">목록 보기로 이동</button>
 	</p>
+	<br><br>
+	<table class="replyTable">
+		<tr>
+			<td>
+				<textarea rows="3" cols="55" id="rContent"></textarea>
+			</td>
+			
+			<td>
+				<button id="rSubmit">등록하기</button>
+			</td>
+		</tr>
+	</table>
+	
+	<table class="replyTable" id="rtb">
+		<thead>
+			<tr>
+				<td colspan="2"><b id="rCount"></b></td>
+			</tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+	
+	<script>
+		$(function(){
+			getReplyList();
+			/*
+ 			setInterval(function(){
+ 				getReplyList(); //1초마다 한번씩 불러오도록.
+ 			}, 1000);
+			*/
+		});
+	
+		//등록하기 버튼을 눌렀음. 원격하셔도됩니다...
+		$('#rSubmit').on('click', function(){
+			var rContent=$('#rContent').val();	//댓글내용
+			var refBid=${board.bId};		//댓글이 달린 게시글 번호
+			
+			/*
+			addReply.bo로 전달
+			덧글등록 성공=> success
+			덧글등록 실패=> fail
+			*/
+			$.ajax({
+				url: 'addReply.bo',
+				data: {rContent: rContent, refBid: refBid},
+				type: 'post',
+				success: function(data){
+					console.log(data);
+					if(data=="success"){
+						$('#rContent').val("");
+					}
+				}
+			});
+			
+		});
+		
+		 
+		function getReplyList(){
+			var bId= ${board.bId};
+			$.ajax({
+				url: 'rlist.bo',
+				data: {bId: bId},
+				success: function(data){
+					console.log(data);
+					
+					//jQuery로 만든 변수로 구분.
+					$tableBody=$('#rtb tbody');
+					$tableBody.html('');
+					
+					var $tr;
+					var $rWriter;
+					var $rContent;
+					var $rCreateDate;
+					
+					$('#rCount').text('댓글('+data.length+')');
+					if(data.length>0){
+						for(var i in data){
+							$tr=$('<tr>');
+							$rWriter=$('<td width=100>').text(data[i].rWriter);
+							$rContent=$('<td>').text(data[i].rContent);
+							$rCreateDate=$('<td width=100>').text(data[i].rCreateDate);
+							
+							$tr.append($rWriter);
+							$tr.append($rContent);
+							$tr.append($rCreateDate);
+							$tableBody.append($tr)
+						}
+					}else{
+						$tr= $('<tr>');
+						$rContent=$('<td colspan="3">').text('등록된 댓글이 없습니다.');
+						$tr.append($rContent);
+						$tableBody.append($tr);
+					}
+				}
+			});
+		} 
+		
+	</script>
 	
 </body>
 </html>

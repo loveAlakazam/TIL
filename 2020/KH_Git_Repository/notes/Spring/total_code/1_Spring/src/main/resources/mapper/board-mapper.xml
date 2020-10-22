@@ -60,4 +60,42 @@
 		SET B_STATUS='N'
 		WHERER BID=#{bID} AND B_STATUS='Y'
 	</update>
+	
+	<insert id="insertReply">
+		INSERT INTO REPLY
+		VALUES (SEQ_RID.NEXTVAL, #{rContent}, #{refBid}, #{rWriter}, SYSDATE, SYSDATE, DEFAULT)
+	</insert>
+	
+	<select id="selectReplyList" resultMap="replyResultSet">
+		SELECT *
+		FROM REPLY
+		WHERE REF_BID=#{bId} AND R_STATUS='Y'
+		ORDER BY RID DESC
+	</select>
+	<resultMap type="Reply" id="replyResultSet">
+		<id property="rId" column="RID"/>
+		<result property="rContent" column="RCONTENT"/>
+		<result property="refBid" column="REF_BID"/>
+		<result property="rWriter" column="RWRITER"/>
+		<result property="rCreateDate" column="R_CREATE_DATE"/>
+		<result property="rModifyDate" column="R_MODIFY_DATE"/>
+		<result property="rStatus" column="R_STATUS"/>
+	</resultMap>
+	
+	<!-- 
+	The content of elements must consist of well-formed character data or markup.
+	등호,부등호(<=, >=, >, < ) <>이것은 태그를 연다는 의미이다.
+	
+	<![CDATA[~]] [~]안에부분은 <,>는 태그를 연다는 의미가 아니라는 것을 알림.
+	부등호가 필요한 부분만 적용해도된다.
+	 -->
+	<select id="selectTopList" resultMap="boardResultSet">
+	
+		SELECT *
+		FROM (SELECT * 
+				FROM BOARD 
+				WHERE B_STATUS='Y'
+				ORDER BY BCOUNT DESC)
+		WHERE <![CDATA[ROWNUM<=5]]>
+	</select>
 </mapper>

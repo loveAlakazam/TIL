@@ -7,6 +7,25 @@
 <title>회원가입 페이지(memberJoin.jsp)</title>
 <link rel="stylesheet" href="${contextPath}/resources/css/member-style.css" type="text/css">
 </head>
+<style>
+	span.guide{
+		display: name;
+		font-size: 12px;
+		top: 12px;
+		right: 10px;
+	}
+	span.ok{
+		color: green;
+	}
+	
+	span.error{
+		color: red;
+	}
+	
+	
+
+</style>
+
 <body>
 	<jsp:include page="../common/menubar.jsp"/>
 	
@@ -19,6 +38,9 @@
 					<th>* 아이디</th>
 					<td>
 						<input type="text" name="id" id="userId">
+						<span class="guide ok">사용가능 한 아이디 입니다.</span>
+						<span class="guide error">이미 사용중인 아이디입니다.</span>
+						<input type="hidden" name="idDuplicateCheck" id="idDuplicateCheck" value='0'>
 					</td>
 				</tr>
 				<tr>
@@ -79,7 +101,7 @@
 				
 				<tr>
 					<td colspan="2" align="center">
-						<button onclick="validate();">가입하기</button>
+						<button onclick="return validate();">가입하기</button>
 						<input type="reset" value="취소하기">
 						<button type="button" onclick="location.href='home.do'">시작 페이지로 이동</button>
 					</td>
@@ -87,5 +109,51 @@
 			</table>
 		</form>
 	</div>
+	
+<script>
+	$('#userId').on('keyup', function(){//userId를 입력했을때, 함수가 실행된다.
+			var userId= $(this).val().trim();
+			
+			if(userId.length<4){
+				//4글자 미만
+
+				$('.guide').hide(); //guide를 숨김
+				$('#idDuplicateCheck').val(0);//아이디 중복체크
+				return ; //끝냄.
+			}
+			
+			$.ajax({
+				url: 'dupid.me',
+				data: {id: userId},
+				success:function(data){
+					console.log(data);
+					if(data=='true'){
+						$('.guide.error').hide();
+						$('.guide.ok').show();
+						$('#idDuplicateCheck').val(1);
+					}else{
+						$('.guide.error').show();
+						$('.guide.ok').hide();
+						$('#idDuplicateCheck').val(0);
+					}
+				}
+			});
+	});
+	
+	
+	//유효한 아이디인지 확인
+	function validate(){
+		//사용이 불가능한 아이디
+		if($('#idDuplicateCheck').val()==0){
+			alert('사용가능한 아이디를 입력해주세요!');
+			$('#userId').focus();
+			return false;
+		}else{
+			$('#joinForm').submit();
+		}
+	}
+	
+	
+</script>
 </body>
 </html>

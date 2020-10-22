@@ -18,4 +18,6 @@ public interface MemberService {
 
 	int deleteMember(Member m);
 
+	int checkIdDup(String id);
+
 }

@@ -64,4 +64,11 @@
 		SET M_STATUS='N'
 		WHERE ID=#{id} AND M_STATUS='Y'
 	</update>
+	
+	<!-- 아이디 중복체크 -->
+	<select id="checkId" resultType="_int">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE ID=#{id} AND M_STATUS='Y'
+	</select>
 </mapper>
