@@ -24,11 +24,22 @@
 	</bean>
 	<context:component-scan base-package="com.kh.spring"/>
 	
-	<!--  interceptor을 등록합니다. -->
+	<!--  interceptor을 등록합니다.-->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/**"/>
 			<bean id="testInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor"/>
 		</mvc:interceptor>
+		
+		<!-- MemberLoginInterceptor을 등록합니다. -->
+		<mvc:interceptor>
+		
+			<!-- login()메소드 호출은 login.me url을 호출할때 멤버컨트롤러에서 수행되므로 -->
+			<mvc:mapping path="/login.me"/>
+			
+			<!-- login.me url호출할때 발생하는 Interceptor 입니다. -->
+			<bean id="memberLoginInterceptor" class="com.kh.spring.common.interceptor.MemberLoginInterceptor"/>
+		</mvc:interceptor>
 	</mvc:interceptors>
+	 
 </beans>

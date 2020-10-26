@@ -1055,6 +1055,8 @@ MemberController에서 login() 메소드를 호출할때도 login.log파일에�
 왜 같이 기록될까?
 
 
+<br>
+
 > ### log4j.xml
 
 ```xml
@@ -1098,6 +1100,160 @@ MemberController에서 login() 메소드를 호출할때도 login.log파일에�
 
 <br>
 
-
+<hr>
 
 > ## Interceptor을 이용한 실습2 - 숙제!
+
+
+> ### 1. MemberLoginInterceptor.java 를 만듭니다.
+
+```java
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.kh.spring.member.model.vo.Member;
+
+public class MemberLoginInterceptor extends HandlerInterceptorAdapter{
+	private Logger logger= LoggerFactory.getLogger(MemberLoginInterceptor.class);
+
+  // afterCompletion메소드
+	// login.me url 요청처리 과정을 마친뒤
+	// view까지 모두 보여주는과정을 수행한 후에
+	//발생하는 Interceptor입니다.
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+		//세션을 불러옵니다.
+		HttpSession session= request.getSession();
+
+		//세션계층에서 loginUser이름의 attribute를 불러옵니다.
+		Member loginUser=(Member)session.getAttribute("loginUser");
+
+		//여기에 로그 메시지를 보낸다.
+		// MemberLoginInterceptor과 연결된 로거는
+		//log4j.xml에서 name="com.kh.spring.common.interceptor.MemberLoginInterceptor인 logger와 연결된
+		//appender에서 아래의 로그메시지를 파일로 출력합니다.
+		if(loginUser!=null) {
+			logger.debug("로그인 계정: "+loginUser.getId());
+		}
+		super.afterCompletion(request, response, handler, ex);
+	}
+}
+
+```
+
+<br>
+
+> ### 2. **`member-context.xml`** 에서 MemberLoginInterceptor을 등록합니다.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<mvc:annotation-driven/>
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+
+	<!--beans가 기본이라서 태그 맨앞에 bean: 을 붙이지 않아도 바로 불러올 수 있다. -->
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/member/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	<context:component-scan base-package="com.kh.spring"/>
+
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean id="testInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor"/>
+		</mvc:interceptor>
+
+
+
+		<!-- MemberLoginInterceptor을 등록합니다. -->
+		<mvc:interceptor>
+
+			<!-- login()메소드 호출은 login.me url을 호출할때 멤버컨트롤러에서 수행되므로 -->
+			<mvc:mapping path="/login.me"/>
+
+			<!-- login.me url호출할때 발생하는 Interceptor 입니다. -->
+			<bean id="memberLoginInterceptor" class="com.kh.spring.common.interceptor.MemberLoginInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans>
+```
+
+<br>
+
+> ### 3. **`log4j.xml`** 에서 appender와 logger을 등록합니다.
+
+- #### (1) MemberController에 접근할때마다, 파일에 저장하는 appender와의 연결을 해제합니다.
+  - appender이름이 "myDailyRollingFile"은 접근할때마다 login.log 파일에 저장했기때문입니다.
+
+
+- #### (2) 새로운 Logger을 등록합니다.
+  - logger의 이름(name)은 **"com.kh.spring.common.interceptor.MemberLoginInterceptor"** 입니다.
+    - 즉, 로거의 이름은 내가만든 Interceptor 클래스를 의미합니다.
+
+  - 이 logger은 "onlyLogin" 이란 이름의 appender을 참조합니다.
+
+
+- #### (3) (2)에서 Logger가 참조하는 appender을 새로 만듭니다.
+  - MemberLoginInterceptor과 연결된 logger가 참조하는 appender의 이름은 "onlyLogin"입니다.
+  - 이 appender은 파일을 이용하여 출력을 합니다.
+    - 이전기록을 같이 백업하면서, 파일에 로그를 출력하는 클래스 `org.apache.log4j.DailyRollingFileAppender`을 사용합니다.
+
+```xml
+
+<!--(3) MemberLoginInterceptor가 참조하는 appender을 만듭니다.-->
+<appender name="onlyLogin" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="File" value="/logs/member/login.log"/>
+	<param name="Append" value="true"/>
+
+	<param name="encoding" value="UTF-8"/>
+	<param name="DataPattern" value="'.'yyyyMMdd"/>
+
+	<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p - onlyLogin] %c{1}.%M - %m%n"/>
+	</layout>
+</appender>
+
+
+<!--(2) 새로운 Logger을 등록합니다. -->
+<logger name="com.kh.spring.common.interceptor.MemberLoginInterceptor" additivity="false">
+	<level value="debug"/>
+
+	<!-- 이름이 onlyLogin인 appender을 참조합니다. -->
+	<appender-ref ref="onlyLogin"/>
+</logger>
+
+
+
+<logger name="com.kh.spring.member.controller.MemberController" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="myConsole"/>
+    <!--(1) MemberController에 접근할때마다 수행하는 myDailyRollingFile과의 연결을 해제 -->
+		<!-- <appender-ref ref="myDailyRollingFile"/> -->
+</logger>
+
+
+```
+
+<br><br>
+
+> ## 숙제 해답

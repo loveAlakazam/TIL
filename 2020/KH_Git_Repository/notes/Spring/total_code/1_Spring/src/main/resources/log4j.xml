@@ -70,20 +70,22 @@
 		</layout>
 	</appender>
 	
-	<!--onlyLogin  -->
+	<!-- onlyLogin 로거 
+		파일에 출력 및 이전기록을 백업하는  org.apache.log4j.DailyRollingFileAppender을 이용합니다.
+	-->
 	<appender name="onlyLogin" class="org.apache.log4j.DailyRollingFileAppender">
-		<!--로그 파일 위치를 정한다.  C드라이브에 위치해있다.-->
-		<param name="File" value="/logs/member/login/onlyLogin.log"/>
+		<param name="File" value="/logs/member/login.log"/>
 		<param name="Append" value="true"/>
 		
-		<!--로그파일 인코딩 설정 -->
 		<param name="encoding" value="UTF-8"/>
 		<param name="DataPattern" value="'.'yyyyMMdd"/>
 		
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p - onlyLogin] %c{1}.%M - %m%n"/>
 		</layout>
 	</appender>
+	
+	
 	
 	
 	<!-- Application Loggers -->
@@ -128,21 +130,27 @@
 	라는 로그가 출력되도록 만들기 300은 라인수를 나타냄
 	조건: 새 Appender를 추가하고 중복 로깅 출력이 안되도록하기.
 	-->
-	<logger name="com.kh.spring.member.controller" additivity="false">
+	
+	<logger name="com.kh.spring.member.controller.MemberController" additivity="false">
 		<level value="debug"/>
 		<appender-ref ref="myConsole"/>
-		<appender-ref ref="myDailyRollingFile"/>
-		
-		<!-- 로그인할때만 나타내는 로거의 appender을 찾는다. -->
-		<appender-ref ref="onlyLogin"/>
+		<!-- <appender-ref ref="myDailyRollingFile"/> -->
+	</logger>
+
+	
+	<!--  TestInterceptor를 로거에 등록합니다. -->
+	<logger name="com.kh.spring.common.interceptor.TestInterceptor" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="myConsole"/>
 	</logger>
 	
-	<!--로그인할때만 나타내는 로거!  -->
-	<!-- <logger name="com.kh.spring.member.controller" additivity="false">
+	<!-- MemberLoginInterceptor을 등록합니다. -->
+	<logger name="com.kh.spring.common.interceptor.MemberLoginInterceptor" additivity="false">
 		<level value="debug"/>
 		
-	</logger> -->
-	
+		<!-- 이름이 onlyLogin인 appender을 참조합니다. -->
+		<appender-ref ref="onlyLogin"/>
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
@@ -161,10 +169,7 @@
 		<level value="info" />
 	</logger>
 
-	<logger name="com.kh.spring.common.interceptor.TestInterceptor" additivity="false">
-		<level value="debug"/>
-		<appender-ref ref="myConsole"/>
-	</logger>
+	
 
 	<!-- Root Logger -->
 	<!--모든 자식 logger들의 출력이 rootLogger을 통해서 이뤄진다.  -->
