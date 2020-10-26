@@ -266,7 +266,7 @@ INFO : org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 
 <br><br>
 
 
-> ## Logger 실습하기!
+> ## Logger 실습하기 1 - 콘솔에 로그를 출력하기.
 
 ```
 DEBUG: MemberController.enrollView{300} - 회원등록페이지
@@ -292,21 +292,17 @@ private Logger logger= LoggerFactory.getLogger(MemberController.class);
 - (1-2) enrollView() 메소드에서 로거를 호출한다.
 
 ```java
-@RequestMapping(value="login.me", method=RequestMethod.POST)
-	public String login(@ModelAttribute Member m, Model model) {
-		Member loginUser= mService.memberLogin(m);
-		boolean isPwdCorrect= bcryptPasswordEncoder.matches(m.getPwd(),  loginUser.getPwd());
-		if(isPwdCorrect) {
+//회원가입  페이지로 이동
+@RequestMapping("enrollView.me")
+public String enrollView() {
 
-      //로그인이 성공시에 logger을 호출하고
-      //info레벨에서 로그를 출력한다.
-			logger.info("회원등록 페이지");
-
-		}else {
-			//비밀번호가 틀리면 exception을 발생
-		}
-		return "redirect:home.do";
-	}
+  // 현재 logger가 debug레벨인지 확인한다.
+  if(logger.isDebugEnabled()) {
+    // debug레벨이라면, 해당 로그를 출력한다. (콘솔에!)
+    logger.debug("회원 등록 페이지");
+  }
+  return "memberJoin";
+}
 ```
 
 <br>
@@ -321,30 +317,21 @@ public class MemberController{
   private MemberService mService;
 
   @Autowired
-  private BcryptPasswordEncoder bcrytPasswordEncoder;
+  private BcryptPasswordEncoder bcryptPasswordEncoder;
 
-  //1. logger 추가하기
   private Logger logger= LoggerFactory.getLogger(MemberController.class);
 
+  //중략//
 
-  @RequestMapping(value="login.me", method=RequestMethod.POST)
-  public String login(@ModelAttribute Member m, Model model) {
-    Member loginUser= mService.memberLogin(m);
-    boolean isPwdCorrect= bcryptPasswordEncoder.matches(m.getPwd(),  loginUser.getPwd());
-
-    if(isPwdCorrect) {
-      model.addAttribute("loginUser", loginUser);
-
-      //2. 로그를 호출하여, info레벨부터 로그를 출력한다.
-      logger.info("회원 등록페이지");
-
-    }else {
-      throw new MemberException("로그인에 실패하였습니다.");
-    }
-
-    System.out.println(m);
-    return "redirect:home.do";
-  }
+	@RequestMapping("enrollView.me")
+	public String enrollView() {
+    
+		// 디버그 레벨인지 확인한다.
+		if(logger.isDebugEnabled()) {
+			logger.debug("회원 등록 페이지");
+		}
+		return "memberJoin";
+	}
 }
 ```
 
@@ -425,4 +412,122 @@ public class MemberController{
 
 ```
 
+<br><br><br>
+
+
+> ## Logger 실습하기 2 - 파일에 로그를 저장하기
+
+```
+MemberController.java에서
+로그인을 할때마다 로그파일을 만들어서
+파일에 로그를 기록하도록 해보자.
+```
+
+- ### (1) MemberController.java의 로그인(login.me)할 때마다 로그를 불러옵니다.
+
+```java
+@SessionAttributes("loginUser")
+@Controller
+public class MemberController{
+  @Autowired
+  private MemberService mService;
+
+  @Autowired
+  private BcryptPasswordEncoder bcrytPasswordEncoder;
+
+  //1. logger 추가하기
+  private Logger logger= LoggerFactory.getLogger(MemberController.class);
+
+
+  @RequestMapping(value="login.me", method=RequestMethod.POST)
+  public String login(@ModelAttribute Member m, Model model) {
+    Member loginUser= mService.memberLogin(m);
+    boolean isPwdCorrect= bcryptPasswordEncoder.matches(m.getPwd(),  loginUser.getPwd());
+
+    if(isPwdCorrect) {
+      model.addAttribute("loginUser", loginUser);
+
+      //2. 로그를 호출하여, info레벨부터 로그를 출력한다.
+      // 이때 출력되는 로그는 로그인한 회원아이디이다.
+      logger.info(loginUser.getId());
+
+    }else {
+      throw new MemberException("로그인에 실패하였습니다.");
+    }
+
+    System.out.println(m);
+    return "redirect:home.do";
+  }
+}
+```
+
+<br>
+
+- ### (2) `log4j.xml`파일에서  logger을 등록합니다.
+```xml
+<logger name="com.kh.spring.member.controller.MemberController" additivity="false">
+		<level value="debug"/>
+
+    <!--myConsole 이란 이름의 appender을 참조한다. -->
+		<appender-ref ref="myConsole"/>
+
+    <!--myDailyRollingFile 이란 이름의 appender을 참조한다. -->
+		<appender-ref ref="myDailyRollingFile"/>
+	</logger>
+```
+
+<BR>
+
+- ### (3) (2)에서 등록한 logger을 참조하는 appender을 만듭니다!
+
+```xml
+<appender name="myDailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<!--로그 파일 위치를 정한다. -->
+		<param name="File" value="/logs/member/login.log"/>
+		<param name="Append" value="true"/>
+
+		<!--로그파일 인코딩 설정 -->
+		<param name="encoding" value="UTF-8"/>
+		<param name="DataPattern" value="'.'yyyyMMdd"/>
+
+    <!--로그 출력 형식을 나타낸다.-->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+		</layout>
+</appender>
+```
+
 <br><br>
+
+- ### (1), (2) 전체 코드
+
+```xml
+<!--appender -->
+<appender name="myDailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<!--로그 파일 위치를 정한다. -->
+		<param name="File" value="/logs/member/login.log"/>
+		<param name="Append" value="true"/>
+
+		<!--로그파일 인코딩 설정 -->
+		<param name="encoding" value="UTF-8"/>
+		<param name="DataPattern" value="'.'yyyyMMdd"/>
+
+    <!--로그 출력 형식을 나타낸다.-->
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+		</layout>
+</appender>
+
+<!-- logger -->
+<logger name="com.kh.spring.member.controller.MemberController" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="myConsole"/>
+
+    <!--myDailyRollingFile 이란 이름의 appender을 참조한다. -->
+		<appender-ref ref="myDailyRollingFile"/>
+</logger>
+```
+
+<br><br>
+
+> ## Interceptor을 이용하여 로그를 출력하자.

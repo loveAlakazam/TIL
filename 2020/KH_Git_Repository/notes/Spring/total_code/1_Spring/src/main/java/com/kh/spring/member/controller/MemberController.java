@@ -65,7 +65,7 @@ public class MemberController {
 	
 	//MemberController에서 logger을 추가한다.
 	private Logger logger = LoggerFactory.getLogger(MemberController.class);
-	private Logger loginLogger= LoggerFactory.getLogger(MemberController.class);
+	//private Logger loginLogger= LoggerFactory.getLogger(MemberController.class);
 	
 	/*
 	 [파라미터 전송방법]
@@ -249,7 +249,7 @@ public class MemberController {
 			//비밀번호가 맞으면 넘어간다.
 			model.addAttribute("loginUser", loginUser);
 			logger.info(loginUser.getId());
-			loginLogger.info(loginUser.getId());
+			//loginLogger.info(loginUser.getId());
 			
 		}else {
 			//비밀번호가 틀리면 exception을 발생
