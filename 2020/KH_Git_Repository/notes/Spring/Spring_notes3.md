@@ -467,14 +467,14 @@ public class MemberController{
 - ### (2) `log4j.xml`파일에서  logger을 등록합니다.
 ```xml
 <logger name="com.kh.spring.member.controller.MemberController" additivity="false">
-		<level value="debug"/>
+	<level value="debug"/>
 
-    <!--myConsole 이란 이름의 appender을 참조한다. -->
-		<appender-ref ref="myConsole"/>
+  <!--myConsole 이란 이름의 appender을 참조한다. -->
+	<appender-ref ref="myConsole"/>
 
-    <!--(logger등록) myDailyRollingFile 이란 이름의 appender을 참조한다. -->
-		<appender-ref ref="myDailyRollingFile"/>
-	</logger>
+  <!--(logger등록) myDailyRollingFile 이란 이름의 appender을 참조한다. -->
+	<appender-ref ref="myDailyRollingFile"/>
+</logger>
 ```
 
 <BR>
@@ -484,19 +484,19 @@ public class MemberController{
 ```xml
 <!-- DailyRollingFileAppender은 파일에 로그기록을 출력하도록 하는 객체입니다.-->
 <appender name="myDailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-		<!--로그 파일 위치를 정한다. -->
-    <!--로그파일 login.log의 위치는: C드라이브의 logs/member에 있습니다.-->
-		<param name="File" value="/logs/member/login.log"/>
-		<param name="Append" value="true"/>
+	<!--로그 파일 위치를 정한다. -->
+  <!--로그파일 login.log의 위치는: C드라이브의 logs/member에 있습니다.-->
+	<param name="File" value="/logs/member/login.log"/>
+	<param name="Append" value="true"/>
 
-		<!--로그파일 인코딩 설정 -->
-		<param name="encoding" value="UTF-8"/>
-		<param name="DataPattern" value="'.'yyyyMMdd"/>
+	<!--로그파일 인코딩 설정 -->
+	<param name="encoding" value="UTF-8"/>
+	<param name="DataPattern" value="'.'yyyyMMdd"/>
 
-    <!--로그 출력 형식을 나타낸다.-->
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
-		</layout>
+  <!--로그 출력 형식을 나타낸다.-->
+	<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+	</layout>
 </appender>
 ```
 
@@ -507,18 +507,18 @@ public class MemberController{
 ```xml
 <!--appender -->
 <appender name="myDailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
-		<!--로그 파일 위치를 정한다. -->
-		<param name="File" value="/logs/member/login.log"/>
-		<param name="Append" value="true"/>
+	<!--로그 파일 위치를 정한다. -->
+	<param name="File" value="/logs/member/login.log"/>
+	<param name="Append" value="true"/>
 
-		<!--로그파일 인코딩 설정 -->
-		<param name="encoding" value="UTF-8"/>
-		<param name="DataPattern" value="'.'yyyyMMdd"/>
+	<!--로그파일 인코딩 설정 -->
+	<param name="encoding" value="UTF-8"/>
+	<param name="DataPattern" value="'.'yyyyMMdd"/>
 
-    <!--로그 출력 형식을 나타낸다.-->
-		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
-		</layout>
+  <!--로그 출력 형식을 나타낸다.-->
+	<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+	</layout>
 </appender>
 
 <!-- logger -->
@@ -539,7 +539,9 @@ public class MemberController{
 
 <br><br>
 
-- ### Controller을 기준으로, Interceptor과 AOP 과정을 포함한 요청처리과정
+<hr>
+
+> ## Controller을 기준으로, Interceptor과 AOP 과정을 포함한 요청처리과정
 
 
 ![](./spring3_pattern01.png)
@@ -564,3 +566,538 @@ public class MemberController{
 <hr>
 
 > ## Interceptor을 이용하여 로그를 출력하자.
+
+- Interceptor 클래스는 **`common.kh.spring.interceptor`** 패키지에 위치한다.
+
+- ### 1. TestInterceptor.java
+
+```java
+package com.kh.spring.common.interceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+public class TestInterceptor extends HandlerInterceptorAdapter{
+
+	private Logger logger= LoggerFactory.getLogger(TestInterceptor.class);
+
+	/*
+	 * preHandle:  Controller를 호출하기 전에 수행한다.
+	 * 항상 true를 리턴한다.
+	 */
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		logger.debug("========== START =============");
+		logger.debug(request.getRequestURI());
+
+		return super.preHandle(request, response, handler);
+	}
+
+	/*
+	 * postHandle: Controller에서 DispatcherServlet으로 리턴되는 순간에 수행한다.
+	 * */
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
+			ModelAndView modelAndView) throws Exception {
+		logger.debug("=============== VIEW =============");
+	}
+
+	/*
+	 * afterCompletion: 최종결과를 생성하는 일을 포함한 모든 작업이 완료된 후에 수행한다.
+	 * */
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
+			throws Exception {
+    logger.debug("=============== END =============");
+	}
+}
+```
+
+<br>
+
+- ### 2. log4j.xml
+
+```xml
+<!--아래 TestInterceptor이 참고하는 logger은 이름이 myConsole인 appender이다. -->
+	<appender name="myConsole" class="org.apache.log4j.ConsoleAppender">
+	<param name="Target" value="System.out" />
+	<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%-5p: %c{1}.%M{%L} - %m%n" />
+	</layout>
+</appender>
+
+<logger name="com.kh.spring.common.interceptor.TestInterceptor" additivity="false">
+	<level value="debug"/>
+	<appender-ref ref="myConsole"/>
+</logger>
+```
+
+<br>
+
+- ### 3. servlet-context.xml 에서 interceptor을 등록합니다.
+
+- (3-1)
+
+```
+web.xml에서는 웹애플리케이션 전체에 대한 정보를 나타냅니다.
+
+web.xml에서 spring과 관련된 정보를 가진 servlet-context.xml 파일을 불러옵니다.
+
+```
+
+<br>
+
+- (3-2) **`servlet-context.xml`** 에서 Interceptor을 등록합니다.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	<annotation-driven />
+
+	<resources mapping="/resources/**" location="/resources/" />
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+
+	<context:component-scan base-package="com.kh.spring" />
+
+
+
+	<!--  interceptor을 등록합니다. -->
+	<interceptors>
+		<interceptor>
+      <!--
+        전체 url을 요청할때마다 TestInterceptor을 호출합니다.
+     -->
+			<mapping path="/**"/>
+			<beans:bean id="testInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor"/>
+		</interceptor>
+	</interceptors>
+
+</beans:beans>
+```
+
+<br>
+
+- ### 수행결과
+
+```
+DEBUG: TestInterceptor.preHandle{22} - ========== START =============
+DEBUG: TestInterceptor.preHandle{23} - /spring/home.do
+INFO : com.kh.spring.HomeController 테스트입니다. - Welcome home! The client locale is ko_KR. => 루트로거 호출
+INFO : com.kh.spring.HomeController 테스트입니다. - Welcome home! The client locale is ko_KR. => 루트로거 호출
+DEBUG: TestInterceptor.postHandle{35} - =============== VIEW =============
+INFO : org.springframework.web.servlet.DispatcherServlet 테스트입니다. - Completed initialization in 2158 ms => 루트로거 호출
+DEBUG: TestInterceptor.afterCompletion{45} - =============== END =============
+```
+
+<br>
+
+위의 수행결과는 home.do url을 호출했을 때 콘솔에 출력된 로그들이다.
+
+TestInterceptor의 수행결과를 볼 수 있다.
+
+```
+// preHandle() 메소드 호출: Controller을 수행하기 이전
+DEBUG: TestInterceptor.preHandle{22} - ========== START =============
+
+// postHandle() 메소드 호출: Controller을 수행한 이후
+DEBUG: TestInterceptor.postHandle{35} - =============== VIEW =============
+
+// afterCompletion() 메소드 호출: 모든 과정이 완료한 경우
+DEBUG: TestInterceptor.afterCompletion{45} - =============== END =============
+```
+
+<br>
+
+TestInterceptor은 모든 url요청에 대하여 호출하게 되므로
+
+`member-context.xml` 과 `board-context.xml` 에도 Interceptor을 등록하면된다.
+
+<br>
+
+> ### member-context.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--  xmlns: 주로 사용함. -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	<mvc:annotation-driven/>
+	<mvc:resources mapping="/resources/**" location="/resources/"/>
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/member/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+	<context:component-scan base-package="com.kh.spring"/>
+
+
+
+	<!--inerceptor을 등록합니다-->
+	<mvc:interceptors>
+    <!-- TestInterceptor을 등록합니다.-->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean id="testInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+</beans>
+```
+
+<br>
+
+> ### board-context.xml
+
+- 코드 뜯어보기
+
+```xml
+<mvc:interceptors>
+  <!-- TestInterceptor을 등록합니다 -->
+  <mvc:interceptor>
+
+    <!-- 모든 url 요청을 받으면 TestInterceptor을 수행합니다.-->
+    <mvc:mapping path="/**"/>
+    <bean id="testInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor"/>
+  </mvc:interceptor>
+</mvc:interceptors>
+```
+
+- board-context.xml 코드
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<mvc:annotation-driven/>
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/board/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<context:component-scan base-package="com.kh.spring"/>
+
+
+  <!-- interceptor을 등록합니다 -->
+  <mvc:interceptors>
+    <!-- TestInterceptor을 등록합니다 -->
+  	<mvc:interceptor>
+  		<mvc:mapping path="/**"/>
+  		<bean id="testInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor"/>
+  	</mvc:interceptor>
+  </mvc:interceptors>
+</beans>
+```
+
+<br><br>
+
+<hr>
+
+> ## Interceptor을 이용한 실습 1
+
+<br>
+
+```
+게시판은 로그인을 해야 이용할 수 있도록해보자.
+
+즉, 로그아웃 상태에서 게시판 조회(blist.bo) 할 때
+
+"로그인후 이용해주세요!" 라는 메시지를 출력해주는 Interceptor을 만들어보자.
+
+로그아웃 상태에서는 게시판에 입장을 못하게 하자.
+```
+
+<br>
+
+- ### 1. Interceptor 클래스를 만듭니다.
+  - BoardEnterInterceptor.java 를 만듭니다.
+  - Interceptor 클래스는 `src/main/java` > `com.kh.spring.common`에 위치한다.
+
+> ### BoardEnterInterceptor.java
+
+```java
+package com.kh.spring.common.interceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import com.kh.spring.member.model.vo.Member;
+
+// 로그인을 하지 않으면 게시판 요청을 했을 때 "로그인 후 이용하세요" 라는 경고메시지를 띄운후
+// 메인화면으로 가게 만드는 Interceptor
+public class BoardEnterInterceptor extends HandlerInterceptorAdapter{
+
+	//preHandler - blist.bo 요청이 들어가기 전에 요청을 수행하는 Controller을 수행하기 이전에!
+  //컨트롤러에 url요청을 하기전에 경고성메시지를 띄워야하기때문에 preHandle을 사용한다.
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+
+		HttpSession session = request.getSession();
+		Member loginUser= (Member)session.getAttribute("loginUser");
+
+    //로그인이 안됐을 때만, 경고성 메시지를 띄우도록한다.
+		if(loginUser==null) {
+			request.setAttribute("msg", "로그인 후 이용하세요!");
+
+      // home.jsp로 이동한다.
+			request.getRequestDispatcher("WEB-INF/views/home.jsp").forward(request, response);
+			return false;
+		}
+
+		return super.preHandle(request, response, handler); //항상 true를 반환한다.
+	}
+}
+
+```
+
+<br>
+
+- ### 2. home.jsp에서 경고성메시지를 javascript의 alert()로 나타낸다.
+
+> ### home.jsp
+
+```jsp
+<%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" %>
+<html>
+<head>
+	<title>Home</title>
+	<style>
+		#tb{margin: auto; width:700px;}
+	</style>
+</head>
+<body>
+	<c:import url="common/menubar.jsp"/>
+
+  <%-- 경고성 메시지를 표현.--%>
+	<script>
+		$(function(){
+			var msg='${msg}';
+			if(msg!=''){
+				alert(msg);
+			}
+		});
+	</script>
+
+
+	<h1 align="center">게시글 TOP5목록</h1>
+	<table id="tb" border="1">
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>날짜</th>
+				<th>조회수</th>
+				<th>첨부파일</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+	</table>
+
+	<script>
+		function topList(){
+			$.ajax({
+				url: 'topList.bo',
+				success: function(data){
+					$tableBody=$('#tb tbody');
+					$tableBody.html(''); //이미들어온것들을 더 추가못하게함.
+
+					for(var i in data){
+						var $tr =$('<tr>');
+						var $bId= $('<td>').text(data[i].bId);//글번호
+						var $bTitle=$('<td>').text(data[i].bTitle);//제목
+						var $bWriter=$('<td>').text(data[i].bWriter);//작성자
+						var $bCreateDate=$('<td>').text(data[i].bCreateDate);//날짜
+						var $bCount=$('<td>').text(data[i].bCount);//조회수
+						var $bFile=$('<td>').text(" ");//첨부파일
+						if(data[i].originalFileName !=null){
+							$bFile=$('<td>').text("O");
+						}
+						$tr.append($bId);
+						$tr.append($bTitle);
+						$tr.append($bWriter);
+						$tr.append($bCreateDate);
+						$tr.append($bCount);
+						$tr.append($bFile);
+						$tableBody.append($tr);
+					}
+				}
+			});
+		}
+
+		$(function(){
+			topList();
+			setInterval(function(){
+				topList();
+			},5000);
+		});
+	</script>
+</body>
+</html>
+```
+
+<br>
+
+- ### 3. board-context.xml 에서 interceptor을 등록합니다.
+  - 1단계에서 만든 BoardEnterInterceptor을 등록합니다.
+
+> ### board-context.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
+
+	<mvc:annotation-driven/>
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/board/"/>
+		<property name="suffix" value=".jsp"/>
+	</bean>
+
+	<context:component-scan base-package="com.kh.spring"/>
+
+
+	<!--  interceptor을 등록합니다. -->
+	<mvc:interceptors>
+
+    <!-- TestInterceptor을 등록합니다. -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean id="testInterceptor" class="com.kh.spring.common.interceptor.TestInterceptor"/>
+		</mvc:interceptor>
+
+    <!--BoardEnterInterceptor 을 등록합니다 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/blist.bo"/>
+			<bean id="boardEnterInterceptor" class="com.kh.spring.common.interceptor.BoardEnterInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+</beans>
+```
+
+<br>
+
+- ### BoardEnterInterceptor 등록 xml코드 분석하기
+
+```xml
+<!--BoardEnterInterceptor 을 등록합니다 -->
+<mvc:interceptor>
+  <!--
+    BoardEnterInterceptor이 어떤 url을 요청했을때만, 나타낼것인지를 정합니다.
+
+    여기서는 "/blist.bo" 라는 url을 요청할때 BoardEnterInterceptor객체를 불러옵니다.
+  -->
+  <mvc:mapping path="/blist.bo"/>
+
+  <!--BoardInterceptor 클래스에 대한 정보를 등록합니다-->
+  <bean id="boardEnterInterceptor" class="com.kh.spring.common.interceptor.BoardEnterInterceptor"/>
+</mvc:interceptor>
+```
+
+<br>
+
+
+
+<br><br>
+
+<hr>
+
+> ### login.log 파일
+
+![](./login_log.PNG)
+
+<br>
+
+enrollView()메소드를 호출할때도 login.log 파일에서 기록되고
+
+MemberController에서 login() 메소드를 호출할때도 login.log파일에서 기록된다.
+
+왜 같이 기록될까?
+
+
+> ### log4j.xml
+
+```xml
+<!--appender  -->
+<appender name="myDailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+	<param name="File" value="/logs/member/login.log"/>
+	<param name="Append" value="true"/>
+
+	<param name="encoding" value="UTF-8"/>
+	<param name="DataPattern" value="'.'yyyyMMdd"/>
+
+	<layout class="org.apache.log4j.PatternLayout">
+		<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+	</layout>
+</appender>
+
+<!-- logger-->
+<logger name="com.kh.spring.member.controller.MemberController" additivity="false">
+	<level value="debug"/>
+	<appender-ref ref="myConsole"/>
+
+  <!-- 파일에서 로그를 출력하는 appender -->
+	<appender-ref ref="myDailyRollingFile"/>
+</logger>
+
+```
+
+<br>
+
+`log4j.xml` 파일을 보면 위의 logger은 `MemberController`에 대해서
+
+이름이 "myDailyRollingFile" appender을 참고하고 있다.
+
+즉 MemberController 안에 있는 모든 메소드에서(url요청) 따라서
+
+로그파일 login.log에 로그를 출력하고 있다는 것이다.
+
+그렇다면, Interceptor을 이용하여 분리시킬 수 없을까?
+
+즉, login() 메소드를 호출할 때만 login.log파일에 저장할 수 없을까?
+
+<br>
+
+
+
+> ## Interceptor을 이용한 실습2 - 숙제!
