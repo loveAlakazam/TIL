@@ -12,6 +12,42 @@ Spring프로젝트를 시작하다보면 Console에 빨간색 글씨가 보일�
 
 <br>
 
+> ### HomeController.java
+
+```java
+package com.kh.spring;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+
+/**
+ * Handles requests for the application home page.
+ */
+@Controller
+public class HomeController {
+
+	//클래스에 대한 정보를 같이 보내줘야 로그출력이 가능하다.
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
+	public String home(Locale locale, Model model) {
+		logger.info("Welcome home! The client locale is {}.", locale);
+
+		return "home";
+	}
+}
+```
+
+<br>
+
 로그를 관리하는 파일은 **`src/min/resources/log4j.xml`** 이다.
 
 <br>
@@ -103,7 +139,7 @@ Spring프로젝트를 시작하다보면 Console에 빨간색 글씨가 보일�
 `<appender name="console" class="org.apache.log4j.ConsoleAppender">`
 
 - 이름이 **console**이다.
-- <logger>나 <root>에 <appender-ref ref="console"/>이라함은, 이름이 console인 appender을 참고한다는 의미이다.
+- `<logger>`나 `<root>`에 `<appender-ref ref="console"/>`이라함은, **이름이 console인 appender을 참고한다**는 의미이다.
 
 <br>
 
@@ -187,7 +223,206 @@ INFO : org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 
 |%M|로깅이 발생한 메소드이름을 출력한다.|
 |%r|애플리케이션 시작 이후부터 로깅이 발생한 시점의 시간(단위: milliseconds, ms)를 출력한다.|
 
+<br><br>
+
+> ## logger (Application logger)
+
+```xml
+<logger name="com.kh.spring">
+  <level value="info"/>
+  <appender-ref ref="console"/>
+</logger>
+```
+
 <br>
 
+- ### `<level value="info"/>` : 로그를 출력할 수 있는 레벨을 의미한다.
+
+- ### `<appender-ref ref="console">` : 이름이 console인 `<appender>`을 참고한다.
+
+- ### `<logger name="com.kh.spring" additivity="false">` : 중복출력을 중지한다. `<root>`(루트로거)를 거치지 않음을 의미한다.
+
+<br><br>
+
+> ## 로그 레벨
+
+- 로그 레벨에서 debug < info < warn < fatal 순으로 되어있다.
+- 오른쪽위치(아래 표에서 아래로 갈 수록) 주의를 해야하는 레벨이다.
+- 만약에 `<logger>`태그에서 설정한 레벨이 **info**라면
+  - 이전인 debug레벨은 로그를 출력하지 않고
+  - info이후의 레벨인, info, warn, fatal일때만 로그를 출력한다.
+
+<br>
+
+|로그 레벨|설명|
+|:--:|:--:|
+|trace|debug의 레벨이 광범위하기 때문에 자세한 이벤트를 나타낼때나 정보를 추적할 때 사용된다.|
+|debug|개발시 디버그 용도로 사용되는 메시지이다.|
+|info|상태변경을 나타내는 정보성 메시지이다.|
+|warn|에러가 발생할 수 있다는 경고성 메시지이다.<br>프로그램 실행중에는 문제가 없지만, 나중에 에러의 원인이 될 수있다는 경고성 메시지이다.|
+|error|심각한 에러는 아니지만, 어떤 요청을 처리할때 발생하는 에러를 나타내는 메시이다.|
+|fatal|아주 심각한 에러일 때 발생하는 메시지이다.|
+
+<br><br>
+
+
+> ## Logger 실습하기!
+
+```
+DEBUG: MemberController.enrollView{300} - 회원등록페이지
+라는 로그를 콘솔에 출력해보자.
+
+- {300} 안의 300은 라인수를 나타낸다.
+- 조건: 새로운 Appender를 추가하여 중복 로그를 출력하지 않도록한다.
+```
+<br>
+
+> ## 풀이 과정
+
+### 1. MemberController.java 에서 enrollView()메소드에서 로거를 호출
+
+- (1-1) LoggerFactory객체를 호출하여 logger을 호출한다.
+
+```java
+private Logger logger= LoggerFactory.getLogger(MemberController.class);
+```
+
+<br>
+
+- (1-2) enrollView() 메소드에서 로거를 호출한다.
+
+```java
+@RequestMapping(value="login.me", method=RequestMethod.POST)
+	public String login(@ModelAttribute Member m, Model model) {
+		Member loginUser= mService.memberLogin(m);
+		boolean isPwdCorrect= bcryptPasswordEncoder.matches(m.getPwd(),  loginUser.getPwd());
+		if(isPwdCorrect) {
+
+      //로그인이 성공시에 logger을 호출하고
+      //info레벨에서 로그를 출력한다.
+			logger.info("회원등록 페이지");
+
+		}else {
+			//비밀번호가 틀리면 exception을 발생
+		}
+		return "redirect:home.do";
+	}
+```
+
+<br>
+
+- MemberController.java
+
+```java
+@SessionAttributes("loginUser")
+@Controller
+public class MemberController{
+  @Autowired
+  private MemberService mService;
+
+  @Autowired
+  private BcryptPasswordEncoder bcrytPasswordEncoder;
+
+  //1. logger 추가하기
+  private Logger logger= LoggerFactory.getLogger(MemberController.class);
+
+
+  @RequestMapping(value="login.me", method=RequestMethod.POST)
+  public String login(@ModelAttribute Member m, Model model) {
+    Member loginUser= mService.memberLogin(m);
+    boolean isPwdCorrect= bcryptPasswordEncoder.matches(m.getPwd(),  loginUser.getPwd());
+
+    if(isPwdCorrect) {
+      model.addAttribute("loginUser", loginUser);
+
+      //2. 로그를 호출하여, info레벨부터 로그를 출력한다.
+      logger.info("회원 등록페이지");
+
+    }else {
+      throw new MemberException("로그인에 실패하였습니다.");
+    }
+
+    System.out.println(m);
+    return "redirect:home.do";
+  }
+}
+```
+
+<br><br>
+
+### 2. log4j.xml 에서 `<appender>` 와 `<logger>`을 추가한다.
+
+### (2-1) `<appender>`을 추가한다.
+
+```xml
+<appender name="myConsole" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c{1}.%M{%L} - %m%n" />
+		</layout>
+	</appender>
+```
+
+<br>
+
+- #### **`<appender name="myConsole" class="org.apache.log4j.ConsoleAppender">`**
+  - `name=myConsole` : appender이름을 myConsole로 한다.
+  - `class="org.apache.log4j.ConsoleAppender"`
+    - 콘솔에서 로그를 출력한다
+    - ConsoleAppender은 org.apache.log4j 패키지에 존재한다.
+
+- #### **`<param name="Target" value="System.out"/>`**
+  - System.out.print 을 이용하여 콘솔에 출력한다.
+
+- #### **`<param name="ConversationPattern" value="%-5p: %c{1}.%M{%L} - %m%n">`**
+  - **`%-5p`** : 왼쪽정렬하여, 로그레벨(debug/ info/ warn / fatal)를 출력한다
+    - 위에서 MemberController의 enrollView()메소드에서 logger.info()로 로거를 호출했으므로
+    - **enrollView()메소드를 호출할 때마다, 로그레벨 info, warn, fatal에 대한 로그만 출력을 한다.**
+
+  - **`%c{1}`**: 클래스 패키지(카테고리) 중 가장 오른쪽에 있는 것을 출력
+    - `%c` : com.kh.spring.member.controller.MemberController
+    - `%c{1}` : MemberController
+
+  - **`%M`** => 로그가 발생한 메소드 이름을 출력
+    - `%M` : enrollView
+
+  - **`%L`** : caller의 라인수를 출력
+
+  - **`%m`** : 로거에서 전송하려는 메시지를 출력
+    - 위의 컨트롤러를 참고하면, `회원등록 페이지` 를 의미한다.
+
+  - **`%n`** : 개행문자.
+
+<br>
+
+### (2-2) 위의 appender을 참고하는 `<logger>`을 추가한다.
+
+```xml
+<logger name="com.kh.spring.member.controller.MemberController" additivity="false">
+  <level value="debug"/>
+  <appender-ref ref="myConsole"/>
+</logger>
+```
+
+<br><br>
+
+
+> ### log4j.xml
+
+```xml
+<appender name="myConsole" class="org.apache.log4j.ConsoleAppender">
+
+  <param name="Target" value="System.out">
+  <layout class="org.apache.log4j.PatternLayout">
+    <param name="ConversionPattern" value="%-5p: %c{1}.%M{%L} - %m%n"/>
+  </layout>
+</appender>
+
+<logger name="com.kh.spring.member.controller.MemberController" additivity="false">
+  <level value="debug"/>
+  <appender-ref ref="myConsole"/>
+</logger>
+
+```
 
 <br><br>
