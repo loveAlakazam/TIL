@@ -1254,6 +1254,15 @@ public class MemberLoginInterceptor extends HandlerInterceptorAdapter{
 
 ```
 
+<br>
+
+- #### login.log 파일을 살펴보자
+
+```
+20-10-26 23:36:33 [DEBUG - onlyLogin] MemberLoginInterceptor.afterCompletion - 로그인 계정: user01
+20-10-26 23:50:06 [DEBUG - onlyLogin] MemberLoginInterceptor.afterCompletion - 로그인 계정: user02
+```
+
 <br><br>
 
 > ## 숙제 해답
