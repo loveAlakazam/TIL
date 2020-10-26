@@ -112,9 +112,9 @@ public class HomeController {
 
 ```xml
 <root>
-		<priority value="warn" />
-		<appender-ref ref="console" />
-	</root>
+	<priority value="warn" />
+	<appender-ref ref="console" />
+</root>
 ```
 
 <br>
@@ -126,7 +126,6 @@ public class HomeController {
   <param name="Target" value="System.out" />
 
   <layout class="org.apache.log4j.PatternLayout">
-
     <param name="ConversionPattern" value="%-5p: %c - %m%n" />
   </layout>
 </appender>
@@ -176,9 +175,7 @@ INFO : org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 
 ```xml
 <appender name="console" class="org.apache.log4j.ConsoleAppender">
   <param name="Target" value="System.out" />
-
   <layout class="org.apache.log4j.PatternLayout">
-
     <param name="ConversionPattern" value="%-5p: %c - %m%n" />
   </layout>
 </appender>
@@ -265,6 +262,7 @@ INFO : org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 
 
 <br><br>
 
+<hr>
 
 > ## Logger 실습하기 1 - 콘솔에 로그를 출력하기.
 
@@ -319,19 +317,21 @@ public class MemberController{
   @Autowired
   private BcryptPasswordEncoder bcryptPasswordEncoder;
 
+  // 1. LoggerFactory객체로부터 logger을 갖고온다.
   private Logger logger= LoggerFactory.getLogger(MemberController.class);
 
   //중략//
 
-	@RequestMapping("enrollView.me")
-	public String enrollView() {
-    
-		// 디버그 레벨인지 확인한다.
-		if(logger.isDebugEnabled()) {
-			logger.debug("회원 등록 페이지");
-		}
-		return "memberJoin";
-	}
+  @RequestMapping("enrollView.me")
+  public String enrollView() {
+
+  	// 디버그 레벨인지 확인한다.
+  	if(logger.isDebugEnabled()) {
+      //2. 디버그 레벨의 로그를 콘솔에 출력한다.
+  		logger.debug("회원 등록 페이지");
+  	}
+  	return "memberJoin";
+  }
 }
 ```
 
@@ -370,7 +370,7 @@ public class MemberController{
     - `%c` : com.kh.spring.member.controller.MemberController
     - `%c{1}` : MemberController
 
-  - **`%M`** => 로그가 발생한 메소드 이름을 출력
+  - **`%M`** : 로그가 발생한 메소드 이름을 출력
     - `%M` : enrollView
 
   - **`%L`** : caller의 라인수를 출력
@@ -414,6 +414,7 @@ public class MemberController{
 
 <br><br><br>
 
+<hr>
 
 > ## Logger 실습하기 2 - 파일에 로그를 저장하기
 
@@ -447,7 +448,7 @@ public class MemberController{
     if(isPwdCorrect) {
       model.addAttribute("loginUser", loginUser);
 
-      //2. 로그를 호출하여, info레벨부터 로그를 출력한다.
+      //2. 로그를 호출하여, info레벨부터 로그를 파일에 출력한다.
       // 이때 출력되는 로그는 로그인한 회원아이디이다.
       logger.info(loginUser.getId());
 
@@ -471,7 +472,7 @@ public class MemberController{
     <!--myConsole 이란 이름의 appender을 참조한다. -->
 		<appender-ref ref="myConsole"/>
 
-    <!--myDailyRollingFile 이란 이름의 appender을 참조한다. -->
+    <!--(logger등록) myDailyRollingFile 이란 이름의 appender을 참조한다. -->
 		<appender-ref ref="myDailyRollingFile"/>
 	</logger>
 ```
@@ -481,8 +482,10 @@ public class MemberController{
 - ### (3) (2)에서 등록한 logger을 참조하는 appender을 만듭니다!
 
 ```xml
+<!-- DailyRollingFileAppender은 파일에 로그기록을 출력하도록 하는 객체입니다.-->
 <appender name="myDailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
 		<!--로그 파일 위치를 정한다. -->
+    <!--로그파일 login.log의 위치는: C드라이브의 logs/member에 있습니다.-->
 		<param name="File" value="/logs/member/login.log"/>
 		<param name="Append" value="true"/>
 
@@ -499,7 +502,7 @@ public class MemberController{
 
 <br><br>
 
-- ### (1), (2) 전체 코드
+- ### (2), (3) 전체 코드 - log4j.xml
 
 ```xml
 <!--appender -->
@@ -528,6 +531,36 @@ public class MemberController{
 </logger>
 ```
 
+<br>
+
+- ### login.log 파일
+
+![](./login_log.PNG)
+
 <br><br>
+
+- ### Controller을 기준으로, Interceptor과 AOP 과정을 포함한 요청처리과정
+
+
+![](./spring3_pattern01.png)
+
+<br>
+
+![](./spring3_pattern02.png)
+
+<br><br>
+
+- 컨트롤러(Controller)를 기준으로 보내는 값과 받는 값을 처리
+- 컨트롤러에 관한 요청이나 응답에 대한 처리가 필요한 경우에는 Interceptor을 이용한다.
+  - Interceptor은 DispatcherServlet에서 호출했느냐의 관점을 컨트롤러로 할 수 있다.
+
+  - Interceptor을 구성하는 3개의 메소드가 있다.
+    - 컨트롤러를 실행하기 전: **preHandler()**
+    - 컨트롤러를 실행한 후: **postHandler()**
+    - 모든 작업을 완료시킨 후: **afterCompletion()**
+
+<BR>
+
+<hr>
 
 > ## Interceptor을 이용하여 로그를 출력하자.
