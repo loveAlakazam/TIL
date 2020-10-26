@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
+	//클래스에 대한 정보를 같이 보내줘야 로그출력이 가능하다.
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**

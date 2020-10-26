@@ -2,11 +2,11 @@ package com.kh.spring.member.controller;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,6 +63,9 @@ public class MemberController {
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	
 	
+	//MemberController에서 logger을 추가한다.
+	private Logger logger = LoggerFactory.getLogger(MemberController.class);
+	private Logger loginLogger= LoggerFactory.getLogger(MemberController.class);
 	
 	/*
 	 [파라미터 전송방법]
@@ -239,11 +242,15 @@ public class MemberController {
 		 * 
 		 * 어떻게 매치되는지는 공개되어있지 않다.
 		 * 맞으면 true / 틀리면 false => boolean타입으로 반환함.
-		 * */
+		 *
+		 **/
 		boolean isPwdCorrect= bcryptPasswordEncoder.matches(m.getPwd(),  loginUser.getPwd());
 		if(isPwdCorrect) {
 			//비밀번호가 맞으면 넘어간다.
 			model.addAttribute("loginUser", loginUser);
+			logger.info(loginUser.getId());
+			loginLogger.info(loginUser.getId());
+			
 		}else {
 			//비밀번호가 틀리면 exception을 발생
 			throw new MemberException("로그인에 실패하였습니다.");
@@ -274,6 +281,11 @@ public class MemberController {
 	//회원가입  페이지로 이동
 	@RequestMapping("enrollView.me")
 	public String enrollView() {
+		//메소드를 넘긴다.
+		// 디버그 레벨인지 확인한다.
+		if(logger.isDebugEnabled()) {
+			logger.debug("회원 등록 페이지"); 
+		}
 		return "memberJoin";
 	}
 	

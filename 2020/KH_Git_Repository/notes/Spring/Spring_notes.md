@@ -1014,6 +1014,11 @@ public class HomeController {
 
 > ## servlet-context.xml
 
+- **mvc**
+  - 근거: `beans:beans xmlns="http://www.springframework.org/schema/mvc"`
+  - xmlns: 파일에서 주로 mvc를 사용한다.
+  - 기본이 mvc이니, beans꺼를 사용하려면,  beans 네임스페이스 안에서 갖고와야한다 불러와야한다
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
@@ -1023,6 +1028,8 @@ public class HomeController {
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+  <!-- mvc에서는 기본/ beans는 안됨.-->
 	<annotation-driven />
 
 	<resources mapping="/resources/**" location="/resources/" />
@@ -1040,6 +1047,13 @@ public class HomeController {
 <br>
 
 > ## member-context.xml
+
+- **beans**
+  - 근거: `xmlns="http://www.springframework.org/schema/beans"`
+  - xmlns : 주로 beans 타입을 사용하겠다.
+    - 기본적으로 beans를 사용. <beans> 태그 생략가능.
+
+    - mvc꺼를 사용하려면 mvc를 불러와야함.
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -1060,10 +1074,12 @@ public class HomeController {
 		<property name="prefix" value="/WEB-INF/views/member/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
-  
+
 	<context:component-scan base-package="com.kh.spring"/>
 </beans>
 ```
+<br>
+
 
 
 <BR><br><br>
@@ -1130,3 +1146,17 @@ public class HomeController {
 ```
 
 <br><br>
+
+
+> # Controller 만들기 (MemberController.java)
+
+```java
+public class MemberController{
+
+  @Controller
+  @RequestMapping(value="login.me", method=RequestMethod.host)
+  public void login(){
+    System.out.println("로그인 처리합니다.");
+  }
+}
+```

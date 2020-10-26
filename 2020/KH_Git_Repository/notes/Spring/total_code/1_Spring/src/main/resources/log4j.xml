@@ -3,17 +3,146 @@
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
+	<!--로그가 전달됐을때, 전달된 로그를 어디에 출력할지를 결정하는 곳이다.(콘솔/ 파일/ DB)  
+	
+		ConsoleAppender 	: 	로그를 콘솔에 출력하기 위한 Appender
+		JDBCAppender		:	로그를 DB에 출력하기 위한 Appender
+		FileAppender		:	로그를 파일에 출력하기 위한 Appender
+		RollingFileAppender	:	FileAppender을 보완한 개념.
+								일정 조건 후 기존 파일을 백업 파일로 바꾸고 다시 처음부터 시작(ex. DailyRollingFileAppender)
+								DailyRollingFileAppender: 전에 있던것을 백업으로 바꾸고 다시 처음부터 시작
+	-->
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+	
+		<!--value="System.out":  로그를 콘솔에 출력  -->
 		<param name="Target" value="System.out" />
+		
+		<!--PatternLayout: %-5p: %c - %m%n : 패턴에따라 로그를 어떻게 찍힐지를 나타내는 내용을 결정한다. - 포맷터에 의해 형식을 유지함.
+		로그의 5가지 단계
+		
+		%p		: debug, info, warn , error, fatal 등의 priority(로그레벨)를 출력한다.
+		%m		: 로그 내용을 출력한다.
+		%d		: 로깅 이벤트가 발생한 시간을 출력한다(프로그램 속도를 느리게 할 수도 있다)
+		%t		: 로그 이벤트가 발생한 스레드 이름을 출력한다.
+		%%		: %를 출력한다
+		%n		: 개행문자를 출력
+		%c		: package(카테고리) 를 출력
+		%c{n} 	: n(숫자) 만큼의 package를 가장 하단부터 역으로 출력
+					카테고리가 a.b.c로 되어있다면 
+					%c{2}는 b.c를 출력한다.
+		%C		: 호출자의 클래스 명을 출력한다.
+					클래스 구조가 a.b.c처럼 되어있다면 %C{2} 는 b.c로 출력
+		%F		: 로깅이 발생한 프로그램 파일명을 출력한다.
+		%l		: 로깅이 발생한 caller의 정보를 출력한다.
+		%L		: 로깅이 발생한 caller의 라인수를 출력한다.
+		%M		: 로깅이 발생한 method이름을 출력한다.
+		%r		: 애플리케이션 시작 이후부터 로깅이 발생한 시점의 시간(milliseconds)를 출력한다.
+		
+		-->
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<!-- <param name="ConversionPattern" value="%-5p: %c - %m%n" /> -->
+			<param name="ConversionPattern" value="%-5p: %c 테스트입니다. - %m%n" />
 		</layout>
 	</appender>
 	
+	<!--Logger 실습  -->
+	<appender name="myConsole" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c{1}.%M{%L} - %m%n" />
+			<!-- DEBUG: MemberController.enrollView{282} - 회원 등록 페이지  -->
+		</layout>
+	</appender>
+	
+	
+	<!--로그인할때 로거  -->
+	<appender name="myDailyRollingFile" class="org.apache.log4j.DailyRollingFileAppender">
+		<!--로그 파일 위치를 정한다.  C드라이브에 위치해있다.-->
+		<param name="File" value="/logs/member/login.log"/>
+		<param name="Append" value="true"/>
+		
+		<!--로그파일 인코딩 설정 -->
+		<param name="encoding" value="UTF-8"/>
+		<param name="DataPattern" value="'.'yyyyMMdd"/>
+		
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+		</layout>
+	</appender>
+	
+	<!--onlyLogin  -->
+	<appender name="onlyLogin" class="org.apache.log4j.DailyRollingFileAppender">
+		<!--로그 파일 위치를 정한다.  C드라이브에 위치해있다.-->
+		<param name="File" value="/logs/member/login/onlyLogin.log"/>
+		<param name="Append" value="true"/>
+		
+		<!--로그파일 인코딩 설정 -->
+		<param name="encoding" value="UTF-8"/>
+		<param name="DataPattern" value="'.'yyyyMMdd"/>
+		
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yy-MM-dd HH:mm:ss} [%p] %c{1}.%M{%L} - %m%n"/>
+		</layout>
+	</appender>
+	
+	
 	<!-- Application Loggers -->
+	<!--
+		com.kh.spring info라는 레벨을 처리한다. 패키지에대한 로거레벨들을 받는다.
+		오타 유의 !! => 빨간색 밑줄이 안나온다!
+		
+		debug < info < warn < error < fatal
+		오른쪽일수록 : 위험한레벨
+		설정한 레벨(level)속성 값 이상만 화면에 보인다.
+		(ex. info로 설정하면 debug로 설정한 log는 보이지 않는다)
+		
+		value="info" 설정시
+		=> info를 포함한 warn, error, fatal레벨 에 대한 로깅을 나타내지만
+		=> debug레벨의 로깅이 출력이 안된다.
+		
+		
+		fatal: 아주 심각한 에러일때 발생하는 레벨이다.
+		error: 심각한 에러는 아니지만, 어떤 요청 처리중에 문제바생할때 발생하는 레벨이다.
+		warn: 에러가 발생할 수 있다는 경고성 메시지.
+				프로그램 실행중에는 문제가 없지만 향후 시스템 에러원인이 될 수 있는 경고성 메시지.
+				
+		info: 상태변경과 같은 정보성 메시지
+		debug: 개발시 디버그 용도로 사용되는 메시지.
+		
+		trace: debug의 범위가 넓기때문에, 자세한 이벤트를 나타내거나 정보를 추적할 때 사용된다.
+				debug레벨이 너무 광범위한 것을 해결하기 위해 좀더 상세한 이벤트를 나타낸다(경로 추적)
+		
+		<logger name="com.kh.spring" additivity="false">
+		additivity="false" : 중복 출력을 중지 (루트로거로 가지 않겠다)
+	  -->
 	<logger name="com.kh.spring">
-		<level value="info" />
+		<!-- <level value="info" /> -->
+		<level value="debug" />
+		
+		<!-- 2번씩 출력: rootLogger에서 로거자체를 받아주고, 또 로거자체를 console에서 참고하기 때문에 한번더 출력.-->
+		<appender-ref ref="console"/>
 	</logger>
+	
+	<!--Logger 실습
+	Debug: MemberController.enrollView{300} 회원등록 페이지
+	라는 로그가 출력되도록 만들기 300은 라인수를 나타냄
+	조건: 새 Appender를 추가하고 중복 로깅 출력이 안되도록하기.
+	-->
+	<logger name="com.kh.spring.member.controller" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="myConsole"/>
+		<appender-ref ref="myDailyRollingFile"/>
+		
+		<!-- 로그인할때만 나타내는 로거의 appender을 찾는다. -->
+		<appender-ref ref="onlyLogin"/>
+	</logger>
+	
+	<!--로그인할때만 나타내는 로거!  -->
+	<!-- <logger name="com.kh.spring.member.controller" additivity="false">
+		<level value="debug"/>
+		
+	</logger> -->
+	
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
@@ -32,10 +161,17 @@
 		<level value="info" />
 	</logger>
 
+	<logger name="com.kh.spring.common.interceptor.TestInterceptor" additivity="false">
+		<level value="debug"/>
+		<appender-ref ref="myConsole"/>
+	</logger>
+
 	<!-- Root Logger -->
+	<!--모든 자식 logger들의 출력이 rootLogger을 통해서 이뤄진다.  -->
 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
+		
 	</root>
 	
 </log4j:configuration>
