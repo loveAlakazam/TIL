@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+	<!--LoggerAspect1 bean등록하기 -->
+	<bean id="loggerAspect" class="com.kh.spring.common.aop.LoggerAspect1"/>
+	
+	
+	<!--선언적 AOP -직접 XML을 등록하는 방법.  -->
+	<!-- 선언적 AOP 시작 
+		*  : 전체 리턴 타입
+		.. : 하위패키지
+		*(): 모든메소드
+		(..): 메소드의 인자개수 상관없이 모두 받겠다.
+	-->
+	<!-- 
+	<aop:config>
+		<aop:aspect id="loggerAspect" ref="loggerAspect">
+			<aop:pointcut expression="execution(* com.kh.spring.board..*(..))" id="pcForAll"/>
+			<aop:before method="loggerAdvice" pointcut-ref="pcForAll"/>
+			<aop:around method="loggerAdvice" pointcut-ref="pcForAll"/>
+		</aop:aspect>
+	</aop:config> 
+	-->
+	<!-- 선언적 AOP 끝 -->
+	
+	
+	<!-- 프로그래밍적 AOP시작 
+		annotation을 이용하여 aspcet를 만들고 있구나. 를 알수있다.
+	-->
+	<aop:aspectj-autoproxy/>
+	<!-- 프로그래밍적 AOP끝  -->
+</beans>
