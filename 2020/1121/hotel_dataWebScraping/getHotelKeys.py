@@ -42,18 +42,17 @@ def get_hotel_data(url):
 
     result = []
 
-    # 다음버튼 누를수있는 횟수 총 10번
-    for _ in range(10, 0, -1):
+    # 다음버튼 누를수있는 횟수 총 1번
+    for _ in range(1, 0, -1):
         driver.implicitly_wait(5)  # 5초 대기
         detail_keys = soup.select('ul.lst_hotel > li.ng-scope')
         result.extend([key['id'] for key in detail_keys])
 
         # 다음버튼을 누른다.
-        driver.find_element_by_xpath(
-            '/html/body/div/div/div[1]/div[2]/div[6]/div[2]/a[2]').click()
+        driver.find_element_by_xpath('/html/body/div/div/div[1]/div[2]/div[6]/div[2]/a[2]').click()
 
     # 창을 닫는다.
-    driver.close()
+    driver.quit()
     return result
 
 
