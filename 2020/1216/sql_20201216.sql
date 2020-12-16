@@ -1717,3 +1717,803 @@ Insert into TRIP2REAP.ROOM (ROOM_NO,BO_NO,ROOM_TYPE,ROOM_NAME,PRICE_PER_DAY) val
 Insert into TRIP2REAP.ROOM (ROOM_NO,BO_NO,ROOM_TYPE,ROOM_NAME,PRICE_PER_DAY) values ( SEQ_ROOM_NO.NEXTVAL , SEQ_BO_NO.CURRVAL ,'온돌룸','패밀리 온돌룸',316500);
 
 COMMIT;
+
+
+--12.14
+--1. 이규호
+-- 시작!          
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'엔타스시 신불당맛집','#맛집 #천안 #가성비','와사비의 찌릿(?)한 느낌이 싫어서 초밥을 안 먹고 있었다. 다행히 여기는 초밥이랑 와사비가 따로 나와서 초밥에 빠졌다는....( ^ω^ ) 김치는 2번이상 먹는거 잊지 말긔(^_-) 이번에는 참치(빨강)가 진짜 존맛 연어보다 더 부드러웠다')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'1.JPG','1.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',4,'아브뉴프랑에 유미카츠','#유미카츠 #천안 #시흥맛집','브뉴프랑에 유미카츠는돈까스 맛집인데 떡볶이까지 맛있어버려~사장님이 친절하기까지!사장님 돈방석 앉으시도록집에서도 꾸준히 쿠팡이츠로 시켜먹어야지!')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'2.JPG','2.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'점심추천합니다!','#오늘의점심 #비빔냉면 #불고기','
+가끔 매운게 땡길때가 있쥬😋
+그래서 오랜만에 매운 비냉과
+달달한 불고기를 클리어했답니당 ✨
+.
+🍦비빔냉면
+살짝 매콤하면서도
+고소한 참기름 향이 어우러져서 정말 맛있었어용!
+그 위에 아삭한 오이와 계란까지~ 꿀맛이었답니당🥰👍🏻
+.
+🍦불고기
+매콤한 비냉에 달달한 불고기 조합❤️
+세상 꿀조합이쥬😋❤️❤️')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'3.JPG','3.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',4,'이게 언제였더라........','#일산 #일산맛집 #필모어','다시가고 싶다 ㅠㅠ')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'4.JPG','4.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',4,'속초명물 소개드려요','#수육 #비빔냉면 #속초맛집','역시 국수에는 고기가 있어야 완성된 것 같아요')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'5.JPG','5.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'찹쌀탕수육은 역시!','#먹방샷 #먹방여행 #먹방','역시 중국집하면 찹쌀 탕수육!!')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'6.JPG','6.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'대관령주주파크 풍경1','#주주파크#대관령#대관령아이들과가볼만한곳','대관령주주파크 풍경')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'54.JPG','54.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'대관령주주파크 풍경2','#주주파크#대관령#대관령아이들과가볼만한곳','대관령주주파크 풍경')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'55.JPG','55.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',4,'2020년 마지막','#포항맛집#뿔난한우#가족외식','
+2020년 마지막, 가족끼리💚
+소고기 Time😍')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'10.JPG','10.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',4,'예림리김밥집!','#부산맛집#기장맛집#코로나통그뮤ㅠ','예림리김밥집!
+정관김밥집!
+코로나가 내건강 챙겨줌!
+금주금연!ㅠ')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'11.JPG','11.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'첫눈이 내렸어요☃️
+어딜 다니시든 눈길 조심하세요!','#대부도칼국수#대부도가볼만한곳#점심추천','눈 솔솔 내리는 날 생각나는
+모락모락 김이 나는 얼큰한 잔치국수 보고 가세요👍🏻
+
+장날 잔치국수는 고추를 우려낸 육수로,
+얼큰하면서 깊은 맛이 난답니다💛')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'12.JPG','12.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',4,'카페오션스버거','#맛집#지인추천','카페오션스버거')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'13.JPG','13.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',4,'영종도맛집 추천합니다!','#영종도맛집#무의도맛집#드라이브','첫눈와서 잠옷차림으로 무의도까지 와따가
+밥먹을라고 들어온곳이 맛집이여따니‼️ ')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'14.JPG','14.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'분당고기!','#하남돼지집#맛집#식사','하남에 있는 하남돼지집 시간되시면 꼭 가보세요!')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'15.JPG','15.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'분위기좋은 곳 발견!','#위례신설맛집 #맛집추천!','분위기 좋은 술집 찾다 알게된 서설
+2차로 가볍게 술한잔 하러 갔는데 메뉴가 맛있어
+이것저것 시켜 먹고 온 곳이랍니다 대체적으로 안주를 잘하는곳!')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'16.JPG','16.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',4,'가끔은 여유롭게','#제주맛집#세화부엌#제주도','아파트 담벼락보다는 바다를 볼 수 있는 창문이 좋아요. 그것도 통유리로')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'17.JPG','17.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',4,'첫눈오는날!','#hojokban#강남맛집#압구정로데오','첫 눈이 온 의미 있는 날 🐯⛄️')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'18.JPG','18.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'짜장짬뽕','#짜장면#짬뽕','존맛탱')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'22.JPG','22.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',4,'굴애의 굴순두부찌개','#공릉맛집#해장국#굴순두찌개','굴의 시원함과 부드럽게 얼큰한 굴애만의 굴순두부찌개')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'23.JPG','23.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',4,'육개장','#송도맛집#해장국','첫줄')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'24.JPG','24.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',4,'정갈한 한식한상','#울산맛집#한식#추천','코로나로 사진도 없고 해서 요즘 업데이트를 잘 안했는데, 오랜만에 예전 사진을 올려보네요 확진자는 엄청난 증가세고 모든분들 건강 잘챙기세요!')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'25.JPG','25.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',4,'간결한 식사한끼','#맛집#맛집탐방#냠냠','간결하게 식사하기 좋은 곳~')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'26.JPG','26.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'가을동화촬영지에요~','#속초여행#속초가볼만한곳#국내여행','갯배 탈수 있는곳 속초래요~~
+
+속초 아바이마을에서 갯배를 타볼수 있습니다
+
+유명한 아바이순대 생선구이 먹으러 갈때 청송동 아바이마을로 가지요
+
+가을동화촬영지로 유명해졌는데 지금도 유명세대단하구요
+
+1박2일 촬영팀도 다녀가서 더더 유명해요
+
+갯배타고 아바이순대 오징어순대도 먹어보고요 가을동화 촬영했던 은서네도 가봐요
+
+갯배의 낭만과 아름다운 바다 풍경만으로도 힐링되는곳입니다
+
+여러번 왔는데 이렇게 야경을 본건 처음인데
+빨강, 파랑의 금강 설악대교 넘 예쁜거 아니니?')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'41.JPG','41.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'낭만적인 길','#캐논이미지스토밍#유디니#정동진','오늘 하루 모든분들 수고많으셨습니다⠀
+특히 수험생분들의 시작을 응원합니다! ')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'42.JPG','42.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',3,'등명해변에서 바라본 정동진 썬크루즈🛳','#바다여행#국내여행#아름다운국내풍경','
+등명해변에서 바라본 정동진 썬크루즈🛳
+먹구름 덕분에 역동적으로 보였다😲')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'43.JPG','43.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'여기 대박이네','#킹크랩#영종도맛집#크','어제 먹은 미친 킹크랩
+그리고 미리받는 클스마스 선물 ㅎ')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'27.JPG','27.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'아침은 간단하게','#기사식당#연남동맛집#조기구이대박','생일에 맛있는 맛집~')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'28.JPG','28.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',4,'맛좋은 이자카야~','#맛집#위례신설맛집#고로케','이자카야 하면 떠오르는곳 위례 서설!
+주말 위례모임으로 짱맛있게 먹고 왔답니당
+안주메뉴도 다양하고 분위기도 대만족!')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'29.JPG','29.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',4,'대전 충남대근처 맛집','#대전#충남대#맛집','대전 충남대 스바라시라멘
+저는 쌀쌀한 날 우동보다는 라멘🍜')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'30.JPG','30.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'서울잠실롯데월드 몰 맛집','#서울잠실#롯데월드#맛집','서울 잠실 롯데월드몰 6층 봉추찜닭
+순살 (중)시켜서 다먹고 누룽지도 궁금해서
+시켜봤는데 다음엔 3개 시켜서 먹어야지😋')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'31.JPG','31.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',3,'하늘과바다','#제주도가볼만한곳 #해안도로 #하늘과바다','
+핸드폰카메라로 넘 잘찍었다며 셀프칭찬 😜😝
+기회가되면 제대로 배워보고싶당')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'32.JPG','32.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'조천읍닭머리해안','#테이스티트래블#제주도#제주시청', '닭머르해안
+
+• 해안누리길 50코스에 있는 제주도의 일몰 명소로 불리는 닭머르해안길. 바다쪽 바위가 닭 머리처럼 생겼다고 해서 붙여진 이름이라고 해요
+
+• 저는 일몰시간에 맞춰서 가진 못했지만 방문하신다면 일몰때 가는걸 추천드려요. 하지만 낮에도 파란 제주바다와 저멀리 보이는 정자, 길가에 가득한 억새가 장관을 만들어주는 곳이랍니다:)')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'33.JPG','33.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'함덕해수욕장','#함덕해수욕장#제주도#여행지','환상적인 바다뷰와 루프탑, 제주스타일의 파스타가 있는 곳 !!')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'34.JPG','34.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',3,'제주여행','#제주스냅#제주여행지#제주도','제주,,,')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'35.JPG','35.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'꺼멍돼지유명한곳','#서귀포#여행지#제주','제주도에서 가장 오겹이 맛있는곳 까망돼지~ 업체명이 까망돼지에요!!
+육지체인점이아니라 제주도에만 사장님께서 2군데 운영하신다하시네요 
+일반흑돼지 근고기가아니라 육즙가득한 오겹을 좋아하신다면 꼭 한번 방문해보세요~')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'36.JPG','36.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'제주도해안도로','#제주도여행 #제주도여행코스 #제주도해안도로 #무지개해안도로','노래들으면서 해안도로~')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'37.JPG','37.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'멋있는 일몰','#속초#일몰#추억','주말인데두 코로나땜에 집에만 
+있어야하구😥 
+
+몸이 근질근질ㅋㅋㅋ
+
+요즘 확진자 너무 많아서 
+다들 조심해용🙏🏻 
+')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'38.JPG','38.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'분위기 좋은 카페 보고 가세요~','#속초카페#정원카페#가볼만한곳','올 해 첫 눈이 이렇게 예쁘게 펑펑 내리다뇨🤭
+속초에 놀러오셨다가 각자의 집으로 돌아가시는 분들은 눈 길 조심해서 가시길 바래요🙏🏻
+⠀
+지금은 다시 그치고 해가 나네요:-)
+이른아침을 깨우신 분들이라면 예쁜 풍경을 보셨을거에요❄️')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'39.JPG','39.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'속초공방','#속초공방#속초가볼만한곳#속초원데이클래스','바다재료를 넘은 하바리움
+
+살짝 보이는 초록색 씨글라스 포인트인데.
+
+더 많이 담아야할까봐요.
+
+베이스로 깔은 미니자갈에 가리네요.
+
+소라는 기어오르는? 느낌으로. . ㅎㅎ')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'40.JPG','40.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',3,'손 시려워보이는 동상','#강릉 #정동진 #선크루즈호텔','동상입니다')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'44.JPG','44.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'조개탕 맛집!','#아산맛집#아산조개상회#조개찜','아산조개상회')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'19.JPG','19.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',4,'진진수산 가성비 갑!','#모듬회#맛집#진진수산','구성은 왼쪽부터 차례대로 숭어, 도미, 연어, 농어였는데
+숭어: 쫀쫀하고 고소하고 식감 좋음
+도미: 마스까와 해서 적당히 쫄깃하고 적당히 부드러움 상쾌하고 두툼해서 먹기 좋음
+연어: 부드러워서 입에서 녹음
+농어: 도미보다 좀 더 탱탱한 식감
+전체적으로 두툼하고 신선해서 먹음직했다😋')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'20.JPG','20.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',4,'감자전!','#감자전맛집#대학로맛집#먹방','막걸리와 잘어울리는 감자전 드셔보세요')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'21.JPG','21.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',3,'양떼목장 강릉여행','#양떼목장#강릉#강릉여행','양떼목장
+강릉여행')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'45.JPG','45.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'정동진 일출보러 가고싶다','#정동진#일출#여행#강북#미아동#맞팔#댓글#f4f#l4l#좋반#좋아요반사#바다','일출')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'46.JPG','46.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'파란바다 그리고 파란하늘 
+그리고 하얀구름이 있던 날','#정동진#경치#좋다','파란바다 그리고 파란하늘 
+그리고 하얀구름이 있던 날')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'47.JPG','47.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'정동진 일출
+
+빨갛게 솟아 오른다
+
+온통 하늘과 바다가 붉게 물들어 간다','#겨울바다#정동진#일출','정동진 일출
+
+빨갛게 솟아 오른다
+
+온통 하늘과 바다가 붉게 물들어 간다
+
+코로나로 지친 맘을
+
+희망차게 떠오르는
+
+태양의 기운으로
+
+녹여버린다~~^^')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'48.JPG','48.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'무서워서 후덜덜','#강릉여행코스#강릉포토존#강릉뷰맛집','무서워서 후덜덜했지만,
+그래도 사진은 남겨야하기에 찍었어요~🥵
+그와중에 우리 첫찌 너무 용감해!! 장하다!! 
+겨울 동해바다는 언제봐도 너무 좋은것같아요~
+뭔가 깊고 웅장하고 큰 그런느낌')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'49.JPG','49.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',3,'물반 고기반','#휴휴암#강릉#썬크루즈','경치좋은 정동진')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'50.JPG','50.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',3,'작년 강원도에서 맞이한 눈','#대관령양떼목장 #겨울여행 #국내여행','작년 강원도에서 맞이한 눈.
+올해도 강원도에서 눈을 봤으면🌨')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'51.JPG','51.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'올 겨울엔 
+눈썰매 탈것을 준비해서
+가야겠어','#겨울여행 #강릉여행 #대관령 #대관령양떼목장','올 겨울엔 
+눈썰매 탈것을 준비해서
+가야겠어')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'52.JPG','52.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'첫눈은 오고있지만 대구는 뜨뜨한 햇빛뿐','#대관령#강원도여행#대한민국구석구석','첫눈은 오고있지만
+.
+.
+대구는 뜨뜨한 햇빛뿐')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'53.JPG','53.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',4,'<라멘야>','#식탐하리#라멘','15:30 - 17:00break time
+하카타 돈코츠라멘 8.0
+매운 돈코츠라멘 8.5
+
+러멘이 땡겨서 검색해서 갔던 라멘야. 매운것 안매운것 두 종류중에 고를 수 있고 면의 굵기 또한 선택이 가능하다. 나는 굵은 면을 선택했고 계란, 차슈도 추가가능 
+
+공간은 그리 크지않다. 일반테이블석과 다찌좌석으로 되어있고 가게 외부도 자칫하면 그냥 지나칠수 있는 크지않은 가게 
+
+돈코츠 베이스에 고추기름으로 매운것을 조절하는 듯해보인다 빨간 비쥬얼이 식욕을 당기고 꼬들꼬들한 면을 국물과 함께 먹으면 꽤 괜찮다 
+
+하이라이트는 달걀이다. 반쪽이 아니라 하나가 통으로 나온다. 반숙으로 적절히 간이 베어있는 달걀은 추가를 할 걸 그랬나 싶을 정도로 맛있다 
+
+위에 올려진 차슈도 불향이 적절히 나면서 라멘과 함끼먹으면 조화가 좋다')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'7.JPG','7.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',4,'종달리커리','#종달리 #인생맛집','날씨가 추워져서인지 인기메뉴에서 
+더 인기메뉴가 되었어요.
+소진이 빠른 메뉴라 못 드시고 가시면 어찌나 죄송한지😭
+기온이 뚝 떨어졌어요🌬 
+옷 따뜻하게 챙겨입으시고, 
+오늘도 따뜻하게 만나요🤗')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'8.JPG','8.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',4,'윤옥','#윤옥 #제주시맛집','제주시 구남동에 있는 맛집입니다.')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'9.JPG','9.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'대관령주주파크 풍경3','#주주파크#대관령#대관령아이들과가볼만한곳','대관령주주파크 풍경')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'56.JPG','56.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'생각하면 즐거운 추억 another eye','#일상#눈#강원도','생각하면 즐거운 추억 another eye')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'57.JPG','57.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'joy',3,'귀여운 양돌이!~','#양돌이 #양순이 #대관령양떼목장 #눈구경가요☃️','※ 목장 방문시 반드시 마스크를 착용해주세요.')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'58.JPG','58.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'TRIP',3,'크리스마스트리가 벌써','#크리스마스트리#크리스마스#서울가볼만한곳','코로나 빨리 끝나라 ㅠㅠ')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'59.JPG','59.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'노래 한 줄 요약: 옛날이 좋았다.','#청담 #청담도로공원 #노을','참 멋진 지하철')
+
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'60.JPG','60.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'soo',3,'이름값하는 도서관⭐','#코엑스 #별마당도서관 #크리스마스트리','이름값하는 도서관⭐')
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'61.JPG','61.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+
+INSERT ALL 
+INTO BOARD(BO_NO,MEMBER_ID,CA_CODE,BO_TITLE,BO_TAG,BO_CONTENT)
+VALUES(SEQ_BO_NO.NEXTVAL,'ko1850',3,'오늘 하루도 고생한 당신','#korean_adventure #seoulstyle #seoultour','올 한해 모두 고생했습니다. 내년에는 코로나 다 끝나고 다들 원하는거 잘되시길 바라겠습니다.')
+INTO IMG_FILE 
+VALUES(SEQ_FILE_NO.NEXTVAL,SEQ_BO_NO.CURRVAL,'66.JPG','66.JPG',1,'null',DEFAULT)
+SELECT *
+FROM DUAL;
+
+
+
+commit;
+
+
+
+--최은강
+--제주도호텔 1개
+--board
+Insert into TRIP2REAP.BOARD (BO_NO,CA_CODE,BO_TITLE,BO_CONTENT,MEMBER_ID,BO_COUNT,BO_TAG,BO_DELETE_YN,REGDATE) 
+values (SEQ_BO_NO.NEXTVAL , 5,'호텔 리젠트 마린 더 블루','호텔 리젠트 마린 더 블루에서 차로 15분이면 제주국제공항까지 가실 수 있습니다. 차로 약 10분 거리에 제주의 역사를 한눈에 볼 수 있는 제주 삼성혈과 민속 자연사 박물관이 있습니다. 또한 차로 15분이면 도심에서 가장 가까운 해변인 이호테우 해변까지 가실 수 있습니다. 편안한 객실과 시설을 제공하는 이 호텔은 관광객과 비즈니스 출장객 모두에게 좋은 숙소입니다. 무료 구내 전용 주차장도 이용하실 수 있습니다. 호텔 내 객실에는 에어컨이 완비되어 있고 평면 TV, 커피 메이커, 슬리퍼 등이 갖춰져 있습니다. 전 객실에서는 냉장고, 플러그 앤 플레이 패널 등을 사용하실 수 있으며 전용 욕실에는 샤워 시설도 구비되어 있습니다. 이 호텔에서는 날마다 푸짐한 조식을 제공합니다. 그 밖에도 근처에는 수많은 식당가와 분위기 좋은 카페가 즐비해 있습니다.','admin',0,'제주앞바다, 제주공항15분거리','N',to_date('20/12/13','RR/MM/DD'));
+
+--hotel
+Insert into TRIP2REAP.HOTEL (BO_NO,HOTEL_ADDRESS,HOTEL_LOCAL_CODE,HOTEL_SITE,HOTEL_TEL,HOTEL_REVIEW_SCORE,HOTEL_RANK,HOTEL_OPEN_TIME,HOTEL_CLOSE_TIME,HOTEL_OPTION,CHECK_IN,CHECK_OUT) 
+values (SEQ_BO_NO.CURRVAL,'제주특별자치도 제주시 서부두2길 20',15,'http://www.hotelrmblue.com/hotel/index.html','064-717-5000',0,4,0,23,'와이파이, 조식, 레스토랑, 세탁, 24시간 리셉션, 수하물 보관, 수영장, 비즈니스 시설, 주차, 장애인 편의시설, 주방',15,12);
+
+
+
+--img
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'썸네일.jpeg','hotel_thumbnail_202012140518320221.jpeg',1,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_thumbnail_202012140518320221.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일1.jpeg','hotel_detail_202012140518320250.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320250.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일2.jpeg','hotel_detail_202012140518320257.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320257.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일3.jpeg','hotel_detail_202012140518320268.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320268.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일4.jpeg','hotel_detail_202012140518320275.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320275.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일5.jpeg','hotel_detail_202012140518320282.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320282.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일6.jpeg','hotel_detail_202012140518320294.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320294.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일7.jpeg','hotel_detail_202012140518320300.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320300.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일8.jpeg','hotel_detail_202012140518320308.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320308.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일9.jpeg','hotel_detail_202012140518320316.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320316.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'디테일10.jpeg','hotel_detail_202012140518320325.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320325.jpeg','N');
+
+Insert into TRIP2REAP.IMG_FILE (FILE_NO,BO_NO,ORIGIN_NAME,CHANGE_NAME,FILE_LEVEL,FILE_PATH,FILE_DELETE_YN) 
+values (SEQ_FILE_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL,'썸네일.jpeg','hotel_detail_202012140518320332.jpeg',2,'/Users/ek/Documents/GitHub/Spring-Project-Trip2Reap/Spring-Final-Trip2Reap/src/main/webapp/resources/buploadFiles/hotel_detail_202012140518320332.jpeg','N');
+
+
+--ROOM
+Insert into TRIP2REAP.ROOM (ROOM_NO,BO_NO,ROOM_TYPE,ROOM_NAME,PRICE_PER_DAY) values (SEQ_ROOM_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL ,'더블룸','스탠다드 더블룸-도시전망',62200);
+
+Insert into TRIP2REAP.ROOM (ROOM_NO,BO_NO,ROOM_TYPE,ROOM_NAME,PRICE_PER_DAY) values (SEQ_ROOM_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL ,'스탠다드룸','스탠다드 더블룸-도시전망',62200);
+
+Insert into TRIP2REAP.ROOM (ROOM_NO,BO_NO,ROOM_TYPE,ROOM_NAME,PRICE_PER_DAY) values (SEQ_ROOM_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL ,'트윈룸','스탠다드 트윈룸-도시전망',58800);
+
+Insert into TRIP2REAP.ROOM (ROOM_NO,BO_NO,ROOM_TYPE,ROOM_NAME,PRICE_PER_DAY) values (SEQ_ROOM_NO.NEXTVAL ,SEQ_BO_NO.CURRVAL ,'트윈룸','스탠다드 트윈룸-도시전망',58800);
+
+COmmit;
