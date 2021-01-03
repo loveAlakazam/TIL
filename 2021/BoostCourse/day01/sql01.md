@@ -56,3 +56,35 @@
 - DBMS는 `mysql`, `oracle`, `db2`, `mariadb` 등이 있다.
 
 <hr>
+
+> # SQL (Structured Query Language)
+
+## 정의
+
+- 데이터를 보다 쉽게 검색, 추가, 삭제, 수정 같은 조작을 할 수 있는 고안된 컴퓨터 언어.
+
+- 관계형 데이터베이스에 데이터를 조작
+
+- **DML**(Data Manipulation Language)
+  - 정의: 데이터를 조작
+  - **SELECT** : 검색
+  - **INSERT** : 추가
+  - **DELETE** : 삭제
+  - **UPDATE** : 갱신
+
+- **DDL**(Data Definition Language)
+  - 정의: 데이터베이스 스키마를 정의 및 조작
+  - **CREATE**
+  - **DROP**
+  - **ALTER**
+
+- **DCL**(Data Control Language)
+  - 정의: 데이터를 제어
+  - **GRANT**
+  - **REVOKE**
+  - **COMMIT**
+  - **ROLLBACK**
+
+
+- **스키마(scheme)**
+  - 관계형 데이터베이스의 테이블(릴레이션)이 어떻게 구성되는지, 어떤정보를 담고있는지에 대한 **기본적인 구조** 를 의미한다.
