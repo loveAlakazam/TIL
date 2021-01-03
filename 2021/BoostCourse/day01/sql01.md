@@ -111,7 +111,13 @@ $ brew install mysql
 
 ```shell
 $ mysql.server start
+```
 
+<br>
+
+## - 관리자 계정으로 접속하기
+
+```shell
 $ mysql -uroot
 ```
 
@@ -164,7 +170,23 @@ SELECT VERSION();
 
 <br>
 
-## (MySQL) 사용자 생성 및 권한부여하기
+## (MySQL) 사용자 계정 생성하기
+
+- 사용 예시: connectuser 계정 생성하기
+- 조건
+  - 계정이름은 connectuser이고, 비밀번호는 `connect123!@#` 이다.
+
+```sql
+CREATE USER connectuser@localhost IDENTIFIED BY 'connect123!@#';
+```
+
+<br>
+
+![](./img_sql01/mysql/3.png)
+
+<br>
+
+## (MySQL) 사용자 계정한테 권한부여하기
 
 ```sql
 GRANT ALL PRIVILEGES ON 데이터베이스이름.* TO 계정이름 @'%'IDENTIFIED BY '계정암호';
@@ -172,24 +194,105 @@ GRANT ALL PRIVILEGES ON 데이터베이스이름.* TO 계정이름 @'%'IDENTIFIE
 
 <br>
 
-- 사용 예시: 모든권한을 부여받은 connectuser 계정 생성하기
-- 조건
-  - connectdb에 대한 모든권한을 수행 가능하다.
-  - 계정이름은 connectuser이고, 비밀번호는 `connect123!@#` 이다.
-  - 클라이언트 상관없이 어디든지 접근이 가능하다.
+- 사용예시
+  - `GRANT ALL PRIVILEGES ON connectdb.*`: connectdb 테이블에대한 모든권한을 준다.
 
-- `'%'`: 어디에서든지, 어떤 클라이언트 든지 접근이 가능하다.
-- `'localhost'`: 로컬호스트(내 컴퓨터)에서 접근이 가능하다.
+  - `TO connectuser`: 계정이름이 `connectuser`은 root로부터 테이블을 관리할 수 있는 권한을 받는다.
+
+  - `'localhost'`: 로컬호스트(내 컴퓨터)에서 접근이 가능하다.
+
 
 ```sql
-GRANT ALL PRIVILEGES ON connectdb.* TO connectuser @'%'IDENTIFIED BY 'connect123!@#';
+GRANT ALL PRIVILEGES ON connectdb.* TO connectuser@'localhost';
+
+FLUSH PRIVILEGES;
 ```
-
-
 
 <br>
 
+![](./img_sql01/mysql/4.png)
+
+<br>
+
+## 종료하기
+
+```sql
+quit
+```
+
+<br>
+
+```sql
+exit
+```
+
+<br>
+
+![](./img_sql01/mysql/5.png)
+
+<br>
+
+## 등록한 사용자계정으로 접속하기
+
+```shell
+mysql -h127.0.0.1 -uconnectuser -p connectdb
+```
+
+![](./img_sql01/mysql/6.png)
+
+<br>
+
+## 현재 날짜 출력하기
+
+- MySQL
+
+```sql
+SELECT CURRENT_DATE;
+```
+
+![](./img_sql01/mysql/7.png)
+
+<br>
+
+```sql
+SELECT NOW();
+```
+
+![](./img_sql01/mysql/8.png)
+
+<BR>
+
+- Oracle
+
+```sql
+SELECT SYSDATE FROM DUAL;
+```
+
+![](./img_sql01/oracle/1.png)
+
+<br>
+
+## 사용중인 데이터베이스 전환하기
+
+```sql
+USE DB이름;
+```
+
+![](./img_sql01/mysql/9.png)
+
+<br>
+
+## 테이블 조회하기
+
+```sql
+SHOW TABLES;
+```
+
+<BR>
+
 <hr>
+
+<br>
 
 > # Oracle
 
@@ -212,4 +315,24 @@ CREATE USER 계정이름 IDENTIFIED BY 계정암호;
 ```sql
 -- 모든권한을 '계정이름' 에게 부여한다.
 GRANT ALL TO 계정이름;
+
+-- 뷰생성권한을 '계정이름' 에게 부여한다.
+GRANT CREATE VIEW TO 계정이름;
+```
+
+<br>
+
+- ORACLE 계정생성 및 권한부여 예시코드
+
+```sql
+CREATE USER TRIP2REAP identified by TRIP2REAP;
+
+-- 자원, 연결 권한 부여
+GRANT RESOURCE, CONNECT TO TRIP2REAP;
+
+-- 뷰작성 권한 부여
+GRANT CREATE VIEW TO TRIP2REAP;
+
+-- SYNONYM 작성권한 부여
+GRANT CREATE SYNONYM TO TRIP2REAP;
 ```
