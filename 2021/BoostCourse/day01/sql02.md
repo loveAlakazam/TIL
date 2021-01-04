@@ -239,14 +239,171 @@ WHERE NAME LIKE '_a%'
 
 <BR>
 
+> # 형변환 함수
+
+## (MySQL) CAST
+
+- 표기법
+
+```sql
+SELECT CAST(표현 AS TYPE);
+
+SELECT CONVERT(표현, TYPE);
+```
+
+<BR>
+
+|TYPE|타입종류|
+|:--:|:--:|
+|BINARY|이진수|
+|CHAR|문자|
+|DATE|날짜|
+|DATETIME|날짜|
+|SIGNED|부호가 있는 정수|
+|TIME|시간|
+|UNSIGNED|부호가 없는정수(음이 아닌정수)|
+
+<br>
+
+- 예시1
+
+```SQL
+SELECT CAST(NOW() AS DATE);
+```
+
+![](./img_sql02/mysql/cast.png)
+
+<br>
+
+- 예시2
+
+```sql
+SELECT CAST(1-2 AS UNSIGNED);
+```
+
+![](./img_sql02/mysql/cast02.png)
+
+
+<br>
+
+## (Oracle) TO_xxx
+
+<br>
+
+## 그룹함수
+
+- 테이블 전체에 대해서 집계를 함.
+
+### 1. COUNT
+
+- NULL값을 포함해서 모두 카운트
+
+```SQL
+SELECT COUNT(*) FROM EMPLOYEE;
+```
+
+![](./img_sql02/mysql/select01.png)
+
+<br>
+
+- NULL값을 제외하여 카운트
+
+```SQL
+--BOSS컬럼이 null이 아닌것들만 카운트
+SELECT COUNT(BOSS) FROM EMPLOYEE;
+```
+
+![](./img_sql02/mysql/select02.png)
+
+<br>
+
+### 2. AVG, MIN, MAX, SUM
+
+<br>
+
+### 3. GROUP BY
+
+```SQL
+SELECT DEPTNO, AVG(SALARY), SUM(SALARY)
+FROM EMPLOYEE
+GROUP BY DEPTNO;
+```
+
+
+<br>
+
 <HR>
 
 > # 2. INSERT
+
+
+```sql
+INSERT INTO 테이블명 (필드1, 필드2, 필드3, 필드4, ...)
+VALUES (필드1값, 필드2값, 필드3값, 필드4값)
+
+
+--모든 필드들의 값들을 부여
+INSERT INTO 테이블명
+VALUES (필드1값, 필드2값, 필드3값, ..., 마지막필드값)
+```
+
+- 예시
+
+```sql
+INSERT INTO ROLE VALUES(200, 'CEO');
+```
+
+- 프라이머리키는 널값을 넣을 수 없다.
+- null값을 허용하지 않는 컬럼을 제외하면 에러를 발생.
 
 <HR>
 
 > # 3. UPDATE
 
+```sql
+UPDATE 테이블명
+SET 필드1=필드1값, 필드2=필드2값, ...
+WHERE 조건식;
+```
+
+- 예시
+
+```sql
+UPDATE ROLE
+SET DESCRIPTION='CTO'
+WHERE ROLE_ID=200;
+```
+
 <HR>
 
 > # 4. DELETE
+
+```sql
+DELETE FROM 테이블명
+WHERE 조건식;
+```
+
+- 예시
+
+```sql
+DELETE FROM ROLE
+WHERE ROLE_ID=200;
+```
+
+<br>
+
+> # ORACLE - DML 참고자료
+
+- [ORACLE 계정설정](https://github.com/loveAlakazam/TIL/blob/master/2020/KH_Git_Repository/notes/ORACLE_DATABASE/01_DML/0701_%EA%B0%9C%EC%9A%94.MD)
+
+- [ORACLE-DML 기초](https://github.com/loveAlakazam/TIL/blob/master/2020/KH_Git_Repository/notes/ORACLE_DATABASE/01_DML/0701_DML.md)
+
+- [ORACLE-DML 문자열함수](https://github.com/loveAlakazam/TIL/blob/master/2020/KH_Git_Repository/notes/ORACLE_DATABASE/01_DML/0703.md)
+
+- [ORACLE-DML 숫자함수](https://github.com/loveAlakazam/TIL/blob/master/2020/KH_Git_Repository/notes/ORACLE_DATABASE/01_DML/0706.md)
+
+- [ORACLE-DML GROUP BY와 HAVING절](https://github.com/loveAlakazam/TIL/blob/master/2020/KH_Git_Repository/notes/ORACLE_DATABASE/01_DML/0707.md)
+
+- [ORACLE-DML JOIN](https://github.com/loveAlakazam/TIL/blob/master/2020/KH_Git_Repository/notes/ORACLE_DATABASE/01_DML/0709.md)
+
+- [ORACLE-DML INSERT/UPDATE/DELETE](https://github.com/loveAlakazam/TIL/blob/master/2020/KH_Git_Repository/notes/ORACLE_DATABASE/01_DML/0713_DML_2.md)
