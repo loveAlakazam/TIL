@@ -313,8 +313,8 @@ CREATE USER 계정이름 IDENTIFIED BY 계정암호;
 ## - 권한부여
 
 ```sql
--- 모든권한을 '계정이름' 에게 부여한다.
-GRANT ALL TO 계정이름;
+-- 자원관리, 연결 권한을 '계정이름' 에게 부여한다.
+GRANT RESOURCE, CONNECT TO 계정이름;
 
 -- 뷰생성권한을 '계정이름' 에게 부여한다.
 GRANT CREATE VIEW TO 계정이름;
