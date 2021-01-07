@@ -62,3 +62,21 @@
 ![](./img/servlet01/5.png)
 
 ![](./img/servlet01/51.png)
+
+<br>
+
+- 서버 포트 변경하기
+
+![](./img/servlet01/52.png)
+
+<br>
+
+<hr>
+
+> # Java Web Application
+
+
+
+<br>
+
+> # Servlet
