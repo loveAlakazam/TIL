@@ -22,9 +22,11 @@
   - 3. Servlet & JSP
     - [웹 동작 원리 정리](./BoostCourse/day03/web.md)
 
-    - [서블릿 개념](./BoostCourse/day03/servlet01.md)
+    - [Dynamic Web Project 세팅하기 + 아파치톰캣9.0](./BoostCourse/day03/servlet01.md)
 
-    - [서블릿 실습](./BoostCourse/day03/servlet02.md)
+    - [서블릿 개념](./BoostCourse/day03/servlet02.md)
+
+    - [서블릿 실습](./BoostCourse/day03/servlet03.md)
 
     - [JSP 개념](./BoostCourse/day03/jsp01.md)
 
