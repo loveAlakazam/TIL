@@ -46,13 +46,15 @@ MySQL에서 현재날짜를 조회하는 SELECT문을 수행했을 때
 
 `SELECT NOW();`, `SELECT CURDATE();`, `SELECT CURRENT_DATE;` 로도 현재시각(날짜)가 조회된다.
 
-- **`NOW()`**
+<br>
+
+- **NOW()**
 
 `2021-01-19 04:55:46` 과 같은 현재날짜를 포함한 현재시각을 보여준다.
 
 <br>
 
-- **`CURRENT_DATE`** 와 **`CURDATE()`**
+- **CURRENT_DATE** 와 **CURDATE()**
 
 `2021-01-19` 와 같은 날짜형식으로 보여준다.
 
@@ -60,7 +62,8 @@ MySQL에서 현재날짜를 조회하는 SELECT문을 수행했을 때
 
 <br>
 
-- ORACLE 도 `SELECT CURRENT_DATE FROM DUAL;`로 현재날짜를 조회할 수 있다.
+
+ORACLE 도 `SELECT CURRENT_DATE FROM DUAL;`로 현재날짜를 조회할 수 있다.
 
 그러나 ORACLE은 함수를 호출해서 조회하지 않는다.
 
@@ -72,9 +75,7 @@ MySQL에서 현재날짜를 조회하는 SELECT문을 수행했을 때
 
 ## CURDATE() 와 CURRENT_DATE 와 NOW()
 
-방명록 프로젝트를 진행하면서 해보고 싶은 것은
-
-방명록을 작성한 날짜뿐만 아니라 **작성 시각(시, 분)**도 같이 넣고 싶었다.
+방명록 프로젝트를 진행하면서 해보고 싶은 것은 방명록을 작성한 날짜뿐만 아니라 **작성 시각(시, 분)**도 같이 넣고 싶었다.
 
 MySQL에는 **`DATETIME`** 라는 자료형이 날짜와 시각(시,분,초) 정보를 저장한다.
 
@@ -90,6 +91,8 @@ CREATE TABLE SAMPLE_DATE3(
 ```
 
 위와 같은 테이블에서 데이터를 추가해봤다.
+
+<br>
 
 > ### 데이터 추가 1
 
@@ -188,6 +191,8 @@ Oracle의 경우에는 MODIFY 로 컬럼의 정보를 수정할 수 있다.
 
 
 MySQL에서는 컬럼을 수정하는 방법이 2가지나 있다.
+
+<br>
 
 > ### MODIFY : 컬럼이름을 제외한 컬럼에 저장되는 데이터 유형과 조건을 변경한다.
 
