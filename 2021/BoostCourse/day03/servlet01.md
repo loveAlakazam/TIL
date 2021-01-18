@@ -161,6 +161,11 @@ cos.jar보다 더 편하게 데이터를 주고 받을 수 있도록 만든 라�
 
 <br>
 
+> ### *.jar 설치방법
+
+https://github.com/google/gson 에 접속하여 라이브러리를 다운로드한다.
+
+
 ## 4. 프로젝트에 추가하는 방법
 
 `cos.jar`, `ojdbc.jar`, `gson.jar` 등 관련 라이브러리를 추가하는 방법입니다.
