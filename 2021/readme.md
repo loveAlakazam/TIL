@@ -9,6 +9,7 @@
     - [SQL](./BoostCourse/day01/sql01.md)
     - [SQL-DML](./BoostCourse/day01/sql02.md)
     - [SQL-DDL](./BoostCourse/day01/sql03.md)
+    - [날짜 데이터로 알아보는 MySQL과 Oracle의 차이점](./BoostCourse/day01/mysql_date.md)
 
   - 2. JDBC
 
