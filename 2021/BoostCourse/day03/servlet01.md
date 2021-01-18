@@ -73,7 +73,6 @@
 
 <hr>
 
-
 > # (추가) jar파일들 추가 설치
 
 ## 1. ojdbc6.jar
@@ -86,10 +85,15 @@
 
 `*.jar` 파일로 설치해서 프로젝트에 직접 추가를 해야한다.
 
-Maven과 Gradle 프로젝트에서는 데이터베이스와 접근 및 연결할 때
+**ojdbc6.jar** 설치 페이지 링크
+
+https://www.oracle.com/database/technologies/jdbc-upc-downloads.html
+
+<br>
+
+그러나 Maven과 Gradle 프로젝트에서는 데이터베이스와 접근 및 연결할 때
 
 ojdb에 관한 라이브러리를 추가해야한다.
-
 
 <br>
 
@@ -133,7 +137,7 @@ http://servlets.com/cos/ 에 접속하여 `zip` 파일을 다운로드한다.
 **마크업 언어** : 다른문서의 처리를 위해 문서의 논리구조나 체계를 정의하는 언어이다.
 
 
-<BR><BR>
+<BR>
 
 > ### JSON
 
@@ -150,8 +154,7 @@ http://servlets.com/cos/ 에 접속하여 `zip` 파일을 다운로드한다.
 }
 ```
 
-
-<BR><BR>
+<BR>
 
 > ### GSON
 
@@ -161,23 +164,23 @@ cos.jar보다 더 편하게 데이터를 주고 받을 수 있도록 만든 라�
 
 <br>
 
-> ### *.jar 설치방법
+- ### *.jar 설치방법
 
 https://github.com/google/gson 에 접속하여 라이브러리를 다운로드한다.
 
 
 ## 4. 프로젝트에 추가하는 방법
 
-`cos.jar`, `ojdbc.jar`, `gson.jar` 등 관련 라이브러리를 추가하는 방법입니다.
+- `cos.jar`, `ojdbc.jar`, `gson.jar` 등 관련 라이브러리를 추가하는 방법입니다.
 
 
-> ### 다이나믹 웹프로젝트에서 jar파일 추가하기
+- ### 다이나믹 웹프로젝트에서 jar파일 추가하기
 
 `웹프로젝트` > `WebContent` > `WEB-INF` > `lib` 에 위치한 **lib** 폴더에 저장한다.
 
 ![](./img/library_jar.png)
 
-<br><br>
+<br>
 
 > ### Spring Maven 프로젝트에서 jar파일 추가하기  
 
