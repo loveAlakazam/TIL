@@ -1,0 +1,114 @@
+*{
+	padding:0;
+	margin:0;
+	position:relative;
+}
+
+body{
+	width: 100%;
+}
+
+input:focus, textarea:focus{
+	outline-style: none;
+}
+
+.container{
+	width: 500px;
+	margin: 20px auto;
+	text-align:center;
+
+}
+
+.sub-container{
+	background-color: #eee;
+	margin: 20px auto;
+	padding: 10px 50px;
+	border-radius: 8px;
+	border-color: transparent;
+}
+
+
+#visitorInfoTable,
+#recentVisitors{
+	margin: 5px auto;
+}
+
+.infoLabel, 
+.infoInput{
+	padding: 20px 10px;
+	border-color: transparent;
+}
+
+.infoLabel{
+	background-color: #ccc;
+	width: 50px;
+}
+
+
+
+.infoInput{
+	background-color: #fff;
+	width: 300px;
+}
+
+#infoLen{
+	text-align: right;	
+}
+
+.rvh{
+	background-color:#ccc;
+}
+
+.visitDate,
+.visitorName,
+.visitorContent{
+	padding: 5px;
+	border-color:transparent;
+}
+
+.visitDate,
+.visitorName{
+	width:150px;
+	padding: 0 5px;
+}
+
+.visitorContent{
+	width:300px;
+}
+
+
+#name{
+	width: 300px;
+	background-color:transparent;
+	border-color:transparent;
+	color: black;
+}
+
+#content{
+	width: 300px;
+	resize: vertical;
+	border-color:transparent;
+	background-color:transparent;
+	color: black;
+}
+
+#insertBtn, 
+#goAll{
+	width: 300px;
+	padding: 10px;
+	margin: 10px;
+	margin-top:30px;
+	background-color: rgb(190,220,190);
+	border-color: transparent;
+	font-size: 1.2em;
+	border-radius:8px;
+	cursor:pointer;
+}
+
+#insertBtn:hover,
+#goAll:hover{
+	background-color:rgb(100,190,100);
+	
+}
+
+
