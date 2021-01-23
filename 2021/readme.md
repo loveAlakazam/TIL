@@ -30,7 +30,24 @@
 
 
 - ### 5. Spring
+  - [Maven 프로젝트 세팅하기](./mavenSetting.md)
+  - [SpringFramework](./day04/spring01.md)
+  - [Spring Test](./day04/spring02.md)
+  - [Spring JDBC](./day04/spring03.md)
 
+  - [Spring MVC](./day04/02/spring_mvc.md)
+  - [Spring MVC-2](./day04/02/spring_mvc2.md)
+  - [Layered Architecture](./day04/02/spring_la.md)
+  - [WEB-API](./day04/02/web_api.md)
+  - [Spring-Controller](./day04/02/controller.md)
+  - [Swagger](./day04/02/swagger.md)
+
+
+<br>
+
+> ## 1-2. MongoDB 와 Java의 만남
+
+- 독학
 
 <br>
 
@@ -41,12 +58,27 @@
 
 <br>
 
-> ## 3. Docker 입문
+> ## 3. Docker 와 Apache Kafka 그리고, Redis 입문
 
 - 수강 강좌: T아카데미
+
+> ### 3-1. Docker
+
+<br>
+
+> ### 3-2. Apache Kafka
+
+<br>
+
+> ### 3-3. Redis
+
 
 <br>
 
 > ## 4. React 입문
 
 - 수강 강좌: 노마드 코더
+
+<br>
+
+> ## 5. Spring Boot
