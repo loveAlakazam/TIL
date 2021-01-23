@@ -50,9 +50,9 @@
 
   - 방명록 테이블을 나타내는 모든 컬럼에 해당하는 데이터를 보여준다.
 
+- 방명록을 등록한 날짜와 시각(시, 분)을 나타낸다.
 
 - 메인페이지로 돌아가는 버튼이 있다.
-
 
 - jQuery를 활용하여 맨위로 이동하는 고정 버튼이 있다.
 
@@ -60,17 +60,39 @@
 
 > ## 최근 방명록 5개 조회 - 응답 & 요청 과정 도식화
 
-![]()
+<img src="" width="500">
 
 <br>
 
 > ## 방명록 등록 - 응답 & 요쳥 과정 도식화
 
-![](./insertProcess.png){: width="500"}
+<img src="./insertProcess.png" width="500">
+
+- AJax 와 GSON을 사용하여 비동기식으로 최근에 등록한 방명록 5개를 랜더링하여 동적페이지를 구현하였다.
+
+- jQuery를 사용하여 **이름** 과 **내용** 글자수를 제한시켰다.
+
+- **전체 방명록 보기** 버튼 을 만들었다.
+  - 방명록이 존재할 때만 전체방명록 보기 버튼이 있다.
+  - `location.href` 을 이용하였다.
+    - `location.href` 는 히스토리에 기록하여 페이지를 이동한다.
+      - 즉, 뒤로가기 가 가능하다.
+    - 반면, `location.replace` 는 히스토리에 기록하지 않고 페이지를 이동한다.
+      - 즉, 뒤로가기가 불가능하고 이전 페이지 기록을 남기고 싶지 않은 경우에 사용된다.
+
+
+`<form action="<%=request.getContextPath()%>/insertGuest" method="POST">` 는 `insertGuest` 라는 URL에 매핑된 서블릿을 호출한다.
+
+`insertGuest` url에 매핑된 서블릿은 **`request.getParameter()`** 로 인해서 index.jsp에서 입력받은 입력값(이름, 내용)을 저장한다.
+
+`request.getParameter("name")` : name속성값이 "name"인 요소에 저장된 텍스트값을 읽어온다.
 
 <br>
 
 > ## 전체 방명록 조회 - 응답 & 요청 과정 도식화
+
+<img src="./showgb.png" width="500">
+
 
 <br>
 
