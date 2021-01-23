@@ -14,7 +14,10 @@ ArrayList<GuestBook> glist= (ArrayList<GuestBook>)request.getAttribute("glist");
 <head>
 <meta charset="UTF-8">
 <title>전체 방명록 조회하기</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/allGuestBook.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
 </head>
 <body>
 
@@ -58,6 +61,52 @@ ArrayList<GuestBook> glist= (ArrayList<GuestBook>)request.getAttribute("glist");
 <c:url var="goMain" value="goMainPage"/>
 <button id="goMainBtn" onclick="location.href='<%=request.getContextPath() %>/${goMain}'">메인 페이지로</button>
 </div>
+
+<div id="goToTop">
+	<i id="goToTopBtn" class="fas fa-sort-up"></i>
+</div>
+<script>
+$(function(){
+	let scrollBtn=$('#goToTop');
+	let upBtn= $('#goToTopBtn');
+
+	$('#goToTop').on({
+		mouseover:function(){
+			$(this).css('background-color', '#315e5b');
+			$(this).css('cursor', 'pointer');
+			upBtn.css('color', '#fff');
+			
+		},
+		mouseout:function(){
+			$(this).css('background-color', '#b6dedb');
+			$(this).css('cursor', 'none')
+			upBtn.css('color','#111');
+		}
+	});
+	
+	
+	$(window).scroll(function(){
+		//현재 스크롤의 위치
+		let topPos=$(this).scrollTop();
+		
+		//스크롤 위치가 100을 넘으면
+		if(topPos>100){
+			scrollBtn.css('opacity', 1); //화면에 나타남
+		}else{
+			scrollBtn.css('opacity', 0); //화면에 숨김
+		}
+	});
+	
+	// 버튼 클릭시, 페이지 최상단으로 올라감
+	$(scrollBtn).click(function(e){
+		$('html, body').animate({
+			scrollTop:0
+		}, 800);
+		return false;
+	});
+});
+
+</script>
 
 </body>
 </html>
