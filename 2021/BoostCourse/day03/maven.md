@@ -26,15 +26,11 @@
 
 > # Maven 의 목적
 
-- Making the build process Easy
-
-메커니즘을 알지 않아도 할 수 있다.
+- Making the build process Easy : 메커니즘을 알지 않아도 할 수 있다.
 
 <br>
 
-- Providing a uniform build system
-
-`pom.xml` 을 이용하여 프로젝트를 관리하고 빌드한다.
+- Providing a uniform build system : `pom.xml` 을 이용하여 프로젝트를 관리하고 빌드한다.
 
 <br>
 
