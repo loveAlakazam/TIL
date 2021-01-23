@@ -11,7 +11,7 @@
 
 <br>
 
-![](./structures.png){: width="500"}
+<img src="./structures.png" width="500">
 
 <hr>
 
@@ -161,13 +161,13 @@ public class GuestBook {
 
 > ### 메인 화면
 
-![](./index.png){: width="500"}
+<img src="./index.png" width="500">
 
 <br>
 
 > ### 전체 방명록 페이지
 
-![](./allGuestBooks.png){: width="500"}
+<img src="./allGuestBooks.png" width="500">
 
 <br>
 
