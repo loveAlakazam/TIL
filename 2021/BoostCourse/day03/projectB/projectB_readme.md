@@ -11,7 +11,7 @@
 
 <br>
 
-![](./structures.png)
+![](./structures.png){: width="500"}
 
 <hr>
 
@@ -66,7 +66,7 @@
 
 > ## 방명록 등록 - 응답 & 요쳥 과정 도식화
 
-![](./insertProcess.png){:width:"500"}
+![](./insertProcess.png){: width="500"}
 
 <br>
 
@@ -161,13 +161,13 @@ public class GuestBook {
 
 > ### 메인 화면
 
-![](./index.png){: width:"500"}
+![](./index.png){: width="500"}
 
 <br>
 
 > ### 전체 방명록 페이지
 
-![](./allGuestBooks.png){: width:"500"}
+![](./allGuestBooks.png){: width="500"}
 
 <br>
 
