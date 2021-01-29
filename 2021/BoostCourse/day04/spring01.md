@@ -1,6 +1,6 @@
 <details>
   <summary>요약</summary>
-  
+
   - XML 파일을 이용한 설정 [:link:](#xml-파일을-이용한-설정)
 
   - 싱글톤패턴 [:link:](#싱글톤-패턴-singleton)
@@ -420,3 +420,198 @@ public class ApplicationContextExam02 {
 <br>
 
 # Java Config를 이용한 설정
+
+> ## Java Config 설정을 위한 Annotation
+
+- #### `@` (Annotation)
+  - JDK 5부터 지원되기 시작.
+  - 스프링 설정을 위해서 다양한 Annotation이 존재한다.
+  - 주석이라는 뜻을 갖지만, 특수한 의미를 부여하는 역할을 수행한다. 이 특수한 의미는 컴파일, 런타임 시에 해석이 된다.
+
+<br>
+
+|Annotation|설명|
+|:--:|:--:|
+|@Configuration|스프링 설정클래스를 선언하는 어노테이션|
+|@Bean| bean(객체)를 정의하는 어노테이션|
+|@ComponentScan|@Controller, @Service, @Component 어노테이션이 붙은 클래스를 찾아 컨테이너에 등록한다.|
+|@Component|컴포넌트 스캔의 대상이 되는 어노테이션 중 하나로써 주로 유틸, 기타 지원 클래스에 붙이는 어노테이션|
+|@Autowired|주입 대상이 되는 bean을 컨테이너에 찾아서 주입하는 어노테이션|
+
+
+> ## 1. ApplicationConfig.java - Configuration 파일 만들기
+
+- #### **`@Configuration`** : 스프링 설정 클래스
+
+  - 해당 클래스가 Configuration(설정)파일음 알려주는 어노테이션이다.
+
+  - `AnnotationConfigApplicationContext` 클래스는 자바 Config 클래스를 읽어들여서 IoC와 DI를 적용하게된다.
+
+
+<br>
+
+- #### **`@Bean`**
+
+`AnnotationConfigApplicationContext` 클래스는 **싱글톤패턴**으로 (딱한번 객체를 생성하여) 스프링설정 클래스 파일에 있는 `@Bean`이 붙어 있는 메소드들을 자동으로 실행하여 리턴한다.
+
+
+<br>
+
+```java
+package kr.or.connect.diexam01;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration  //ApplicationConfig.java 클래스가 스프링설정 파일 이라는 의미를 부여하는 annotation이다.
+public class ApplicationConfig{
+  @Bean //자동으로 Car 객체를 생성한다.
+  public Car car(Engine e){
+    Car c= new Car(); //Car 객체 생성해주는 메소드.
+    c.setEngine(e); // 파라미터 설정- 파라미터인 Engine객체를 주입.
+    return c;
+  }
+
+  @Bean //자동으로 Engine객체를 생성해주는 메소드.
+  public Engine engine(){
+    return new Engine();// Engine객체 생성
+  }
+}
+```
+
+<br>
+
+```java
+package kr.or.connect.diExam01;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class ApplicationContextExam03 {
+
+	public static void main(String[] args) {
+    //ApplicationConfigApplicationContext객체를 이용하여
+    //스프링 설정파일 정보인 ApplicationConfig.java 클래스를 연다.
+		ApplicationContext ac= new AnnotationConfigApplicationContext(ApplicationConfig.class);
+
+    //1. 메소드 이름으로 객체를 생성하는 방법
+		//메소드 이름이 car인 메소드를 호출하여 Car객체를 얻는다.
+		Car car = (Car) ac.getBean("car");
+		car.run();
+
+    //2. 리턴할 클래스이름으로 객체를 생성하는 방법
+    //리턴할 클래스가 Car (Car.class)인 메소드를 호출하여 Car객체를 얻는다.
+		Car car2= (Car) ac.getBean(Car.class); //메소드이름과 상관없이 리턴 클래스타입에 맞춰서 객체를 얻는다.
+		car2.run();
+	}
+}
+```
+
+<br>
+<br>
+
+> ## 2. Annotation을 활용하여 더 간단하게 객체를 얻어보자
+
+```
+스프링 설정파일 역할을 부여받은(@Configuration 을 부여받은) 클래스 ApplicationConfig 파일은 파라미터를 받아들이지 않는 bean생성 메소드를 먼저 다 실행한 후에 반환 받은 객체를 관리한다.
+
+이후 파라미터에 생성된 객체들과 같은 타입이 있는 객체가 있을 경우에 파라미터로 전달하여 객체를 생성한다.
+
+다양한 어노테이션을 활용하여 간단한 코드로 객체를 생성할 수 있다.
+```
+
+
+- ### **`@ComponentScan`**
+
+  - 원하는 디렉토리에 있는것들을 읽어들여서 지정하라는 의미.
+  - 찾아야할 범위가 광범위하기 때문에, 정확한 패키지를 알려줘야한다.
+  - 사용자가 직접 일일이 알려주지 않아도 해당클래스가 **@이 붙어있는 것들을 잘 찾아내서 등록**  해달라는 의미를 갖는다.
+  - 즉, **해당 패키지범위에 있는 @이 붙어있는 클래스(@Component 가 붙어있는 클래스)들은 bean으로 등록시켜준다**
+
+<br>
+
+> #### ApplicationConfig2.java - @가 붙어있는 컴포넌트들을 찾아서 Bean으로 등록
+
+```java
+package kr.or.connect.diExam01;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration //해당클래스(ApplicationConfig2)가 스프링 설정파일임을 의미부여.
+@ComponentScan("kr.or.connect.diexam01") // 패키지경로에 있는 @Component가 붙어있는 클래스들을 자동으로 찾아볼 수 있다.
+public class ApplicationConfig2 {
+
+}
+
+```
+
+<br>
+
+> #### Car.java
+
+```java
+package kr.or.connect.diExam01;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+//내가 컴포넌트이다.라는 것을 알려준다.
+@Component
+public class Car {
+
+	@Autowired //Engine타입 객체가 있으면 알아서 객체를 주입해줘. setter메소드없어도된다.
+	private Engine v8;
+	public Car() {
+		System.out.println("Car 생성자 호출");
+	}
+
+	public void run() {
+		System.out.println("엔진을 이용하여 달립니다.");
+		v8.exec();
+	}
+}
+```
+
+> #### Engine.java
+
+```java
+package kr.or.connect.diExam01;
+
+import org.springframework.stereotype.Component;
+
+@Component //컴포넌트라는 것을 알림.
+public class Engine {
+	public Engine() {
+		System.out.println("엔진 생성자");
+	}
+
+	public void exec() {
+		System.out.println("엔진이 동작합니다.");
+	}
+}
+```
+
+<br>
+
+> #### ApplicationExam04.java
+
+```java
+package kr.or.connect.diExam01;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class ApplicationContextExam04 {
+
+	public static void main(String[] args) {
+
+    // spring 설정 정보를 갖는 클래스를 읽어들인다.
+		ApplicationContext ac= new AnnotationConfigApplicationContext(ApplicationConfig2.class);
+		Car car =(Car) ac.getBean(Car.class);
+		car.run();
+	}
+
+}
+
+```
