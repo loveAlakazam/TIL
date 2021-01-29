@@ -110,6 +110,237 @@
   - **테스트 문서의 대체 가능** : 테스팅을 자동화시킴과 동시에 정확한 테스트 근거를 산출 가능.
 
 <br>
+
+<hr>
+
 <br>
 
-> #
+> # JUnit
+
+## JUnit - 자바언어로된 테스팅 프레임워크
+
+- JUnit은 pom.xml에 있다.
+- Maven프로젝트를 생성하게되면 pom.xml에 존재한다.
+
+```xml
+<dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+</dependency>
+```
+
+<br>
+
+> ## JUnit 에서 사용되는 Annotations
+
+| Annotation 이름 | 설명 |
+|:--:|:--:|
+|@BeforeClass| 테스트 클래스가 실행되기전에 딱 한번 실행된다.|
+|@AfterClass| 테스크 클래스의 모든 테스트 메소드 실행이 끝난 이후에 딱 한번 실행된다.|
+|@Before|- 테스트 메소드가 실행되기 전에 실행된다.<br>-테스트 메소드가 5개 있는 테스트클래스를 실행하면 @Before이 붙은 메소드는 5번 실행된다.|
+|@After|- 테스트 메소드가 실행된 후에 실행된다.<br>- 테스트메소드가 5개 있는 테스트 클래스를 실행하면 @After가 붙은 메소드는 5번 실행된다.|
+|@Test|@Test 어노테이션이 붙은 메소드는 테스트 메소드이다.|
+
+<br>
+
+> ## JUnit의 Annotation들과 테스팅 과정
+
+- 테스트 클래스에 테스트 메소드가 3개가 있다면, 각각의 메소드는 **`@Test`** 가 붙어있어야한다.
+
+- **`@BeforeClass`**: **테스트 클래스가 실행되기 전**에 `@BeforeClass`가 붙은 메소드가 실행된다.
+- **`@Before`** : **테스트 메소드가 실행되기 전**에 `@Before`가 붙은 메소드가 실행된다.
+- **`@After`** : **테스트 메소드(@Test)가 실행된 후**에 `@Afger`가 붙은 메소드가 실행된다.
+- **`@AfterClass`** : **모든 테스트 메소드가 실행된 후**에 `@AfterClass`가 붙은 메소드가 실행된다.
+  - 테스트클래스에 3개의 테스트메소드를 실행한다면, 3개모두 실행후에 `@AfterClass` 가 붙은 메소드가 실행된다.
+
+![](./imgs/jt5.png)
+
+<br>
+
+> ## JUnit의 Assert 클래스가 갖고 있는 주요 메소드
+
+|메소드 이름|설명|
+|:--:|:--:|
+|assertEquals(x,y)| x(예상값)와 y(실제값)가 일치하면 테스트 성공|
+|assertArrayEquals(a,b)| 배열a(예상)와 배열b(실제)가 일치하면 테스트 성공|
+|fail()|테스트 실패|
+|assertTrue(x)|- x가 `true`일 때 테스트 성공<br>- x가 `false`일때 테스트 실패|
+|assertTrue(message, condition)| condition이 `true`이면 message를 표시하여 테스트 성공|
+|assertNull(o)| 객체 o가 null이면 테스트 성공|
+|assertNotNull(o)| 객체 o가 null이 아니면 테스트 성공|
+|assertSame(o1, o2)|- 객체 o1과 객체 o2가 같은 객체일 때 테스트 성공<br>- o1과 o2가 같은 객체를 참조하고 있으면 테스트 성공(참조하고 있는 객체의 주소가 동일한 경우)<br>- `assertEquals()`는 **값이 같은지 확인**하는 것이고, `assertSame()`은 **같은 래퍼런스인지 확인**하는 것이다.|
+|assertNotSame(o1, o2)| o1과 o2가 같은 객체를 참조하지 않는다면 테스트 성공|
+- #### assert 메소드
+
+테스트 클래스를 실행하고 눈으로 성공했는지 안했는지를 확인하기 위해 화면에 어떠한 결과값을 출력해야되는데, 이러한 불편함을 해소하기 위해서 만들어진 메소드이다.
+
+결과값을 출력해야되는 코드를 만들지 않고 바로 결과값을 확인할 수 있는 메소드이다.
+
+
+<br>
+
+## JUnit을 이용하여 자바어플리케이션을 테스트해보자.
+
+> ### 1. Maven프로젝트 만들기
+
+![](./imgs/jt1.png)
+
+![](./imgs/jt2.png)
+
+![](./imgs/jt3.png)
+
+
+<br>
+
+초기에 생성되는 앱클래스를 삭제한다.(App.java 삭제)
+
+
+![](./imgs/jt4.png)
+
+<br>
+
+> ### 2. CalculatorService 클래스 작성
+
+```java
+package com.exam.test.junit.calculatorcli;
+
+public class CalculatorService {
+
+	public int plus(int v1, int v2) {
+		return v1+v2;
+	}
+
+	public int minus(int v1, int v2) {
+		return v1-v2;
+	}
+
+	public int multiply(int v1, int v2) {
+		return v1*v2;
+	}
+
+	public int divide(int v1, int v2) throws ArithmeticException{
+		return v1/v2;
+	}
+
+	public int mod(int v1, int v2) throws ArithmeticException{
+		return v1%v2;
+	}
+}
+
+```
+
+<br>
+
+> ###  CalculatorServiceTest.java
+
+- `src/test/java/com.exam.test.junit.calculatorcli` 에 CalculatorServiceTest 클래스를 만든다
+
+
+```java
+package com.exam.test.junit.calculatorcli;
+
+import java.util.Scanner;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import org.junit.Assert;
+
+public class CalculatorServiceTest {
+	private static Scanner sc= new Scanner(System.in);
+	CalculatorService calculatorService;
+
+	// CalculatorService 클래스 생성
+	@Before
+	public void init() {
+		this.calculatorService= new CalculatorService();
+	}
+
+	@Test
+	public void plus() throws Exception {
+		System.out.print("plus테스트 v1값 입력: ");
+		int v1= Integer.parseInt(sc.next());
+
+		System.out.print("plus테스트 v2값 입력: ");
+		int v2= Integer.parseInt(sc.next());
+		int result=calculatorService.plus(v1,v2);
+
+		// 결과가 15일경우에 성공
+		Assert.assertEquals(15, result);
+	}
+
+	@Test
+	public void divide() throws Exception {
+		System.out.print("divide테스트 v1값 입력: ");
+		int v1= Integer.parseInt(sc.next());
+
+		System.out.print("divide테스트 v2값 입력: ");
+		int v2= Integer.parseInt(sc.next());
+		try {
+			int result=calculatorService.divide(v1,v2);
+			// 결과가 15일경우에 성공
+			Assert.assertEquals(15, result);
+		}catch(ArithmeticException ae) {
+			Assert.fail();
+		}
+
+	}
+
+
+	@Test
+	public void divideExceptionTest() throws Exception{
+		System.out.print("divideException테스트 v1값 입력: ");
+		int v1= Integer.parseInt(sc.next());
+
+		System.out.print("divideException테스트 v2값 입력: ");
+		int v2= Integer.parseInt(sc.next());
+
+		try {
+			calculatorService.divide(v1,v2);
+		}catch(ArithmeticException ae) {
+			Assert.assertTrue(true); // 실행성공.
+			return;//메소드를 더이상 실행하지 않는다.
+		}
+		Assert.assertTrue(false); //Assert.fail()
+	}
+
+
+}
+
+```
+
+
+- JUnit으로 테스팅하는 방법: Run As > JUnit 클릭
+
+- JUnit 테스팅 결과
+
+![](./imgs/jt6.png)
+
+
+<br>
+
+> ## JUnit 테스트 성공은 무엇을 의미할까?
+
+- ### 1) Exception이 발생하지 않고 테스트메소드가 잘 실행되었다.
+- ### 2) Assert.assertXXXX() 메소드가 문제없이 잘 실행되었다.
+  - `true`값을 리턴받은 경우.
+
+- 스프링 프레임워크를 사용하면, 객체의 생성을 컨테이너가 하는데 그렇다면 컨테이너가 관리하는 객체(Bean)은 어떻게 테스트를 수행할까..?
+
+<br>
+
+<hr>
+
+<br>
+
+> # Spring Test Annotation 사용하기
+
+<br>
+
+<hr>
+
+<br>
+
+> # 로직 단위테스트 구현
