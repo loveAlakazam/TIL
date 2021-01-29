@@ -1,3 +1,10 @@
+<details>
+  <summary>요약</summary>
+  - XML 파일을 이용한 설정 [:link:](#XML-파일을-이용한-설정)
+  - 싱글톤패턴 [:link:](#싱글톤-패턴-singleton)
+  - Java Config를 이용한 설정 [:link:](#Java-Config를-이용한-설정)
+</details>
+
 # Spring Core
 
 > # Framework란 무엇인가?
@@ -149,13 +156,13 @@ Spring 프레임워크의 가장 큰 특징은 IoC(Inversion of Control)과 DI(D
 
 > ## 프레임워크는 어떤과정으로 객체를 자동으로 생성할까?
 
-
 - 한개의 beans 스프링 설정파일은 *.xml 확장자의 파일이며, 여러개의 클래스들을 등록할 수 있다.
 - beans 스프링 설정파일에 등록된 클래스(bean)이 여러개가 있다면, 설정 파일에 들어있는 모든 bean의 정보를 읽어 들이고 생성해서 메모리에 올린다.
 
 - 프레임워크는 등록된 beans 설정파일에 있는 특정 클래스(객체, bean) 불러올 때, `id`로  구분하여 불러온다.
 - 프레임워크는 `싱글톤(singleton design pattern)` 디자인 패턴을 이용하여 객체를 생성한다.
 
+<br>
 
 > ## 싱글톤 패턴 (singleton)
 
@@ -164,6 +171,8 @@ Spring 프레임워크의 가장 큰 특징은 IoC(Inversion of Control)과 DI(D
 
 - 클래스 외부에서 new 연산자로 생성자를 호출할 수 없도록 해야한다.
 - 객체의 기본생성자의 접근제한자를 private로 한다.
+
+<br>
 
 
 사용자 정의 객체 UserBean.java 를 만들었다.
@@ -213,8 +222,7 @@ public class UserBean {
 
 ```
 
-
-1. 사용자가 객체를 직접 생성하여 사용하는 경우
+## 1. 사용자가 객체를 직접 생성하여 사용하는 경우
 
 ```java
 package kr.or.connect.diExam01;
@@ -241,7 +249,7 @@ public class ApplicationContextExam01 {
 
 <br>
 
-2. Spring Framework의 DI(Dependency Injection)
+## 2. Spring Framework의 DI(Dependency Injection)
 
 > ### applicationContext.xml - Beans 스프링 클래스 설정파일을 만든다.
 
@@ -315,7 +323,7 @@ public class ApplicationContextExam01 {
 package kr.or.connect.diExam01;
 
 public class Car {
-	private Engine v8;
+	private Engine v8; // 클래스 타입의 필드
 	public Car() {
 		System.out.println("Car 생성자 호출");
 	}
@@ -331,17 +339,24 @@ public class Car {
 }
 ```
 
+<br>
+
 > ### 사용자가 직접 객체를 생성할 때
 
-`Car.java` 클래스를 사용자가 직접 생성해야한다면 클래스 필드 객체도 직접 생성해야된다.
+- `Car.java` 클래스를 사용자가 직접 생성해야한다면 클래스 필드 객체도 직접 생성해야된다.
+
+- 사용자는 필요한 객체만 생성할 수 있도록 한다!
+- Spring은 `annotation`과 `java config`를 사용하여 객체를 자동으로 생성할 수 있다.
+
 
 ```java
-Engine e= new Engine();
+Engine e= new Engine(); //필드의 클래스 인스턴스를 만든다.
 Car c =new Car();
 c.setEngine(e);
 c.run();
 ```
 
+<br>
 
 > ### 스프링 프레임워크가 객체를 자동으로 생성할 때
 
