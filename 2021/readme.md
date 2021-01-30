@@ -32,7 +32,7 @@
 - ### 5. Spring
   - [✔️ Maven 프로젝트 세팅하기](./BoostCourse/day04/mavenSetting.md)
   - [✔️ SpringFramework](./BoostCourse/day04/spring01.md)
-  - [✔️ Spring Test와 JUnit 테스트](./BoostCourse/day04/spring02.md)
+  - [✔️ Spring Test - JUnit / Mock 테스트](./BoostCourse/day04/spring02.md)
   - [Spring JDBC](./BoostCourse/day04/spring03.md)
 
   - [Spring MVC](./BoostCourse/day04/02/spring_mvc.md)

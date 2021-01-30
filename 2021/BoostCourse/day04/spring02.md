@@ -1,5 +1,7 @@
 # Spring Test
 
+- [강의자료](https://www.boostcourse.org/web326/lecture/58978/)
+
 <details>
   <summary>요약</summary>
 
@@ -418,7 +420,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration // 해당클래스가 spring설정 파일임을 의미를 부여해주는 어노테이션
 
 // @ComponentScan
-// "com.exam.test.junit.calculatorcli" 패키지안에 있는 컴포넌트를 찾도록한다.  @어노테이션이 표시된 클래스를 찾아서 bean(객체)으로 등록한다.
+// "com.exam.test.junit.calculatorcli" 패키지안에 있는 컴포넌트를 찾도록한다.
+//@어노테이션이 표시된 클래스를 찾아서 bean(객체)으로 등록한다.
 @ComponentScan(basePackages={"com.exam.test.junit.calculatorcli"})
 public class ApplicationConfig {
 
@@ -609,4 +612,210 @@ CalculatorService calculatorService;
 
 <br>
 
-> # 로직 단위테스트 구현
+> # Mockito를 이용한 단위 로직 단위테스트 구현
+
+- 하나의 bean을 사용한다는 것은 관계된 bean들도 함께 동작한다는 것을 의미한다.
+
+- **`통합테스트`**(integration test): 하나의 bean을 테스트를 할 때 **관련된 빈들이 모두 잘 동작**하는지 테스트
+
+- **`단위 테스트`** (unit test): 관계된 다른 클래스와 상관없이 **특정 bean이 가지고있는 기능만을 잘 동작**하는지 확인하는 테스트
+
+
+> ### MyService.java 추가
+
+```java
+package com.exam.test.junit.calculatorcli;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyService {
+	private final CalculatorService calculatorService;
+
+	public MyService(CalculatorService calculatorService) {
+		this.calculatorService= calculatorService;
+	}
+
+	public int execute(int v1, int v2) {
+		return calculatorService.plus(v1, v2) *2;
+	}
+}
+```
+
+<br>
+
+> ### MyServiceTest.java
+
+```java
+package com.exam.test.junit.calculatorcli;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import org.junit.Assert;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes= {ApplicationConfig.class})
+public class MyServiceTest {
+	@Autowired
+	MyService myService;
+
+	@Test
+	public void execute() throws Exception{
+		int v1=5;
+		int v2=10;
+
+		int result=myService.execute(v1, v2);
+
+		Assert.assertEquals(30, result);
+	}
+}
+```
+
+<br>
+
+`@RunWith(SpringJUnit4ClassRunner.class)` 내부적으로 Spring bean 컨테이너를 생성한다.
+
+Spring bean 컨테이너는 빈들을 찾아서 메모리에 올린다. 이후 myService 필드에 객체를 주입하게 된다.
+
+위의 코드에서는 에러가 발생하지 않았지만, 만약에 MyService를 테스트하려고했는데 CalculatorService의 버그로 인해 에러가 발생했다면 어떻게 해결을 해야될까?
+
+에러가 발생했을 때 목(Mock)객체를 이용하는 것이다.
+
+
+MyService가 사용하던 CalculatorService를 사용하는 대신에 가짜 객체를 하나 생성하도록 하는 것이다.
+
+내가 원하는 동작을 하는 Mock객체로 CalculatorService를 사용함으로써 MyService의 내용만 테스트를 수행할 수 있다.
+
+<br>
+
+> ### pom.xml - Mockito  라이브러리를 추가한다.
+
+- Mockito는 오픈소스 Mock Framework 다.
+- 테스트를 위해서 가짜 객체를 쉽게 만들어줄 수 있는 웹프레임워크이다.
+
+```xml
+<!-- test mock을 위한 라이브러리를 추가한다. -->
+<!-- https://mvnrepository.com/artifact/org.mockito/mockito-core -->
+<dependency>
+    <groupId>org.mockito</groupId>
+    <artifactId>mockito-core</artifactId>
+    <version>3.7.7</version>
+    <scope>test</scope>
+</dependency>
+```
+
+> ### MyServiceTest.java - Mockito 프레임워크를 활용하자.
+
+```java
+package com.exam.test.junit.calculatorcli;
+
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import static org.mockito.BDDMockito.given;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.verify;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes= {ApplicationConfig.class})
+public class MyServiceTest {
+	@InjectMocks
+	MyService myService;
+
+	@Mock
+	CalculatorService calculatorService;
+
+	@Test
+	public void execute() throws Exception{
+    //given
+		int v1=5;
+		int v2=10;
+		given(calculatorService.plus(5, 10)).willReturn(15);
+
+    //when
+		int result=myService.execute(v1, v2);
+
+    //then
+		verify(calculatorService).plus(anyInt(), anyInt());
+		Assert.assertEquals(30, result);
+	}
+}
+
+```
+
+<br>
+
+- Mockito 가 제공하는 JUnit 확장 클래스 MockitoJunitRunner 을 이용하여 테스트 클래스를 실행한다.
+
+```java
+@RunWith(MockitoJunitRunner.class)
+```
+
+<br>
+
+- `@Mock` 어노테이션은 calculatorService가 목(Mock)객체를 참조하도록 한다.
+- 객체를 생성하지 않아도 자동으로 객체가 생성되고 해당 필드가 초기화 됨을 의미한다.
+
+```java
+@Mock
+CalculatorService calculatorService;
+```
+
+<br>
+
+- `@InjectMocks` 어노테이션이 붙은 필드는 목(mock)객체를 사용하는 MyService 객체를 생성하여 초기화하라는 의미를 갖는다.
+- myService 역시 초기화하지 않아도 자동으로 MyService 객체가 생성되어 초기화 된다.
+
+```java
+@InjectMocks
+MyService myService;
+```
+
+<br>
+
+```java
+given(calculatorService.plus(10,5)).willReturn(15);
+```
+
+- `calculatorService`는 가짜객체이다.
+- **`given()`**
+  - static 메소드이다. (import static org.mockito.BDDMockito.given)
+  - `given()`은 까자 객체가 동작하는 방법을 규정한다.
+
+- `calculatorService.plus(10,5)`을 호출하면 plus()메소드가 15를 반환하도록 하라는 의미를 갖는다.
+
+<br>
+
+```java
+int result= myService.execute(v1, v2);
+```
+
+- `execute()` 메소드는 내부적으로 calculatorService의 plus메소드를 호출한다.
+- 해당 메소드는 위에서 설정한대로 동작한다.
+- v1, v2가 무슨 값이든지 간에 result는 30을 반환한다.
+
+<br>
+
+```java
+verify(calculatorService).plus(anyInt(), anyInt());
+```
+
+- `plus(anyInt(), anyInt())`는 어떤 정수든지 2개의 파라미터로 넣어서 plust()메소드를 호출했는지를 검증한다.
+- myService.execute() 메소드가 내부적으로 plus() 메소드를 호출했다면 해당 메소드에 대한 검증은 성공이다.
+- 만약에 execute() 메소드에서 plus(anyInt(), anyInt())를 호출하지 않으면 오류가 발생한다.
+  - 해당 메소드를 호출한적 없다는 Exception이 발생하여 테스트가 실패된다.
+
+- `verify()`와 `anyInt()` 메소드도 static 메소드이다.
+  - import static org.mockito.ArgumentMatchers.anyInt;
+  - import static org.mockito.Mockito.verify;
+
+- `verify()` 메소드
+  - 파라미터로 들어온 객체의 plus() 메소드가 호출된적 있는지 검증한다.
