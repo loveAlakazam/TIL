@@ -337,6 +337,272 @@ public class CalculatorServiceTest {
 
 > # Spring Test Annotation 사용하기
 
+> ## 1. pom.xml - 스프링 프레임워크를 사용하도록 기존코드 변경하기.
+
+- http://mvnrepository.com 에서 라이브러리를 다운로드한다.
+  - [spring-context](https://mvnrepository.com/artifact/org.springframework/spring-context)
+  - [spring-test](https://mvnrepository.com/artifact/org.springframework/spring-test)
+
+```xml
+<project>
+  ..(생략)..
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
+
+    <!--spring 프레임워크 버젼정보를 프로퍼티로 나타내기 -->
+    <spring.version>5.2.12.RELEASE</spring.version>
+  </properties>
+
+  <dependencies>
+  	<!-- Maven프로젝트 생성됨과 동시에 jUnit 라이브러리는 Junit 4.11 버젼이다.-->
+    <!--그런데 SpringJUnit4ClassRunner.class는 4.12버젼이후에 지원한다-->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!-- spring-context와 spring-test를 의존성에 추가한다. -->
+    <!-- spring-context 추가 -->
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+
+
+	<!--spring-test 추가 -->
+	<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>${spring.version}</version>
+	    <scope>test</scope>
+	</dependency>
+  </dependencies>
+
+  ..(생략)..
+</project>
+```
+
+<br>
+
+> ### ApplicationConfig.java - Java Config방법으로 스프링 설정 파일을 만든다.
+
+- SpringFramework 를 사용하려면 설정파일을 작성해야된다.
+- 설정파일을 작성할 수 있는 방법은 2가지가 있다.
+  - 1) XML 파일 작성
+  - 2) Java Config 클래스를 작성
+    - `@Configuration` : spring 설정파일 의미를부여해주는 어노테이션
+    - `@ComponentScan(basePackages={"패키지이름"})`
+      - 특정 패키지 안에 들어있는 컴포넌트를 찾도록 한다.
+      - **패키지 안에 있는 @이 붙어있는 모든 클래스들을 찾아서 bean으로 등록한다.**
+        - ComponentScan은 어떤 @이 붙은 클래스들을 찾을까?
+          - `@Component`
+          - `@Controller`
+          - `@RestController`
+          - `@Repository`
+          - `@Service`
+
+
+```java
+package com.exam.test.junit.calculatorcli;
+
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration // 해당클래스가 spring설정 파일임을 의미를 부여해주는 어노테이션
+
+// @ComponentScan
+// "com.exam.test.junit.calculatorcli" 패키지안에 있는 컴포넌트를 찾도록한다.  @어노테이션이 표시된 클래스를 찾아서 bean(객체)으로 등록한다.
+@ComponentScan(basePackages={"com.exam.test.junit.calculatorcli"})
+public class ApplicationConfig {
+
+}
+```
+
+<br>
+
+> ### CalculatorService.java - @Component 붙이기.
+
+- 제어의 역전(IoC): Spring bean 컨테이너에서의 관리는 개발자가 직접 인스턴스를 생성하지 않고, spring bean 컨테이너가 객체를 생성한다.
+
+- **`@Component`**: Spring bean Container가 CalculatorService 클래스를 찾아서 bean으로 등록할 수 있도록 한 어노테이션이다.
+
+```java
+package com.exam.test.junit.calculatorcli;
+
+import org.springframework.stereotype.Component;
+
+@Component // ComponentScan이 탐색해서 bean으로 등록하는 클래스라는 의미를 부여하는 어노테이션.
+public class CalculatorService {
+
+	public int plus(int v1, int v2) {
+		return v1+v2;
+	}
+
+	public int minus(int v1, int v2) {
+		return v1-v2;
+	}
+
+	public int multiply(int v1, int v2) {
+		return v1*v2;
+	}
+
+	public int divide(int v1, int v2) throws ArithmeticException{
+		return v1/v2;
+	}
+
+	public int mod(int v1, int v2) throws ArithmeticException{
+		return v1%v2;
+	}
+}
+
+```
+
+> ### Main.java 를 만든다.
+
+- `src/main/java/com.exam.test.junit.calculatorcli` 에 클래스를 생성.
+
+```java
+package com.exam.test.junit.calculatorcli;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// ApplicationConfig.class 설정파일을 읽어들이는 Application 객체를 생성한다.
+		// 설정파일을 읽게되면, 컴포넌트를 스캔하고, 컴포넌트를 찾으면 인스턴스를 생성하여
+		// ApplicationContext가 관리하게 된다.
+		ApplicationContext applicationContext= new AnnotationConfigApplicationContext(ApplicationConfig.class);
+
+
+		// ApplicationContext가 관리하는 CalculatorService.class 타입의 객체를 요청한다.
+		CalculatorService calculatorService = applicationContext.getBean(CalculatorService.class);
+
+
+		// ApplicationContext 로부터 받은 객체를 이용하여 덧셈을 구한다.
+		System.out.println(calculatorService.plus(10,50));
+
+	}
+}
+
+```
+
+<br>
+
+> ## 2. CalculatorServiceTest.java - 테스트클래스를 스프링 빈 컨테이너를 사용하도록 수정하기
+
+```java
+package com.exam.test.junit.calculatorcli;
+
+import java.util.Scanner;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+@RunWith(SpringJUnit4ClassRunner.class) // JUnit이 테스트 코드를 실행할 때 스프링 빈컨테이너가 내부적으로 생성하도록함.
+@ContextConfiguration(classes= {ApplicationConfig.class}) //내부적으로 생성된 스프링 빈 컨테이너가 사용할 설정파일을 지정할 때 사용.
+public class CalculatorServiceTest {
+  // 스프링 빈 컨테이너가 CalculatorService를 주입하여, 주입한 클래스를 테스트한다.
+	@Autowired
+	CalculatorService calculatorService;
+
+	private static Scanner sc= new Scanner(System.in);
+
+	// CalculatorService 클래스 생성
+	@Before
+	public void init() {
+		this.calculatorService= new CalculatorService();
+	}
+
+	@Test
+	public void plus() throws Exception {
+		System.out.print("plus테스트 v1값 입력: ");
+		int v1= Integer.parseInt(sc.next());
+
+		System.out.print("plus테스트 v2값 입력: ");
+		int v2= Integer.parseInt(sc.next());
+		int result=calculatorService.plus(v1,v2);
+
+		// 결과가 15일경우에 성공
+		Assert.assertEquals(15, result);
+	}
+
+	@Test
+	public void divide() throws Exception {
+		System.out.print("divide테스트 v1값 입력: ");
+		int v1= Integer.parseInt(sc.next());
+
+		System.out.print("divide테스트 v2값 입력: ");
+		int v2= Integer.parseInt(sc.next());
+
+		int result=0;
+		try {
+			result=calculatorService.divide(v1,v2);
+
+		}catch(ArithmeticException ae) {
+			Assert.fail();
+		}
+		// 결과가 15일경우에 성공
+		Assert.assertEquals(15, result);
+	}
+
+
+	@Test
+	public void divideExceptionTest() throws Exception{
+		System.out.print("divideException테스트 v1값 입력: ");
+		int v1= Integer.parseInt(sc.next());
+
+		System.out.print("divideException테스트 v2값 입력: ");
+		int v2= Integer.parseInt(sc.next());
+
+		try {
+			calculatorService.divide(v1,v2);
+		}catch(ArithmeticException ae) {
+			Assert.assertTrue(true); // 실행성공.
+			return;//메소드를 더이상 실행하지 않는다.
+		}
+		Assert.assertTrue(false); //Assert.fail()
+	}
+}
+
+```
+
+## `@RunWith(SpringJUnit4ClassRunner.class)` 어노테이션
+- JUnit이 제공하는 어노테이션
+- JUnit은 확장기능을 가지는데, 스프링에서 JUnit을 확장하도록 SpringJUnit4ClassRunner.class 를 제공한다.
+
+- JUnit이 테스트코드를 실행할 때, 스프링 빈 컨테이너가 내부적으로 생성되도록 한다.
+
+<br>
+
+## `@ContextConfiguration(classes={ApplicationConfig.class})` 어노테이션
+
+- 내부적으로 생성된 스프링 bean 컨테이너가 사용할 설정파일을 지정할 때 사용된다.
+
+
+```java
+@Autowired
+CalculatorService calculatorService;
+```
+
+- 테스트 클래스가 위에 있으면, 테스트 클래스 자체가 bean 객체가 되어 스프링에서 관리하게 된다.
+
+- CalculatorServiceTest 클래스가 bean으로 관리되면서, Spring bean 컨테이너는 CalculatorService를 주입(Inject)할 수 있게 된다.
+
+
 <br>
 
 <hr>
