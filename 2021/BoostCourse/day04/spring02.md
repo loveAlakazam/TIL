@@ -9,7 +9,7 @@
 
   - JUnit [:link:](#JUnit)
   - Spring Test Annotation 사용하기 [:link:](#spring-test-annotation-사용하기)
-  - 로직 단위테스트 구현 [:link:](#로직-단위테스트-구현)
+  - 로직 단위테스트 구현 [:link:](#mockito를-이용한-단위-로직-단위테스트-구현)
 
 </details>
 
