@@ -815,6 +815,8 @@ verify(calculatorService).plus(anyInt(), anyInt());
 
 - `verify()`와 `anyInt()` 메소드도 static 메소드이다.
   - import static org.mockito.ArgumentMatchers.anyInt;
+    - org.mockito.Matchers 는 Deprecated 되었다.
+    - [참고자료- Usage of Mockito deprecated Matchers](https://github.com/resilience4j/resilience4j/issues/271)
   - import static org.mockito.Mockito.verify;
 
 - `verify()` 메소드
