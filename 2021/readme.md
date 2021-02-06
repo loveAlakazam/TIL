@@ -36,7 +36,7 @@
   - [✔️ Spring JDBC](./BoostCourse/day04/spring03.md)
 
   - [✔️ Spring MVC](./BoostCourse/day04/02/spring_mvc.md)
-  - [✔️ Spring MVC-2](./BoostCourse/day04/02/spring_mvc2.md)
+  - [✔️ Spring MVC 실습](./BoostCourse/day04/02/spring_mvc2.md)
   - [Layered Architecture](./BoostCourse/day04/02/spring_la.md)
   - [WEB-API](./BoostCourse/day04/02/web_api.md)
   - [Spring-Controller](./BoostCourse/day04/02/controller.md)

@@ -30,7 +30,11 @@
 
 <br>
 
-- 파란색: (DB 제외) 스프링프레임워크가 만들어야 하는 것/ 보라색: 개발자가 만들어야 하는것/ 초록색: 스프링 또는 개발자
+- **파란색**: (DB 제외) 스프링프레임워크가 만들어야 하는 것
+- **보라색**: 개발자가 만들어야 하는것
+- **초록색**: 스프링 또는 개발자
+
+<br>
 
 - DispatcherServlet
   - 클라이언트로부터 요청을 받는다.
@@ -60,12 +64,13 @@
 - DispatcherServlet
   - 여러 컴포넌트를 이용해 작업을 처리한다.
 
-
 <hr>
 
 > ## 요청에 대한 선처리 작업
 
 ![](../imgs/d02.png)
+
+<br>
 
 - Spring MVC는 **지역화**를 지원한다.
   - **지역화**
@@ -103,7 +108,6 @@
 - *org.springframework.web.multipart.MultipartResolver*
   - Multipart 파일 업로드를 처리하는 객체이다.
 
-
 <hr>
 
 > ## 요청 전달
@@ -111,6 +115,8 @@
 ![](../imgs/d03.png)
 
 - 404번 에러: 없는 페이지 요청
+
+<br>
 
 > ### 요청전달시 사용된 컴포넌트
 
@@ -141,6 +147,8 @@
 
 ![](../imgs/d04.png)
 
+<br>
+
 > ### 요청처리시 사용되는 컴포넌트
 
 - *org.springframework.web.servlet.ModelAndView*
@@ -157,6 +165,8 @@
 
 ![](../imgs/d05.png)
 
+<br>
+
 > ### 예외 처리시 사용되는 컴포넌트
 
 - *org.springfamework.web.servlet.HandlerExceptionResolver*
@@ -168,6 +178,8 @@
 > ## View Rendering
 
 ![](../imgs/d06.png)
+
+<br>
 
 > ### View Rendering시 사용되는 컴포넌트
 
