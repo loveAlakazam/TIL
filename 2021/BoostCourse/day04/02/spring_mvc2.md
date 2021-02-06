@@ -176,9 +176,11 @@
 
 <br>
 
-### (방법1) web.xml 파일에서 DispatcherSerlvet 설정하기
+### (방법1) web.xml 파일에서 DispatcherSerlvet 설정하기 - 실습에 이용할 방법
 
-- TRIP2REAP 전국방방곡곡 프로젝트 중 xml파일의 일부
+![](../imgs/code_webxml.png)
+
+- (예시) TRIP2REAP 전국방방곡곡 프로젝트 중 web.xml파일의 일부
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -257,49 +259,126 @@
 
 <hr>
 
+> ### `WebMvcContextConfiguration.java`
+
+- DispatcherServlet은 해당설정파일을 읽어서 내부적으로 Spring컨테이너인 ApplicationContext를 생성한다.
+
+- WebMvcContextConfiguration.java (Spring ver 4.x까지만 가능.)
+
+```java
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages={"kr.or.connect.webmvc.controller"})
+public class WebMvcContextConfiguration extends WebMvcConfigurerAdapter{
+  ...
+}
+```
+
+- WebMvcContetConfiguration.java (Spring version 5이상일 때)
+  - 버젼 5이상일때는 `WebMvcConfigurerAdapter`가 deprecated됨.
+  - [참고 자료 - Warning: The type WebMvcConfigurerAdapter is deprecated](https://www.baeldung.com/web-mvc-configurer-adapter-deprecated)
+
+```java
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages={"kr.or.connect.webmvc.controller"})
+public class WebMvcContextConfiguration implements WebMvcConfigurer{
+  ...
+}
+```
+
+
+
+<br>
+
 > ### `@Configuration`
 
-
+- **설정 파일(java config 파일)임을 알려준다.**
+- `org.springframework.context.annotation`의 `@Configuration`과 `@Bean` 코드를 이용하여 스프링 컨테이너에 새로운 Bean객체를 제공할 수 있다.
 
 <br>
 
 > ### `@EnableWebMvc`
 
+- **웹에 필요한 빈들을 자동으로 설정해준다.**
+- DispaterServlet의...
+  - RequestMappingHandlerMapping
+  - RequestMappingHandlerAdapter
+  - ExceptionHandler
+  - ExceptionResolver
+  - MessageConverter
+
+- 기본설정 이외의 파일이 필요하다면 `WebMvcConfigurerAdapter` 를 상속받도록 Java Config Class를 작성한 후, 필요한 메소드를 오버라이딩하도록 한다.
+
+- [상세히 파헤쳐보기 - WebMvcConfigurationSupport.java 코드 뜯어보기.](https://github.com/spring-projects/spring-framework/blob/master/spring-webmvc/src/main/java/org/springframework/web/servlet/config/annotation/WebMvcConfigurationSupport.java)
+
 <br>
 
 > ### `@ComponentScan`
 
+- `basePackages`에 기재된 패키지범위에서 `@`이 붙은 클래스를 찾아서 스프링 컨테이너가 관리하도록 한다.
+  - `@Controller`
+  - `@Repository`
+  - `@Component`
+  - `@Service`
+
+- `DefaulAnnotationHandlerMapping` 과 `RequestMappingHandlerMapping` 구현체는 다른 핸들러 매핑보다 훨씬 더 정교한 작업을 수행한다.
+  - 어노테이션을 사용하여 매핑관계를 찾는다.
+  - 스프링 컨테이너(application context)에 있는 요청 처리 빈(bean)에서 RequestMapping 어노테이션을 클래스나 메소드에서 찾아 HandlerMapping객체를 생성하게 된다.
+    - `HandlerMapping`은 서버로 들어온 요청을 어느 핸들러로 전달할지 결정하는 역할을 갖는다.
+  - `DefaultAnnotaionHandlerMapping`은 `DispatcherServlet`이 기본으로 등록한 기본 핸들러 매핑 객체이다.
+  - `RequestMappingHandlerMapping`은 더 강력하고 유연하지만 사용하려면 명시적으로 설정해야한다.
+
+<br>
+
+- WebMvcConfigurerAdapter
+  - org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
+  - `@EnableWebMvc`를 이용하면 기본적인 설정이 모두 자동으로 되지만, **기본 설정 이외의 설정이 필요할 경우**에는 **해당 클래스(WebMvcConfigurerAdapter)를 상속받은 후에 메소드를 오버라이딩하여 구현한다.**
+
+
 <br>
 
 > ### `@Controller`
+
+- 요청을 처리하는 클래스임을 알려준다.
+- @ComponentScan에게 알려서 spring 컨테이너가 관리할 수있도록한다.
+- **url을 요청했을 때 어떤 컨트롤러에서, 어떤 메소드에서 처리를 해야될지를 알아내려면 `@RequestMapping` 어노테이션을 사용해야한다.**
+  - 예) 호텔리스트를 조회에 대한 요청을 보낼때("hotelList.ho") => "hotelList.ho" 에 매핑된(`@RequestMapping("hotelList")`가 붙은) 메소드를 불러온다.
 
 
 <br>
 
 > ### `@RequestMapping`
 
+- URL패턴 지정과 같다.
+- 요청을 할때, 어떤 메소드가 요청을 처리할지를 알려주는 역할.
+- HTTP 요청과 이를 다루기 위한 Controller의 메소드를 연결하는 어노테이션
+
+- #### (1) Http Method와 연결하는 방법
+  - @RequestMapping("/users", method=RequestMethod.POST)
+  - Spring 4.3 ver 이후부터 5가지 매핑을 사용할 수 있다.
+    - @GetMapping
+    - @PostMapping
+    - @PutMapping
+    - @DeleteMapping
+    - @PatchMapping
+
+
+- #### (2) Http 특정 header와 연결하는 방법
+  - @RequestMapping(method= RequestMethod.GET, headers="content-type=application/json")
+
+- #### (3) Http Parameter와 연결하는 방법
+  - @RequestMapping(method=RequestMethod.GET, params="type=raw")
+
+
+- #### (4) Content-Type Header과 연결하는 방법
+  - @RequestMapping(method=RequestMethod.GET, consumes="application/json")
+
+- #### (5) Accept Header 과 연결하는 방법
+  - @RequestMapping(method=RequestMethod.GET, produces="application/json")
 
 <br><br>
 
 <hr>
 
 > # 실습
-
-> ### WebMvcContextConfiguration.java
-
-- **`org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter`** 를 상속받는다.
-  - (주의) Spring version 4이전까지만 가능합니다.
-  - (주의) Spring version 5이후를 사용한 경우에는 deprecated 메시지가 뜹니다!
-
-![](../imgs/mvc_prac01.png)
-
-<br>
-
-![](../imgs/mvc_deprecated.png)
-
-- 그런데, `The type WebMvcConfigurerAdapter is deprecated`라는 메시지가 warning massage가 떠버렸다.
-  - 즉, `WebMvcConfigurerAdapter`가 spring version 5에서(spring boot 2)없어질 예정이다....ㅠㅠ
-  - spring version 4이전 까지는 사용할 수 있다.
-  - 이에 대한 해결책은 `WebMvcConfigurerAdapter`가 아니라 **`WebMvcConfigurer`** 인터페이스를 implements하면 된다.
-
-  - [참고 자료 - Warning: The type WebMvcConfigurerAdapter is deprecated](https://www.baeldung.com/web-mvc-configurer-adapter-deprecated)
