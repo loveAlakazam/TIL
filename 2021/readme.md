@@ -33,10 +33,10 @@
   - [✔️ Maven 프로젝트 세팅하기](./BoostCourse/day04/mavenSetting.md)
   - [✔️ SpringFramework](./BoostCourse/day04/spring01.md)
   - [✔️ Spring Test - JUnit / Mock 테스트](./BoostCourse/day04/spring02.md)
-  - [Spring JDBC](./BoostCourse/day04/spring03.md)
+  - [✔️ Spring JDBC](./BoostCourse/day04/spring03.md)
 
-  - [Spring MVC](./BoostCourse/day04/02/spring_mvc.md)
-  - [Spring MVC-2](./BoostCourse/day04/02/spring_mvc2.md)
+  - [✔️ Spring MVC](./BoostCourse/day04/02/spring_mvc.md)
+  - [✔️ Spring MVC-2](./BoostCourse/day04/02/spring_mvc2.md)
   - [Layered Architecture](./BoostCourse/day04/02/spring_la.md)
   - [WEB-API](./BoostCourse/day04/02/web_api.md)
   - [Spring-Controller](./BoostCourse/day04/02/controller.md)
