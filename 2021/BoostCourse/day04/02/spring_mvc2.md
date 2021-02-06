@@ -288,12 +288,18 @@
 > ### WebMvcContextConfiguration.java
 
 - **`org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter`** 를 상속받는다.
+  - (주의) Spring version 4이전까지만 가능합니다.
+  - (주의) Spring version 5이후를 사용한 경우에는 deprecated 메시지가 뜹니다!
 
 ![](../imgs/mvc_prac01.png)
+
+<br>
+
+![](../imgs/mvc_deprecated.png)
 
 - 그런데, `The type WebMvcConfigurerAdapter is deprecated`라는 메시지가 warning massage가 떠버렸다.
   - 즉, `WebMvcConfigurerAdapter`가 spring version 5에서(spring boot 2)없어질 예정이다....ㅠㅠ
   - spring version 4이전 까지는 사용할 수 있다.
-  - 이에 대한 해결책은 `WebMvcConfigurerAdapter`가 아니라 **`WebMvcConfigurer`**을 extend하면 된다.
+  - 이에 대한 해결책은 `WebMvcConfigurerAdapter`가 아니라 **`WebMvcConfigurer`** 인터페이스를 implements하면 된다.
 
   - [참고 자료 - Warning: The type WebMvcConfigurerAdapter is deprecated](https://www.baeldung.com/web-mvc-configurer-adapter-deprecated)
