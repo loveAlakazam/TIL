@@ -46,6 +46,14 @@
 
 <hr>
 
+<br>
+
+> # Spring JDBC 실습 전체 클래스 다이어그램
+
+![](./imgs/dao_cd.png)
+
+<br>
+
 > # Spring JDBC 실습 1
 
 ## Maven 프로젝트 생성
@@ -411,4 +419,433 @@ public class SelectAllTest {
 
 <hr>
 
-> # Spring JDBC 실습 3
+> # Spring JDBC 실습 3 - INSERT , UPDATE
+
+## RoldDAO.java - SimpleJdbcInsert 를 추가한다.
+
+```java
+package com.exam.boostcourse.dao.DAO;
+
+import static com.exam.boostcourse.dao.DAO.RoleDAOSqls.*;
+
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import com.exam.boostcourse.dao.DTO.Role;
+
+@Repository //DAO는 저장소 역할을 한다.
+public class RoleDAO {
+	private NamedParameterJdbcTemplate jdbc; //이름을 이용해서 바인딩하거나 결과값을 이용.
+	private RowMapper<Role> rowMapper= BeanPropertyRowMapper.newInstance(Role.class);
+
+	//insert 쿼리문 수행에 필요한 객체
+	private SimpleJdbcInsert insertAction;
+
+	//기본생성자가 없다면 자동으로 객체를 주입.
+	public RoleDAO(DataSource dataSource) {
+		this.jdbc=new NamedParameterJdbcTemplate(dataSource);
+		this.insertAction=new SimpleJdbcInsert(dataSource).withTableName("role"); //테이블 이름이 role에 데이터를 추가하겠다.
+	}
+
+	public List<Role> selectAll(){
+		//2번째 파라미터 - Collections.emptyMap() : 바인딩할 값이 있을 때 바인딩할 값을 전달.
+		//3번째 파라미터 - : select 한건을 DTO에 담는다.;
+		//내부적으로 반복하여 dto를 생성하여 리스트를 만들어서 리스트를 반환
+		return jdbc.query(SELECT_ALL, EmptySqlParameterSource.INSTANCE, rowMapper);
+	}
+
+
+	public int insert(Role role) {
+		// rold_id컬럼을 roleId 로 알아서 매핑.
+		SqlParameterSource params= new BeanPropertySqlParameterSource(role);
+		return insertAction.execute(params);
+	}
+
+	public int update(Role role) {
+		SqlParameterSource params= new BeanPropertySqlParameterSource(role);
+		return jdbc.update(UPDATE, params);
+	}
+}
+```
+
+<br>
+
+## InsertTest.java
+
+```java
+package com.exam.boostcourse.dao.main;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.exam.boostcourse.dao.DAO.RoleDAO;
+import com.exam.boostcourse.dao.DTO.Role;
+import com.exam.boostcourse.dao.config.ApplicationConfig;
+
+public class InsertTest {
+
+	private static final BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+	private static final BufferedWriter bw= new BufferedWriter(new OutputStreamWriter(System.out));
+
+	public static void main(String[] args) throws IOException {
+		ApplicationContext ac= new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		RoleDAO roleDAO= ac.getBean(RoleDAO.class);
+		Role role= new Role();
+		int result=0;
+
+		try {
+			System.out.print("번호 입력: ");
+			int inputRoleId= Integer.parseInt(br.readLine());
+
+			System.out.print("직업 입력: ");
+			String inputDescription= br.readLine();
+
+			role.setRoleId(inputRoleId);
+			role.setDescription(inputDescription);
+
+			// insert문 실행.
+			result= roleDAO.insert(role);
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+
+			if(result>0) {
+				bw.write("입력을 성공하였습니다."+"\n");
+			}else {
+				bw.write("입력을 실패하였습니다."+"\n");
+			}
+		}
+		bw.flush();
+		bw.close();
+	}
+
+}
+```
+
+<br>
+
+## RoleDAOSqls.java
+
+```java
+package com.exam.boostcourse.dao.DAO;
+
+public class RoleDAOSqls {
+	public static final String SELECT_ALL="SELECT ROLE_ID, DESCRIPTION FROM ROLE ORDER BY ROLE_ID";
+	public static final String UPDATE= "UPDATE ROLE SET DESCRIPTION= :description WHERE ROLE_ID = :roleId";
+
+}
+```
+
+<br>
+
+## UpdateTest.java
+
+```java
+package com.exam.boostcourse.dao.main;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.exam.boostcourse.dao.DAO.RoleDAO;
+import com.exam.boostcourse.dao.DTO.Role;
+import com.exam.boostcourse.dao.config.ApplicationConfig;
+
+public class UpdateTest {
+
+	private static final BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+	private static final BufferedWriter bw= new BufferedWriter(new OutputStreamWriter(System.out));
+
+
+	public static void main(String[] args) throws IOException {
+
+		ApplicationContext ac= new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		RoleDAO roleDAO= ac.getBean(RoleDAO.class);
+		Role role= new Role();
+		int result=0;
+
+		try {
+			System.out.print("번호 입력: ");
+			int inputRoleId= Integer.parseInt(br.readLine());
+
+			System.out.print("직업 입력: ");
+			String inputDescription= br.readLine();
+
+			role.setRoleId(inputRoleId);
+			role.setDescription(inputDescription);
+
+			// update문 실행.
+			result= roleDAO.update(role);
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+
+			if(result>0) {
+				bw.write("수정을 성공하였습니다."+"\n");
+			}else {
+				bw.write("수정을 실패하였습니다."+"\n");
+			}
+		}
+		bw.flush();
+		bw.close();
+
+	}
+
+}
+
+```
+
+<br>
+
+<hr>
+
+> # Spring JDBC 실습 3 - SelectOne & Delete
+
+## RoleDAOSqls.java
+
+- SQL쿼리문을 작성할때는 `*` 보다는 실제컬럼명을 기입하는게 더 좋다.
+
+```java
+package com.exam.boostcourse.dao.DAO;
+
+public class RoleDAOSqls {
+	public static final String SELECT_ALL="SELECT ROLE_ID, DESCRIPTION FROM ROLE ORDER BY ROLE_ID";
+	public static final String UPDATE= "UPDATE ROLE SET DESCRIPTION= :description WHERE ROLE_ID = :roleId";
+
+	public static final String SELECT_BY_ROLE_ID="SELECT ROLE_ID, DESCRIPTION FROM ROLE WHERE ROLE_ID=:roleId";
+	public static final String DELETE_BY_ROLE_ID="DELETE FROM ROLE WHERE ROLE_ID=:roleId";
+}
+
+```
+
+<br>
+
+## RoleDAO.java
+
+```java
+package com.exam.boostcourse.dao.DAO;
+
+import static com.exam.boostcourse.dao.DAO.RoleDAOSqls.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
+import javax.sql.DataSource;
+
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.EmptySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import com.exam.boostcourse.dao.DTO.Role;
+
+@Repository //DAO는 저장소 역할을 한다.
+public class RoleDAO {
+	private NamedParameterJdbcTemplate jdbc; //이름을 이용해서 바인딩하거나 결과값을 이용.
+	private RowMapper<Role> rowMapper= BeanPropertyRowMapper.newInstance(Role.class);
+
+	//insert 쿼리문 수행에 필요한 객체
+	private SimpleJdbcInsert insertAction;
+
+	//기본생성자가 없다면 자동으로 객체를 주입.
+	public RoleDAO(DataSource dataSource) {
+		this.jdbc=new NamedParameterJdbcTemplate(dataSource);
+		this.insertAction=new SimpleJdbcInsert(dataSource).withTableName("role"); //테이블 이름이 role에 데이터를 추가하겠다.
+	}
+
+	public List<Role> selectAll(){
+		//2번째 파라미터 - Collections.emptyMap() : 바인딩할 값이 있을 때 바인딩할 값을 전달.
+		//3번째 파라미터 - : select 한건을 DTO에 담는다.;
+		//내부적으로 반복하여 dto를 생성하여 리스트를 만들어서 리스트를 반환
+		return jdbc.query(SELECT_ALL, EmptySqlParameterSource.INSTANCE, rowMapper);
+	}
+
+
+	public int insert(Role role) {
+		// rold_id컬럼을 roleId 로 알아서 매핑.
+		SqlParameterSource params= new BeanPropertySqlParameterSource(role);
+		return insertAction.execute(params);
+	}
+
+	public int update(Role role) {
+		SqlParameterSource params= new BeanPropertySqlParameterSource(role);
+		return jdbc.update(UPDATE, params);
+	}
+
+	public Role selectById(int roleId) {
+		try {
+			Map<String, ?> params= Collections.singletonMap("roleId", roleId);
+			return jdbc.queryForObject(SELECT_BY_ROLE_ID, params, rowMapper);
+		}catch(EmptyResultDataAccessException e) {
+			// 조건에 맞는 값(roleId인 데이터가 존재하지않을때)이 없을때
+			return null;
+		}
+	}
+
+	public int deleteById(int roleId) {
+		Map<String, ?> params= Collections.singletonMap("roleId", roleId);
+		return jdbc.update(DELETE_BY_ROLE_ID, params);
+	}
+}
+
+```
+
+<br>
+
+## SelectOne 테스트하기 - UpdateTest.java 수정
+
+```java
+package com.exam.boostcourse.dao.main;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.exam.boostcourse.dao.DAO.RoleDAO;
+import com.exam.boostcourse.dao.DTO.Role;
+import com.exam.boostcourse.dao.config.ApplicationConfig;
+
+public class UpdateTest {
+
+	private static final BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+	private static final BufferedWriter bw= new BufferedWriter(new OutputStreamWriter(System.out));
+
+
+	public static void main(String[] args) throws IOException {
+
+		ApplicationContext ac= new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		RoleDAO roleDAO= ac.getBean(RoleDAO.class);
+		int result=0;
+
+		try {
+			System.out.print("번호 입력: ");
+			int inputRoleId= Integer.parseInt(br.readLine());
+
+			System.out.print("직업 입력: ");
+			String inputDescription= br.readLine();
+
+			// inputRoleId를 갖는 Role을 구한다.
+			Role role=roleDAO.selectById(inputRoleId);
+			if(role!=null) {
+				//존재할때
+				role.setRoleId(inputRoleId);
+				role.setDescription(inputDescription);
+
+				// update문 실행.
+				result= roleDAO.update(role);
+			}else {
+				//존재하지 않을때
+				result=0;
+				bw.write("해당 번호의 직업은 존재하지 않습니다."+"\n");
+			}
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+
+			if(result>0) {
+				bw.write("수정을 성공하였습니다."+"\n");
+			}else {
+				bw.write("수정을 실패하였습니다."+"\n");
+			}
+		}
+		bw.flush();
+		bw.close();
+
+	}
+}
+
+```
+
+<br>
+
+## DELETE 테스트하기 - DeleteTest.java
+
+```java
+package com.exam.boostcourse.dao.main;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import com.exam.boostcourse.dao.DAO.RoleDAO;
+import com.exam.boostcourse.dao.DTO.Role;
+import com.exam.boostcourse.dao.config.ApplicationConfig;
+
+public class DeleteTest {
+
+	private static final BufferedReader br= new BufferedReader(new InputStreamReader(System.in));
+	private static final BufferedWriter bw= new BufferedWriter(new OutputStreamWriter(System.out));
+
+	public static void main(String[] args) throws IOException {
+		ApplicationContext ac= new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		RoleDAO roleDAO= ac.getBean(RoleDAO.class);
+		int result=0;
+
+		try {
+			System.out.print("번호 입력: ");
+			int inputRoleId= Integer.parseInt(br.readLine());
+
+			result=roleDAO.deleteById(inputRoleId);
+
+		}catch(NumberFormatException e) {
+			e.printStackTrace();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+
+			if(result>0) {
+				bw.write("삭제를 성공하였습니다."+"\n");
+			}else {
+				bw.write("삭제를 실패하였습니다."+"\n");
+			}
+		}
+		bw.flush();
+		bw.close();
+	}
+
+}
+
+```
