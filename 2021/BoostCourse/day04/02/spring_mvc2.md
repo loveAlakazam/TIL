@@ -161,3 +161,139 @@
 ![](../imgs/mvc_set01.png)
 
 <br>
+
+> # DispatcherServlet을 FrontController로 설정하기
+
+- DispatcherSerlvet은 웹 애플리케이션에서 FrontController와 같은 역할을하지만, *DispatcherServlet이 FrontController역할을 하도록 설정*을 해야한다.
+  - (✔️ 방법1) **web.xml 파일에 설정한다.**
+    - KH정보교육원 프로젝트 방법..
+
+  - (방법2) **javax.servlet.ServletContainerInitilizer을 사용**
+  - (✔️ 방법3) **org.springframework.web.WebApplicationInitilizer 인터페이스를 구현해서 사용**
+    - 실행하는데 시간이 걸린다.
+    - Spring MVC는 ServletContainerInitilizer를 구현하고 있는 `SpringServletContainerInitializer`를 제공한다.
+    - `SpringServletContainerInitializer`는 WebApplicationInitilizer구현체를 찾아 인스턴스를 만들고 해당 인스턴스의 `onStartup()`메소드를 호출하여 초기화한다.
+
+<br>
+
+### (방법1) web.xml 파일에서 DispatcherSerlvet 설정하기
+
+- TRIP2REAP 전국방방곡곡 프로젝트 중 xml파일의 일부
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee https://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<!-- The definition of the Root Spring Container shared by all Servlets and Filters -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		    classpath:root-context.xml
+		    /WEB-INF/spring/spring-security.xml
+		    </param-value>
+	</context-param>
+
+	<!-- Creates the Spring Container shared by all Servlets and Filters -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!-- DispatcherServlet -->
+	<servlet>
+		<servlet-name>appServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
+	<!-- 공용 에러 페이지 등록  -->
+	<error-page>
+	    <exception-type>java.lang.Exception</exception-type>
+	    <location>/WEB-INF/views/common/errorPage.jsp</location>
+	</error-page>
+
+	<!-- 회원관련 서블릿 -->
+	<servlet>
+	    <servlet-name>memberServlet</servlet-name>
+	    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+	    <init-param>
+	        <param-name>contextConfigLocation</param-name>
+	        <param-value>/WEB-INF/spring/appServlet/member-context.xml</param-value>
+	    </init-param>	    
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>memberServlet</servlet-name>
+	    <url-pattern>*.me</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 호텔관련 서블릿 -->
+	<servlet>
+		<servlet-name>hotelServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/hotel-context.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>hotelServlet</servlet-name>
+		<url-pattern>*.ho</url-pattern>
+	</servlet-mapping>
+</web-app>
+```
+
+<br>
+
+<hr>
+
+> ### `@Configuration`
+
+
+
+<br>
+
+> ### `@EnableWebMvc`
+
+<br>
+
+> ### `@ComponentScan`
+
+<br>
+
+> ### `@Controller`
+
+
+<br>
+
+> ### `@RequestMapping`
+
+
+<br><br>
+
+<hr>
+
+> # 실습
+
+> ### WebMvcContextConfiguration.java
+
+- **`org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter`** 를 상속받는다.
+
+![](../imgs/mvc_prac01.png)
+
+- 그런데, `The type WebMvcConfigurerAdapter is deprecated`라는 메시지가 warning massage가 떠버렸다.
+  - 즉, `WebMvcConfigurerAdapter`가 spring version 5에서(spring boot 2)없어질 예정이다....ㅠㅠ
+  - spring version 4이전 까지는 사용할 수 있다.
+  - 이에 대한 해결책은 `WebMvcConfigurerAdapter`가 아니라 **`WebMvcConfigurer`**을 extend하면 된다.
+
+  - [참고 자료 - Warning: The type WebMvcConfigurerAdapter is deprecated](https://www.baeldung.com/web-mvc-configurer-adapter-deprecated)

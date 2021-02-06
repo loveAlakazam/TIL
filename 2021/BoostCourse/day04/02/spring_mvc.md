@@ -153,7 +153,7 @@
 
 - *org.springframework.web.servlet.ModelAndView*
   - Controller의 처리결과를 보여줄 view와 view에서 사용할 값을 전달하는 클래스
-  - 종속되지 않게하기 위해서 ModelAndView를 제공한다.
+  - 종속되지 않도록 ModelAndView를 제공한다.
 
 - *org.springframework.web.servlet.RequestToViewNameTranslator*
   - 컨트롤러에서 뷰이름이나 뷰 오브젝트를 제공해주지 않을 경우 URL과 같은 요청정보를 참고해서 자동으로 뷰이름을 생성해주는 오브젝트이다.
