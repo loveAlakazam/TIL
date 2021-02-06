@@ -189,7 +189,7 @@ CREATE USER connectuser@localhost IDENTIFIED BY 'connect123!@#';
 ## (MySQL) 사용자 계정한테 권한부여하기
 
 ```sql
-GRANT ALL PRIVILEGES ON 데이터베이스이름.* TO 계정이름 @'%'IDENTIFIED BY '계정암호';
+GRANT ALL PRIVILEGES ON 데이터베이스이름.* TO 계정이름 @'호스트주소(localhost, 192.128.x.x)';
 ```
 
 <br>
