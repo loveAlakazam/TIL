@@ -377,6 +377,62 @@ public class WebMvcContextConfiguration implements WebMvcConfigurer{
 - #### (5) Accept Header 과 연결하는 방법
   - @RequestMapping(method=RequestMethod.GET, produces="application/json")
 
+
+<br>
+
+> # Spring MVC가 지원하는 Controller 메소드의 파라미터(인자) 타입
+
+- **javax.servlet.http.HttpServletRequest**
+- **javax.servlet.http.HttpServletResponse**
+- **javax.servlet.http.HttpSession**
+- javax.servlet.ServletRequest
+- javax.servlet.ServletResponse
+- org.springframework.web.multipart.MultipartRequest
+- org.springframework.web.multipart.MultipartHttpServletRequest
+- org.springframework.web.context.request.WebRequest
+
+<br>
+
+> # Spring MVC가 지원하는 메소드 파라미터 어노테이션
+
+- @RequestParam
+  - Mapping 된 메소드의 argument에 붙을 수 있는 어노테이션
+  - @RequestParam의 name은 http parameter의 name과 매핑됨. (html 태그의 name속성)
+    - ex) `<input type="text" name="value1">`
+  - @RequestParam의 required는 필수인지 아닌지를 판단한다.
+
+
+- @PathVariable
+  - @RequestMapping의 path에 변수명을 입력받기 위한 placeholder가 필요하다.
+  - placeholder의 이름과 PathVariable의 name값이 같으면 매핑된다.
+  - required 속성은 default true이다.
+  - `/(url값)?value1={값1}`
+
+
+- @RequestHeader
+  - 요청정보의 헤더정보를 읽어들일 때 사용.
+  - @RequestHeader(name="헤더명") String 변수명
+- @RequestBody
+- @ModelAttribute
+- @RequestPart
+- @CookieValue
+
+<br>
+
+> # Spring MVC가 지원하는 메소드 리턴값
+
+- **org.springframework.web.servlet.ModelAndView**
+- **java.lang.String**
+- org.springframework.ui.Model
+- java.util.Map
+- java.util.List
+- org.springframework.ui.ModelMap
+- org.springframework.web.servlet.View
+- org.springframework.http.HttpEntity<?>
+- org.springframework.http.ResponseEntity<?>
+
+
+
 <br><br>
 
 <hr>
@@ -619,3 +675,10 @@ public class WebMvcContextConfiguration implements WebMvcConfigurer {
 	}
 }
 ```
+
+<br>
+
+# 전체 소스코드 확인
+
+- [실습코드 1](../mvc_practice/prac01/)
+- [실습코드 2](../mvc_practice/parc02/)
