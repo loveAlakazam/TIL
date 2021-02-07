@@ -382,3 +382,240 @@ public class WebMvcContextConfiguration implements WebMvcConfigurer{
 <hr>
 
 > # 실습
+
+> ## pom.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.exam.boostcourse.practice</groupId>
+  <artifactId>mvcexam</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <name>mvcexam Maven Webapp</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <spring.version>4.3.30.RELEASE</spring.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!--(spring context) spring-context -->
+    <!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+
+    <!--(spring web mvc) spring-webmvc  -->
+    <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+
+    <!-- JSTL : jstl-->
+    <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+	<dependency>
+	    <groupId>jstl</groupId>
+	    <artifactId>jstl</artifactId>
+	    <version>1.2</version>
+	</dependency>
+
+
+    <!--  Servlet : javax.servlet-api -->
+    <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+	<dependency>
+	    <groupId>javax.servlet</groupId>
+	    <artifactId>javax.servlet-api</artifactId>
+	    <version>3.1.0</version>
+	    <scope>provided</scope>
+	</dependency>
+
+
+    <!-- JSP : javax.servlet.jsp-api -->
+    <!-- https://mvnrepository.com/artifact/javax.servlet.jsp/javax.servlet.jsp-api -->
+	<dependency>
+	    <groupId>javax.servlet.jsp</groupId>
+	    <artifactId>javax.servlet.jsp-api</artifactId>
+	    <version>2.3.1</version>
+	    <scope>provided</scope>
+	</dependency>
+
+
+  </dependencies>
+
+  <build>
+    <finalName>mvcexam</finalName>
+    <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
+      <plugins>
+        <plugin>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_war_packaging -->
+        <plugin>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.0.2</version>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.0</version>
+          <configuration>
+          	<source>1.8</source>
+          	<target>1.8</target>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.22.1</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-war-plugin</artifactId>
+          <version>3.2.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.5.2</version>
+        </plugin>
+        <plugin>
+          <artifactId>maven-deploy-plugin</artifactId>
+          <version>2.8.2</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+</project>
+
+```
+
+<br>
+
+> ## web.xml
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+version="3.1">
+
+  <display-name>Archetype Created Web Application</display-name>
+
+<!-- spring이 제공하는 DispatcherServlet이 FrontController 역할을 할 수 있다. -->
+
+  <servlet>
+  	<servlet-name>mvc</servlet-name>
+
+  	<!--  DispatcherSerlvet이 FrontController로 하겠다. -->
+  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+ 	<init-param>
+ 		<param-name>contextClass</param-name>
+
+ 		<!-- IoC 수행하기 위해 Bean공장 수행. AnnotationConfigWebApplicationContext를 실행. -->
+ 		<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+ 	</init-param>
+
+ 	<init-param>
+ 		<param-name>contextConfigLocation</param-name>
+
+ 		<!--  DispaterServlet 파일이 실행될때 읽을 설정파일정보 -->
+ 		<param-value>com.exam.boostcourse.mvcExam.config.WebMvcContextConfiguration</param-value>
+ 	</init-param>
+ 	<load-on-startup>1</load-on-startup>
+  </servlet>
+
+  <servlet-mapping>
+  	<servlet-name>mvc</servlet-name>
+
+  	<!--  / 요청을 실행하면 서블릿이름이 mvc인 서블릿을 수행하라. -->
+  	<url-pattern>/</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+```
+
+<br>
+
+> ## WebMvcContextConfiguration - 스프링 설정파일
+
+```java
+package com.exam.boostcourse.practice.mvcexam.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+//설정파일.
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages= {"com.exam.boostcourse.practice.mvcexam.controller" })
+public class WebMvcContextConfiguration implements WebMvcConfigurer {
+
+	// 모든 요청이 들어왔을 때 서블릿을 실행.
+	// 컨트롤러에서 URL 매핑된 요청뿐만아니라, 정적파일들도 요청할 수 있다.
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/META-INF/resources/webjars/").setCachePeriod(31556926);
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+
+        //예:  /js/** (js파일) 을 요청할 경우에는 /js/ 에서 찾아요.
+        //예: /css/** (css파일) 을 요청할 경우에는 /css/ 에서 찾아요.
+	}
+
+	//default servlet 핸들러를 사용하도록 한다.
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable(); //DefaultServletHandler를 사용하도록함.
+		// 매핑정보가 없는 url DefaultServletHttpRequestHandler가 처리한다.
+		// DefaultServletHttpRequestHandler는 WAS의 DefaultServlet에게 요청을 넘긴다.
+		// WAS는 DefaulServlet이 static한 자원을 읽어서 보여주게한다.
+	}
+
+
+	// 특정 url에 대한 처리를 controller클래스를 작성하지 않고 매핑할 수 있도록함.
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		System.out.println("addViewControllers가 호출된다.");
+		registry.addViewController("/").setViewName("main");
+		// url /을 요청했을 때 main 이름의 뷰를 불러온다.
+		//뷰이름을 알고있는 상태. ViewResolver을 통해서 해당이름의 뷰화면을 리턴하여 응답페이지로 랜더링.
+
+	}
+
+	@Bean
+	public InternalResourceViewResolver getInternalResourceViewResolver() {
+		InternalResourceViewResolver resolver= new InternalResourceViewResolver();
+		resolver.setPrefix("/WEB-INF/views/"); //리턴할 뷰의 저장경로
+		resolver.setSuffix(".jsp");	//리턴할 뷰의 확장자
+		return resolver; // 뷰이름에 해당하는 뷰를 불러옴으로써 응답뷰로 클라이언트한테 보냄.
+	}
+}
+```
