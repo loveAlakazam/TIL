@@ -680,5 +680,5 @@ public class WebMvcContextConfiguration implements WebMvcConfigurer {
 
 # 전체 소스코드 확인
 
-- [실습코드 1](../mvc_practice/prac01/)
-- [실습코드 2](../mvc_practice/parc02/)
+- [실습코드 1](../mvc_practice/prac01)
+- [실습코드 2](../mvc_practice/parc02)
