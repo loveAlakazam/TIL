@@ -87,5 +87,14 @@
 
 > ## 6. Vue.js
 
-- [(youTube) 한시간만에 끝내는 Vue.js 입문](https://www.youtube.com/watch?v=sqH0u8wN4Rs)
-- [(youTube) 수강강좌: 코지코더 - Vue.js 2 기초](https://www.youtube.com/playlist?list=PLB7CpjPWqHOtYP7P_0Ls9XNed0NLvmkAh)
+- 2021.02.13 ~ 2021.02.14
+  - ✏ 활용강의
+    - [(youTube) 한시간만에 끝내는 Vue.js 입문](https://www.youtube.com/watch?v=sqH0u8wN4Rs)
+    - [(youTube) 수강강좌: 코지코더 - Vue.js 2 기초](https://www.youtube.com/playlist?list=PLB7CpjPWqHOtYP7P_0Ls9XNed0NLvmkAh)
+  - ✏ 공부활동
+    - [한시간만에 끝내는 Vue.js 클론코딩 래포지토리](https://github.com/loveAlakazam/vue_prj_01)
+    - [맨땅의 헤딩 Vue.js - 정리](https://github.com/loveAlakazam/TIL/blob/master/2021/VueJS/%EB%A7%A8%EB%95%85%EC%97%90_VueJs.md)
+    - [코지코더 vue.js 기초 - 이벤트, binding, computed, style binding](https://github.com/loveAlakazam/TIL/blob/master/2021/VueJS/kossieCoder_VueJS_Basic/class01.html)
+    - [코지코더 vue.js 기초 - v-if/ v-show/ v-for/ 여러개 vue 인스턴스](https://github.com/loveAlakazam/TIL/blob/master/2021/VueJS/kossieCoder_VueJS_Basic/class02.html)
+    - [코지코더 vue.js 기초 - Vue component 전역등록](https://github.com/loveAlakazam/TIL/blob/master/2021/VueJS/kossieCoder_VueJS_Basic/class03.html)
+    - [코지코더 vue.js 기초 - Vue component 지역등록](https://github.com/loveAlakazam/TIL/blob/master/2021/VueJS/kossieCoder_VueJS_Basic/class04.html)
