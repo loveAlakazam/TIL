@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코지코더 vue.js 기본 - start vue! (cdn)</title>
+
+    <!--style (8. 클래스와 스타일 바인딩)-->
+    <style>
+        .red {
+            color: red;
+        }
+
+        .bold {
+            font-weight: bolder;
+        }
+    </style>
+
+    <!-- vue.js cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>코지코더 Vue.js 기초</h1>
+
+        <h2>1. 데이터 출력하기</h2>
+        <!-- 브라우저에 name에 저장된 데이터를 출력하기-->
+        {{person.name}}
+        {{person.age}}
+
+        <br>
+        <h2>2. 메소드 호출하기</h2>
+        <!-- 사용자 정의 메소드를 만들어서 호출하기-->
+        {{ nextYear('까치까치 설날은') }}
+
+        <br>
+        <h2>3. 데이터 바인딩 <b>v-bind</b> 실습</h2>
+        <!--데이터 바인딩 v-bind를 이용- input태그를 이용 
+            v-bind:속성="바인딩 변수"
+            :속성="바인딩 변수"
+        -->
+        <input :type="type" placeholder="입력해주세요." v-bind:value="inputData">
+
+        <br>
+
+        <a :href="getKossieCoderLink('kossiecoder')">코지코더 강의링크</a>
+
+        <br>
+        <h2>4. 이벤트 - <b>v-on</b></h2>
+        {{eventExam.year}}
+        <button v-on:click="clickMe">Click Me!</button>
+        <button v-on:click="addYear">+</button>
+        <button v-on:click="minusYear">-</button>
+        <button v-on:click="setYear">default</button>
+
+        <hr>
+        <h2>4-2. form태그를 이용하여 submit이벤트 발생시키기</h2>
+        <!-- submit이후 reload를 prevent(submit후 페이지 리로딩을 막음)시킴. -->
+        <form v-on:submit.prevent="submit">
+            <input type="text">
+            <button type="submit">전송하기</button>
+        </form>
+
+        <br>
+        <h2>5. 양방향 바인딩 (v-model)</h2>
+        <form v-on:submit.prevent="submit">
+
+            <!--@keyup 은 v-on:keyup과 같다. -->
+            <!-- <input type="text" :value="text2" @keyup="updateText"> -->
+
+            <input type="text" v-model="text2">
+            <button type="submit2">전송하기</button>
+            <br>
+            {{text2}}
+
+        </form>
+
+        <br>
+        <h2>6. Computed</h2>
+        template 내에서는 간단한 연산일 때만 이용하는 게 좋다.<br>
+        너무 많은 연산을 템플릿 안에서하면 코드가 비대해지고
+        유지보수가 어렵다.<br>
+
+        number: {{number +1}} <br>
+
+        <!-- 
+            computed 는 캐싱을한다. - 처음 1번만 계산 하고, 저장된 값으로 계속사용. (즉 딱한번만 연산)
+            메소드 호출은 캐싱을 하지 않는다. - 사용하려고할때 3번호출하여 계산. (세번을 연산.)
+        -->
+
+        <button @click="changeMessage">메시지 변경 버튼</button>
+        {{ reversedMessage }}
+        {{ reversedMessage }}
+        {{ reversedMessage }}
+        {{ reversedMessage }}
+
+        <br>
+        <h2>7. watch</h2>
+
+        <!-- 
+            button을 클릭하면 message2에 저장된 값이 변경되면서
+            updatedMsg의 값도 '아니오'에서 '네'로 바뀐다.
+        -->
+        {{ message2 }} <br>
+        <button @click="changeMessage2">메시지(message2) 변경하기</button><br>
+        {{ updatedMsg}} <br>
+
+        <br>
+        <h2>8. 클래스와 스타일 바인딩</h2>
+
+        <!--
+            isRed가 true이면 red 클래스를 적용하고
+            false이면 red클래스를 적용하지 않는다.
+
+            (초기) isRed: false => (버튼클릭) => isRed: true => (red클래스 적용.)
+        -->
+        <div :class="{red: isRed, bold: isBold}">Hello</div>
+        <button @click="updateRedClass">update red class</button>
+
+
+
+
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                person: {
+                    name: 'alakazam',
+                    age: 28,
+                },
+                inputData: 'hello world',// 데이터 바인딩 - inputData
+                type: 'number', //데이터 바인딩 - type
+                link: 'https://www.youtube.com/',
+                eventExam: {
+                    year: 2021,
+                },
+                text2: 'sampleText',
+                number: 1,
+                message: 'loveAlakazam',
+                message2: 'InitMessage',
+                updatedMsg: '아니오',
+
+                isRed: false,
+                isBold: false,
+            },
+            methods: {
+                nextYear: function (greeting) {
+                    return greeting + '! ' + this.person.name + '는 내년에 ' + (this.person.age + 1) + '세 입니다.';
+                },
+                getKossieCoderLink(channel) {
+                    return this.link + channel;
+                },
+                //이벤트 함수 clickMe
+                clickMe() {
+                    alert('Hello Vue.JS?')
+                },
+                addYear() { //년도 플러스
+                    this.eventExam.year++;
+                },
+                minusYear() {//년도 마이너스
+                    this.eventExam.year--;
+                },
+                setYear() {
+                    this.eventExam.year = 2021;
+                },
+                submit() {
+                    alert('submited');
+                    console.log('submited');
+                    //submit버튼을 누르는 순간 바로 reload
+
+                    // prevent-default하고 싶다 => 왜? 리로딩을 원하지 않기때문에!
+                    // form태그에있는 v-on에서 .prevent를 추가하면 된다.
+                },
+                // updateText(event) {
+                //     //    console.log(event); //event: keyboard event의 객체를 의미한다.
+                //     this.text2 = event.target.value;
+                // },
+                changeMessage() {
+                    this.message = 'hello Vue~?';
+                },
+                changeMessage2() {
+                    this.message2 = 'I want to be master vue.js';
+                },
+                updateRedClass() {
+                    this.isRed = !this.isRed;
+                    this.isBold = !this.isBold;
+                }
+
+
+            },
+            computed: {
+                reversedMessage() {
+                    return this.message.split('').reverse().join('');
+                }
+            },
+            watch: {
+                //감시하고 싶은 데이터명을 메소드이름으로 한다.
+                message2(newVal, oldVal) {
+                    console.log(newVal, oldVal);
+                    // newVal :I want to be master vue.js
+                    // oldVal : initMessage
+                    this.updatedMsg = '네';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
