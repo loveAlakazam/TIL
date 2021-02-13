@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코지코더 - Basic Vue.JS - 지역등록</title>
+    <!-- vue.js cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <h1>12. Vue component - 지역등록</h1>
+    <h3>지역등록 방법 - 한개 뷰 인스턴스만을 사용한다.</h3>
+    <div id="app">
+        <!-- common-btn 컴포넌트를 등록해줘야함.-->
+        <common-btn></common-btn>
+    </div>
+
+    <br><br>
+
+    <div id="app2">
+
+        <common-btn></common-btn>
+    </div>
+
+    <script>
+
+        // Vue.component('helloWorld', {
+        //     template: '<div>Hello World</div>',
+        // });
+
+        const LocalHelloWord = {
+            template: '<div>Hello World</div>',
+        }
+
+
+        //지역등록
+        const LocalCommonBtn = {
+            template: `
+            <div>
+                {{name}} <br>
+                <helloWorld></helloWorld>
+                <button @click="changeName">이름변경</button>
+            </div>
+            `,
+            data() {
+                return { name: 'alakazam' }
+            }, methods: {
+                changeName() {
+                    this.name = 'BE Developer alakazam';
+                }
+            }, components: {
+                'helloWorld': LocalHelloWord, //template에 있는 <helloWorld>를 LocalHelloWord로 등록
+            }
+        };
+
+
+        const app1 = new Vue({
+            el: '#app',
+            components: {
+                'common-btn': LocalCommonBtn, //common-btn컴포넌트 등록 - 지역등록된 LocalCommonBtn을 사용.
+            }
+        });
+
+        const app2 = new Vue({
+            el: '#app2',
+            components: {
+                'common-btn': LocalCommonBtn,
+            }
+        });
+    </script>
+</body>
+
+</html>

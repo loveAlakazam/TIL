@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코지코더 - Basic Vue.JS - 전역등록</title>
+    <!-- vue.js cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+
+<body>
+    <h1>12. Vue component - 전역등록</h1>
+    <p>
+        인스턴스의 데이터와 메소드 이름과 기능이 모두 일치할 경우
+    </p>
+    <h2>중복된 코드를 제거한다.</h2>
+    <h3>전역등록 방법</h3>
+
+    <div id="app">
+
+        <!-- {{name}} <br>
+        <button @click="changeName">이름변경</button>
+        <hr> -->
+        <common-btn></common-btn>
+    </div>
+
+    <br>
+    <hr>
+    <br>
+
+    <div id="potato">
+        <!-- {{name}} <br>
+        <button @click="changeName">이름변경</button>
+        <hr> -->
+        <common-btn></common-btn>
+    </div>
+
+
+    <script>
+        //컴포넌트안에 컴포넌트를 만들 수 있다.
+        Vue.component('helloWorld', {
+            template: '<div>Hello World</div>',
+        });
+
+
+        //전역등록
+        //Vue.component를 만든다.
+        //template: html코드 넣는다.
+        // vue.js2 => 바깥을 감싸는 태그가 존재해야한다!
+        // vue.js3 => 바깥을 감싸는 태그가 필요없다. 여러컨텐츠로 할 수있다.
+        Vue.component('common-btn', {
+            template: `
+            <div>
+                {{name}} <br>
+                <helloWorld></helloWorld>
+                <button @click="changeName">이름변경</button>
+            </div>
+            `,
+            data() {
+                //재사용할수 있는 컴포넌트이기때문에
+                //object가 reference로 넘어가서 주소에있는 데이터가 업데이트됨.
+                //다른컴포넌트의 데이터에서도 업데이트가 된다.
+                //그래서 함수로 바꿔야한다.
+                return { name: 'alakazam' }
+            }, methods: {
+                //공통메소드
+                changeName() {
+                    this.name = 'BE Developer alakazam';
+                }
+            }
+        });
+
+
+        const app1 = new Vue({
+            el: '#app',
+            // data: { name: 'alakazam' },
+            // methods: {
+            //     changeName() {
+            //         this.name = 'BE Developer alakazam';
+            //     },
+            // },
+        });
+
+        const app2 = new Vue({
+            el: '#potato',
+            // data: { name: 'alakazam' },
+            // methods: {
+            //     changeName() {
+            //         this.name = 'BE Developer alakazam';
+            //     },
+            // },
+        });
+
+    </script>
+
+</body>
+
+
+</html>
