@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basic Vue.JS</title>
+    <!-- vue.js cdn-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app" :style="{backgroundColor:bgColor}">
+        <h2>9. v-if 와 v-show </h2>
+        <h3>(1) <span :style="{color: '#67a9cf'}">v-if</span></h3>
+
+        <template v-if="show">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </template>
+
+
+        <div v-if="show">Yes</div>
+        <!--show: true일때 랜더링이 됨.-->
+
+        <div v-else>No</div>
+        <!--show: false일때 랜더링이 됨-->
+
+        <button @click="toggleVIf">Toggle</button>
+        <hr>
+
+        <template v-if="number%3===1">
+            <div>alakazam</div>
+            <div>python3</div>
+            <div>spring framework</div>
+            <div>coffee</div>
+            <div>backend developer</div>
+            <div>butchers</div>
+        </template>
+        <div v-else-if="number%3===2">Hello Vue?</div>
+        <div v-else>love Alakazam!</div>
+        <button @click="increaseNumber">increase Btn</button>
+        {{number}}
+
+        <br>
+        <hr>
+
+        <!--
+
+            v-show는 브라우저에서 랜더링을 안했을뿐
+            코드는 그대로 있다 (즉, 코드는 존재하되, display: none; 상태이다.)
+
+            반면, v-if가 false일경우에는 랜더링을 안했을 뿐만아니라
+            html코드도 아예 존재하지 않는다.
+            조건에 만족할때만 코드가 존재하게된다.
+
+            v-if는 토글비용이 높다. 
+            특정조건에서만 랜더링을 꼭해야할때만 사용한다.
+
+            
+            v-show는 초기랜더링 비용이 높다.
+            자주 랜더링이 바뀔때 사용하는게 좋다.
+
+        -->
+        <h3>(2) <span :style="{color: color}">v-show</span></h3>
+        <div v-show="show2">Yes</div>
+        <button @click="toggleVShow">Toggle2</button>
+        <br>
+        <br>
+        <h2>10. <span :style="{color: color}">v-for</span>을 이용하여 여러개를 랜더링하기</h2>
+        <h3>v-for을 이용하기 이전...</h3>
+        <div>
+            {{pokemons[0].name}} ({{pokemons[0].type}})
+        </div>
+        <div>
+            {{pokemons[1].name}} ({{pokemons[1].type}})
+        </div>
+        <div>
+            {{pokemons[2].name}} ({{pokemons[2].type}})
+        </div>
+        <br>
+        <br>
+        <h3>v-for을 이용해보자.</h3>
+
+        <!--
+            key는 vue가 노드를 식별하는 요소이다.
+            즉 key는 중복을 허용하지않으며, 고유한 값을 갖는게 좋다.
+
+            v-for과 연관되지 않는 용도로도 사용된다.
+        
+            key에 index로 설정하는 것은 좋지 않다. - 데이터가 삭제된경우에 
+            데이터베이스를 활용할 경우에는 고유한 값을 갖는 필드(primary key)로 하거나
+            아니면 속성을 합쳐서 key로 나타내는게 좋다.
+        -->
+        <div v-for="(p, index) in pokemons" :key="p.name + '-' + p.type + '-'+ index">
+            {{p.name}} ({{p.type}}, {{index}})
+        </div>
+        <br>
+        <br>
+        <h2>11. 여러개의 vue인스턴스를 사용하기</h2>
+        <p>
+            여기는 id가 'app'인 div영역 안에서 작성했습니다.
+            그렇다면, id가 app인 div영역이 아닌 다른 곳에서도
+            이름을 출력할 수 있을까요?
+            <br>
+            id를 potato인 앱을 div영역을 만들어봤습니다.
+            그러면 #potato 인 div영역에서 vue가 동작되도록하려면 어떻게 해야될까요?
+
+            <br>
+            음.. 스스로 생각해서 예상을한다면, script단에서 새로운 뷰를 만들면되지 않을까요?
+
+        </p>
+        이름: {{name}}
+        <br>
+        <button @click="changeText">클릭해보세요!</button>
+
+        <h3>다른 뷰 인스턴스의 데이터를 변경해보자.</h3>
+        이름: {{name}}
+        <button @click="changeName">다른vue 인스턴스의 이름을 변경하기</button>
+
+
+        <br>
+        <br>
+
+
+
+
+    </div>
+
+    <div id="potato" :style="{backgroundColor: bgColor}">
+        <p>여기는 id가 potato인 div영역입니다.</p>
+        potato영역에서의 이름: {{name}}
+        <br>
+        <button @click="changeText">클릭해보세요!</button>
+        <button @click="changeName">app1 vue인스턴스의 name을 변경해보기</button>
+    </div>
+
+
+    <script>
+        const app1 = new Vue({
+            el: '#app',
+            data: {
+                color: '#67a9cf',
+                bgColor: '#cae0ed',
+                show: true,
+                show2: false,
+                number: 1,
+                pokemons: [
+                    { name: '피카츄', type: '전기' },//0
+                    { name: '파이리', type: '불꽃' },//1
+                    { name: '꼬부기', type: '물' },//2
+                    { name: '뮤', type: '에스퍼' },//3
+                    { name: '캐이시', type: '에스퍼' },//4
+                    { name: '이상해씨', type: '풀' },//5
+                    { name: '리오르', type: '격투, 강철' },//6
+                    { name: '이브이', type: '노말' },//7
+                    { name: '고라파덕', type: '물' },//8
+                    { name: '푸린', type: '페어리, 노말' },//9
+                ],
+                name: 'alakazam',
+
+            },
+            methods: {
+                toggleVIf() {
+                    this.show = !this.show;
+                },
+                increaseNumber() {
+                    this.number++;
+                },
+                toggleVShow() {
+                    this.show2 = !this.show2;
+                },
+                changeText() {
+                    this.name = 'backend developer alakazam';
+                },
+                changeName() {
+                    app2.name = '후딘'
+                }
+            },
+        });
+    </script>
+    <script>
+        //새로운 뷰인스턴스
+        const app2 = new Vue({
+            el: '#potato',
+            data: {
+                name: 'mega-Alakazam',
+                bgColor: '#e6db8c',
+            },
+            methods: {
+                changeText() {
+                    this.name = 'pokemon alakazam';
+                },
+                changeName() {
+                    app1.name = '메가 후딘 짱멋있다!';
+                }
+            },
+        });
+    </script>
+</body>
+
+</html>

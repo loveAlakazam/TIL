@@ -116,12 +116,17 @@
 
             (초기) isRed: false => (버튼클릭) => isRed: true => (red클래스 적용.)
         -->
+        <h3>클래스 바인딩</h3>
         <div :class="{red: isRed, bold: isBold}">Hello</div>
         <button @click="updateRedClass">update red class</button>
 
+        <br>
 
+        <!--스타일 바인딩-->
+        <h3>스타일 바인딩</h3>
+        <div :style="{color: colorVal, fontSize: fontSizeVal}">Vue JS</div>
 
-
+        <br>
     </div>
     <script>
         new Vue({
@@ -145,6 +150,9 @@
 
                 isRed: false,
                 isBold: false,
+
+                fontSizeVal: '30px',
+                colorVal: '#a967cf'
             },
             methods: {
                 nextYear: function (greeting) {
