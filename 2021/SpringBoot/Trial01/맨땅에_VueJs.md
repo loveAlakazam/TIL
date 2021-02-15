@@ -332,9 +332,6 @@ export default {
 </script>
 ```
 
-
-
-
 <br><br>
 
 
@@ -364,3 +361,8 @@ npx @vue/cli create vue_prj_03
 ```
 vue add vuetify
 ```
+
+- *Choose a preset: Default* 로 합니다.
+
+
+<br>
